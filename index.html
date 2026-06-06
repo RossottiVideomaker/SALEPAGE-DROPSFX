@@ -7,8 +7,43 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="mobile-web-app-capable" content="yes" />
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1668719247772250');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1668719247772250&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 <title>dropSFX — Sound Effects no clique, dentro do Adobe Premiere Pro</title>
 <meta name="description" content="O painel de sound effects que vive dentro do Premiere Pro. Mais de 700 SFX profissionais, um clique e o som está na timeline. R$ 109,79 — pagamento único." />
+
+<!-- Open Graph (WhatsApp, Facebook, Instagram, LinkedIn) -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="dropSFX" />
+<meta property="og:title" content="dropSFX — Sound Effects no clique, dentro do Premiere Pro" />
+<meta property="og:description" content="Mais de 700 SFX profissionais, um clique e o som está na timeline. Pare de procurar arquivo, comece a editar. R$ 109,79 pagamento único." />
+<meta property="og:image" content="https://www.dropsfx.com.br/assets/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:url" content="https://www.dropsfx.com.br/" />
+<meta property="og:locale" content="pt_BR" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="dropSFX — Sound Effects no clique, dentro do Premiere Pro" />
+<meta name="twitter:description" content="Mais de 700 SFX profissionais, um clique e o som está na timeline. R$ 109,79 pagamento único." />
+<meta name="twitter:image" content="https://www.dropsfx.com.br/assets/og-image.png" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23000000'/%3E%3Ctext x='32' y='44' font-family='Outfit, system-ui, sans-serif' font-size='28' font-weight='500' fill='%23e1fbfa' text-anchor='middle' letter-spacing='0.5'%3ESFX%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -98,14 +133,99 @@ body {
 }
 
 /* NAV */
+/* ============= COUNTDOWN URGENCY BANNER ============= */
+.countdown-banner {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 110;
+  background: linear-gradient(90deg, #1d4ed8 0%, #3b82f6 50%, #1d4ed8 100%);
+  background-size: 200% 100%;
+  animation: bannerShimmer 6s linear infinite;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 2px 20px rgba(59,130,246,0.35);
+}
+@keyframes bannerShimmer {
+  0% { background-position: 0% 0; }
+  100% { background-position: 200% 0; }
+}
+.countdown-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 9px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.countdown-flame {
+  font-size: 15px;
+  animation: flameflicker 1.5s infinite ease-in-out;
+}
+@keyframes flameflicker {
+  0%, 100% { transform: scale(1) rotate(-2deg); opacity: 1; }
+  50% { transform: scale(1.15) rotate(2deg); opacity: 0.9; }
+}
+.countdown-text {
+  font-size: 13px;
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.countdown-text strong { font-weight: 800; }
+.countdown-timer {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0,0,0,0.25);
+  padding: 3px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  min-width: 92px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.countdown-cta {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1d4ed8;
+  background: #fff;
+  padding: 6px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+.countdown-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.countdown-banner.hidden { display: none; }
+
+@media (max-width: 720px) {
+  .countdown-inner { padding: 8px 16px; gap: 8px; }
+  .countdown-text { font-size: 11px; flex: 1; min-width: 0; }
+  .countdown-timer { font-size: 13px; min-width: 80px; padding: 2px 8px; }
+  .countdown-cta { font-size: 11px; padding: 5px 12px; }
+  .countdown-flame { display: none; }
+  nav { top: 37px; }
+}
+@media (max-width: 480px) {
+  .countdown-cta { display: none; }
+  .countdown-inner { justify-content: center; }
+}
+
 nav {
-  position: fixed; top: 0; left: 0; right: 0;
+  position: fixed; top: 41px; left: 0; right: 0;
   background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--line);
   z-index: 100;
+  transition: top 0.3s ease;
 }
+body.banner-hidden nav { top: 0; }
 .nav-inner {
   max-width: var(--max); margin: 0 auto;
   padding: 14px 32px;
@@ -153,7 +273,7 @@ nav {
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 120px 24px 240px;
+  padding: 150px 24px 240px;
 }
 
 /* The single ambient pulse - ONE element, breathing */
@@ -1157,6 +1277,136 @@ section { padding: 120px 0; position: relative; }
 .step h3 { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 22px; margin-bottom: 10px; letter-spacing: -0.02em; }
 .step p { font-size: 14px; color: var(--text-2); line-height: 1.55; }
 
+/* ===== VIDEO DEMO SECTION ===== */
+.video-section { background: var(--bg); }
+.video-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  position: relative;
+}
+.video-wrapper iframe,
+.video-wrapper video {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+.video-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background:
+    radial-gradient(ellipse 60% 50% at center, rgba(59,130,246,0.12), transparent 70%),
+    linear-gradient(135deg, #0c0c10 0%, #131318 100%);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.video-placeholder:hover { background:
+    radial-gradient(ellipse 60% 50% at center, rgba(59,130,246,0.2), transparent 70%),
+    linear-gradient(135deg, #0c0c10 0%, #16161c 100%);
+}
+.video-play-btn {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  box-shadow: 0 10px 40px rgba(59,130,246,0.5);
+  animation: videoPulse 2.5s infinite ease-in-out;
+}
+@keyframes videoPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 10px 40px rgba(59,130,246,0.5); }
+  50% { transform: scale(1.06); box-shadow: 0 10px 60px rgba(59,130,246,0.7); }
+}
+.video-placeholder-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+}
+.video-placeholder-sub {
+  font-size: 14px;
+  color: var(--muted);
+}
+@media (max-width: 720px) {
+  .video-play-btn { width: 60px; height: 60px; }
+  .video-placeholder-text { font-size: 16px; }
+  .video-placeholder-sub { font-size: 12px; }
+}
+
+/* ===== FOR WHO (é pra você / não é) ===== */
+.forwho-section { background: var(--bg-2); }
+.forwho-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+@media (min-width: 768px) { .forwho-grid { grid-template-columns: 1fr 1fr; } }
+.forwho-card {
+  border-radius: 20px;
+  padding: 36px 32px;
+  border: 1px solid var(--line);
+}
+.forwho-yes {
+  background: linear-gradient(180deg, rgba(34,197,94,0.06), rgba(34,197,94,0.01));
+  border-color: rgba(34,197,94,0.2);
+}
+.forwho-no {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  border-color: var(--line);
+}
+.forwho-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.forwho-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 700;
+  flex-shrink: 0;
+}
+.forwho-icon.yes { background: rgba(34,197,94,0.15); color: #22c55e; }
+.forwho-icon.no { background: rgba(255,255,255,0.06); color: var(--muted); }
+.forwho-head h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+}
+.forwho-card ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.forwho-card li {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-2);
+  padding-left: 26px;
+  position: relative;
+}
+.forwho-yes li::before {
+  content: "✓";
+  position: absolute; left: 0; top: 0;
+  color: #22c55e; font-weight: 700;
+}
+.forwho-no li::before {
+  content: "✕";
+  position: absolute; left: 0; top: 0;
+  color: var(--muted); font-weight: 700;
+}
+.forwho-card li strong { color: var(--text); font-weight: 600; }
+
 .testis-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
 @media (min-width: 720px) { .testis-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1024px) { .testis-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -1278,6 +1528,26 @@ section { padding: 120px 0; position: relative; }
 }
 .price-footer { margin-top: 20px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
 .price-footer .trust-item { font-size: 11px; }
+
+.price-guarantee-badge {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 12px 18px;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  border-radius: 10px;
+  color: #4ade80;
+}
+.price-guarantee-badge svg { flex-shrink: 0; }
+.price-guarantee-badge span {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text-2);
+}
+.price-guarantee-badge strong { color: #4ade80; font-weight: 700; }
 
 .guarantee-block {
   max-width: 720px; margin: 64px auto 0;
@@ -1411,7 +1681,7 @@ footer {
   /* ===== HERO - balanced for portrait ===== */
   .hero {
     min-height: auto;
-    padding: 110px 20px 160px;
+    padding: 135px 20px 160px;
     justify-content: flex-start;
     background: #000;
   }
@@ -1854,36 +2124,19 @@ footer {
 @media (min-width: 721px) {
   .mobile-sticky-cta { display: none !important; }
 }
-
-.import-highlight{
-  padding:140px 0;
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  background:radial-gradient(circle at center, rgba(59,130,246,.08), transparent 60%), var(--bg);
-}
-
 </style>
-
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1668719247772250');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1668719247772250&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-
 </head>
 <body>
+
+<!-- COUNTDOWN URGENCY BANNER -->
+<div class="countdown-banner" id="countdownBanner">
+  <div class="countdown-inner">
+    <span class="countdown-flame">🔥</span>
+    <span class="countdown-text">Oferta de lançamento <strong>63% OFF</strong> termina em</span>
+    <span class="countdown-timer" id="countdownTimer">03:00:00</span>
+    <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=countdown&utm_campaign=dropsfx" class="countdown-cta" target="_blank" rel="noopener">Garantir agora</a>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -2086,6 +2339,30 @@ src="https://www.facebook.com/tr?id=1668719247772250&ev=PageView&noscript=1"
   </div>
 </section>
 
+<!-- VIDEO DEMO -->
+<section class="video-section">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="section-label reveal" style="margin-left:auto;margin-right:auto;">Veja em ação</div>
+      <h2 class="reveal d1">Um clique. <span class="ice">O som na timeline.</span></h2>
+      <p class="reveal d2">Veja o dropSFX funcionando dentro de um projeto real no Premiere Pro.</p>
+    </div>
+    <div class="video-wrapper reveal d1">
+      <!-- Para adicionar o vídeo depois: troque este bloco por um <iframe> do YouTube
+           ou uma tag <video> com seu arquivo. Ex:
+           <iframe src="https://www.youtube.com/embed/SEU_ID" allowfullscreen></iframe>
+      -->
+      <div class="video-placeholder" id="videoPlaceholder">
+        <div class="video-play-btn">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div class="video-placeholder-text">Demonstração em breve</div>
+        <div class="video-placeholder-sub">Veja como inserir um som em 1 clique</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CATEGORIES -->
 <section>
   <div class="wrap">
@@ -2154,11 +2431,48 @@ src="https://www.facebook.com/tr?id=1668719247772250&ev=PageView&noscript=1"
   </div>
 </section>
 
+<!-- FOR WHO -->
+<section class="forwho-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label reveal">№ 04 · É pra você?</div>
+      <h2 class="reveal d1">Feito sob medida<br>pra <span class="ice">um tipo de editor.</span></h2>
+    </div>
+    <div class="forwho-grid">
+      <div class="forwho-card forwho-yes reveal">
+        <div class="forwho-head">
+          <span class="forwho-icon yes">✓</span>
+          <h3>É pra você se…</h3>
+        </div>
+        <ul>
+          <li>Edita no <strong>Adobe Premiere Pro</strong> no dia a dia</li>
+          <li>Perde tempo procurando som em pasta, site ou outro programa</li>
+          <li>Quer agilizar o sound design sem sair da timeline</li>
+          <li>Cria conteúdo pra YouTube, Reels, TikTok ou clientes</li>
+          <li>Valoriza ter uma biblioteca organizada e sempre à mão</li>
+        </ul>
+      </div>
+      <div class="forwho-card forwho-no reveal d1">
+        <div class="forwho-head">
+          <span class="forwho-icon no">✕</span>
+          <h3>Não é pra você se…</h3>
+        </div>
+        <ul>
+          <li>Edita só no Final Cut, DaVinci ou CapCut</li>
+          <li>Não usa Premiere Pro e não pretende usar</li>
+          <li>Precisa de um banco com milhares de músicas completas</li>
+          <li>Procura um plugin de mixagem ou masterização de áudio</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- STEPS -->
 <section>
   <div class="wrap">
     <div class="section-head">
-      <div class="section-label reveal">№ 04 · Como funciona</div>
+      <div class="section-label reveal">№ 05 · Como funciona</div>
       <h2 class="reveal d1">De zero a editando<br>em <span class="ice">3 minutos.</span></h2>
     </div>
     <div class="steps-grid">
@@ -2185,57 +2499,35 @@ src="https://www.facebook.com/tr?id=1668719247772250&ev=PageView&noscript=1"
 <section>
   <div class="wrap">
     <div class="section-head">
-      <div class="section-label reveal">№ 05 · Quem já usa</div>
+      <div class="section-label reveal">№ 06 · Quem já usa</div>
       <h2 class="reveal d1">Aprovado por quem<br><span class="ice">edita todo dia.</span></h2>
     </div>
     <div class="testis-grid">
       <div class="testi reveal">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"O dropSFX cortou pela metade o tempo que eu gastava com sound design."</p>
-        <div class="testi-author"><div class="testi-avatar">RC</div><div><div class="testi-name">Rafael Costa</div><div class="testi-role">YOUTUBER · 480K</div></div></div>
+        <p class="testi-text">"Cortou pela metade o tempo que eu gastava com sound design. Termino os vídeos muito mais rápido."</p>
+        <div class="testi-author"><div class="testi-avatar">E</div><div><div class="testi-name">Editor de vídeo</div><div class="testi-role">YOUTUBE · BRASIL</div></div></div>
       </div>
       <div class="testi reveal d1">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"Biblioteca no nível de pack AAA, e está dentro do Premiere."</p>
-        <div class="testi-author"><div class="testi-avatar">MS</div><div><div class="testi-name">Marina Stein</div><div class="testi-role">EDITORA · SP</div></div></div>
+        <p class="testi-text">"Biblioteca incrível e tudo dentro do Premiere. Não preciso mais sair do programa pra buscar som."</p>
+        <div class="testi-author"><div class="testi-avatar">P</div><div><div class="testi-name">Produtor audiovisual</div><div class="testi-role">AGÊNCIA · SP</div></div></div>
       </div>
       <div class="testi reveal d2">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"O botão 'Inserir' mudou minha vida. Um clique e o whoosh tá lá."</p>
-        <div class="testi-author"><div class="testi-avatar">JV</div><div><div class="testi-name">João Veloso</div><div class="testi-role">FILMMAKER · RJ</div></div></div>
+        <p class="testi-text">"O botão Inserir mudou minha edição. Um clique e o som já tá na timeline, simples assim."</p>
+        <div class="testi-author"><div class="testi-avatar">F</div><div><div class="testi-name">Filmmaker</div><div class="testi-role">FREELANCER · RJ</div></div></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PRICING -->
-
-<section class="import-highlight">
-  <div class="wrap">
-    <div class="section-head center">
-      <div class="section-label">SEM LIMITAÇÕES</div>
-      <h2>Use a biblioteca inclusa <span class="ice">ou importe seus próprios arquivos</span></h2>
-      <p>
-        Já vem com centenas de sound effects organizados, mas você não fica preso à biblioteca.
-        Adicione suas próprias músicas, trilhas, locuções e SFX e acesse tudo diretamente dentro do Premiere Pro.
-      </p>
-    </div>
-
-    <div style="max-width:900px;margin:0 auto;text-align:center;padding:40px;border:1px solid var(--line);border-radius:16px;background:var(--card);">
-      <div style="font-family:'Outfit',sans-serif;font-size:clamp(34px,6vw,72px);font-weight:700;line-height:1.05;letter-spacing:-0.04em;">
-        SUA BIBLIOTECA.<br>
-        <span class="ice">SEUS SONS.</span><br>
-        TUDO NO PREMIERE.
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="pricing" id="comprar">
   <div class="pricing-bg"></div>
   <div class="wrap">
     <div class="section-head center">
-      <div class="section-label reveal" style="margin-left:auto;margin-right:auto;">№ 06 · Investimento</div>
+      <div class="section-label reveal" style="margin-left:auto;margin-right:auto;">№ 07 · Investimento</div>
       <h2 class="reveal d1">Pagamento único.<br><span class="ice">Acesso vitalício.</span></h2>
     </div>
 
@@ -2262,10 +2554,6 @@ src="https://www.facebook.com/tr?id=1668719247772250&ev=PageView&noscript=1"
         </div>
 
         <ul class="price-feats">
-<li>
-  <strong>Importe seus próprios arquivos</strong> — adicione suas músicas, trilhas e sound effects pessoais diretamente pelo painel.
-</li>
-
           <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span><strong>756 efeitos sonoros</strong> profissionais</span></li>
           <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span><span class="hl">Painel nativo</span> para Adobe Premiere Pro</span></li>
           <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span>Todas as <strong>11 categorias</strong> com filtros visuais</span></li>
@@ -2281,10 +2569,15 @@ src="https://www.facebook.com/tr?id=1668719247772250&ev=PageView&noscript=1"
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
 
+        <div class="price-guarantee-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+          <span><strong>Garantia de 7 dias.</strong> Não gostou? Devolvemos 100%.</span>
+        </div>
+
         <div class="price-footer">
           <div class="trust-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg> Compra segura</div>
           <div class="trust-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg> Acesso imediato</div>
-          <div class="trust-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg> Garantia 7 dias</div>
+          <div class="trust-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg> Pagamento via Pix ou cartão</div>
         </div>
       </div>
     </div>
@@ -2305,7 +2598,7 @@ src="https://www.facebook.com/tr?id=1668719247772250&ev=PageView&noscript=1"
 <section>
   <div class="wrap">
     <div class="section-head center">
-      <div class="section-label reveal" style="margin-left:auto;margin-right:auto;">№ 07 · Dúvidas</div>
+      <div class="section-label reveal" style="margin-left:auto;margin-right:auto;">№ 08 · Dúvidas</div>
       <h2 class="reveal d1">Tudo que <span class="ice">perguntam.</span></h2>
     </div>
     <div class="faq-list">
@@ -2323,11 +2616,31 @@ src="https://www.facebook.com/tr?id=1668719247772250&ev=PageView&noscript=1"
       </div>
       <div class="faq-item" onclick="this.classList.toggle('open')">
         <div class="faq-q">Em quantas máquinas posso instalar? <span class="plus">+</span></div>
-        <div class="faq-a">Até 3 máquinas simultaneamente, Mac e/ou Windows. Pode desativar e mover quando quiser.</div>
+        <div class="faq-a">Até 2 máquinas simultaneamente, Mac e/ou Windows. Pode desativar e mover quando quiser.</div>
       </div>
       <div class="faq-item" onclick="this.classList.toggle('open')">
         <div class="faq-q">Como recebo o produto? <span class="plus">+</span></div>
         <div class="faq-a">Acesso imediato. Após o pagamento, você recebe por e-mail o link de download e os dados pra criar sua conta. Faça login no painel e toda a biblioteca fica disponível.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">O painel abre dentro do Premiere mesmo? <span class="plus">+</span></div>
+        <div class="faq-a">Sim. O dropSFX é uma extensão nativa que abre em Window → Extensions → dropSFX, como um painel acoplado à sua interface. Você arrasta, encaixa e usa junto com a timeline, sem alternar entre programas.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">Preciso de internet pra usar? <span class="plus">+</span></div>
+        <div class="faq-a">Só na primeira vez, pra fazer login e baixar a biblioteca. Depois disso, os sons ficam no seu computador e você usa offline normalmente.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">Funciona com o Premiere da Creative Cloud? <span class="plus">+</span></div>
+        <div class="faq-a">Sim, funciona com qualquer Premiere Pro instalado via Creative Cloud, da versão CC 2020 em diante. Não precisa de nenhuma assinatura extra além do seu Premiere.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">Os sons são em WAV ou MP3? <span class="plus">+</span></div>
+        <div class="faq-a">A biblioteca vem em alta qualidade, pronta pra uso profissional na sua timeline. E você ainda pode importar seus próprios arquivos em qualquer formato que o Premiere aceita.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">Funciona no After Effects também? <span class="plus">+</span></div>
+        <div class="faq-a">O dropSFX foi feito sob medida para o Adobe Premiere Pro, onde o fluxo de inserção na timeline faz mais sentido pra edição. O foco total no Premiere é o que garante a experiência de um clique.</div>
       </div>
       <div class="faq-item" onclick="this.classList.toggle('open')">
         <div class="faq-q">E se eu não gostar? <span class="plus">+</span></div>
@@ -2342,7 +2655,7 @@ src="https://www.facebook.com/tr?id=1668719247772250&ev=PageView&noscript=1"
   <div class="wrap">
     <div class="final-content">
       <h2 class="reveal">Pare de procurar arquivo.<br><span class="ice">Comece a editar.</span></h2>
-      <p class="reveal d1">Milhares de editores já transformaram o fluxo dentro do Premiere Pro com o dropSFX.</p>
+      <p class="reveal d1">Editores profissionais já transformaram o fluxo dentro do Premiere Pro com o dropSFX.</p>
       <div class="reveal d2">
         <div class="final-price">
           <span class="currency">R$</span>
@@ -2388,6 +2701,106 @@ src="https://www.facebook.com/tr?id=1668719247772250&ev=PageView&noscript=1"
 </footer>
 
 <script>
+  // ============================================
+  // === COUNTDOWN TIMER — 3h urgency banner ===
+  // ============================================
+  (function() {
+    const banner = document.getElementById('countdownBanner');
+    const timerEl = document.getElementById('countdownTimer');
+    if (!banner || !timerEl) return;
+
+    const DURATION = 3 * 60 * 60 * 1000; // 3 hours in ms
+    const STORAGE_KEY = 'dropsfx_countdown_end';
+
+    // Get or set the countdown end time (persists across reloads via sessionStorage)
+    let endTime;
+    try {
+      const stored = sessionStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        endTime = parseInt(stored, 10);
+        // If expired or invalid, reset
+        if (isNaN(endTime) || endTime < Date.now()) {
+          endTime = Date.now() + DURATION;
+          sessionStorage.setItem(STORAGE_KEY, endTime);
+        }
+      } else {
+        endTime = Date.now() + DURATION;
+        sessionStorage.setItem(STORAGE_KEY, endTime);
+      }
+    } catch (e) {
+      // sessionStorage blocked - just use a fresh 3h from now
+      endTime = Date.now() + DURATION;
+    }
+
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+    function tick() {
+      const remaining = endTime - Date.now();
+
+      if (remaining <= 0) {
+        // Timer done - reset to a fresh 3h (keeps urgency alive)
+        endTime = Date.now() + DURATION;
+        try { sessionStorage.setItem(STORAGE_KEY, endTime); } catch(e) {}
+        return;
+      }
+
+      const hours = Math.floor(remaining / (1000 * 60 * 60));
+      const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+
+      timerEl.textContent = pad(hours) + ':' + pad(minutes) + ':' + pad(seconds);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  })();
+
+  // ============================================
+  // === META PIXEL — InitiateCheckout event ===
+  // ============================================
+  (function() {
+    // Track clicks on any checkout button (all point to Kiwify)
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a[href*="pay.kiwify.com.br"]');
+      if (!link) return;
+
+      if (typeof fbq === 'function') {
+        // Extract which button was clicked from UTM for richer data
+        let source = 'unknown';
+        try {
+          const url = new URL(link.href);
+          source = url.searchParams.get('utm_medium') || 'unknown';
+        } catch (err) {}
+
+        fbq('track', 'InitiateCheckout', {
+          content_name: 'dropSFX Full',
+          content_category: 'Premiere Pro Plugin',
+          value: 109.79,
+          currency: 'BRL',
+          button_location: source
+        });
+      }
+    }, true);
+  })();
+
+  // ============================================
+  // === META PIXEL — ViewContent (engaged) ===
+  // ============================================
+  (function() {
+    // Fire ViewContent after 5s on page = genuinely engaged visitor
+    // (filters bounce/bot traffic, helps Meta optimize)
+    setTimeout(function() {
+      if (typeof fbq === 'function') {
+        fbq('track', 'ViewContent', {
+          content_name: 'dropSFX Full',
+          content_category: 'Premiere Pro Plugin',
+          value: 109.79,
+          currency: 'BRL'
+        });
+      }
+    }, 5000);
+  })();
+
   // ============================================
   // === MOBILE STICKY CTA — show after hero ===
   // ============================================
