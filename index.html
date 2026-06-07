@@ -2767,45 +2767,24 @@ a[href*="pay.kiwify.com.br"] svg * {
   // === META PIXEL — InitiateCheckout event ===
   // ============================================
   (function() {
-    var PIXEL_ID = '1668719247772250';
-
     document.addEventListener('click', function(e) {
       var link = e.target.closest('a[href*="pay.kiwify.com.br"]');
       if (!link) return;
+
+      if (typeof fbq !== 'function') return;
 
       var source = 'unknown';
       try {
         source = new URL(link.href).searchParams.get('utm_medium') || 'unknown';
       } catch (err) {}
 
-      // Método 1 — fbq normal (funciona se o fbevents.js estiver ativo)
-      if (typeof fbq === 'function') {
-        try {
-          fbq('track', 'InitiateCheckout', {
-            content_name: 'dropSFX Full',
-            content_category: 'Premiere Pro Plugin',
-            value: 109.79,
-            currency: 'BRL',
-            button_location: source
-          });
-        } catch (err) {}
-      }
-
-      // Método 2 — disparo direto pro Meta (funciona mesmo se o fbevents.js falhar)
-      try {
-        new Image().src = 'https://www.facebook.com/tr/?id=' + PIXEL_ID +
-          '&ev=InitiateCheckout' +
-          '&dl=' + encodeURIComponent(location.href) +
-          '&cd[content_name]=dropSFX Full' +
-          '&cd[content_category]=Premiere Pro Plugin' +
-          '&cd[value]=109.79' +
-          '&cd[currency]=BRL' +
-          '&cd[button_location]=' + encodeURIComponent(source) +
-          '&ts=' + Date.now();
-      } catch (err) {}
-
-      // O botão abre o Kiwify normalmente (target="_blank" mantém a página viva,
-      // então as duas requisições acima têm tempo de sair).
+      fbq('track', 'InitiateCheckout', {
+        content_name: 'dropSFX Full',
+        content_category: 'Premiere Pro Plugin',
+        value: 109.79,
+        currency: 'BRL',
+        button_location: source
+      });
     }, true);
   })();
 
