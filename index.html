@@ -2124,6 +2124,14 @@ footer {
 @media (min-width: 721px) {
   .mobile-sticky-cta { display: none !important; }
 }
+
+/* Garante que cliques no ícone (SVG) dentro dos botões de compra
+   sejam capturados pelo link, e não pelo ícone — necessário para o
+   evento InitiateCheckout disparar de forma confiável. */
+a[href*="pay.kiwify.com.br"] svg,
+a[href*="pay.kiwify.com.br"] svg * {
+  pointer-events: none;
+}
 </style>
 </head>
 <body>
@@ -2759,27 +2767,44 @@ footer {
   // === META PIXEL — InitiateCheckout event ===
   // ============================================
   (function() {
-    // Track clicks on any checkout button (all point to Kiwify)
+    // Intercepta o clique, dispara o InitiateCheckout, espera o evento sair,
+    // e SÓ DEPOIS navega para o checkout. Isso garante que a requisição do
+    // pixel saia antes de a aba abrir/trocar (o target="_blank" cortava o envio).
     document.addEventListener('click', function(e) {
       const link = e.target.closest('a[href*="pay.kiwify.com.br"]');
       if (!link) return;
 
-      if (typeof fbq === 'function') {
-        // Extract which button was clicked from UTM for richer data
-        let source = 'unknown';
-        try {
-          const url = new URL(link.href);
-          source = url.searchParams.get('utm_medium') || 'unknown';
-        } catch (err) {}
+      const href = link.getAttribute('href');
+      const newTab = link.getAttribute('target') === '_blank';
 
-        fbq('track', 'InitiateCheckout', {
-          content_name: 'dropSFX Full',
-          content_category: 'Premiere Pro Plugin',
-          value: 109.79,
-          currency: 'BRL',
-          button_location: source
-        });
+      // Se o pixel não carregou (bloqueado), deixa o link funcionar normalmente
+      if (typeof fbq !== 'function') return;
+
+      e.preventDefault();
+
+      let navigated = false;
+      function go() {
+        if (navigated) return;
+        navigated = true;
+        if (newTab) window.open(href, '_blank', 'noopener');
+        else window.location.href = href;
       }
+
+      let source = 'unknown';
+      try {
+        source = new URL(href).searchParams.get('utm_medium') || 'unknown';
+      } catch (err) {}
+
+      fbq('track', 'InitiateCheckout', {
+        content_name: 'dropSFX Full',
+        content_category: 'Premiere Pro Plugin',
+        value: 109.79,
+        currency: 'BRL',
+        button_location: source
+      }, { eventCallback: go });
+
+      // Fallback: se o callback não disparar em 350ms, navega mesmo assim
+      setTimeout(go, 350);
     }, true);
   })();
 
