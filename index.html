@@ -1464,6 +1464,30 @@ section { padding: 120px 0; position: relative; }
   background-clip: text; -webkit-background-clip: text;
   color: transparent;
 }
+.price-name-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.price-name-logo img {
+  height: 40px;
+  width: auto;
+  filter: drop-shadow(0 0 12px rgba(168, 216, 232, 0.3));
+}
+.price-name-logo .full {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  background: linear-gradient(180deg, #fff, var(--ice));
+  background-clip: text; -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+@media (max-width: 720px) {
+  .price-name-logo img { height: 32px; }
+}
 .price-desc { font-size: 16px; color: var(--text-2); margin-bottom: 36px; line-height: 1.5; }
 .price-main-block {
   padding: 28px 0;
@@ -1485,6 +1509,14 @@ section { padding: 120px 0; position: relative; }
   letter-spacing: 0.05em;
 }
 .price-main { display: flex; align-items: baseline; gap: 4px; margin-bottom: 12px; }
+.price-main .installments {
+  font-family: 'Outfit', sans-serif;
+  font-size: 38px; font-weight: 700;
+  color: var(--ice);
+  letter-spacing: -0.03em;
+  margin-right: 4px;
+  align-self: center;
+}
 .price-main .currency { font-family: 'Outfit', sans-serif; font-size: 28px; color: var(--muted); font-weight: 500; }
 .price-main .val {
   font-family: 'Outfit', sans-serif;
@@ -1499,6 +1531,11 @@ section { padding: 120px 0; position: relative; }
 }
 .price-method { font-size: 12px; color: var(--muted); }
 .price-method strong { color: var(--text); }
+.price-avista {
+  font-size: 15px; color: var(--text-2);
+  margin-top: 4px;
+}
+.price-avista strong { color: var(--text); font-weight: 700; }
 
 .price-feats { list-style: none; margin-bottom: 32px; }
 .price-feats li {
@@ -2151,7 +2188,6 @@ a[href*="pay.kiwify.com.br"] svg * {
   <div class="nav-inner">
     <div class="nav-left">
       <img src="assets/logo.png" alt="dropSFX" class="brand-logo nav-logo" />
-      <span class="nav-sub">Premiere Pro</span>
     </div>
     <div class="nav-right">
       <span class="nav-price">Pagamento único · <strong>R$ 109,79</strong></span>
@@ -2544,7 +2580,9 @@ a[href*="pay.kiwify.com.br"] svg * {
         <span>— 63% OFF</span>
       </div>
       <div class="price-body">
-        <div class="price-name">drop<span class="ice">SFX</span> Full</div>
+        <div class="price-name-logo">
+          <img src="assets/logo.png" alt="dropSFX" />
+        </div>
         <div class="price-desc">Biblioteca completa de efeitos sonoros profissionais, pra usar quantas vezes quiser.</div>
 
         <div class="price-main-block">
@@ -2553,11 +2591,13 @@ a[href*="pay.kiwify.com.br"] svg * {
             <span class="save">economize R$ 187,21</span>
           </div>
           <div class="price-main">
+            <span class="installments">12x</span>
             <span class="currency">R$</span>
-            <span class="val">109</span>
-            <span class="cents">,79</span>
+            <span class="val">9</span>
+            <span class="cents">,15</span>
           </div>
-          <div class="price-method"><strong>Pagamento único</strong> · à vista no Pix ou em até <strong>12x no cartão</strong></div>
+          <div class="price-avista">ou <strong>R$ 109,79</strong> à vista no Pix</div>
+          <div class="price-method"><strong>Pagamento único</strong> · sem mensalidade, sem renovação</div>
         </div>
 
         <ul class="price-feats">
