@@ -1772,10 +1772,10 @@ footer {
 
   .hero-wave {
     height: 90px;
-    padding: 0 16px;
-    gap: 2px;
+    padding: 0;
+    gap: 0;
   }
-  .wave-bar { max-width: 3px; }
+  .wave-bar { width: 2px; }
 
   /* ===== SECTIONS general ===== */
   section { padding: 70px 0; }
@@ -2964,12 +2964,13 @@ a[href*="pay.kiwify.com.br"] svg * {
     const wave = document.getElementById('heroWave');
     if (!wave) return;
 
-    // Calculate bars based on screen width for edge-to-edge coverage
-    // Each bar = 3px wide + ~3px gap, so ~6px per bar
+    // Calculate bars based on screen width for edge-to-edge coverage.
+    // Denser on narrow screens so space-between distributes evenly with
+    // small uniform gaps (no big holes, no empty edges).
     function getBarCount() {
       const w = window.innerWidth;
-      // Pixel budget: roughly one bar every 6-7px
-      return Math.max(80, Math.min(280, Math.floor(w / 7)));
+      // ~1 bar every 5px → fills the row tightly on mobile and desktop
+      return Math.max(60, Math.min(320, Math.floor(w / 5)));
     }
 
     function buildBars() {
