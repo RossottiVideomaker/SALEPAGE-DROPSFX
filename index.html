@@ -2356,17 +2356,16 @@ a[href*="pay.kiwify.com.br"] svg * {
       <p class="reveal d2">Veja o dropSFX funcionando dentro de um projeto real no Premiere Pro.</p>
     </div>
     <div class="video-wrapper reveal d1">
-      <!-- Para adicionar o vídeo depois: troque este bloco por um <iframe> do YouTube
-           ou uma tag <video> com seu arquivo. Ex:
-           <iframe src="https://www.youtube.com/embed/SEU_ID" allowfullscreen></iframe>
-      -->
-      <div class="video-placeholder" id="videoPlaceholder">
-        <div class="video-play-btn">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-        </div>
-        <div class="video-placeholder-text">Demonstração em breve</div>
-        <div class="video-placeholder-sub">Veja como inserir um som em 1 clique</div>
-      </div>
+      <video
+        src="assets/demo.mp4"
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="metadata"
+        poster="assets/og-image.png">
+        Seu navegador não suporta vídeo HTML5.
+      </video>
     </div>
   </div>
 </section>
