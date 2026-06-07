@@ -2767,44 +2767,45 @@ a[href*="pay.kiwify.com.br"] svg * {
   // === META PIXEL — InitiateCheckout event ===
   // ============================================
   (function() {
-    // Intercepta o clique, dispara o InitiateCheckout, espera o evento sair,
-    // e SÓ DEPOIS navega para o checkout. Isso garante que a requisição do
-    // pixel saia antes de a aba abrir/trocar (o target="_blank" cortava o envio).
+    var PIXEL_ID = '1668719247772250';
+
     document.addEventListener('click', function(e) {
-      const link = e.target.closest('a[href*="pay.kiwify.com.br"]');
+      var link = e.target.closest('a[href*="pay.kiwify.com.br"]');
       if (!link) return;
 
-      const href = link.getAttribute('href');
-      const newTab = link.getAttribute('target') === '_blank';
-
-      // Se o pixel não carregou (bloqueado), deixa o link funcionar normalmente
-      if (typeof fbq !== 'function') return;
-
-      e.preventDefault();
-
-      let navigated = false;
-      function go() {
-        if (navigated) return;
-        navigated = true;
-        if (newTab) window.open(href, '_blank', 'noopener');
-        else window.location.href = href;
-      }
-
-      let source = 'unknown';
+      var source = 'unknown';
       try {
-        source = new URL(href).searchParams.get('utm_medium') || 'unknown';
+        source = new URL(link.href).searchParams.get('utm_medium') || 'unknown';
       } catch (err) {}
 
-      fbq('track', 'InitiateCheckout', {
-        content_name: 'dropSFX Full',
-        content_category: 'Premiere Pro Plugin',
-        value: 109.79,
-        currency: 'BRL',
-        button_location: source
-      }, { eventCallback: go });
+      // Método 1 — fbq normal (funciona se o fbevents.js estiver ativo)
+      if (typeof fbq === 'function') {
+        try {
+          fbq('track', 'InitiateCheckout', {
+            content_name: 'dropSFX Full',
+            content_category: 'Premiere Pro Plugin',
+            value: 109.79,
+            currency: 'BRL',
+            button_location: source
+          });
+        } catch (err) {}
+      }
 
-      // Fallback: se o callback não disparar em 350ms, navega mesmo assim
-      setTimeout(go, 350);
+      // Método 2 — disparo direto pro Meta (funciona mesmo se o fbevents.js falhar)
+      try {
+        new Image().src = 'https://www.facebook.com/tr/?id=' + PIXEL_ID +
+          '&ev=InitiateCheckout' +
+          '&dl=' + encodeURIComponent(location.href) +
+          '&cd[content_name]=dropSFX Full' +
+          '&cd[content_category]=Premiere Pro Plugin' +
+          '&cd[value]=109.79' +
+          '&cd[currency]=BRL' +
+          '&cd[button_location]=' + encodeURIComponent(source) +
+          '&ts=' + Date.now();
+      } catch (err) {}
+
+      // O botão abre o Kiwify normalmente (target="_blank" mantém a página viva,
+      // então as duas requisições acima têm tempo de sair).
     }, true);
   })();
 
