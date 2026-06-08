@@ -21,8 +21,7 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 
 // Gera um event_id único por evento. Esse id é o que permite ao Meta
 // desduplicar o mesmo evento quando ele chega pelo navegador (pixel) e
-// pelo servidor (CAPI). Guardamos os ids gerados pra reaproveitar quando
-// o mesmo evento dispara mais de uma vez na mesma visita.
+// pelo servidor (CAPI).
 window.dropsfxEvent = function(name, customData) {
   if (typeof fbq !== 'function') return;
   var eid = name + '.' + Date.now() + '.' + Math.random().toString(36).slice(2, 10);
@@ -31,12 +30,11 @@ window.dropsfxEvent = function(name, customData) {
 
 fbq('init', '1668719247772250');
 
-// PageView com event_id
-window.dropsfxEvent('PageView');
+// PageView e InitiateCheckout NÃO são disparados pelo site de propósito:
+// a Kiwify já envia esses dois eventos (server-side, via pixels.dropsfx.com.br),
+// e disparar de novo aqui causaria duplicação. O site dispara apenas o
+// ViewContent (mais abaixo), que a Kiwify não envia.
 </script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1668719247772250&ev=PageView&noscript=1"
-/></noscript>
 <!-- End Meta Pixel Code -->
 <title>dropSFX — Sound Effects no clique, dentro do Adobe Premiere Pro</title>
 <meta name="description" content="O painel de sound effects que vive dentro do Premiere Pro. Mais de 700 SFX profissionais, um clique e o som está na timeline. R$ 109,79 — pagamento único." />
@@ -2203,7 +2201,7 @@ a[href*="pay.kiwify.com.br"] svg * {
       <img src="assets/logo.png" alt="dropSFX" class="brand-logo nav-logo" />
     </div>
     <div class="nav-right">
-      <span class="nav-price">12x de <strong>R$ 9,15</strong></span>
+      <span class="nav-price">12x de <strong>R$ 11,36</strong></span>
       <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=nav&utm_campaign=dropsfx" class="btn btn-primary" target="_blank" rel="noopener">Comprar</a>
     </div>
   </div>
@@ -2247,7 +2245,7 @@ a[href*="pay.kiwify.com.br"] svg * {
       </a>
       <div class="hero-cta-meta">
         <span>12x de</span>
-        <span class="price-pop">R$ 9,15</span>
+        <span class="price-pop">R$ 11,36</span>
         <span class="sep"></span>
         <span>Garantia de 7 dias</span>
       </div>
@@ -2605,8 +2603,8 @@ a[href*="pay.kiwify.com.br"] svg * {
           <div class="price-main">
             <span class="installments">12x</span>
             <span class="currency">R$</span>
-            <span class="val">9</span>
-            <span class="cents">,15</span>
+            <span class="val">11</span>
+            <span class="cents">,36</span>
           </div>
           <div class="price-avista">ou <strong>R$ 109,79</strong> à vista no Pix</div>
           <div class="price-method"><strong>Pagamento único</strong> · sem mensalidade, sem renovação</div>
@@ -2718,7 +2716,7 @@ a[href*="pay.kiwify.com.br"] svg * {
       <div class="reveal d2">
         <div class="final-price">
           <span class="currency">12x</span>
-          <span class="val">R$ 9,15</span>
+          <span class="val">R$ 11,36</span>
         </div>
         <div class="final-meta">ou R$ 109,79 à vista · Acesso vitalício</div>
         <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=final&utm_campaign=dropsfx" class="btn btn-primary btn-lg" target="_blank" rel="noopener">
@@ -2734,7 +2732,7 @@ a[href*="pay.kiwify.com.br"] svg * {
 <div class="mobile-sticky-cta" id="mobileSticky">
   <div>
     <div class="mobile-sticky-cta-price">
-      <span class="currency">12x</span> R$ 9<span style="font-size:11px;color:var(--muted);">,15</span>
+      <span class="currency">12x</span> R$ 11<span style="font-size:11px;color:var(--muted);">,36</span>
     </div>
     <span class="mobile-sticky-cta-label">ou R$ 109,79 à vista</span>
   </div>
@@ -2812,32 +2810,6 @@ a[href*="pay.kiwify.com.br"] svg * {
 
     tick();
     setInterval(tick, 1000);
-  })();
-
-  // ============================================
-  // === META PIXEL — InitiateCheckout event ===
-  // ============================================
-  (function() {
-    document.addEventListener('click', function(e) {
-      var link = e.target.closest('a[href*="pay.kiwify.com.br"]');
-      if (!link) return;
-      if (typeof window.dropsfxEvent !== 'function') return;
-
-      var source = 'unknown';
-      try {
-        source = new URL(link.href).searchParams.get('utm_medium') || 'unknown';
-      } catch (err) {}
-
-      // Dispara com event_id (gerado dentro do dropsfxEvent) para permitir
-      // a desduplicação navegador x servidor no Meta.
-      window.dropsfxEvent('InitiateCheckout', {
-        content_name: 'dropSFX Full',
-        content_category: 'Premiere Pro Plugin',
-        value: 109.79,
-        currency: 'BRL',
-        button_location: source
-      });
-    }, true);
   })();
 
   // ============================================
