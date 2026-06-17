@@ -102,6 +102,14 @@
       overflow-x: hidden;
     }
 
+    /* overflow-x:hidden no body cria scroll container no iOS e quebra o IntersectionObserver.
+       overflow:clip resolve isso sem criar novo contexto de scroll */
+    @supports (overflow: clip) {
+      body {
+        overflow-x: clip;
+      }
+    }
+
     ::selection {
       background: var(--accent);
       color: #fff;
@@ -187,6 +195,15 @@
       display: flex;
       align-items: center;
       overflow: hidden;
+      /* No mobile, overflow:hidden cria um scroll container que bloqueia o IntersectionObserver.
+         overflow:clip tem o mesmo efeito visual mas NÃO cria scroll container — corrige o bug do iOS Safari */
+    }
+
+    @supports (overflow: clip) {
+      .scene {
+        overflow: clip;
+        overflow-clip-margin: content-box;
+      }
     }
 
     .scene-tint {
@@ -218,6 +235,12 @@
       z-index: 0;
       pointer-events: none;
       overflow: hidden;
+    }
+
+    @supports (overflow: clip) {
+      .scene-glow {
+        overflow: clip;
+      }
     }
 
     .scene-glow::before {
@@ -2775,19 +2798,26 @@
       }
 
       // Função utilitária: verifica se elemento está visível na tela
+      // Margem generosa para mobile (150px) para disparar antes do elemento aparecer
       function isVisible(el) {
         const r = el.getBoundingClientRect();
-        return r.bottom > 0 && r.top < window.innerHeight + 80;
+        const margin = window.innerWidth <= 720 ? 150 : 80;
+        return r.bottom > 0 && r.top < window.innerHeight + margin;
       }
 
-      // Ativa os que já estão visíveis (importante pro iOS que não re-dispara)
+      // Ativa os que já estão visíveis
       function checkAll() {
-        els.forEach(el => { if (!el.classList.contains('in') && isVisible(el)) el.classList.add('in'); });
+        els.forEach(el => {
+          if (!el.classList.contains('in') && isVisible(el)) {
+            el.classList.add('in');
+          }
+        });
       }
 
-      // IntersectionObserver com threshold 0 para disparar no primeiro pixel visível
-      // rootMargin com 80px positivo embaixo ativa antes do elemento chegar
+      // IntersectionObserver — no mobile usa rootMargin 0 (mais compatível com iOS Safari)
+      // rootMargin com valor positivo pode ser ignorado em contextos com overflow:hidden no mobile
       if ('IntersectionObserver' in window) {
+        const isMobile = window.innerWidth <= 720;
         const io = new IntersectionObserver((entries) => {
           entries.forEach(e => {
             if (e.isIntersecting) {
@@ -2797,12 +2827,14 @@
           });
         }, {
           threshold: 0,
-          rootMargin: '0px 0px 80px 0px'
+          // No mobile não usamos rootMargin pois pode ser bloqueado por overflow:hidden nos pais
+          rootMargin: isMobile ? '0px' : '0px 0px 80px 0px'
         });
         els.forEach(el => io.observe(el));
       }
 
-      // Fallback via scroll (cobre bugs do iOS Safari com IntersectionObserver)
+      // Fallback via scroll — principal mecanismo no mobile
+      // Usa touchmove além de scroll para garantir cobertura em iOS
       let ticking = false;
       function onScroll() {
         if (!ticking) {
@@ -2811,11 +2843,23 @@
         }
       }
       window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('touchmove', onScroll, { passive: true });
+      window.addEventListener('touchend', onScroll, { passive: true });
 
-      // Checagens iniciais: no load e após 300ms (iOS pode precisar do delay)
+      // Checagens iniciais escalonadas — iOS pode renderizar de forma assíncrona
       checkAll();
+      setTimeout(checkAll, 100);
       setTimeout(checkAll, 300);
-      setTimeout(checkAll, 800);
+      setTimeout(checkAll, 600);
+      setTimeout(checkAll, 1000);
+      setTimeout(checkAll, 1800);
+
+      // Re-checa no resize (rotação de tela no mobile)
+      window.addEventListener('resize', onScroll, { passive: true });
+      window.addEventListener('orientationchange', function() {
+        setTimeout(checkAll, 300);
+        setTimeout(checkAll, 700);
+      });
     })();
 
     // ===== PAIN NUMBER COUNT =====
