@@ -2895,13 +2895,17 @@
     // ===== HOVER DEMO =====
     (function () {
       const demo = document.getElementById('hoverMock'), cursor = document.getElementById('hoverCursor'); if (!demo || !cursor) return;
-      const rows = Array.from(demo.querySelectorAll('.fitem')); let idx = 0, running = false, timer;
+      const rows = Array.from(demo.querySelectorAll('.fitem')); let idx = 0;
       function moveTo(i) {
         rows.forEach(r => { r.classList.remove('active', 'playing', 'previewing'); }); const row = rows[i]; row.classList.add('active', 'playing', 'previewing');
         const dr = demo.getBoundingClientRect(), rr = row.getBoundingClientRect(); cursor.style.opacity = '1'; cursor.style.transform = 'translate(' + (rr.left - dr.left + rr.width * 0.5) + 'px,' + (rr.top - dr.top + 12) + 'px)';
       }
-      function tick() { moveTo(idx); idx = (idx + 1) % rows.length; timer = setTimeout(tick, 1500); }
-      const io = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting && !running) { running = true; idx = 0; tick(); } else if (!e.isIntersecting && running) { running = false; clearTimeout(timer); cursor.style.opacity = '0'; rows.forEach(r => r.classList.remove('active', 'playing', 'previewing')); } }); }, { threshold: 0.4 });
+      function tick() { moveTo(idx); idx = (idx + 1) % rows.length; setTimeout(tick, 1500); }
+      // Inicia uma única vez na primeira vez que entra na tela e continua
+      // ciclando pra sempre — nunca mais reseta/some quando sai e volta a
+      // entrar na viewport (isso causava a aparência de "não carregou" ao
+      // rolar de baixo para cima)
+      const io = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) { tick(); io.unobserve(demo); } }); }, { threshold: 0.2 });
       io.observe(demo);
     })();
 
@@ -2909,7 +2913,6 @@
     (function () {
       const mock = document.getElementById('clickMock'), cursor = document.getElementById('clickCursor'), item = document.getElementById('clickItem'), clip = document.getElementById('clickClip');
       if (!mock || !clip) return;
-      let running = false, timer;
       function seq() {
         const dr = mock.getBoundingClientRect(), rr = item.getBoundingClientRect();
         cursor.style.opacity = '1'; cursor.style.transform = 'translate(' + (rr.left - dr.left + rr.width * 0.4) + 'px,' + (rr.top - dr.top + 10) + 'px)';
@@ -2917,9 +2920,10 @@
         item.classList.add('active');
         // double-click flash
         setTimeout(() => { item.style.background = 'rgba(59,110,245,.28)'; setTimeout(() => { item.style.background = ''; setTimeout(() => { item.style.background = 'rgba(59,110,245,.28)'; setTimeout(() => { item.style.background = ''; clip.classList.add('in'); }, 120); }, 120); }, 120); }, 700);
-        timer = setTimeout(seq, 2800);
+        setTimeout(seq, 2800);
       }
-      const io = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting && !running) { running = true; setTimeout(seq, 500); } else if (!e.isIntersecting && running) { running = false; clearTimeout(timer); clip.classList.remove('in'); cursor.style.opacity = '0'; item.classList.remove('active'); } }); }, { threshold: 0.4 });
+      // Mesma lógica: inicia uma vez e nunca mais esconde o conteúdo
+      const io = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) { setTimeout(seq, 500); io.unobserve(mock); } }); }, { threshold: 0.2 });
       io.observe(mock);
     })();
 
@@ -2927,9 +2931,9 @@
     (function () {
       const pills = [document.getElementById('g-12'), document.getElementById('g-0'), document.getElementById('g-6')], fill = document.getElementById('gainFill');
       if (!pills[0] || !fill) return;
-      const widths = ['40%', '70%', '95%']; let i = 0, running = false, timer;
-      function tick() { pills.forEach(p => p.classList.remove('on')); pills[i].classList.add('on'); fill.style.width = widths[i]; i = (i + 1) % pills.length; timer = setTimeout(tick, 1500); }
-      const io = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting && !running) { running = true; tick(); } else if (!e.isIntersecting && running) { running = false; clearTimeout(timer); } }); }, { threshold: 0.4 });
+      const widths = ['40%', '70%', '95%']; let i = 0;
+      function tick() { pills.forEach(p => p.classList.remove('on')); pills[i].classList.add('on'); fill.style.width = widths[i]; i = (i + 1) % pills.length; setTimeout(tick, 1500); }
+      const io = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) { tick(); io.unobserve(fill); } }); }, { threshold: 0.2 });
       io.observe(fill);
     })();
 
