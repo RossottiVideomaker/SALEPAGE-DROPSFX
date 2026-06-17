@@ -279,35 +279,46 @@
     /* ===== Reveal on scroll ===== */
     .r {
       opacity: 0;
-      transform: translateY(28px);
-      -webkit-transform: translateY(28px);
-      transition: opacity .65s cubic-bezier(.2, .7, .2, 1), transform .65s cubic-bezier(.2, .7, .2, 1);
-      -webkit-transition: opacity .65s cubic-bezier(.2, .7, .2, 1), -webkit-transform .65s cubic-bezier(.2, .7, .2, 1);
+      transform: translateY(30px);
+      transition: opacity .7s cubic-bezier(.2, .7, .2, 1), transform .7s cubic-bezier(.2, .7, .2, 1);
+      will-change: opacity, transform;
     }
 
     .r.in {
       opacity: 1;
-      transform: translateY(0);
-      -webkit-transform: translateY(0);
+      transform: translateY(0) translateZ(0);
+      will-change: auto;
     }
 
-    .r.d1 { transition-delay: .08s; -webkit-transition-delay: .08s; }
-    .r.d2 { transition-delay: .16s; -webkit-transition-delay: .16s; }
-    .r.d3 { transition-delay: .24s; -webkit-transition-delay: .24s; }
-    .r.d4 { transition-delay: .32s; -webkit-transition-delay: .32s; }
+    .r.d1 {
+      transition-delay: .08s;
+    }
 
-    /* Mobile: delays menores, deslocamento menor */
+    .r.d2 {
+      transition-delay: .16s;
+    }
+
+    .r.d3 {
+      transition-delay: .24s;
+    }
+
+    .r.d4 {
+      transition-delay: .32s;
+    }
+
+    /* Mobile: animação de scroll REMOVIDA — elementos ficam fixos/visíveis direto, sem fade/slide */
     @media (max-width: 720px) {
-      .r {
-        transform: translateY(18px);
-        -webkit-transform: translateY(18px);
-        transition: opacity .5s cubic-bezier(.2, .7, .2, 1), transform .5s cubic-bezier(.2, .7, .2, 1);
-        -webkit-transition: opacity .5s cubic-bezier(.2, .7, .2, 1), -webkit-transform .5s cubic-bezier(.2, .7, .2, 1);
+      .r,
+      .r.d1,
+      .r.d2,
+      .r.d3,
+      .r.d4 {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        transition-delay: 0s !important;
+        will-change: auto !important;
       }
-      .r.d1 { transition-delay: .04s; -webkit-transition-delay: .04s; }
-      .r.d2 { transition-delay: .08s; -webkit-transition-delay: .08s; }
-      .r.d3 { transition-delay: .12s; -webkit-transition-delay: .12s; }
-      .r.d4 { transition-delay: .16s; -webkit-transition-delay: .16s; }
     }
 
     /* ===== Shared type ===== */
@@ -2101,8 +2112,9 @@
         transition-duration: .001s !important;
       }
 
-      /* Quando reduzir movimento está ativo, mostra tudo sem animação */
-      .r {
+      /* Garante que .r nunca fique invisível quando animações estão desativadas */
+      .r,
+      .r.in {
         opacity: 1 !important;
         transform: none !important;
         transition: none !important;
@@ -2119,21 +2131,6 @@
       .scene-bg,
       .scene-fg {
         transform: none !important;
-      }
-    }
-    
-    /* Garante que .r não fique invisível em navegadores com problemas de JS */
-    @media (max-width: 720px) {
-      /* Fallback: se após 3s a classe .in não for adicionada, mostra o elemento */
-      .r {
-        animation: revealFallback 0s 3s forwards;
-      }
-      @keyframes revealFallback {
-        to { opacity: 1; transform: none; }
-      }
-      /* Quando .in é adicionado, cancela o fallback e usa a transição normal */
-      .r.in {
-        animation: none;
       }
     }
   </style>
@@ -2797,86 +2794,69 @@
       const els = Array.from(document.querySelectorAll('.r'));
       if (!els.length) return;
 
-      // Se usuário prefere menos movimento, mostra tudo direto e encerra
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        els.forEach(el => {
-          el.style.opacity = '1';
-          el.style.transform = 'none';
-          el.style.transition = 'none';
-          el.classList.add('in');
-        });
+      // No mobile a animação de scroll foi removida (CSS já força tudo visível).
+      // Aqui só marcamos os elementos como "in" e NÃO registramos nenhum
+      // listener de scroll/touchmove — elimina o trabalho de JS durante a
+      // rolagem que estava causando o travamento no celular.
+      if (window.matchMedia('(max-width: 720px)').matches) {
+        els.forEach(el => el.classList.add('in'));
         return;
       }
 
-      // No iOS Chrome (WKWebView), IntersectionObserver pode falhar quando
-      // elementos pai têm overflow:hidden. Usamos getBoundingClientRect como
-      // mecanismo principal — é sempre confiável.
-      function isVisible(el) {
-        try {
-          const rect = el.getBoundingClientRect();
-          // Considera visível quando o topo do elemento entra na tela + margem generosa
-          return rect.top < window.innerHeight * 1.1 && rect.bottom > -50;
-        } catch(e) {
-          return false;
-        }
+      // Se usuário prefere menos movimento, mostra tudo direto
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        els.forEach(el => el.classList.add('in'));
+        return;
       }
 
-      function revealAll() {
-        let allDone = true;
+      // Função utilitária: verifica se elemento está visível na tela
+      // Margem generosa para mobile (150px) para disparar antes do elemento aparecer
+      function isVisible(el) {
+        const r = el.getBoundingClientRect();
+        const margin = window.innerWidth <= 720 ? 150 : 80;
+        return r.bottom > 0 && r.top < window.innerHeight + margin;
+      }
+
+      // Ativa os que já estão visíveis
+      function checkAll() {
         els.forEach(el => {
-          if (el.classList.contains('in')) return;
-          allDone = false;
-          if (isVisible(el)) {
+          if (!el.classList.contains('in') && isVisible(el)) {
             el.classList.add('in');
           }
         });
-        return allDone;
       }
 
-      // Tenta usar IntersectionObserver como complemento (não como único mecanismo)
+      // IntersectionObserver (este trecho só executa em desktop agora,
+      // pois o mobile já retornou mais acima)
       if ('IntersectionObserver' in window) {
-        try {
-          // root: null = viewport real, sem ser afetado por overflow dos pais
-          const io = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-              if (e.isIntersecting) {
-                e.target.classList.add('in');
-                io.unobserve(e.target);
-              }
-            });
-          }, { threshold: 0.01, rootMargin: '0px 0px 100px 0px' });
-          els.forEach(el => io.observe(el));
-        } catch(e) {
-          // Se IntersectionObserver falhar, o scroll listener abaixo resolve
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('in');
+              io.unobserve(e.target);
+            }
+          });
+        }, {
+          threshold: 0,
+          rootMargin: '0px 0px 80px 0px'
+        });
+        els.forEach(el => io.observe(el));
+      }
+
+      // Fallback via scroll (desktop)
+      let ticking = false;
+      function onScroll() {
+        if (!ticking) {
+          requestAnimationFrame(() => { checkAll(); ticking = false; });
+          ticking = true;
         }
       }
-
-      // Scroll listener — mecanismo principal no mobile
-      // Usa requestAnimationFrame para não travar o scroll
-      let rafPending = false;
-      function onScroll() {
-        if (rafPending) return;
-        rafPending = true;
-        requestAnimationFrame(() => {
-          revealAll();
-          rafPending = false;
-        });
-      }
-
       window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('touchstart', onScroll, { passive: true });
-      window.addEventListener('touchmove', onScroll, { passive: true });
-      window.addEventListener('touchend', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll, { passive: true });
-      window.addEventListener('orientationchange', function() {
-        setTimeout(revealAll, 200);
-        setTimeout(revealAll, 600);
-      });
 
-      // Execuções escalonadas no carregamento
-      // iOS pode demorar para calcular layouts — múltiplos timeouts cobrem esse caso
-      revealAll();
-      [50, 150, 300, 500, 800, 1200, 2000].forEach(ms => setTimeout(revealAll, ms));
+      checkAll();
+
+      // Re-checa no resize
+      window.addEventListener('resize', onScroll, { passive: true });
     })();
 
     // ===== PAIN NUMBER COUNT =====
@@ -2891,6 +2871,12 @@
     (function () {
       const frame = document.getElementById('panelFrame'), sec = document.getElementById('panel');
       if (!frame || !sec) return;
+      const isTouch = ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+      const wave = document.getElementById('plWave');
+      if (wave) { for (let i = 0; i < 90; i++) { const x = i / 90, env = Math.pow(Math.sin(x * Math.PI), 0.7), n = Math.abs((Math.sin(i * 12.9898) * 43758.5453) % 1); const b = document.createElement('i'); b.style.height = Math.max(6, Math.min(95, (env * 0.7 + n * 0.4) * 100)) + '%'; wave.appendChild(b); } }
+      // No mobile/touch não existe mousemove para acionar o tilt — não faz
+      // sentido manter um loop de requestAnimationFrame rodando pra sempre
+      if (isTouch) return;
       const MAX = 7; let tx = 0, ty = 0, cx = 0, cy = 0, raf;
       function lerp(a, b, f) { return a + (b - a) * f; }
       function anim() {
@@ -2904,8 +2890,6 @@
       });
       sec.addEventListener('mouseleave', () => { tx = 0; ty = 0; });
       anim();
-      const wave = document.getElementById('plWave');
-      if (wave) { for (let i = 0; i < 90; i++) { const x = i / 90, env = Math.pow(Math.sin(x * Math.PI), 0.7), n = Math.abs((Math.sin(i * 12.9898) * 43758.5453) % 1); const b = document.createElement('i'); b.style.height = Math.max(6, Math.min(95, (env * 0.7 + n * 0.4) * 100)) + '%'; wave.appendChild(b); } }
     })();
 
     // ===== HOVER DEMO =====
