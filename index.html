@@ -2086,9 +2086,12 @@
         transition-duration: .001s !important;
       }
 
-      .r {
-        opacity: 1;
-        transform: none;
+      /* Garante que .r nunca fique invisível quando animações estão desativadas */
+      .r,
+      .r.in {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
       }
 
       .plugin-frame {
@@ -2762,23 +2765,57 @@
 
     // ===== REVEAL =====
     (function () {
-      const els = document.querySelectorAll('.r');
-      if (!('IntersectionObserver' in window)) { els.forEach(el => el.classList.add('in')); return; }
-      // threshold menor + rootMargin positivo garante disparo antes do elemento
-      // sair do viewport em telas pequenas
-      const isMobile = window.matchMedia('(max-width: 720px)').matches;
-      const io = new IntersectionObserver((es) => {
-        es.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('in');
-            io.unobserve(e.target); // para de observar após animar
-          }
+      const els = Array.from(document.querySelectorAll('.r'));
+      if (!els.length) return;
+
+      // Se usuário prefere menos movimento, mostra tudo direto
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        els.forEach(el => el.classList.add('in'));
+        return;
+      }
+
+      // Função utilitária: verifica se elemento está visível na tela
+      function isVisible(el) {
+        const r = el.getBoundingClientRect();
+        return r.bottom > 0 && r.top < window.innerHeight + 80;
+      }
+
+      // Ativa os que já estão visíveis (importante pro iOS que não re-dispara)
+      function checkAll() {
+        els.forEach(el => { if (!el.classList.contains('in') && isVisible(el)) el.classList.add('in'); });
+      }
+
+      // IntersectionObserver com threshold 0 para disparar no primeiro pixel visível
+      // rootMargin com 80px positivo embaixo ativa antes do elemento chegar
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('in');
+              io.unobserve(e.target);
+            }
+          });
+        }, {
+          threshold: 0,
+          rootMargin: '0px 0px 80px 0px'
         });
-      }, {
-        threshold: isMobile ? 0.05 : 0.12,
-        rootMargin: isMobile ? '0px 0px 0px 0px' : '0px 0px -5% 0px'
-      });
-      els.forEach(el => io.observe(el));
+        els.forEach(el => io.observe(el));
+      }
+
+      // Fallback via scroll (cobre bugs do iOS Safari com IntersectionObserver)
+      let ticking = false;
+      function onScroll() {
+        if (!ticking) {
+          requestAnimationFrame(() => { checkAll(); ticking = false; });
+          ticking = true;
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      // Checagens iniciais: no load e após 300ms (iOS pode precisar do delay)
+      checkAll();
+      setTimeout(checkAll, 300);
+      setTimeout(checkAll, 800);
     })();
 
     // ===== PAIN NUMBER COUNT =====
