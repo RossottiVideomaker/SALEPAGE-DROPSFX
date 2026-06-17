@@ -411,6 +411,12 @@
       min-height: 100vh;
     }
 
+    #hero .video-container {
+      margin-top: 16px;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 1.1s .65s forwards;
+    }
 
     .hero-logo-glow {
       position: absolute;
@@ -454,7 +460,7 @@
       width: 100%;
       max-width: 1300px;
       margin: 0 auto;
-      padding: 0 40px;
+      padding: 100px 40px 60px;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -474,7 +480,7 @@
       padding: 8px 16px;
       border: 1px solid var(--line-2);
       border-radius: 100px;
-      margin-bottom: 40px;
+      margin-bottom: 14px;
       background: rgba(10, 10, 12, .55);
       backdrop-filter: blur(10px);
       font-family: var(--font-mono);
@@ -509,8 +515,9 @@
     }
 
     .hero-logo {
-      width: min(78vw, 600px);
+      width: min(55vw, 440px);
       height: auto;
+      margin-bottom: 0;
       filter: drop-shadow(0 0 40px rgba(110, 155, 255, .5)) drop-shadow(0 0 90px rgba(59, 110, 245, .3));
       opacity: 0;
       transform: scale(.94);
@@ -532,7 +539,7 @@
       margin-top: 30px;
       max-width: 640px;
       opacity: 0;
-      animation: fadeUp 1s .9s forwards;
+      animation: fadeUp 1s .95s forwards;
     }
 
     .hero-tagline strong {
@@ -547,7 +554,7 @@
       align-items: center;
       gap: 16px;
       opacity: 0;
-      animation: fadeUp 1s 1.15s forwards;
+      animation: fadeUp 1s 1.2s forwards;
     }
 
     .hero-cta {
@@ -2167,33 +2174,14 @@
       target="_blank" rel="noopener">Comprar · 12x R$ 11,36</a>
   </nav>
 
-  <!-- ============ HERO ============ -->
+  <!-- ============ HERO COM VÍDEO MOCKUP ============ -->
   <section class="scene" id="hero">
-
-    <div class="scene-tint"
-      style="background:radial-gradient(ellipse 80% 70% at 50% 45%, transparent 30%, rgba(0,0,0,.75) 100%);z-index:2;"></div>
     <div class="hero-content">
-      <div class="hero-badge"><span class="dot"></span><span class="pr">Pr</span> Para Adobe Premiere Pro</div>
+      <div class="hero-badge"><span class="dot"></span><span class="pr">Pr</span> PARA ADOBE PREMIERE PRO</div>
       <img src="assets/logo.png" alt="dropSFX" class="hero-logo" />
-      <p class="hero-tagline">Mais de 1.400 efeitos sonoros profissionais dentro do Premiere Pro.<br><strong>Dois
-          cliques e o som está na timeline.</strong></p>
-      <div class="hero-cta-row">
-        <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=hero&utm_campaign=dropsfx"
-          class="hero-cta" target="_blank" rel="noopener">Quero o dropSFX <span class="arr">→</span></a>
-        <div class="hero-meta"><span>12x de <b>R$ 11,36</b></span> · <span>Garantia de 7 dias</span></div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ============ VIDEO PROMO ============ -->
-  <section class="scene" id="video-promo">
-    <div class="scene-glow" style="--g1:rgba(59,110,245,.28);--g2:rgba(167,139,250,.14);--gx:50%;--gy:30%;"></div>
-    <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.6),rgba(0,0,0,.8));"></div>
-    <div class="scene-content" style="text-align:center;display:flex;flex-direction:column;align-items:center;">
-      <div class="eyebrow r">Demonstração</div>
-      <h2 class="display r d1"><span class="fill">Veja em ação</span></h2>
-      <p class="lead r d2" style="text-align:center;margin-left:auto;margin-right:auto;">Assista ao vídeo abaixo para ver como o dropSFX transforma o seu fluxo de edição dentro do Premiere Pro.</p>
-      <div class="video-container r d3">
+      <!-- Vídeo no layout imitando janela do Mac -->
+      <div class="video-container">
         <div class="video-header">
           <div class="video-dots">
             <span class="video-dot red"></span>
@@ -2202,12 +2190,18 @@
           </div>
         </div>
         <div class="video-body">
-          <!-- Substitua o src abaixo pelo caminho do seu vídeo (.mp4) ou use um iframe para YouTube -->
           <video autoplay loop muted playsinline poster="assets/logo.png">
-            <source src="assets/video.mp4" type="video/mp4">
+            <source src="assets/Video.mp4" type="video/mp4">
             Seu navegador não suporta o player de vídeo.
           </video>
         </div>
+      </div>
+
+      <p class="hero-tagline">Mais de 1.400 efeitos sonoros profissionais dentro do Premiere Pro.<br><strong>Dois cliques e o som está na timeline.</strong></p>
+      <div class="hero-cta-row">
+        <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=hero&utm_campaign=dropsfx"
+          class="hero-cta" target="_blank" rel="noopener">Quero o dropSFX <span class="arr">→</span></a>
+        <div class="hero-meta"><span>12x de <b>R$ 11,36</b></span> · <span>Garantia de 7 dias</span></div>
       </div>
     </div>
   </section>
