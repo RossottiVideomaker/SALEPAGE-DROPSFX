@@ -2160,6 +2160,75 @@
         transform: none !important;
       }
     }
+
+    /* =================== MOBILE PERFORMANCE =================== */
+    /* Remove operações caras que causam jank no Safari iOS (iPhone) */
+    @media (max-width: 720px) {
+
+      /* 1. Remover backdrop-filter do badge — cria layer de composição custosa */
+      .hero-badge {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: rgba(8, 8, 10, .88);
+      }
+
+      /* 2. O maior causador de jank: filter:blur(110px) em cada seção.
+            No mobile, trocamos por um gradiente simples sem blur */
+      .scene-glow::before,
+      .scene-glow::after {
+        filter: none;
+        opacity: .18;
+      }
+
+      /* 3. Animação contínua de pulse/escala no hero */
+      .hero-logo-glow::after {
+        animation: none;
+        opacity: .5;
+      }
+
+      /* 4. Drop-shadows complexos no logo */
+      .hero-logo {
+        filter: drop-shadow(0 0 18px rgba(110, 155, 255, .45));
+      }
+
+      /* 5. Animações de equalizer rodando em paralelo */
+      .fitem.playing .fitem-bars span {
+        animation: none !important;
+        height: 55% !important;
+      }
+
+      /* 6. Marquee infinito — esconde no mobile; conteúdo fixo vira lista */
+      .marquee {
+        mask-image: none;
+        -webkit-mask-image: none;
+      }
+      .mq-row.a,
+      .mq-row.b {
+        animation: none;
+      }
+
+      /* 7. Cursor virtual das demos (repaints desnecessários no scroll) */
+      .plm-cursor {
+        display: none !important;
+      }
+
+      /* 8. Gain-meter transition simplificada */
+      .gain-meter-fill {
+        transition: width .25s;
+      }
+
+      /* 9. Plugin-frame 3D tilt — já desativado via JS mas garante via CSS */
+      .plugin-frame {
+        transform: none !important;
+        transition: none !important;
+        will-change: auto !important;
+      }
+
+      /* 10. Clip timeline animation */
+      .plm-tl-clip {
+        transition: opacity .25s, transform .3s;
+      }
+    }
   </style>
 </head>
 
@@ -2908,6 +2977,8 @@
 
     // ===== HOVER DEMO =====
     (function () {
+      // Não roda no mobile — setTimeout loop causa repaints contínuos no Safari iOS
+      if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
       const demo = document.getElementById('hoverMock'), cursor = document.getElementById('hoverCursor'); if (!demo || !cursor) return;
       const rows = Array.from(demo.querySelectorAll('.fitem')); let idx = 0;
       function moveTo(i) {
@@ -2915,16 +2986,14 @@
         const dr = demo.getBoundingClientRect(), rr = row.getBoundingClientRect(); cursor.style.opacity = '1'; cursor.style.transform = 'translate(' + (rr.left - dr.left + rr.width * 0.5) + 'px,' + (rr.top - dr.top + 12) + 'px)';
       }
       function tick() { moveTo(idx); idx = (idx + 1) % rows.length; setTimeout(tick, 1500); }
-      // Inicia uma única vez na primeira vez que entra na tela e continua
-      // ciclando pra sempre — nunca mais reseta/some quando sai e volta a
-      // entrar na viewport (isso causava a aparência de "não carregou" ao
-      // rolar de baixo para cima)
       const io = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) { tick(); io.unobserve(demo); } }); }, { threshold: 0.2 });
       io.observe(demo);
     })();
 
     // ===== TWO-CLICK DEMO =====
     (function () {
+      // Não roda no mobile
+      if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
       const mock = document.getElementById('clickMock'), cursor = document.getElementById('clickCursor'), item = document.getElementById('clickItem'), clip = document.getElementById('clickClip');
       if (!mock || !clip) return;
       function seq() {
@@ -2932,21 +3001,21 @@
         cursor.style.opacity = '1'; cursor.style.transform = 'translate(' + (rr.left - dr.left + rr.width * 0.4) + 'px,' + (rr.top - dr.top + 10) + 'px)';
         clip.classList.remove('in');
         item.classList.add('active');
-        // double-click flash
         setTimeout(() => { item.style.background = 'rgba(59,110,245,.28)'; setTimeout(() => { item.style.background = ''; setTimeout(() => { item.style.background = 'rgba(59,110,245,.28)'; setTimeout(() => { item.style.background = ''; clip.classList.add('in'); }, 120); }, 120); }, 120); }, 700);
         setTimeout(seq, 2800);
       }
-      // Mesma lógica: inicia uma vez e nunca mais esconde o conteúdo
       const io = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) { setTimeout(seq, 500); io.unobserve(mock); } }); }, { threshold: 0.2 });
       io.observe(mock);
     })();
 
     // ===== GAIN DEMO =====
     (function () {
+      // No mobile usa intervalo maior para reduzir repaints
+      const isTouch = ('ontouchstart' in window || navigator.maxTouchPoints > 0);
       const pills = [document.getElementById('g-12'), document.getElementById('g-0'), document.getElementById('g-6')], fill = document.getElementById('gainFill');
       if (!pills[0] || !fill) return;
       const widths = ['40%', '70%', '95%']; let i = 0;
-      function tick() { pills.forEach(p => p.classList.remove('on')); pills[i].classList.add('on'); fill.style.width = widths[i]; i = (i + 1) % pills.length; setTimeout(tick, 1500); }
+      function tick() { pills.forEach(p => p.classList.remove('on')); pills[i].classList.add('on'); fill.style.width = widths[i]; i = (i + 1) % pills.length; setTimeout(tick, isTouch ? 2500 : 1500); }
       const io = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) { tick(); io.unobserve(fill); } }); }, { threshold: 0.2 });
       io.observe(fill);
     })();
@@ -2957,8 +3026,10 @@
       const card = c => `<div class="mq-cat"><span class="mq-ic" style="background:${c[2]}"></span><span class="mq-name">${c[0]}</span><span class="mq-n" style="color:${c[2]}">${c[1]}</span></div>`;
       const h1 = cats.slice(0, 11), h2 = cats.slice(11);
       const r1 = document.getElementById('mqRow1'), r2 = document.getElementById('mqRow2');
-      if (r1) r1.innerHTML = (h1.map(card).join('')).repeat(2);
-      if (r2) r2.innerHTML = (h2.map(card).join('') + h1.slice(0, 4).map(card).join('')).repeat(2);
+      const isTouch = ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+      // No mobile não duplica o conteúdo (a animação está desativada via CSS)
+      if (r1) r1.innerHTML = (h1.map(card).join('')).repeat(isTouch ? 1 : 2);
+      if (r2) r2.innerHTML = (h2.map(card).join('') + h1.slice(0, 4).map(card).join('')).repeat(isTouch ? 1 : 2);
     })();
 
 
