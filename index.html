@@ -8,30 +8,33 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
- <!-- Meta Pixel -->
-<script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window,document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
 
-  window.dropsfxEvent = function(name, customData) {
-    if (typeof fbq !== 'function') return;
-    var eid = name + '.' + Date.now() + '.' + Math.random().toString(36).slice(2,10);
-    fbq('track', name, customData || {}, { eventID: eid });
-  };
+    // ---------------------------------------------------------------
+    // dropsfxEvent: wrapper com eventID único para deduplicação
+    // ---------------------------------------------------------------
+    window.dropsfxEvent = function(name, customData) {
+      if (typeof fbq !== 'function') return;
+      var eid = name + '.' + Date.now() + '.' + Math.random().toString(36).slice(2, 10);
+      fbq('track', name, customData || {}, { eventID: eid });
+    };
 
-  fbq('init', '1668719247772250');
-  fbq('track', 'PageView'); // ← essa linha estava faltando
-</script>
-<noscript>
-  <img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1668719247772250&ev=PageView&noscript=1"/>
-</noscript>
+    fbq('init', '1668719247772250');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1668719247772250&ev=PageView&noscript=1"/>
+  </noscript>
 
   <title>dropSFX: Sound Effects no clique, dentro do Adobe Premiere Pro</title>
   <meta name="description"
@@ -202,8 +205,6 @@
       min-height: auto;
       display: flex;
       align-items: center;
-      /* FIX iOS: overflow:hidden cria scroll container e quebra IntersectionObserver.
-         overflow:clip tem o mesmo visual MAS não cria scroll container */
       overflow: hidden;
     }
 
@@ -301,7 +302,6 @@
     .r.d3 { transition-delay: .24s; }
     .r.d4 { transition-delay: .32s; }
 
-    /* Mobile: animação de scroll REMOVIDA */
     @media (max-width: 720px) {
       .r,
       .r.d1,
@@ -941,14 +941,11 @@
 
     .fitem-bars span { width: 2.5px; border-radius: 2px; min-height: 3px; }
 
-    /* ===== EQ BAR ANIMATION — funciona em mobile também ===== */
     @keyframes eqBar {
       0%, 100% { height: 25%; }
       50% { height: 90%; }
     }
 
-    /* Mobile: usa animation-play-state controlado por classe JS em vez de
-       depender de estado de hover, que não existe em touch */
     .fitem.playing .fitem-bars span {
       animation: eqBar .8s ease-in-out infinite;
     }
@@ -1017,7 +1014,6 @@
 
     .plm-tl-clip i { width: 2px; background: rgba(255, 255, 255, .65); border-radius: 1px; }
 
-    /* Cursor: escondido no mobile — não há mouse */
     .plm-cursor {
       position: absolute; width: 26px; height: 26px;
       pointer-events: none; z-index: 10; color: #fff;
@@ -1270,7 +1266,6 @@
 
       .hero-logo { filter: drop-shadow(0 0 18px rgba(110, 155, 255, .45)); }
 
-      /* Marquee continua rodando no mobile — só remove a máscara */
       .marquee { mask-image: none; -webkit-mask-image: none; }
 
       .gain-meter-fill { transition: width .25s; }
@@ -1297,7 +1292,8 @@
   <!-- NAV -->
   <nav class="nav" id="nav">
     <img src="assets/logo.png" alt="dropSFX" />
-    <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=nav&utm_campaign=dropsfx" class="nav-cta"
+    <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=nav&utm_campaign=dropsfx"
+      class="nav-cta js-buy-cta" data-position="nav"
       target="_blank" rel="noopener">Comprar · 12x R$ 11,36</a>
   </nav>
 
@@ -1326,7 +1322,8 @@
       <p class="hero-tagline">Mais de 1.400 efeitos sonoros profissionais dentro do Premiere Pro.<br><strong>Dois cliques e o som está na timeline.</strong></p>
       <div class="hero-cta-row">
         <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=hero&utm_campaign=dropsfx"
-          class="hero-cta" target="_blank" rel="noopener">Quero o dropSFX <span class="arr">→</span></a>
+          class="hero-cta js-buy-cta" data-position="hero"
+          target="_blank" rel="noopener">Quero o dropSFX <span class="arr">→</span></a>
         <div class="hero-meta"><span>12x de <b>R$ 11,36</b></span> · <span>Garantia de 7 dias</span></div>
       </div>
     </div>
@@ -1603,7 +1600,9 @@
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span>Licença pra <strong>até 2 máquinas</strong></span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span><strong>Vitalício</strong> · 100% royalty-free</span></li>
           </ul>
-          <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=pricing&utm_campaign=dropsfx" class="price-cta" target="_blank" rel="noopener">Quero o dropSFX agora <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=pricing&utm_campaign=dropsfx"
+            class="price-cta js-buy-cta" data-position="pricing"
+            target="_blank" rel="noopener">Quero o dropSFX agora <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
           <div class="guarantee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg><span><strong>Garantia de 7 dias.</strong> Não gostou? Devolvemos 100%.</span></div>
         </div>
       </div>
@@ -1672,14 +1671,90 @@
       <div class="sc-price"><span class="cur">12x</span>R$ 11,36</div>
       <span class="sc-label">ou R$ 109,79 à vista</span>
     </div>
-    <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=sticky&utm_campaign=dropsfx" class="sc-btn" target="_blank" rel="noopener">Comprar</a>
+    <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=sticky&utm_campaign=dropsfx"
+      class="sc-btn js-buy-cta" data-position="sticky"
+      target="_blank" rel="noopener">Comprar</a>
   </div>
 
   <script>
   // =====================================================================
-  // UTILITÁRIO: detector de touch (não muda durante a sessão)
+  // UTILITÁRIO: detector de touch
   // =====================================================================
   var IS_TOUCH = ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+
+  // =====================================================================
+  // META PIXEL — helpers de rastreamento
+  // =====================================================================
+  (function () {
+    var PIXEL_DATA = {
+      content_name: 'dropSFX Full',
+      content_category: 'Premiere Pro Plugin',
+      content_ids: ['dropsfx-full'],
+      content_type: 'product',
+      value: 109.79,
+      currency: 'BRL'
+    };
+
+    // ── ViewContent: dispara assim que o pixel confirmar carregamento ──
+    // Usa fbq.callMethod/queue, então funciona mesmo antes do fbevents.js
+    // carregar completamente (o stub já enfileira).
+    // Delay mínimo de 800ms para garantir que o init processou.
+    setTimeout(function () {
+      window.dropsfxEvent('ViewContent', PIXEL_DATA);
+    }, 800);
+
+    // ── InitiateCheckout: todos os botões de compra ──
+    // Usamos delegação de evento no document para pegar qualquer botão,
+    // incluindo o sticky CTA que pode ser inserido depois do DOMContentLoaded.
+    document.addEventListener('click', function (e) {
+      var el = e.target.closest('.js-buy-cta');
+      if (!el) return;
+
+      var position = el.getAttribute('data-position') || 'unknown';
+
+      window.dropsfxEvent('InitiateCheckout', {
+        content_name: PIXEL_DATA.content_name,
+        content_category: PIXEL_DATA.content_category,
+        content_ids: PIXEL_DATA.content_ids,
+        content_type: PIXEL_DATA.content_type,
+        value: PIXEL_DATA.value,
+        currency: PIXEL_DATA.currency,
+        num_items: 1,
+        // custom param para saber de onde o clique veio
+        custom_data: { cta_position: position }
+      });
+    });
+
+    // ── AddToCart: dispara quando o bloco de preço fica visível ──
+    // Representa "usuário viu a oferta completa" — evento de intenção alto.
+    var addToCartFired = false;
+    var pricingSection = document.getElementById('comprar');
+
+    if (pricingSection && 'IntersectionObserver' in window) {
+      var priceObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && !addToCartFired) {
+            addToCartFired = true;
+            window.dropsfxEvent('AddToCart', PIXEL_DATA);
+            priceObserver.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+
+      priceObserver.observe(pricingSection);
+    } else if (pricingSection) {
+      // Fallback scroll para Safari iOS < 12.2
+      function checkPricingVisible() {
+        if (addToCartFired) return;
+        var r = pricingSection.getBoundingClientRect();
+        if (r.top < window.innerHeight * 0.7 && r.bottom > 0) {
+          addToCartFired = true;
+          window.dropsfxEvent('AddToCart', PIXEL_DATA);
+        }
+      }
+      window.addEventListener('scroll', checkPricingVisible, { passive: true });
+    }
+  })();
 
   // =====================================================================
   // NAV + STICKY CTA
@@ -1707,14 +1782,12 @@
   })();
 
   // =====================================================================
-  // REVEAL .r  — desktop usa IntersectionObserver; mobile usa scroll
-  // simples com getBoundingClientRect (compatível com Safari iOS < 15.4)
+  // REVEAL .r
   // =====================================================================
   (function () {
     var els = Array.from(document.querySelectorAll('.r'));
     if (!els.length) return;
 
-    // CSS já força tudo visível no mobile — só adiciona .in rapidamente
     if (window.matchMedia('(max-width: 720px)').matches) {
       els.forEach(function(el) { el.classList.add('in'); });
       return;
@@ -1774,7 +1847,7 @@
       }
     }
 
-    if (IS_TOUCH) return; // sem tilt em touch
+    if (IS_TOUCH) return;
 
     var frame = document.getElementById('panelFrame');
     var sec   = document.getElementById('panel');
@@ -1802,8 +1875,7 @@
   })();
 
   // =====================================================================
-  // HOVER DEMO — funciona em touch E desktop
-  // Em touch: cicla automaticamente; em desktop: também cicla + mostra cursor
+  // HOVER DEMO
   // =====================================================================
   (function () {
     var demo   = document.getElementById('hoverMock');
@@ -1817,11 +1889,9 @@
 
     function clearRow(row) {
       row.classList.remove('active', 'playing', 'previewing');
-      // reset da barra de progresso reiniciando a animação
       var fill = row.querySelector('.fitem-prog-fill');
       if (fill) {
         fill.style.animation = 'none';
-        // força reflow para reiniciar a animação
         void fill.offsetWidth;
         fill.style.animation = '';
       }
@@ -1832,7 +1902,6 @@
       var row = rows[i];
       row.classList.add('active', 'playing', 'previewing');
 
-      // Move cursor visual (só aparece no desktop via CSS)
       if (cursor) {
         var dr = demo.getBoundingClientRect();
         var rr = row.getBoundingClientRect();
@@ -1849,28 +1918,23 @@
       timer = setTimeout(tick, INTERVAL);
     }
 
-    // ---- Disparo: usa scroll em vez de IntersectionObserver no iOS ----
     var started = false;
 
     function tryStart() {
       if (started) return;
       var r = demo.getBoundingClientRect();
-      // Visível se topo está acima de 80% da viewport
       if (r.top < window.innerHeight * 0.85 && r.bottom > 0) {
         started = true;
         tick();
       }
     }
 
-    // Tenta imediatamente (pode já estar visível)
     tryStart();
-
-    // E a cada scroll
     window.addEventListener('scroll', tryStart, { passive: true });
   })();
 
   // =====================================================================
-  // TWO-CLICK DEMO — funciona em touch E desktop
+  // TWO-CLICK DEMO
   // =====================================================================
   (function () {
     var mock   = document.getElementById('clickMock');
@@ -1882,7 +1946,6 @@
     var started = false;
 
     function seq() {
-      // Move cursor (só visível no desktop via CSS)
       if (cursor) {
         var dr = mock.getBoundingClientRect();
         var rr = item.getBoundingClientRect();
@@ -1895,7 +1958,6 @@
       clip.classList.remove('in');
       item.classList.add('active');
 
-      // Simula duplo-clique: dois flashes de destaque → clip aparece
       setTimeout(function() {
         item.style.background = 'rgba(59,110,245,.28)';
         setTimeout(function() {
@@ -1927,7 +1989,7 @@
   })();
 
   // =====================================================================
-  // GAIN DEMO — funciona em touch E desktop
+  // GAIN DEMO
   // =====================================================================
   (function () {
     var pills  = [document.getElementById('g-12'), document.getElementById('g-0'), document.getElementById('g-6')];
@@ -1984,25 +2046,10 @@
     var r1 = document.getElementById('mqRow1');
     var r2 = document.getElementById('mqRow2');
 
-    // Duplica o conteúdo para o loop infinito funcionar (em qualquer dispositivo)
     if (r1) r1.innerHTML = h1.map(card).join('') + h1.map(card).join('');
     if (r2) r2.innerHTML = (h2.map(card).join('') + h1.slice(0,4).map(card).join('')) +
                            (h2.map(card).join('') + h1.slice(0,4).map(card).join(''));
   })();
-
-  // =====================================================================
-  // META PIXEL ViewContent
-  // =====================================================================
-  setTimeout(function() {
-    if (typeof window.dropsfxEvent === 'function') {
-      window.dropsfxEvent('ViewContent', {
-        content_name: 'dropSFX Full',
-        content_category: 'Premiere Pro Plugin',
-        value: 109.79,
-        currency: 'BRL'
-      });
-    }
-  }, 5000);
   </script>
 
 </body>
