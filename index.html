@@ -8,26 +8,30 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-  <!-- Meta Pixel -->
-  <script>
-    !function (f, b, e, v, n, t, s) {
-      if (f.fbq) return; n = f.fbq = function () {
-        n.callMethod ?
-          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-      };
-      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
-      n.queue = []; t = b.createElement(e); t.async = !0;
-      t.src = v; s = b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t, s)
-    }(window, document, 'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-    window.dropsfxEvent = function (name, customData) {
-      if (typeof fbq !== 'function') return;
-      var eid = name + '.' + Date.now() + '.' + Math.random().toString(36).slice(2, 10);
-      fbq('track', name, customData || {}, { eventID: eid });
-    };
-    fbq('init', '1668719247772250');
-  </script>
+ <!-- Meta Pixel -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window,document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+
+  window.dropsfxEvent = function(name, customData) {
+    if (typeof fbq !== 'function') return;
+    var eid = name + '.' + Date.now() + '.' + Math.random().toString(36).slice(2,10);
+    fbq('track', name, customData || {}, { eventID: eid });
+  };
+
+  fbq('init', '1668719247772250');
+  fbq('track', 'PageView'); // ← essa linha estava faltando
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1668719247772250&ev=PageView&noscript=1"/>
+</noscript>
 
   <title>dropSFX: Sound Effects no clique, dentro do Adobe Premiere Pro</title>
   <meta name="description"
