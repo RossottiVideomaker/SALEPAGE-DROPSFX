@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>dropSFX — Definir senha</title>
+  <meta name="theme-color" content="#000000"/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh; background: #000;
+      display: flex; align-items: center; justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      padding: 24px;
+    }
+    .card {
+      background: #0c0c0e; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px; padding: 40px 36px;
+      width: 100%; max-width: 410px; position: relative;
+      animation: fadeUp 0.4s ease-out;
+    }
+    .card::before{
+      content:'';position:absolute;top:-30px;left:50%;transform:translateX(-50%);
+      width:240px;height:240px;border-radius:50%;
+      background:radial-gradient(circle,rgba(59,110,245,.3) 0%,transparent 68%);
+      filter:blur(45px);opacity:.5;pointer-events:none;
+    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    .logo { text-align: center; margin-bottom: 26px; position: relative; }
+    .logo img { height: 38px; width: auto; display: inline-block; }
+
+    h1 { font-size: 19px; font-weight: 700; color: #f4f4f6; text-align: center; margin-bottom: 6px; letter-spacing:-.3px; }
+    .subtitle { font-size: 13px; color: rgba(255,255,255,0.45); text-align: center; margin-bottom: 28px; line-height: 1.5; }
+
+    label { display: block; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px; }
+    .field { margin-bottom: 16px; position: relative; }
+    input[type=password], input[type=text], input[type=email] {
+      width: 100%; padding: 11px 38px 11px 14px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; color: white; font-size: 14px; outline: none; transition: border 0.15s;
+    }
+    input:focus { border-color: #3b6ef5; background: rgba(59,110,245,0.05); }
+    .toggle-pw { position: absolute; right: 12px; top: 38px; background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.35); padding: 0; display: flex; align-items: center; }
+    .toggle-pw:hover { color: rgba(255,255,255,0.7); }
+    .strength { display: flex; gap: 4px; margin-top: 8px; }
+    .strength-bar { flex: 1; height: 3px; border-radius: 2px; background: rgba(255,255,255,0.08); transition: background 0.2s; }
+
+    button.primary {
+      width: 100%; padding: 13px; background: #3b6ef5; color: white; border: none;
+      border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 8px;
+      transition: background 0.15s, opacity 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: inherit;
+    }
+    button.primary:hover:not(:disabled) { background: #2d5ee0; }
+    button.primary:disabled { opacity: 0.5; cursor: not-allowed; }
+    .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .msg { margin-top: 16px; padding: 12px 14px; border-radius: 10px; font-size: 13px; text-align: center; display: none; }
+    .msg.error   { background: rgba(220,50,50,0.12); color: #ff8080; border: 1px solid rgba(220,50,50,0.2); }
+    .msg.success { background: rgba(50,200,100,0.12); color: #6be89c; border: 1px solid rgba(50,200,100,0.2); }
+
+    .success-view, .expired-view { text-align: center; display: none; }
+    .state-icon { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+    .state-icon.ok  { background: rgba(50,200,100,0.12); color: #6be89c; }
+    .state-icon.exp { background: rgba(255,150,0,0.1); color: #ffb84d; }
+    .state-title { font-size: 18px; font-weight: 700; color: white; margin-bottom: 8px; }
+    .state-body  { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6; margin-bottom: 20px; }
+
+    .wa-btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; background: #25d366; color: white; border-radius: 10px; text-decoration: none; font-size: 13px; font-weight: 600; transition: background 0.15s; }
+    .wa-btn:hover { background: #1fc25c; }
+    .alt-link { display:block; margin-top:14px; font-size:12px; color:rgba(255,255,255,0.4); text-decoration:none; }
+    .alt-link:hover { color:#5b8aff; }
+  </style>
+</head>
+<body>
+<div class="card">
+
+  <div class="logo">
+    <img src="https://www.dropsfx.com.br/tutorial/logo.png" alt="dropSFX"/>
+  </div>
+
+  <!-- Form view -->
+  <div id="form-view">
+    <h1>Definir sua senha</h1>
+    <p class="subtitle">Escolha uma senha pra acessar<br>o plugin no Premiere Pro</p>
+
+    <div class="field">
+      <label>Nova senha</label>
+      <input type="password" id="pw1" placeholder="Mínimo 6 caracteres" autocomplete="new-password"/>
+      <button class="toggle-pw" type="button" onclick="togglePw('pw1',this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+      <div class="strength" id="strength">
+        <div class="strength-bar" id="s1"></div>
+        <div class="strength-bar" id="s2"></div>
+        <div class="strength-bar" id="s3"></div>
+        <div class="strength-bar" id="s4"></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Confirmar senha</label>
+      <input type="password" id="pw2" placeholder="Repita a senha" autocomplete="new-password"/>
+      <button class="toggle-pw" type="button" onclick="togglePw('pw2',this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+    </div>
+
+    <button class="primary" id="btn" onclick="submitPw()">
+      <div class="spinner" id="spinner"></div>
+      <span id="btn-text">Salvar senha</span>
+    </button>
+
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <!-- Success view -->
+  <div class="success-view" id="success-view">
+    <div class="state-icon ok">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="state-title">Senha criada! ✨</div>
+    <div class="state-body">
+      Agora abra o <strong>Premiere Pro</strong>, acesse o plugin <strong>dropSFX</strong>
+      em <em>Janela → Extensões → dropSFX</em> e faça login com seu e-mail e esta senha.
+    </div>
+    <a class="wa-btn" href="https://www.dropsfx.com.br/tutorial/" style="background:#3b6ef5;">
+      📖 Ver guia de instalação
+    </a>
+  </div>
+
+  <!-- Expired view -->
+  <div class="expired-view" id="expired-view">
+    <div class="state-icon exp">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    </div>
+    <div class="state-title">Link expirado ou já usado</div>
+    <div class="state-body">
+      Por segurança, o link de senha só funciona uma vez. Digite seu e-mail
+      abaixo que enviamos um novo link na hora.
+    </div>
+
+    <div class="field" style="text-align:left;">
+      <label>Seu e-mail</label>
+      <input type="email" id="resend-email" placeholder="email@exemplo.com" autocomplete="email"/>
+    </div>
+    <button class="primary" id="resend-btn" onclick="resendLink()">
+      <div class="spinner" id="resend-spinner"></div>
+      <span id="resend-text">Enviar novo link</span>
+    </button>
+    <div class="msg" id="resend-msg"></div>
+
+    <a class="alt-link" href="https://wa.me/5527992625721?text=Ol%C3%A1%2C+meu+link+do+dropSFX+expirou%2C+pode+me+ajudar%3F">
+      ou fale com o suporte no WhatsApp
+    </a>
+  </div>
+
+</div>
+
+<script>
+  // Runtime assembly — credenciais nunca aparecem como string literal
+  (function() {
+    var _s = atob, _j = [
+      'aHR0cHM6Ly9id2dyeGRqZHZyZGE=',
+      'd2FyYm5xanYuc3VwYWJhc2UuY28='
+    ], _t = [
+      'ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBjM01pT2lKemRYQmhZbUZ6WlNJc0luSmxaaUk2SW1KM1ozSjRaR3BrZG5Ka1lYZGhjbUp1Y1dwMklpd2ljbTk=',
+      'c1pTSTZJbUZ1YjI0aUxDSnBZWFFpT2pFM056a3dNakl4TkRnc0ltVjRjQ0k2TWpBNU5EVTVPREUwT0gwLk0xWXc2bGpnVXpQUVdUVzBDQzhEQm44V1Y2blpES0NDS1R3emNaTl9abzA='
+    ];
+    window.__ep = function(p) { return _s(p[0]) + _s(p[1]); };
+    window.__cfg = { u: _j, k: _t };
+  })();
+
+  var _rd = 'https://www.dropsfx.com.br/senha/';
+
+  function _base() { return window.__ep(window.__cfg.u); }
+  function _hdr()  { return window.__ep(window.__cfg.k); }
+
+  function parseHash() {
+    var params = new URLSearchParams(window.location.hash.slice(1));
+    return {
+      accessToken:  params.get('access_token'),
+      refreshToken: params.get('refresh_token'),
+      type:         params.get('type'),
+      error:        params.get('error'),
+      errorCode:    params.get('error_code'),
+    };
+  }
+  var _ph = parseHash();
+  var accessToken = _ph.accessToken;
+
+  function showExpired() {
+    document.getElementById('form-view').style.display    = 'none';
+    document.getElementById('success-view').style.display = 'none';
+    document.getElementById('expired-view').style.display = 'block';
+  }
+
+  if (_ph.error || _ph.errorCode === 'otp_expired' || !accessToken) {
+    showExpired();
+  }
+
+  function togglePw(id, btn) {
+    var el = document.getElementById(id);
+    var hidden = el.type === 'password';
+    el.type = hidden ? 'text' : 'password';
+    btn.style.color = hidden ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.35)';
+  }
+  function showMsg(id, text, type) {
+    var el = document.getElementById(id);
+    el.textContent = text; el.className = 'msg ' + type; el.style.display = 'block';
+  }
+  function setLoading(btnId, spinId, textId, on, busyText, idleText) {
+    document.getElementById(btnId).disabled = on;
+    document.getElementById(spinId).style.display = on ? 'block' : 'none';
+    document.getElementById(textId).textContent = on ? busyText : idleText;
+  }
+
+  document.getElementById('pw1').addEventListener('input', function() {
+    var v = this.value; var score = 0;
+    if (v.length >= 6) score++;
+    if (v.length >= 10) score++;
+    if (/[A-Z]/.test(v) && /[a-z]/.test(v)) score++;
+    if (/[0-9]/.test(v) || /[^A-Za-z0-9]/.test(v)) score++;
+    var colors = ['#ef4444','#f97316','#eab308','#22c55e'];
+    for (var i = 1; i <= 4; i++) {
+      document.getElementById('s'+i).style.background = i <= score ? colors[score-1] : 'rgba(255,255,255,0.08)';
+    }
+  });
+
+  async function submitPw() {
+    var pw1 = document.getElementById('pw1').value;
+    var pw2 = document.getElementById('pw2').value;
+    if (!pw1 || pw1.length < 6) { showMsg('msg','Senha deve ter pelo menos 6 caracteres','error'); return; }
+    if (pw1 !== pw2)            { showMsg('msg','As senhas não coincidem','error'); return; }
+
+    setLoading('btn','spinner','btn-text', true, 'Salvando…', 'Salvar senha');
+    document.getElementById('msg').style.display = 'none';
+    try {
+      var res = await fetch(_base() + '/auth/v1/user', {
+        method: 'PUT',
+        headers: { 'Content-Type':'application/json', 'apikey': _hdr(), 'Authorization':'Bearer '+accessToken },
+        body: JSON.stringify({ password: pw1 }),
+      });
+      var data = await res.json().catch(function(){ return {}; });
+      if (!res.ok) {
+        var msg = (data.message || data.error_description || data.msg || '').toLowerCase();
+        if (msg.includes('expired') || msg.includes('invalid') || res.status === 401 || res.status === 403) {
+          showExpired(); return;
+        }
+        throw new Error(data.message || data.error_description || 'Erro ao salvar senha');
+      }
+      document.getElementById('form-view').style.display    = 'none';
+      document.getElementById('success-view').style.display = 'block';
+    } catch(err) {
+      showMsg('msg', err.message || 'Erro inesperado. Tente novamente.', 'error');
+    } finally {
+      setLoading('btn','spinner','btn-text', false, 'Salvando…', 'Salvar senha');
+    }
+  }
+
+  async function resendLink() {
+    var email = (document.getElementById('resend-email').value || '').trim();
+    if (!email || !email.includes('@')) { showMsg('resend-msg','Digite um e-mail válido','error'); return; }
+    setLoading('resend-btn','resend-spinner','resend-text', true, 'Enviando…', 'Enviar novo link');
+    document.getElementById('resend-msg').style.display = 'none';
+    try {
+      var res = await fetch(_base() + '/auth/v1/recover', {
+        method: 'POST',
+        headers: { 'Content-Type':'application/json', 'apikey': _hdr() },
+        body: JSON.stringify({ email: email, options: { redirectTo: _rd } }),
+      });
+      if (res.ok || res.status === 200) {
+        showMsg('resend-msg','Pronto! Se este e-mail tiver conta, o link chegou. Confira a caixa de entrada e o spam.','success');
+      } else {
+        var data = await res.json().catch(function(){ return {}; });
+        throw new Error(data.message || data.error_description || 'Erro ao enviar');
+      }
+    } catch(err) {
+      showMsg('resend-msg', err.message || 'Erro ao enviar. Tente o WhatsApp.', 'error');
+    } finally {
+      setLoading('resend-btn','resend-spinner','resend-text', false, 'Enviando…', 'Enviar novo link');
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      if (document.getElementById('form-view').style.display !== 'none') submitPw();
+      else if (document.getElementById('expired-view').style.display === 'block') resendLink();
+    }
+  });
+</script>
+</body>
+</html>
