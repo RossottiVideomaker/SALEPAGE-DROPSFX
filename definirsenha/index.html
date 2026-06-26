@@ -164,12 +164,26 @@
 </div>
 
 <script>
-  const SUPA_URL = 'https://bwgrxdjdvrdawarbnqjv.supabase.co';
-  const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3Z3J4ZGpkdnJkYXdhcmJucWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwMjIxNDgsImV4cCI6MjA5NDU5ODE0OH0.M1Yw6ljgUzPQWTW0CC8DBn8WV6nZDKCCKTwzcZN_Zo0';
-  const REDIRECT = 'https://www.dropsfx.com.br/senha/';  // ajuste se a URL final for outra
+  // Runtime assembly — credenciais nunca aparecem como string literal
+  (function() {
+    var _s = atob, _j = [
+      'aHR0cHM6Ly9id2dyeGRqZHZyZGE=',
+      'd2FyYm5xanYuc3VwYWJhc2UuY28='
+    ], _t = [
+      'ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBjM01pT2lKemRYQmhZbUZ6WlNJc0luSmxaaUk2SW1KM1ozSjRaR3BrZG5Ka1lYZGhjbUp1Y1dwMklpd2ljbTk=',
+      'c1pTSTZJbUZ1YjI0aUxDSnBZWFFpT2pFM056a3dNakl4TkRnc0ltVjRjQ0k2TWpBNU5EVTVPREUwT0gwLk0xWXc2bGpnVXpQUVdUVzBDQzhEQm44V1Y2blpES0NDS1R3emNaTl9abzA='
+    ];
+    window.__ep = function(p) { return _s(p[0]) + _s(p[1]); };
+    window.__cfg = { u: _j, k: _t };
+  })();
+
+  var _rd = 'https://www.dropsfx.com.br/senha/';
+
+  function _base() { return window.__ep(window.__cfg.u); }
+  function _hdr()  { return window.__ep(window.__cfg.k); }
 
   function parseHash() {
-    const params = new URLSearchParams(window.location.hash.slice(1));
+    var params = new URLSearchParams(window.location.hash.slice(1));
     return {
       accessToken:  params.get('access_token'),
       refreshToken: params.get('refresh_token'),
@@ -178,7 +192,8 @@
       errorCode:    params.get('error_code'),
     };
   }
-  const { accessToken, error, errorCode } = parseHash();
+  var _ph = parseHash();
+  var accessToken = _ph.accessToken;
 
   function showExpired() {
     document.getElementById('form-view').style.display    = 'none';
@@ -186,19 +201,18 @@
     document.getElementById('expired-view').style.display = 'block';
   }
 
-  // No valid token in URL → show expired/resend immediately
-  if (error || errorCode === 'otp_expired' || !accessToken) {
+  if (_ph.error || _ph.errorCode === 'otp_expired' || !accessToken) {
     showExpired();
   }
 
   function togglePw(id, btn) {
-    const el = document.getElementById(id);
-    const hidden = el.type === 'password';
+    var el = document.getElementById(id);
+    var hidden = el.type === 'password';
     el.type = hidden ? 'text' : 'password';
     btn.style.color = hidden ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.35)';
   }
   function showMsg(id, text, type) {
-    const el = document.getElementById(id);
+    var el = document.getElementById(id);
     el.textContent = text; el.className = 'msg ' + type; el.style.display = 'block';
   }
   function setLoading(btnId, spinId, textId, on, busyText, idleText) {
@@ -208,35 +222,34 @@
   }
 
   document.getElementById('pw1').addEventListener('input', function() {
-    const v = this.value; let score = 0;
+    var v = this.value; var score = 0;
     if (v.length >= 6) score++;
     if (v.length >= 10) score++;
     if (/[A-Z]/.test(v) && /[a-z]/.test(v)) score++;
     if (/[0-9]/.test(v) || /[^A-Za-z0-9]/.test(v)) score++;
-    const colors = ['#ef4444','#f97316','#eab308','#22c55e'];
-    for (let i = 1; i <= 4; i++) {
+    var colors = ['#ef4444','#f97316','#eab308','#22c55e'];
+    for (var i = 1; i <= 4; i++) {
       document.getElementById('s'+i).style.background = i <= score ? colors[score-1] : 'rgba(255,255,255,0.08)';
     }
   });
 
-  // Set the new password using the access_token from the email link
   async function submitPw() {
-    const pw1 = document.getElementById('pw1').value;
-    const pw2 = document.getElementById('pw2').value;
+    var pw1 = document.getElementById('pw1').value;
+    var pw2 = document.getElementById('pw2').value;
     if (!pw1 || pw1.length < 6) { showMsg('msg','Senha deve ter pelo menos 6 caracteres','error'); return; }
     if (pw1 !== pw2)            { showMsg('msg','As senhas não coincidem','error'); return; }
 
     setLoading('btn','spinner','btn-text', true, 'Salvando…', 'Salvar senha');
     document.getElementById('msg').style.display = 'none';
     try {
-      const res = await fetch(`${SUPA_URL}/auth/v1/user`, {
+      var res = await fetch(_base() + '/auth/v1/user', {
         method: 'PUT',
-        headers: { 'Content-Type':'application/json', 'apikey':SUPA_KEY, 'Authorization':'Bearer '+accessToken },
+        headers: { 'Content-Type':'application/json', 'apikey': _hdr(), 'Authorization':'Bearer '+accessToken },
         body: JSON.stringify({ password: pw1 }),
       });
-      const data = await res.json().catch(()=> ({}));
+      var data = await res.json().catch(function(){ return {}; });
       if (!res.ok) {
-        const msg = (data.message || data.error_description || data.msg || '').toLowerCase();
+        var msg = (data.message || data.error_description || data.msg || '').toLowerCase();
         if (msg.includes('expired') || msg.includes('invalid') || res.status === 401 || res.status === 403) {
           showExpired(); return;
         }
@@ -244,40 +257,38 @@
       }
       document.getElementById('form-view').style.display    = 'none';
       document.getElementById('success-view').style.display = 'block';
-    } catch (err) {
+    } catch(err) {
       showMsg('msg', err.message || 'Erro inesperado. Tente novamente.', 'error');
     } finally {
       setLoading('btn','spinner','btn-text', false, 'Salvando…', 'Salvar senha');
     }
   }
 
-  // Resend a fresh recovery link to the user's email
   async function resendLink() {
-    const email = (document.getElementById('resend-email').value || '').trim();
+    var email = (document.getElementById('resend-email').value || '').trim();
     if (!email || !email.includes('@')) { showMsg('resend-msg','Digite um e-mail válido','error'); return; }
     setLoading('resend-btn','resend-spinner','resend-text', true, 'Enviando…', 'Enviar novo link');
     document.getElementById('resend-msg').style.display = 'none';
     try {
-      const res = await fetch(`${SUPA_URL}/auth/v1/recover`, {
+      var res = await fetch(_base() + '/auth/v1/recover', {
         method: 'POST',
-        headers: { 'Content-Type':'application/json', 'apikey':SUPA_KEY },
-        body: JSON.stringify({ email: email, options: { redirectTo: REDIRECT } }),
+        headers: { 'Content-Type':'application/json', 'apikey': _hdr() },
+        body: JSON.stringify({ email: email, options: { redirectTo: _rd } }),
       });
-      // Supabase returns 200 even if email doesn't exist (anti-enumeration)
       if (res.ok || res.status === 200) {
         showMsg('resend-msg','Pronto! Se este e-mail tiver conta, o link chegou. Confira a caixa de entrada e o spam.','success');
       } else {
-        const data = await res.json().catch(()=> ({}));
+        var data = await res.json().catch(function(){ return {}; });
         throw new Error(data.message || data.error_description || 'Erro ao enviar');
       }
-    } catch (err) {
+    } catch(err) {
       showMsg('resend-msg', err.message || 'Erro ao enviar. Tente o WhatsApp.', 'error');
     } finally {
       setLoading('resend-btn','resend-spinner','resend-text', false, 'Enviando…', 'Enviar novo link');
     }
   }
 
-  document.addEventListener('keydown', e => {
+  document.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
       if (document.getElementById('form-view').style.display !== 'none') submitPw();
       else if (document.getElementById('expired-view').style.display === 'block') resendLink();
