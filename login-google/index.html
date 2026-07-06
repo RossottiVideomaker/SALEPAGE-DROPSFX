@@ -156,6 +156,9 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    if (window.__dropsfxLoginInit) { console.warn('login-google já inicializado'); }
+    else {
+    window.__dropsfxLoginInit = true;
     // ============================================================
     // CONFIG
     // ============================================================
@@ -165,7 +168,7 @@
     const THIS_PAGE         = 'https://www.dropsfx.com.br/login-google/';
     // ============================================================
 
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    const _sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       auth: { flowType: 'implicit', detectSessionInUrl: true, persistSession: true }
     });
 
@@ -206,7 +209,7 @@
 
     // Kick off Google OAuth
     async function startGoogleLogin() {
-      const { error } = await supabase.auth.signInWithOAuth({
+      const { error } = await _sbClient.auth.signInWithOAuth({
         provider: 'google',
         options: { redirectTo: THIS_PAGE }
       });
@@ -232,17 +235,18 @@
                     || new URLSearchParams(window.location.search).get('error_description');
       if (errParam) { showError(decodeURIComponent(errParam)); return; }
 
-      const { data } = await supabase.auth.getSession();
+      const { data } = await _sbClient.auth.getSession();
       if (data && data.session) {
         await proceedWithSession(data.session);
       } else {
         // No session yet — also listen in case it resolves a beat later
         show('s-login');
-        supabase.auth.onAuthStateChange((event, session) => {
+        _sbClient.auth.onAuthStateChange((event, session) => {
           if (session && event === 'SIGNED_IN') proceedWithSession(session);
         });
       }
     })();
+    } // end init guard
   </script>
 </body>
 </html>
