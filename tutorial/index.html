@@ -31,9 +31,6 @@
   .wrap{max-width:780px;margin:0 auto;padding:0 22px}
   ::selection{background:rgba(59,110,245,.3);color:#fff}
 
-  /* ═══════════════════════════════════════
-     CINEMATIC INTRO OVERLAY
-     ═══════════════════════════════════════ */
   #intro{
     position:fixed;inset:0;z-index:9999;background:#000;
     display:flex;align-items:center;justify-content:center;
@@ -66,9 +63,6 @@
     color:var(--txt3);opacity:0;animation:introFade .6s ease 1.6s forwards;
   }
 
-  /* ═══════════════════════════════════════
-     AMBIENT BACKGROUND
-     ═══════════════════════════════════════ */
   .ambient{position:fixed;inset:0;z-index:-2;overflow:hidden;background:#000}
   .ambient-glow{
     position:absolute;border-radius:50%;filter:blur(80px);opacity:.5;
@@ -87,13 +81,11 @@
     33%{transform:translate(40px,-30px) scale(1.1)}
     66%{transform:translate(-30px,40px) scale(.95)}
   }
-  /* Star field */
   #stars{position:fixed;inset:0;z-index:-1;pointer-events:none}
   .star{position:absolute;background:#fff;border-radius:50%;opacity:0;
     animation:twinkle var(--dur,4s) infinite ease-in-out var(--delay,0s);}
   @keyframes twinkle{0%,100%{opacity:0}50%{opacity:var(--max,.5)}}
 
-  /* Grid overlay */
   .grid-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.4;
     background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),
       linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
@@ -101,9 +93,6 @@
     mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 80%);
     -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 80%);}
 
-  /* ═══════════════════════════════════════
-     REVEAL ON SCROLL
-     ═══════════════════════════════════════ */
   .reveal{opacity:0;transform:translateY(30px);
     transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);}
   .reveal.in{opacity:1;transform:translateY(0)}
@@ -112,9 +101,6 @@
   .reveal.d3{transition-delay:.24s}
   .reveal.d4{transition-delay:.32s}
 
-  /* ═══════════════════════════════════════
-     NAV
-     ═══════════════════════════════════════ */
   nav{position:sticky;top:0;z-index:50;
     background:rgba(0,0,0,.6);backdrop-filter:blur(20px) saturate(180%);
     -webkit-backdrop-filter:blur(20px) saturate(180%);
@@ -128,9 +114,6 @@
     border:1px solid rgba(37,211,102,.3);border-radius:999px;transition:.2s;}
   .nav-cta:hover{background:rgba(37,211,102,.12);transform:translateY(-1px)}
 
-  /* ═══════════════════════════════════════
-     HERO
-     ═══════════════════════════════════════ */
   header{padding:80px 0 50px;text-align:center;position:relative}
   .hero-logo{height:60px;width:auto;margin:0 auto 28px;display:block;position:relative;
     filter:drop-shadow(0 0 40px rgba(214,236,242,.45)) drop-shadow(0 0 80px rgba(59,110,245,.25))}
@@ -150,9 +133,6 @@
   header p{color:var(--txt2);font-size:17px;margin-top:18px;position:relative;
     max-width:480px;margin-left:auto;margin-right:auto}
 
-  /* ═══════════════════════════════════════
-     PROGRESS TRACKER (sticky)
-     ═══════════════════════════════════════ */
   .progress-track{position:sticky;top:56px;z-index:40;padding:14px 0;
     background:rgba(0,0,0,.7);backdrop-filter:blur(16px);
     -webkit-backdrop-filter:blur(16px);
@@ -183,9 +163,6 @@
   .pstep.done .pstep-label{color:var(--txt2)}
   @media(max-width:600px){.pstep-label{display:none}.pstep-line{min-width:20px}}
 
-  /* ═══════════════════════════════════════
-     SECTIONS
-     ═══════════════════════════════════════ */
   section{padding:44px 0;position:relative}
   .sec-head{display:flex;align-items:center;gap:13px;margin-bottom:10px}
   .sec-badge{width:34px;height:34px;border-radius:10px;flex-shrink:0;
@@ -198,9 +175,6 @@
     line-height:1.12;margin-bottom:10px}
   .sec-sub{color:var(--txt2);font-size:15px;margin-bottom:28px;max-width:520px}
 
-  /* ═══════════════════════════════════════
-     DOWNLOAD HERO CARD
-     ═══════════════════════════════════════ */
   .dl-card{position:relative;border-radius:22px;padding:2px;margin-bottom:30px;
     background:linear-gradient(135deg,rgba(59,110,245,.5),rgba(214,236,242,.2),rgba(59,110,245,.3));
     overflow:hidden;}
@@ -244,9 +218,6 @@
     .dl-meta{justify-content:center}
   }
 
-  /* ═══════════════════════════════════════
-     OS TABS
-     ═══════════════════════════════════════ */
   .tabs{display:flex;gap:6px;background:var(--surface);border:1px solid var(--line);
     border-radius:14px;padding:5px;margin-bottom:26px;position:relative}
   .tab{flex:1;text-align:center;padding:12px;border-radius:9px;font-size:14px;font-weight:600;
@@ -264,9 +235,6 @@
   .panel.active{display:block}
   @keyframes panelFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
-  /* ═══════════════════════════════════════
-     STEPS
-     ═══════════════════════════════════════ */
   .step{display:flex;gap:18px;padding:22px;border-radius:16px;margin-bottom:12px;
     background:var(--surface);border:1px solid var(--line);transition:.3s;position:relative;
     cursor:default}
@@ -310,9 +278,6 @@
     display:flex;gap:10px;align-items:flex-start}
   .note svg{flex-shrink:0;width:16px;height:16px;margin-top:1px}
 
-  /* ═══════════════════════════════════════
-     USAGE CARDS
-     ═══════════════════════════════════════ */
   .cards{display:grid;gap:14px}
   .ucard{background:var(--surface);border:1px solid var(--line);border-radius:16px;
     padding:22px;transition:.3s;position:relative;overflow:hidden}
@@ -332,9 +297,6 @@
   .ucard p{color:var(--txt2);font-size:13.5px}
   .ucard b{color:var(--txt)}
 
-  /* ═══════════════════════════════════════
-     TRIAL CALLOUT
-     ═══════════════════════════════════════ */
   .trial{background:linear-gradient(135deg,rgba(255,184,77,.12),rgba(255,184,77,.03));
     border:1px solid rgba(255,184,77,.25);border-radius:16px;padding:22px;
     display:flex;gap:16px;align-items:flex-start;margin-top:16px;position:relative;overflow:hidden}
@@ -344,9 +306,6 @@
   .trial strong{color:#ffc46b;font-size:16px;font-family:var(--display);font-weight:700}
   .trial p{color:rgba(255,196,107,.8);font-size:13.5px;margin-top:4px}
 
-  /* ═══════════════════════════════════════
-     FAQ
-     ═══════════════════════════════════════ */
   .faq-item{border:1px solid var(--line);border-radius:14px;margin-bottom:10px;
     overflow:hidden;transition:.3s;background:var(--surface)}
   .faq-item:hover{border-color:var(--line2)}
@@ -370,9 +329,6 @@
   .faq-a p{padding:0 20px 20px}
   .faq-a b{color:var(--txt)}
 
-  /* ═══════════════════════════════════════
-     SUPPORT
-     ═══════════════════════════════════════ */
   .support{text-align:center;padding:50px 28px;margin:36px 0;
     background:linear-gradient(135deg,var(--surface),var(--surface2));
     border:1px solid var(--line);border-radius:24px;position:relative;overflow:hidden}
@@ -393,9 +349,6 @@
     border-top:1px solid var(--line)}
   footer .logo-img{height:20px;margin:0 auto 12px;opacity:.6}
 
-  /* ═══════════════════════════════════════
-     COMPLETION OVERLAY
-     ═══════════════════════════════════════ */
   #celebrate{position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.85);
     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
     display:flex;align-items:center;justify-content:center;
@@ -424,7 +377,6 @@
     font-size:13px;cursor:pointer;font-family:var(--font);transition:.2s}
   .celebrate-close:hover{color:var(--txt2)}
 
-  /* Confetti canvas */
   #confetti{position:fixed;inset:0;z-index:9997;pointer-events:none}
 
   @media(max-width:560px){
@@ -435,7 +387,6 @@
   }
   @media(min-width:561px){.cards{grid-template-columns:1fr 1fr}}
 
-  /* Reduced motion */
   @media(prefers-reduced-motion:reduce){
     *{animation-duration:.01ms!important;transition-duration:.1ms!important}
     .reveal{opacity:1;transform:none}
@@ -444,14 +395,12 @@
 </head>
 <body>
 
-<!-- ═══ CINEMATIC INTRO ═══ -->
 <div id="intro">
   <img class="intro-logo" src="logo.png" alt="dropSFX"/>
   <div class="intro-bar"><div class="intro-bar-fill"></div></div>
   <div class="intro-text">Preparando sua experiência</div>
 </div>
 
-<!-- ═══ AMBIENT BACKGROUND ═══ -->
 <div class="ambient">
   <div class="ambient-glow ag1"></div>
   <div class="ambient-glow ag2"></div>
@@ -460,7 +409,6 @@
 <div id="stars"></div>
 <div class="grid-bg"></div>
 
-<!-- ═══ NAV ═══ -->
 <nav>
   <div class="nav-in">
     <img class="logo-img" src="logo.png" alt="dropSFX"/>
@@ -471,7 +419,6 @@
   </div>
 </nav>
 
-<!-- ═══ PROGRESS TRACKER ═══ -->
 <div class="progress-track" id="progressTrack">
   <div class="progress-in">
     <div class="progress-steps">
@@ -493,7 +440,6 @@
   </div>
 </div>
 
-<!-- ═══ HERO ═══ -->
 <header>
   <div class="wrap">
     <img class="hero-logo" src="logo.png" alt="dropSFX"/>
@@ -503,7 +449,6 @@
   </div>
 </header>
 
-<!-- ═══ STEP 1: INSTALL ═══ -->
 <section id="sec-install">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -513,7 +458,6 @@
     <h2 class="reveal d1">Instale o painel.</h2>
     <p class="sec-sub reveal d2">Baixe o arquivo e siga o passo a passo do seu sistema. Marque cada etapa conforme avança.</p>
 
-    <!-- DOWNLOAD CARD -->
     <div class="dl-card reveal d2">
       <div class="dl-inner">
         <div class="dl-icon-wrap">
@@ -530,14 +474,13 @@
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/></svg>~280 MB</span>
           </div>
         </div>
-        <a class="dl-btn" href="https://github.com/RossottiVideomaker/SALEPAGE-DROPSFX/releases/download/1.0.0/DropSFX.zip" download onclick="onDownload()">
+        <a class="dl-btn" href="https://github.com/RossottiVideomaker/SALEPAGE-DROPSFX/releases/download/1.0.0/dropSFX_V1.zip" download onclick="onDownload()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           <span>Baixar agora</span>
         </a>
       </div>
     </div>
 
-    <!-- OS TABS -->
     <div class="tabs reveal" id="osTabs">
       <div class="tab-slider"></div>
       <button class="tab active" data-os="mac" onclick="switchOS('mac')">
@@ -550,7 +493,6 @@
       </button>
     </div>
 
-    <!-- MAC PANEL -->
     <div class="panel active" id="panel-mac">
       <div class="step reveal" data-stepid="mac1">
         <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
@@ -589,7 +531,6 @@
       </div>
     </div>
 
-    <!-- WINDOWS PANEL -->
     <div class="panel" id="panel-win">
       <div class="step reveal" data-stepid="win1">
         <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
@@ -631,7 +572,6 @@
   </div>
 </section>
 
-<!-- ═══ STEP 2: ACCESS ═══ -->
 <section id="sec-access">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -673,7 +613,6 @@
   </div>
 </section>
 
-<!-- ═══ STEP 3: HOW TO USE ═══ -->
 <section id="sec-use">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -716,7 +655,6 @@
   </div>
 </section>
 
-<!-- ═══ FAQ ═══ -->
 <section id="sec-faq">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -755,7 +693,6 @@
   </div>
 </section>
 
-<!-- ═══ SUPPORT ═══ -->
 <div class="wrap">
   <div class="support reveal">
     <div class="support-content">
@@ -774,7 +711,6 @@
   <div>© 2026 dropSFX · Plugin para Adobe Premiere Pro</div>
 </footer>
 
-<!-- ═══ CELEBRATION OVERLAY ═══ -->
 <div id="celebrate">
   <div class="celebrate-card">
     <div class="celebrate-icon">
@@ -793,17 +729,14 @@
 <canvas id="confetti"></canvas>
 
 <script>
-  /* ═══ INTRO SEQUENCE ═══ */
   window.addEventListener('load',()=>{
     setTimeout(()=>{
       document.getElementById('intro').classList.add('gone');
       document.getElementById('progressTrack').classList.add('show');
-      // trigger first reveals
       revealCheck();
     },3000);
   });
 
-  /* ═══ STAR FIELD ═══ */
   (function(){
     const sf=document.getElementById('stars');
     const n=window.innerWidth<600?30:60;
@@ -821,7 +754,6 @@
     }
   })();
 
-  /* ═══ REVEAL ON SCROLL ═══ */
   function revealCheck(){
     const els=document.querySelectorAll('.reveal:not(.in)');
     const wh=window.innerHeight;
@@ -833,7 +765,6 @@
   window.addEventListener('scroll',revealCheck,{passive:true});
   window.addEventListener('resize',revealCheck);
 
-  /* ═══ OS TABS ═══ */
   function switchOS(os){
     document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.os===os));
     document.getElementById('osTabs').classList.toggle('win',os==='win');
@@ -844,7 +775,6 @@
   }
   if(/Win/i.test(navigator.platform||navigator.userAgent)) switchOS('win');
 
-  /* ═══ SOUND FEEDBACK (Web Audio) ═══ */
   let audioCtx;
   function beep(freq,dur,type,vol){
     try{
@@ -864,7 +794,6 @@
     [523,659,784,1047].forEach((f,i)=>setTimeout(()=>beep(f,.2,'sine',.07),i*90));
   }
 
-  /* ═══ COPY ═══ */
   function copyTxt(btn,txt){
     navigator.clipboard.writeText(txt).then(()=>{
       copySound();
@@ -875,7 +804,6 @@
     });
   }
 
-  /* ═══ STEP COMPLETION ═══ */
   const totalSteps=()=>document.querySelectorAll('.panel.active .step, #sec-access .step').length;
   function toggleStep(check){
     const step=check.closest('.step');
@@ -886,24 +814,19 @@
     checkAllDone();
   }
 
-  /* ═══ PROGRESS TRACKER ═══ */
   function updateProgress(){
-    // Step 1 (install) done when all visible install-panel steps checked
     const instSteps=[...document.querySelectorAll('.panel.active .step')];
     const instDone=instSteps.length>0 && instSteps.every(s=>s.classList.contains('completed'));
-    // Step 2 (access)
     const accSteps=[...document.querySelectorAll('#sec-access .step')];
     const accDone=accSteps.length>0 && accSteps.every(s=>s.classList.contains('completed'));
 
     const psteps=document.querySelectorAll('.pstep');
-    // reset
     psteps.forEach(p=>p.classList.remove('done','active'));
     if(instDone){psteps[0].classList.add('done')}else{psteps[0].classList.add('active')}
     if(instDone&&!accDone){psteps[1].classList.add('active')}
     if(accDone){psteps[1].classList.add('done');psteps[2].classList.add('active')}
   }
 
-  /* ═══ CHECK ALL DONE → CELEBRATE ═══ */
   let celebrated=false;
   function checkAllDone(){
     const instSteps=[...document.querySelectorAll('.panel.active .step')];
@@ -924,7 +847,6 @@
   }
   function onDownload(){beep(440,.15,'sine',.07);setTimeout(()=>beep(660,.2,'sine',.06),100);}
 
-  /* ═══ FAQ ═══ */
   function toggleFaq(btn){
     const item=btn.parentElement;
     const wasOpen=item.classList.contains('open');
@@ -932,7 +854,6 @@
     if(!wasOpen){item.classList.add('open');beep(700,.06,'sine',.04)}
   }
 
-  /* ═══ CONFETTI ═══ */
   function fireConfetti(){
     const canvas=document.getElementById('confetti');
     const ctx=canvas.getContext('2d');
@@ -972,7 +893,6 @@
     draw();
   }
 
-  // init progress on load
   updateProgress();
 </script>
 </body>
