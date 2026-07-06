@@ -1,0 +1,7 @@
+{
+  "name": "salepage-dropsfx",
+  "version": "1.0.0",
+  "dependencies": {
+    "punycode": "^2.1.1"
+  }
+}
