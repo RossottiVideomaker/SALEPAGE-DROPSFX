@@ -279,7 +279,6 @@
   .note svg{flex-shrink:0;width:16px;height:16px;margin-top:1px}
   .note.info{background:rgba(59,110,245,.07);border-color:rgba(59,110,245,.22);color:var(--ice-bright)}
 
-  /* Google button visual (só ilustração, sem função) */
   .gbtn-preview{
     display:inline-flex;align-items:center;gap:10px;
     background:#fff;color:#1f1f1f;
@@ -336,7 +335,7 @@
   .faq-item.open .faq-icon::before,.faq-item.open .faq-icon::after{background:#fff}
   .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;
     color:var(--txt2);font-size:14px}
-  .faq-item.open .faq-a{max-height:280px}
+  .faq-item.open .faq-a{max-height:320px}
   .faq-a p{padding:0 20px 20px}
   .faq-a b{color:var(--txt)}
 
@@ -527,9 +526,10 @@
         <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div class="step-n">3</div>
         <div class="step-body">
-          <strong>Libere extensões (uma vez só)</strong>
-          <p>Abra o <b>Terminal</b>, cole o comando e aperte Enter:</p>
-          <div class="path"><span class="path-text">defaults write com.adobe.CSXS.11 PlayerDebugMode 1</span><button class="copy-btn" onclick="copyTxt(this,'defaults write com.adobe.CSXS.11 PlayerDebugMode 1')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>copiar</button></div>
+          <strong>Libere extensões (funciona em todas as versões)</strong>
+          <p>Abra o <b>Terminal</b>, cole o comando abaixo e aperte Enter. Ele libera de uma vez pra qualquer versão do Premiere.</p>
+          <div class="path"><span class="path-text">for v in 6 7 8 9 10 11 12; do defaults write com.adobe.CSXS.$v PlayerDebugMode 1; done; killall cfprefsd</span><button class="copy-btn" onclick="copyTxt(this,'for v in 6 7 8 9 10 11 12; do defaults write com.adobe.CSXS.$v PlayerDebugMode 1; done; killall cfprefsd')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>copiar</button></div>
+          <p style="margin-top:8px">Não precisa saber qual versão você tem — o comando cobre da CS até o Premiere mais recente.</p>
         </div>
       </div>
       <div class="step reveal" data-stepid="mac4">
@@ -565,10 +565,10 @@
         <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div class="step-n">3</div>
         <div class="step-body">
-          <strong>Libere extensões (uma vez só)</strong>
-          <p>Aperte <b>Win + R</b>, digite <b>regedit</b> e Enter. Navegue até:</p>
-          <div class="path"><span class="path-text">HKEY_CURRENT_USER\Software\Adobe\CSXS.11</span><button class="copy-btn" onclick="copyTxt(this,'HKEY_CURRENT_USER\\Software\\Adobe\\CSXS.11')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>copiar</button></div>
-          <p style="margin-top:8px">Crie um valor <b>String (REG_SZ)</b> chamado <b>PlayerDebugMode</b> com valor <b>1</b>.</p>
+          <strong>Libere extensões (funciona em todas as versões)</strong>
+          <p>Aperte <b>Win + R</b>, digite <b>cmd</b> e aperte Enter. Cole o comando abaixo e aperte Enter:</p>
+          <div class="path"><span class="path-text">for %v in (6 7 8 9 10 11 12) do reg add HKCU\Software\Adobe\CSXS.%v /v PlayerDebugMode /t REG_SZ /d 1 /f</span><button class="copy-btn" onclick="copyTxt(this,'for %v in (6 7 8 9 10 11 12) do reg add HKCU\\Software\\Adobe\\CSXS.%v /v PlayerDebugMode /t REG_SZ /d 1 /f')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>copiar</button></div>
+          <p style="margin-top:8px">Não precisa saber qual versão você tem — o comando cobre da CS até o Premiere mais recente.</p>
         </div>
       </div>
       <div class="step reveal" data-stepid="win4">
@@ -682,7 +682,11 @@
     <div class="reveal d2">
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">O painel não aparece no menu Extensões. E agora?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Confirme 3 coisas: (1) a pasta <b>DropSFX</b> está diretamente dentro de <b>extensions</b> (não dentro de outra pasta); (2) você rodou o comando de liberar extensões; (3) reiniciou o Premiere por completo. Se ainda não aparecer, chame no suporte.</p></div>
+        <div class="faq-a"><p>Confirme 3 coisas: (1) a pasta <b>DropSFX</b> está diretamente dentro de <b>extensions</b> (não dentro de outra pasta); (2) você rodou o comando de liberar extensões do passo 3; (3) reiniciou o Premiere por completo. Se ainda não aparecer, chame no suporte.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Preciso saber qual versão do CSXS eu tenho?<span class="faq-icon"></span></button>
+        <div class="faq-a"><p>Não. O comando do passo 3 libera todas as versões de uma vez (da 6 até a 12), então funciona em qualquer Premiere. Só pra referência: <b>CSXS.11</b> = Premiere 2022/2023 e <b>CSXS.12</b> = Premiere 2024/2025 em diante. Rodar em versões que você não tem instaladas não causa nenhum problema.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Posso entrar com uma conta Google diferente do e-mail da compra?<span class="faq-icon"></span></button>
@@ -710,7 +714,7 @@
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Funciona em qual versão do Premiere?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Adobe Premiere Pro CC 2020 em diante, no Mac (Intel e Apple Silicon) e Windows 10/11.</p></div>
+        <div class="faq-a"><p>Adobe Premiere Pro CC 2020 em diante, incluindo as versões mais recentes, no Mac (Intel e Apple Silicon) e Windows 10/11.</p></div>
       </div>
     </div>
   </div>
