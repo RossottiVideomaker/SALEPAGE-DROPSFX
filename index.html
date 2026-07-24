@@ -53,6 +53,11 @@
   <meta name="twitter:title" content="dropSFX: Sound effects no clique" />
   <meta name="twitter:image" content="https://www.dropsfx.com.br/assets/og-image.png" />
 
+  <link rel="alternate" hreflang="pt-BR" href="https://www.dropsfx.com.br/?lang=pt" />
+  <link rel="alternate" hreflang="en" href="https://www.dropsfx.com.br/?lang=en" />
+  <link rel="alternate" hreflang="es" href="https://www.dropsfx.com.br/?lang=es" />
+  <link rel="alternate" hreflang="x-default" href="https://www.dropsfx.com.br/" />
+
   <link rel="icon" type="image/svg+xml"
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23000000'/%3E%3Ctext x='32' y='44' font-family='Anton, sans-serif' font-size='26' font-weight='600' fill='%235b8aff' text-anchor='middle' letter-spacing='0.5'%3ESFX%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -163,6 +168,12 @@
       filter: drop-shadow(0 0 10px var(--accent-glow));
     }
 
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     .nav-cta {
       font-family: var(--font);
       font-size: 13px;
@@ -181,6 +192,127 @@
       box-shadow: 0 8px 24px var(--accent-glow);
     }
 
+    /* ===== LANGUAGE SWITCHER ===== */
+    .lang {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .lang-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid var(--line-2);
+      border-radius: 100px;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: border-color .2s, color .2s, background .2s;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .lang-btn:hover,
+    .lang.open .lang-btn {
+      color: #fff;
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .lang-btn .globe {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .lang-btn .chev {
+      width: 9px;
+      height: 9px;
+      opacity: .7;
+      transition: transform .25s;
+    }
+
+    .lang.open .lang-btn .chev {
+      transform: rotate(180deg);
+    }
+
+    .lang-menu {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 178px;
+      background: rgba(10, 10, 13, .97);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--line-2);
+      border-radius: 14px;
+      padding: 6px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .7);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity .22s, transform .22s, visibility .22s;
+      z-index: 300;
+    }
+
+    .lang.open .lang-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .lang-opt {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 12px;
+      border: none;
+      background: transparent;
+      color: var(--ink-2);
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 500;
+      text-align: left;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: background .18s, color .18s;
+    }
+
+    .lang-opt:hover {
+      background: rgba(255, 255, 255, .06);
+      color: #fff;
+    }
+
+    .lang-opt.on {
+      background: var(--accent-soft);
+      color: var(--accent-hi);
+      font-weight: 700;
+    }
+
+    .lang-opt .flag {
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .lang-opt .code {
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: .1em;
+      color: var(--dim);
+    }
+
+    .lang-opt.on .code {
+      color: var(--accent-hi);
+    }
+
     @media (max-width: 600px) {
       .nav {
         padding: 16px 18px;
@@ -194,9 +326,23 @@
         height: 24px;
       }
 
+      .nav-right {
+        gap: 8px;
+      }
+
       .nav-cta {
         font-size: 12px;
         padding: 9px 16px;
+      }
+
+      .lang-btn {
+        padding: 9px 11px;
+        font-size: 10px;
+        gap: 6px;
+      }
+
+      .lang-btn .lang-label {
+        display: none;
       }
     }
 
@@ -1310,15 +1456,30 @@
   <!-- NAV -->
   <nav class="nav" id="nav">
     <img src="assets/logo.png" alt="dropSFX" />
-    <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=nav&utm_campaign=dropsfx"
-      class="nav-cta js-buy-cta" data-position="nav"
-      target="_blank" rel="noopener">Comprar · 12x R$ 11,36</a>
+    <div class="nav-right">
+      <!-- ===== SELETOR DE IDIOMA ===== -->
+      <div class="lang" id="langSwitch">
+        <button class="lang-btn" id="langBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Idioma / Language">
+          <svg class="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20a15.3 15.3 0 010-20z"/></svg>
+          <span class="lang-label" id="langCurrent">PT</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="lang-menu" id="langMenu" role="menu">
+          <button class="lang-opt" type="button" data-lang="pt" role="menuitem"><span class="flag">🇧🇷</span> Português <span class="code">PT-BR</span></button>
+          <button class="lang-opt" type="button" data-lang="en" role="menuitem"><span class="flag">🇺🇸</span> English <span class="code">EN</span></button>
+          <button class="lang-opt" type="button" data-lang="es" role="menuitem"><span class="flag">🇪🇸</span> Español <span class="code">ES</span></button>
+        </div>
+      </div>
+      <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=nav&utm_campaign=dropsfx"
+        class="nav-cta js-buy-cta" data-position="nav" data-i18n="nav.cta"
+        target="_blank" rel="noopener">Comprar · 12x R$ 11,36</a>
+    </div>
   </nav>
 
   <!-- ============ HERO ============ -->
   <section class="scene" id="hero">
     <div class="hero-content">
-      <div class="hero-badge"><span class="dot"></span><span class="pr">Pr</span> PARA ADOBE PREMIERE PRO</div>
+      <div class="hero-badge"><span class="dot"></span><span class="pr">Pr</span> <span data-i18n="hero.badge">PARA ADOBE PREMIERE PRO</span></div>
       <img src="assets/logo.png" alt="dropSFX" class="hero-logo" />
 
       <div class="video-container">
@@ -1335,17 +1496,16 @@
           </div>
           <video id="heroVideo" autoplay loop muted playsinline preload="auto">
             <source src="assets/Video.mp4" type="video/mp4">
-            Seu navegador não suporta o player de vídeo.
           </video>
         </div>
       </div>
 
-      <p class="hero-tagline">Mais de 1.400 efeitos sonoros profissionais dentro do Premiere Pro.<br><strong>Dois cliques e o som está na timeline.</strong></p>
+      <p class="hero-tagline" data-i18n-html="hero.tagline">Mais de 1.400 efeitos sonoros profissionais dentro do Premiere Pro.<br><strong>Dois cliques e o som está na timeline.</strong></p>
       <div class="hero-cta-row">
         <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=hero&utm_campaign=dropsfx"
           class="hero-cta js-buy-cta" data-position="hero"
-          target="_blank" rel="noopener">Quero o dropSFX <span class="arr">→</span></a>
-        <div class="hero-meta"><span>12x de <b>R$ 11,36</b></span> · <span>Garantia de 7 dias</span></div>
+          target="_blank" rel="noopener"><span data-i18n="hero.cta">Quero o dropSFX</span> <span class="arr">→</span></a>
+        <div class="hero-meta" data-i18n-html="hero.meta"><span>12x de <b>R$ 11,36</b></span> · <span>Garantia de 7 dias</span></div>
       </div>
     </div>
   </section>
@@ -1355,9 +1515,9 @@
     <div class="scene-glow" style="--g1:rgba(59,110,245,.26);--g2:rgba(167,139,250,.14);--gx:55%;--gy:20%;"></div>
     <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.75));"></div>
     <div class="scene-content" style="text-align:center;display:flex;flex-direction:column;align-items:center;">
-      <div class="eyebrow r">Menos tempo procurando. Mais tempo criando.</div>
-      <div class="display r d1"><span class="fill">Sound design</span><br><span class="fill">em segundos</span></div>
-      <p class="lead r d2" style="max-width:720px;text-align:center;margin-left:auto;margin-right:auto;">Tudo o que você precisa para dar impacto aos seus vídeos sem interromper sua edição.</p>
+      <div class="eyebrow r" data-i18n="problem.eyebrow">Menos tempo procurando. Mais tempo criando.</div>
+      <div class="display r d1" data-i18n-html="problem.title"><span class="fill">Sound design</span><br><span class="fill">em segundos</span></div>
+      <p class="lead r d2" style="max-width:720px;text-align:center;margin-left:auto;margin-right:auto;" data-i18n="problem.lead">Tudo o que você precisa para dar impacto aos seus vídeos sem interromper sua edição.</p>
     </div>
   </section>
 
@@ -1368,12 +1528,12 @@
     <div class="scene-content">
       <div class="feat-grid">
         <div class="fg-copy">
-          <div class="eyebrow r">№ 00 · O painel</div>
-          <h2 class="r d1"
+          <div class="eyebrow r" data-i18n="panel.eyebrow">№ 00 · O painel</div>
+          <h2 class="r d1" data-i18n-html="panel.title"
             style="font-family:var(--font-display);font-weight:400;text-transform:uppercase;font-size:clamp(40px,5.5vw,92px);line-height:.94;">
             <span style="color:#fff">Isso vive dentro</span><br><span class="blue">do seu Premiere.</span>
           </h2>
-          <p class="lead r d2">Um painel nativo, acoplado à sua interface. Sua biblioteca inteira, organizada em pastas
+          <p class="lead r d2" data-i18n="panel.lead">Um painel nativo, acoplado à sua interface. Sua biblioteca inteira, organizada em pastas
             coloridas, a um gesto de distância da timeline.</p>
         </div>
         <div class="fg-visual r d2">
@@ -1387,45 +1547,45 @@
                   <span class="pl-hic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
                 </div>
               </div>
-              <div class="pl-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Buscar sons…</div>
+              <div class="pl-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> <span data-i18n="mock.search">Buscar sons…</span></div>
               <div class="pl-tabsrow">
                 <div class="pl-tabs">
-                  <div class="pl-tab on">Pastas <span class="c">1463</span></div>
-                  <div class="pl-tab">★ Favoritos <span class="c">8</span></div>
+                  <div class="pl-tab on"><span data-i18n="mock.folders">Pastas</span> <span class="c">1463</span></div>
+                  <div class="pl-tab">★ <span data-i18n="mock.favorites">Favoritos</span> <span class="c">8</span></div>
                   <div class="pl-tab">Top <span class="c">12</span></div>
                 </div>
-                <div class="pl-sort">Nome</div>
+                <div class="pl-sort" data-i18n="mock.sort">Nome</div>
               </div>
-              <div class="pl-chips"><span class="pl-chip on">Todos</span><span class="pl-chip">Impact</span><span class="pl-chip">Whoosh</span><span class="pl-chip">Riser</span><span class="pl-chip">Foley</span></div>
-              <div class="pl-seclabel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg> Biblioteca dropSFX</div>
+              <div class="pl-chips"><span class="pl-chip on" data-i18n="mock.all">Todos</span><span class="pl-chip">Impact</span><span class="pl-chip">Whoosh</span><span class="pl-chip">Riser</span><span class="pl-chip">Foley</span></div>
+              <div class="pl-seclabel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg> <span data-i18n="mock.library">Biblioteca dropSFX</span></div>
               <div class="pl-grid">
                 <div class="pl-card" style="border-color:rgba(45,212,191,.4);background:rgba(45,212,191,.07);">
                   <div class="pl-card-top">
                     <div class="pl-ic" style="background:rgba(45,212,191,.18);color:#2dd4bf;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8h10a3 3 0 100-6M3 12h14a3 3 0 110 6M3 16h6"/></svg></div>
                     <div class="pl-cwave"><i style="height:40%;background:#2dd4bf"></i><i style="height:75%;background:#2dd4bf"></i><i style="height:55%;background:#2dd4bf"></i><i style="height:90%;background:#2dd4bf"></i><i style="height:65%;background:#2dd4bf"></i></div>
                   </div>
-                  <div><div class="pl-cname">Whooshes</div><div class="pl-cn" style="color:#2dd4bf"><b>360</b> <span class="m">sons</span></div></div>
+                  <div><div class="pl-cname">Whooshes</div><div class="pl-cn" style="color:#2dd4bf"><b>360</b> <span class="m" data-i18n="mock.sounds">sons</span></div></div>
                 </div>
                 <div class="pl-card" style="border-color:rgba(167,139,250,.4);background:rgba(167,139,250,.07);">
                   <div class="pl-card-top">
                     <div class="pl-ic" style="background:rgba(167,139,250,.18);color:#a78bfa;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M5 9l7-7 7 7"/></svg></div>
                     <div class="pl-cwave"><i style="height:50%;background:#a78bfa"></i><i style="height:85%;background:#a78bfa"></i><i style="height:40%;background:#a78bfa"></i><i style="height:65%;background:#a78bfa"></i><i style="height:55%;background:#a78bfa"></i></div>
                   </div>
-                  <div><div class="pl-cname">Cinematic Drops</div><div class="pl-cn" style="color:#a78bfa"><b>118</b> <span class="m">sons</span></div></div>
+                  <div><div class="pl-cname">Cinematic Drops</div><div class="pl-cn" style="color:#a78bfa"><b>118</b> <span class="m" data-i18n="mock.sounds">sons</span></div></div>
                 </div>
                 <div class="pl-card" style="border-color:rgba(251,146,60,.4);background:rgba(251,146,60,.07);">
                   <div class="pl-card-top">
                     <div class="pl-ic" style="background:rgba(251,146,60,.18);color:#fb923c;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 17l6-6 4 4 8-8"/></svg></div>
                     <div class="pl-cwave"><i style="height:45%;background:#fb923c"></i><i style="height:70%;background:#fb923c"></i><i style="height:60%;background:#fb923c"></i><i style="height:90%;background:#fb923c"></i><i style="height:50%;background:#fb923c"></i></div>
                   </div>
-                  <div><div class="pl-cname">Risers</div><div class="pl-cn" style="color:#fb923c"><b>93</b> <span class="m">sons</span></div></div>
+                  <div><div class="pl-cname">Risers</div><div class="pl-cn" style="color:#fb923c"><b>93</b> <span class="m" data-i18n="mock.sounds">sons</span></div></div>
                 </div>
                 <div class="pl-card" style="border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.07);">
                   <div class="pl-card-top">
                     <div class="pl-ic" style="background:rgba(248,113,113,.18);color:#f87171;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4-6.3-4.6-6.3 4.6 2.3-7.4-6-4.6h7.6z"/></svg></div>
                     <div class="pl-cwave"><i style="height:50%;background:#f87171"></i><i style="height:90%;background:#f87171"></i><i style="height:45%;background:#f87171"></i><i style="height:70%;background:#f87171"></i><i style="height:55%;background:#f87171"></i></div>
                   </div>
-                  <div><div class="pl-cname">Hits &amp; Impacts</div><div class="pl-cn" style="color:#f87171"><b>68</b> <span class="m">sons</span></div></div>
+                  <div><div class="pl-cname">Hits &amp; Impacts</div><div class="pl-cn" style="color:#f87171"><b>68</b> <span class="m" data-i18n="mock.sounds">sons</span></div></div>
                 </div>
               </div>
               <div class="pl-player">
@@ -1439,16 +1599,16 @@
                 <div class="pl-wave" id="plWave"></div>
                 <div class="pl-time"><span>0:00</span><span>0:05.2</span></div>
                 <div class="pl-gain">
-                  <span class="pl-glabel">Ganho</span>
+                  <span class="pl-glabel" data-i18n="mock.gain">Ganho</span>
                   <div class="pl-gpills"><span class="pl-gpill on">-12</span><span class="pl-gpill">0 dB</span><span class="pl-gpill">+6</span></div>
-                  <span class="pl-gkbd">⇧↵ no in-point</span>
+                  <span class="pl-gkbd" data-i18n="mock.inpoint">⇧↵ no in-point</span>
                 </div>
                 <div class="pl-ctrls">
                   <div class="pl-play"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
                   <div class="pl-track">A1 ▾</div>
                   <span class="pl-rt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg></span>
                   <div class="pl-auto"><div class="pl-tog"></div> AUTO</div>
-                  <div class="pl-insert"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.6" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg> Inserir</div>
+                  <div class="pl-insert"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.6" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg> <span data-i18n="mock.insert">Inserir</span></div>
                 </div>
               </div>
             </div>
@@ -1465,16 +1625,16 @@
     <div class="scene-content">
       <div class="feat-grid">
         <div class="fg-copy">
-          <div class="eyebrow r">№ 01 · Pré-escuta</div>
-          <h2 class="r d1">Passou o mouse,<br><span class="blue">já tá tocando.</span></h2>
-          <p class="lead r d2">Esqueça abrir cada arquivo pra saber o que é. <strong>Só passe o cursor sobre o som</strong> e ele toca na hora, com a forma de onda viva. Varra dezenas de efeitos em segundos.</p>
+          <div class="eyebrow r" data-i18n="hover.eyebrow">№ 01 · Pré-escuta</div>
+          <h2 class="r d1" data-i18n-html="hover.title">Passou o mouse,<br><span class="blue">já tá tocando.</span></h2>
+          <p class="lead r d2" data-i18n-html="hover.lead">Esqueça abrir cada arquivo pra saber o que é. <strong>Só passe o cursor sobre o som</strong> e ele toca na hora, com a forma de onda viva. Varra dezenas de efeitos em segundos.</p>
         </div>
         <div class="fg-visual r d2">
           <div class="pl-mini" id="hoverMock">
             <div class="plm-cursor" id="hoverCursor"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 3.2l13.6 6.8c.6.3.5 1.2-.1 1.4l-5.3 1.7c-.2.1-.4.2-.5.4l-2.6 5c-.3.6-1.2.5-1.4-.1L3.2 4.6c-.2-.6.4-1.2 1-1z"/></svg></div>
             <div class="plm-head">
               <div class="plm-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg> Whooshes</div>
-              <div class="plm-count">240 sons</div>
+              <div class="plm-count"><span>240</span> <span data-i18n="mock.sounds">sons</span></div>
             </div>
             <div class="plm-list">
               <div class="fitem" data-i="0">
@@ -1513,7 +1673,7 @@
     <div class="scene-glow" style="--g1:rgba(59,110,245,.24);--g2:rgba(167,139,250,.12);--gx:40%;--gy:25%;"></div>
     <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.7));"></div>
     <div class="scene-content" style="text-align:center;display:flex;justify-content:center;">
-      <p class="quote r"><span class="quote-line">"Quando as ferramentas acompanham sua criatividade,</span><span class="quote-line accent">os resultados aparecem mais rápido."</span></p>
+      <p class="quote r" data-i18n-html="quote1"><span class="quote-line">"Quando as ferramentas acompanham sua criatividade,</span><span class="quote-line accent">os resultados aparecem mais rápido."</span></p>
     </div>
   </section>
 
@@ -1524,16 +1684,16 @@
     <div class="scene-content">
       <div class="feat-grid flip">
         <div class="fg-copy">
-          <div class="eyebrow r">№ 02 · Inserção</div>
-          <h2 class="r d1">Dois cliques.<br><span class="blue">Tá na timeline.</span></h2>
-          <p class="lead r d2">Achou o som? <strong>Duplo-clique</strong> e ele cai exatamente no playhead do Premiere, na trilha que você escolheu. Sem arrastar arquivo, sem exportar, sem trocar de janela.</p>
+          <div class="eyebrow r" data-i18n="twoclick.eyebrow">№ 02 · Inserção</div>
+          <h2 class="r d1" data-i18n-html="twoclick.title">Dois cliques.<br><span class="blue">Tá na timeline.</span></h2>
+          <p class="lead r d2" data-i18n-html="twoclick.lead">Achou o som? <strong>Duplo-clique</strong> e ele cai exatamente no playhead do Premiere, na trilha que você escolheu. Sem arrastar arquivo, sem exportar, sem trocar de janela.</p>
         </div>
         <div class="fg-visual r d2">
           <div class="pl-mini" id="clickMock">
             <div class="plm-cursor" id="clickCursor"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 3.2l13.6 6.8c.6.3.5 1.2-.1 1.4l-5.3 1.7c-.2.1-.4.2-.5.4l-2.6 5c-.3.6-1.2.5-1.4-.1L3.2 4.6c-.2-.6.4-1.2 1-1z"/></svg></div>
             <div class="plm-head">
               <div class="plm-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg> Whooshes</div>
-              <div class="plm-count">240 sons</div>
+              <div class="plm-count"><span>240</span> <span data-i18n="mock.sounds">sons</span></div>
             </div>
             <div class="plm-list">
               <div class="fitem" id="clickItem" data-i="0">
@@ -1565,9 +1725,9 @@
     <div class="scene-glow" style="--g1:rgba(59,110,245,.30);--g2:rgba(251,146,60,.13);--gx:50%;--gy:20%;"></div>
     <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.72));"></div>
     <div class="scene-content" style="text-align:center;display:flex;flex-direction:column;align-items:center;">
-      <div class="eyebrow r">№ 04 · Controle</div>
-      <h2 class="display r d1" style="font-size:clamp(40px,7vw,110px)"><span class="fill">O ganho certo,</span><br><span class="blue">antes de inserir.</span></h2>
-      <p class="lead r d2" style="text-align:center;margin-left:auto;margin-right:auto;">Whoosh sempre alto demais? Riser baixo? Escolha <strong>-12, 0 ou +6 dB</strong> e o som já entra na timeline no volume certo. Adeus, abrir o mixer pra cada clipe.</p>
+      <div class="eyebrow r" data-i18n="gain.eyebrow">№ 04 · Controle</div>
+      <h2 class="display r d1" style="font-size:clamp(40px,7vw,110px)" data-i18n-html="gain.title"><span class="fill">O ganho certo,</span><br><span class="blue">antes de inserir.</span></h2>
+      <p class="lead r d2" style="text-align:center;margin-left:auto;margin-right:auto;" data-i18n-html="gain.lead">Whoosh sempre alto demais? Riser baixo? Escolha <strong>-12, 0 ou +6 dB</strong> e o som já entra na timeline no volume certo. Adeus, abrir o mixer pra cada clipe.</p>
       <div class="gain-demo r d3" style="margin-top:44px;">
         <div class="gain-pills-big">
           <div class="gain-big on" id="g-12">-12 dB</div>
@@ -1584,9 +1744,9 @@
     <div class="scene-glow" style="--g1:rgba(59,110,245,.30);--g2:rgba(45,212,191,.16);--gx:45%;--gy:15%;"></div>
     <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.62));"></div>
     <div class="scene-content" style="text-align:center;display:flex;flex-direction:column;align-items:center;">
-      <div class="eyebrow r">№ 05 · A biblioteca</div>
-      <h2 class="display r d1"><span class="fill">1.463 sons</span><br><span class="blue">21 categorias</span></h2>
-      <p class="lead r d2" style="text-align:center;margin-left:auto;margin-right:auto;">Curados pra edição de verdade: de whooshes e impactos a glitches, risers e foley. Cada categoria com cor própria, pra você bater o olho e achar.</p>
+      <div class="eyebrow r" data-i18n="library.eyebrow">№ 05 · A biblioteca</div>
+      <h2 class="display r d1" data-i18n-html="library.title"><span class="fill">1.463 sons</span><br><span class="blue">21 categorias</span></h2>
+      <p class="lead r d2" style="text-align:center;margin-left:auto;margin-right:auto;" data-i18n="library.lead">Curados pra edição de verdade: de whooshes e impactos a glitches, risers e foley. Cada categoria com cor própria, pra você bater o olho e achar.</p>
       <div class="marquee r d2">
         <div class="mq-row a" id="mqRow1"></div>
         <div class="mq-row b" id="mqRow2"></div>
@@ -1599,32 +1759,32 @@
     <div class="scene-glow" style="--g1:rgba(59,110,245,.30);--g2:rgba(59,110,245,.16);--gx:40%;--gy:12%;"></div>
     <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.6),rgba(0,0,0,.72));"></div>
     <div class="scene-content" style="text-align:center;display:flex;flex-direction:column;align-items:center;">
-      <div class="eyebrow r" style="justify-content:center;">Investimento</div>
-      <h2 class="display r d1" style="font-size:clamp(40px,7vw,100px)"><span class="fill">Pague uma vez.</span><br><span class="blue">Use pra sempre.</span></h2>
+      <div class="eyebrow r" style="justify-content:center;" data-i18n="pricing.eyebrow">Investimento</div>
+      <h2 class="display r d1" style="font-size:clamp(40px,7vw,100px)" data-i18n-html="pricing.title"><span class="fill">Pague uma vez.</span><br><span class="blue">Use pra sempre.</span></h2>
       <div class="price-shell r d2">
-        <div class="price-ribbon"><span>▸ Oferta de lançamento</span><span>63% OFF</span></div>
+        <div class="price-ribbon"><span data-i18n="pricing.ribbon">▸ Oferta de lançamento</span><span data-i18n="pricing.off">63% OFF</span></div>
         <div class="price-body">
           <img src="assets/logo.png" alt="dropSFX" class="pb-logo" />
-          <div class="price-desc">Biblioteca completa de efeitos sonoros profissionais e o painel nativo pro Premiere, pra usar quantas vezes quiser.</div>
+          <div class="price-desc" data-i18n="pricing.desc">Biblioteca completa de efeitos sonoros profissionais e o painel nativo pro Premiere, pra usar quantas vezes quiser.</div>
           <div class="price-block">
-            <div class="price-old"><span class="strike">de R$ 297,00</span><span class="save">economize R$ 187,21</span></div>
-            <div class="price-now"><span class="x">12x</span><span class="cur">R$</span><span class="val">11</span><span class="cents">,36</span></div>
-            <div class="price-avista">ou <strong>R$ 109,79</strong> à vista no Pix</div>
-            <div class="price-once">Pagamento único · sem mensalidade, sem renovação</div>
+            <div class="price-old"><span class="strike" data-i18n="pricing.from">de R$ 297,00</span><span class="save" data-i18n="pricing.save">economize R$ 187,21</span></div>
+            <div class="price-now"><span class="x" data-i18n="pricing.installments">12x</span><span class="cur" data-i18n="pricing.currency">R$</span><span class="val" data-i18n="pricing.val">11</span><span class="cents" data-i18n="pricing.cents">,36</span></div>
+            <div class="price-avista" data-i18n-html="pricing.cash">ou <strong>R$ 109,79</strong> à vista no Pix</div>
+            <div class="price-once" data-i18n="pricing.once">Pagamento único · sem mensalidade, sem renovação</div>
           </div>
           <ul class="price-feats">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span><strong>1.463 efeitos sonoros</strong> profissionais</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span>Painel <strong>nativo</strong> pro Adobe Premiere Pro</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span>Pré-escuta no hover, <strong>2 cliques</strong> e atalhos</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span>Controle de <strong>ganho na inserção</strong></span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span>Pastas próprias + importe seus áudios</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span>Licença pra <strong>até 2 máquinas</strong></span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span><strong>Vitalício</strong> · 100% royalty-free</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n-html="pricing.f1"><strong>1.463 efeitos sonoros</strong> profissionais</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n-html="pricing.f2">Painel <strong>nativo</strong> pro Adobe Premiere Pro</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n-html="pricing.f3">Pré-escuta no hover, <strong>2 cliques</strong> e atalhos</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n-html="pricing.f4">Controle de <strong>ganho na inserção</strong></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n-html="pricing.f5">Pastas próprias + importe seus áudios</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n-html="pricing.f6">Licença pra <strong>até 2 máquinas</strong></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n-html="pricing.f7"><strong>Vitalício</strong> · 100% royalty-free</span></li>
           </ul>
           <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=pricing&utm_campaign=dropsfx"
             class="price-cta js-buy-cta" data-position="pricing"
-            target="_blank" rel="noopener">Quero o dropSFX agora <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <div class="guarantee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg><span><strong>Garantia de 7 dias.</strong> Não gostou? Devolvemos 100%.</span></div>
+            target="_blank" rel="noopener"><span data-i18n="pricing.cta">Quero o dropSFX agora</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <div class="guarantee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg><span data-i18n-html="pricing.guarantee"><strong>Garantia de 7 dias.</strong> Não gostou? Devolvemos 100%.</span></div>
         </div>
       </div>
     </div>
@@ -1634,44 +1794,44 @@
   <section class="scene tall" id="faq" style="min-height:auto;">
     <div class="scene-tint" style="background:#000;"></div>
     <div class="scene-content" style="text-align:center;display:flex;flex-direction:column;align-items:center;padding-top:100px;padding-bottom:120px;">
-      <div class="eyebrow r" style="justify-content:center;">Dúvidas</div>
-      <h2 class="display r d1" style="font-size:clamp(36px,6vw,84px)"><span class="fill">Tudo que perguntam.</span></h2>
+      <div class="eyebrow r" style="justify-content:center;" data-i18n="faq.eyebrow">Dúvidas</div>
+      <h2 class="display r d1" style="font-size:clamp(36px,6vw,84px)" data-i18n-html="faq.title"><span class="fill">Tudo que perguntam.</span></h2>
       <div class="faq-wrap r d2">
         <div class="faq-item" onclick="this.classList.toggle('open')">
-          <div class="faq-q">Funciona em qual versão do Premiere Pro? <span class="plus">+</span></div>
-          <div class="faq-a">Compatível com Adobe Premiere Pro CC 2020 em diante, no Mac (Intel e Apple Silicon) e no Windows 10/11.</div>
+          <div class="faq-q"><span data-i18n="faq.q1">Funciona em qual versão do Premiere Pro?</span> <span class="plus">+</span></div>
+          <div class="faq-a" data-i18n="faq.a1">Compatível com Adobe Premiere Pro CC 2020 em diante, no Mac (Intel e Apple Silicon) e no Windows 10/11.</div>
         </div>
         <div class="faq-item" onclick="this.classList.toggle('open')">
-          <div class="faq-q">Como insiro um som na timeline? <span class="plus">+</span></div>
-          <div class="faq-a">Do jeito que preferir: duplo-clique joga o som no playhead, ou use o botão Inserir. Pelo teclado, as setas navegam e o Enter insere; Shift+Enter coloca no seu in-point. E você ainda escolhe o ganho (-12 / 0 / +6 dB) antes de inserir.</div>
+          <div class="faq-q"><span data-i18n="faq.q2">Como insiro um som na timeline?</span> <span class="plus">+</span></div>
+          <div class="faq-a" data-i18n="faq.a2">Do jeito que preferir: duplo-clique joga o som no playhead, ou use o botão Inserir. Pelo teclado, as setas navegam e o Enter insere; Shift+Enter coloca no seu in-point. E você ainda escolhe o ganho (-12 / 0 / +6 dB) antes de inserir.</div>
         </div>
         <div class="faq-item" onclick="this.classList.toggle('open')">
-          <div class="faq-q">Posso ouvir antes de inserir? <span class="plus">+</span></div>
-          <div class="faq-a">Sim. Basta passar o mouse sobre o som (sem clicar) que ele toca na hora, com forma de onda visual. É a forma mais rápida de varrer vários sons e achar o certo.</div>
+          <div class="faq-q"><span data-i18n="faq.q3">Posso ouvir antes de inserir?</span> <span class="plus">+</span></div>
+          <div class="faq-a" data-i18n="faq.a3">Sim. Basta passar o mouse sobre o som (sem clicar) que ele toca na hora, com forma de onda visual. É a forma mais rápida de varrer vários sons e achar o certo.</div>
         </div>
         <div class="faq-item" onclick="this.classList.toggle('open')">
-          <div class="faq-q">É pagamento único ou mensalidade? <span class="plus">+</span></div>
-          <div class="faq-a">100% pagamento único de R$ 109,79. Você compra uma vez e usa para sempre. Sem mensalidade, sem renovação.</div>
+          <div class="faq-q"><span data-i18n="faq.q4">É pagamento único ou mensalidade?</span> <span class="plus">+</span></div>
+          <div class="faq-a" data-i18n="faq.a4">100% pagamento único de R$ 109,79. Você compra uma vez e usa para sempre. Sem mensalidade, sem renovação.</div>
         </div>
         <div class="faq-item" onclick="this.classList.toggle('open')">
-          <div class="faq-q">Posso usar em projetos comerciais? <span class="plus">+</span></div>
-          <div class="faq-a">Sim. Todos os sons são 100% royalty-free para qualquer uso comercial: YouTube monetizado, comerciais, filme, jingle, jogo.</div>
+          <div class="faq-q"><span data-i18n="faq.q5">Posso usar em projetos comerciais?</span> <span class="plus">+</span></div>
+          <div class="faq-a" data-i18n="faq.a5">Sim. Todos os sons são 100% royalty-free para qualquer uso comercial: YouTube monetizado, comerciais, filme, jingle, jogo.</div>
         </div>
         <div class="faq-item" onclick="this.classList.toggle('open')">
-          <div class="faq-q">Posso criar pastas e importar meus sons? <span class="plus">+</span></div>
-          <div class="faq-a">Sim. Além das 21 categorias prontas, você cria pastas próprias com cores, importa seus áudios e arrasta sons entre as pastas. O painel ainda monta uma aba "Top" com os sons que você mais usa.</div>
+          <div class="faq-q"><span data-i18n="faq.q6">Posso criar pastas e importar meus sons?</span> <span class="plus">+</span></div>
+          <div class="faq-a" data-i18n="faq.a6">Sim. Além das 21 categorias prontas, você cria pastas próprias com cores, importa seus áudios e arrasta sons entre as pastas. O painel ainda monta uma aba "Top" com os sons que você mais usa.</div>
         </div>
         <div class="faq-item" onclick="this.classList.toggle('open')">
-          <div class="faq-q">Em quantas máquinas posso instalar? <span class="plus">+</span></div>
-          <div class="faq-a">Até 2 máquinas simultaneamente, Mac e/ou Windows. Pode desativar e mover quando quiser.</div>
+          <div class="faq-q"><span data-i18n="faq.q7">Em quantas máquinas posso instalar?</span> <span class="plus">+</span></div>
+          <div class="faq-a" data-i18n="faq.a7">Até 2 máquinas simultaneamente, Mac e/ou Windows. Pode desativar e mover quando quiser.</div>
         </div>
         <div class="faq-item" onclick="this.classList.toggle('open')">
-          <div class="faq-q">Como recebo o produto? <span class="plus">+</span></div>
-          <div class="faq-a">Acesso imediato. Após o pagamento, você recebe por e-mail o link de download e os dados pra criar sua conta. Faça login no painel e toda a biblioteca fica disponível.</div>
+          <div class="faq-q"><span data-i18n="faq.q8">Como recebo o produto?</span> <span class="plus">+</span></div>
+          <div class="faq-a" data-i18n="faq.a8">Acesso imediato. Após o pagamento, você recebe por e-mail o link de download e os dados pra criar sua conta. Faça login no painel e toda a biblioteca fica disponível.</div>
         </div>
         <div class="faq-item" onclick="this.classList.toggle('open')">
-          <div class="faq-q">E se eu não gostar? <span class="plus">+</span></div>
-          <div class="faq-a">7 dias para testar. Se não rolar, devolvemos 100%. Basta mandar e-mail, sem questionário.</div>
+          <div class="faq-q"><span data-i18n="faq.q9">E se eu não gostar?</span> <span class="plus">+</span></div>
+          <div class="faq-a" data-i18n="faq.a9">7 dias para testar. Se não rolar, devolvemos 100%. Basta mandar e-mail, sem questionário.</div>
         </div>
       </div>
     </div>
@@ -1681,7 +1841,7 @@
   <footer>
     <div class="foot">
       <img src="assets/logo.png" alt="dropSFX" />
-      <div class="foot-links"><a href="#">Termos</a><a href="#">Privacidade</a><a href="#">Licença</a><a href="#">Suporte</a></div>
+      <div class="foot-links"><a href="#" data-i18n="foot.terms">Termos</a><a href="#" data-i18n="foot.privacy">Privacidade</a><a href="#" data-i18n="foot.license">Licença</a><a href="#" data-i18n="foot.support">Suporte</a></div>
       <div class="foot-credit">© 2026 dropSFX</div>
     </div>
   </footer>
@@ -1689,15 +1849,570 @@
   <!-- MOBILE STICKY CTA -->
   <div class="sticky-cta" id="stickyCta">
     <div>
-      <div class="sc-price"><span class="cur">12x</span>R$ 11,36</div>
-      <span class="sc-label">ou R$ 109,79 à vista</span>
+      <div class="sc-price"><span class="cur" data-i18n="pricing.installments">12x</span><span data-i18n="sticky.price">R$ 11,36</span></div>
+      <span class="sc-label" data-i18n="sticky.label">ou R$ 109,79 à vista</span>
     </div>
     <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=sticky&utm_campaign=dropsfx"
-      class="sc-btn js-buy-cta" data-position="sticky"
+      class="sc-btn js-buy-cta" data-position="sticky" data-i18n="sticky.btn"
       target="_blank" rel="noopener">Comprar</a>
   </div>
 
   <script>
+  // =====================================================================
+  // I18N — DICIONÁRIO
+  // Para editar textos, mexa APENAS aqui embaixo.
+  // =====================================================================
+  var I18N = {
+
+    /* ============================ PORTUGUÊS ============================ */
+    pt: {
+      "meta.title": "dropSFX: Sound Effects no clique, dentro do Adobe Premiere Pro",
+      "meta.desc": "O painel de sound effects que vive dentro do Premiere Pro. Mais de 1.400 SFX profissionais, dois cliques e o som está na timeline.",
+
+      "nav.cta": "Comprar · 12x R$ 11,36",
+
+      "hero.badge": "PARA ADOBE PREMIERE PRO",
+      "hero.tagline": "Mais de 1.400 efeitos sonoros profissionais dentro do Premiere Pro.<br><strong>Dois cliques e o som está na timeline.</strong>",
+      "hero.cta": "Quero o dropSFX",
+      "hero.meta": "<span>12x de <b>R$ 11,36</b></span> · <span>Garantia de 7 dias</span>",
+
+      "problem.eyebrow": "Menos tempo procurando. Mais tempo criando.",
+      "problem.title": "<span class='fill'>Sound design</span><br><span class='fill'>em segundos</span>",
+      "problem.lead": "Tudo o que você precisa para dar impacto aos seus vídeos sem interromper sua edição.",
+
+      "panel.eyebrow": "№ 00 · O painel",
+      "panel.title": "<span style='color:#fff'>Isso vive dentro</span><br><span class='blue'>do seu Premiere.</span>",
+      "panel.lead": "Um painel nativo, acoplado à sua interface. Sua biblioteca inteira, organizada em pastas coloridas, a um gesto de distância da timeline.",
+
+      "hover.eyebrow": "№ 01 · Pré-escuta",
+      "hover.title": "Passou o mouse,<br><span class='blue'>já tá tocando.</span>",
+      "hover.lead": "Esqueça abrir cada arquivo pra saber o que é. <strong>Só passe o cursor sobre o som</strong> e ele toca na hora, com a forma de onda viva. Varra dezenas de efeitos em segundos.",
+
+      "quote1": "<span class='quote-line'>\"Quando as ferramentas acompanham sua criatividade,</span><span class='quote-line accent'>os resultados aparecem mais rápido.\"</span>",
+
+      "twoclick.eyebrow": "№ 02 · Inserção",
+      "twoclick.title": "Dois cliques.<br><span class='blue'>Tá na timeline.</span>",
+      "twoclick.lead": "Achou o som? <strong>Duplo-clique</strong> e ele cai exatamente no playhead do Premiere, na trilha que você escolheu. Sem arrastar arquivo, sem exportar, sem trocar de janela.",
+
+      "gain.eyebrow": "№ 04 · Controle",
+      "gain.title": "<span class='fill'>O ganho certo,</span><br><span class='blue'>antes de inserir.</span>",
+      "gain.lead": "Whoosh sempre alto demais? Riser baixo? Escolha <strong>-12, 0 ou +6 dB</strong> e o som já entra na timeline no volume certo. Adeus, abrir o mixer pra cada clipe.",
+
+      "library.eyebrow": "№ 05 · A biblioteca",
+      "library.title": "<span class='fill'>1.463 sons</span><br><span class='blue'>21 categorias</span>",
+      "library.lead": "Curados pra edição de verdade: de whooshes e impactos a glitches, risers e foley. Cada categoria com cor própria, pra você bater o olho e achar.",
+
+      "pricing.eyebrow": "Investimento",
+      "pricing.title": "<span class='fill'>Pague uma vez.</span><br><span class='blue'>Use pra sempre.</span>",
+      "pricing.ribbon": "▸ Oferta de lançamento",
+      "pricing.off": "63% OFF",
+      "pricing.desc": "Biblioteca completa de efeitos sonoros profissionais e o painel nativo pro Premiere, pra usar quantas vezes quiser.",
+      "pricing.from": "de R$ 297,00",
+      "pricing.save": "economize R$ 187,21",
+      "pricing.installments": "12x",
+      "pricing.currency": "R$",
+      "pricing.val": "11",
+      "pricing.cents": ",36",
+      "pricing.cash": "ou <strong>R$ 109,79</strong> à vista no Pix",
+      "pricing.once": "Pagamento único · sem mensalidade, sem renovação",
+      "pricing.f1": "<strong>1.463 efeitos sonoros</strong> profissionais",
+      "pricing.f2": "Painel <strong>nativo</strong> pro Adobe Premiere Pro",
+      "pricing.f3": "Pré-escuta no hover, <strong>2 cliques</strong> e atalhos",
+      "pricing.f4": "Controle de <strong>ganho na inserção</strong>",
+      "pricing.f5": "Pastas próprias + importe seus áudios",
+      "pricing.f6": "Licença pra <strong>até 2 máquinas</strong>",
+      "pricing.f7": "<strong>Vitalício</strong> · 100% royalty-free",
+      "pricing.cta": "Quero o dropSFX agora",
+      "pricing.guarantee": "<strong>Garantia de 7 dias.</strong> Não gostou? Devolvemos 100%.",
+
+      "faq.eyebrow": "Dúvidas",
+      "faq.title": "<span class='fill'>Tudo que perguntam.</span>",
+      "faq.q1": "Funciona em qual versão do Premiere Pro?",
+      "faq.a1": "Compatível com Adobe Premiere Pro CC 2020 em diante, no Mac (Intel e Apple Silicon) e no Windows 10/11.",
+      "faq.q2": "Como insiro um som na timeline?",
+      "faq.a2": "Do jeito que preferir: duplo-clique joga o som no playhead, ou use o botão Inserir. Pelo teclado, as setas navegam e o Enter insere; Shift+Enter coloca no seu in-point. E você ainda escolhe o ganho (-12 / 0 / +6 dB) antes de inserir.",
+      "faq.q3": "Posso ouvir antes de inserir?",
+      "faq.a3": "Sim. Basta passar o mouse sobre o som (sem clicar) que ele toca na hora, com forma de onda visual. É a forma mais rápida de varrer vários sons e achar o certo.",
+      "faq.q4": "É pagamento único ou mensalidade?",
+      "faq.a4": "100% pagamento único de R$ 109,79. Você compra uma vez e usa para sempre. Sem mensalidade, sem renovação.",
+      "faq.q5": "Posso usar em projetos comerciais?",
+      "faq.a5": "Sim. Todos os sons são 100% royalty-free para qualquer uso comercial: YouTube monetizado, comerciais, filme, jingle, jogo.",
+      "faq.q6": "Posso criar pastas e importar meus sons?",
+      "faq.a6": "Sim. Além das 21 categorias prontas, você cria pastas próprias com cores, importa seus áudios e arrasta sons entre as pastas. O painel ainda monta uma aba \"Top\" com os sons que você mais usa.",
+      "faq.q7": "Em quantas máquinas posso instalar?",
+      "faq.a7": "Até 2 máquinas simultaneamente, Mac e/ou Windows. Pode desativar e mover quando quiser.",
+      "faq.q8": "Como recebo o produto?",
+      "faq.a8": "Acesso imediato. Após o pagamento, você recebe por e-mail o link de download e os dados pra criar sua conta. Faça login no painel e toda a biblioteca fica disponível.",
+      "faq.q9": "E se eu não gostar?",
+      "faq.a9": "7 dias para testar. Se não rolar, devolvemos 100%. Basta mandar e-mail, sem questionário.",
+
+      "foot.terms": "Termos",
+      "foot.privacy": "Privacidade",
+      "foot.license": "Licença",
+      "foot.support": "Suporte",
+
+      "sticky.price": "R$ 11,36",
+      "sticky.label": "ou R$ 109,79 à vista",
+      "sticky.btn": "Comprar",
+
+      "mock.search": "Buscar sons…",
+      "mock.folders": "Pastas",
+      "mock.favorites": "Favoritos",
+      "mock.sort": "Nome",
+      "mock.all": "Todos",
+      "mock.library": "Biblioteca dropSFX",
+      "mock.sounds": "sons",
+      "mock.gain": "Ganho",
+      "mock.inpoint": "⇧↵ no in-point",
+      "mock.insert": "Inserir",
+
+      "cat.whooshes": "Whooshes",
+      "cat.transitions": "Transições",
+      "cat.drops": "Cinematic Drops",
+      "cat.clicks": "Clicks & UI",
+      "cat.foley": "Foley & Diegese",
+      "cat.risers": "Risers",
+      "cat.elements": "Elements",
+      "cat.memes": "Memes & Cartoon",
+      "cat.hits": "Hits & Impacts",
+      "cat.glitches": "Glitches",
+      "cat.guns": "Guns",
+      "cat.reverb": "Reverb",
+      "cat.retro": "Retrô",
+      "cat.hud": "HUD & Digital",
+      "cat.ambient": "Ambientes",
+      "cat.nature": "Natureza",
+      "cat.emotion": "Emoção",
+      "cat.camera": "Câmera",
+      "cat.bells": "Bells & Buttons",
+      "cat.slowmo": "Slow Motion",
+      "cat.tonal": "Tonalidade"
+    },
+
+    /* ============================= ENGLISH ============================= */
+    en: {
+      "meta.title": "dropSFX: Sound Effects one click away, inside Adobe Premiere Pro",
+      "meta.desc": "The sound effects panel that lives inside Premiere Pro. Over 1,400 pro SFX — two clicks and the sound is on your timeline.",
+
+      "nav.cta": "Get it · $21.90",
+
+      "hero.badge": "FOR ADOBE PREMIERE PRO",
+      "hero.tagline": "Over 1,400 professional sound effects inside Premiere Pro.<br><strong>Two clicks and the sound is on your timeline.</strong>",
+      "hero.cta": "Get dropSFX",
+      "hero.meta": "<span>One-time <b>$21.90</b></span> · <span>7-day guarantee</span>",
+
+      "problem.eyebrow": "Less time searching. More time creating.",
+      "problem.title": "<span class='fill'>Sound design</span><br><span class='fill'>in seconds</span>",
+      "problem.lead": "Everything you need to add impact to your videos without ever breaking your editing flow.",
+
+      "panel.eyebrow": "№ 00 · The panel",
+      "panel.title": "<span style='color:#fff'>It lives inside</span><br><span class='blue'>your Premiere.</span>",
+      "panel.lead": "A native panel docked right into your interface. Your entire library, organized into color-coded folders, one gesture away from the timeline.",
+
+      "hover.eyebrow": "№ 01 · Preview",
+      "hover.title": "Hover over it,<br><span class='blue'>it's already playing.</span>",
+      "hover.lead": "Forget opening every file just to know what it is. <strong>Just hover over the sound</strong> and it plays instantly, with a live waveform. Scan dozens of effects in seconds.",
+
+      "quote1": "<span class='quote-line'>\"When your tools keep up with your creativity,</span><span class='quote-line accent'>the results come faster.\"</span>",
+
+      "twoclick.eyebrow": "№ 02 · Insert",
+      "twoclick.title": "Two clicks.<br><span class='blue'>It's on the timeline.</span>",
+      "twoclick.lead": "Found the sound? <strong>Double-click</strong> and it drops exactly on Premiere's playhead, on the track you picked. No dragging files, no exporting, no window switching.",
+
+      "gain.eyebrow": "№ 04 · Control",
+      "gain.title": "<span class='fill'>The right gain,</span><br><span class='blue'>before inserting.</span>",
+      "gain.lead": "Whoosh always too loud? Riser too quiet? Pick <strong>-12, 0 or +6 dB</strong> and the sound lands on the timeline at the right level. No more opening the mixer for every clip.",
+
+      "library.eyebrow": "№ 05 · The library",
+      "library.title": "<span class='fill'>1,463 sounds</span><br><span class='blue'>21 categories</span>",
+      "library.lead": "Curated for real editing: from whooshes and impacts to glitches, risers and foley. Every category color-coded, so you spot it at a glance.",
+
+      "pricing.eyebrow": "Investment",
+      "pricing.title": "<span class='fill'>Pay once.</span><br><span class='blue'>Use forever.</span>",
+      "pricing.ribbon": "▸ Launch offer",
+      "pricing.off": "63% OFF",
+      "pricing.desc": "The complete professional sound effects library plus the native Premiere panel — use it as many times as you want.",
+      "pricing.from": "was $59.00",
+      "pricing.save": "save $37.10",
+      "pricing.installments": "",
+      "pricing.currency": "$",
+      "pricing.val": "21",
+      "pricing.cents": ".90",
+      "pricing.cash": "one-time payment via card or PayPal",
+      "pricing.once": "One-time payment · no subscription, no renewal",
+      "pricing.f1": "<strong>1,463 professional</strong> sound effects",
+      "pricing.f2": "<strong>Native</strong> panel for Adobe Premiere Pro",
+      "pricing.f3": "Hover preview, <strong>2 clicks</strong> and shortcuts",
+      "pricing.f4": "<strong>Gain control</strong> on insert",
+      "pricing.f5": "Custom folders + import your own audio",
+      "pricing.f6": "License for <strong>up to 2 machines</strong>",
+      "pricing.f7": "<strong>Lifetime</strong> · 100% royalty-free",
+      "pricing.cta": "Get dropSFX now",
+      "pricing.guarantee": "<strong>7-day guarantee.</strong> Not for you? Full refund.",
+
+      "faq.eyebrow": "FAQ",
+      "faq.title": "<span class='fill'>Everything you asked.</span>",
+      "faq.q1": "Which Premiere Pro versions does it support?",
+      "faq.a1": "Compatible with Adobe Premiere Pro CC 2020 and newer, on Mac (Intel and Apple Silicon) and Windows 10/11.",
+      "faq.q2": "How do I insert a sound on the timeline?",
+      "faq.a2": "Whichever way you prefer: double-click drops the sound at the playhead, or use the Insert button. With the keyboard, arrows navigate and Enter inserts; Shift+Enter places it at your in-point. And you still pick the gain (-12 / 0 / +6 dB) before inserting.",
+      "faq.q3": "Can I preview before inserting?",
+      "faq.a3": "Yes. Just hover over the sound (no click needed) and it plays instantly, with a visual waveform. It's the fastest way to scan through sounds and find the right one.",
+      "faq.q4": "Is it a one-time payment or a subscription?",
+      "faq.a4": "100% one-time payment. Buy once, use forever. No subscription, no renewal.",
+      "faq.q5": "Can I use it in commercial projects?",
+      "faq.a5": "Yes. Every sound is 100% royalty-free for any commercial use: monetized YouTube, commercials, film, jingles, games.",
+      "faq.q6": "Can I create folders and import my own sounds?",
+      "faq.a6": "Yes. Beyond the 21 built-in categories, you can create your own color-coded folders, import your audio and drag sounds between folders. The panel also builds a \"Top\" tab with the sounds you use most.",
+      "faq.q7": "On how many machines can I install it?",
+      "faq.a7": "Up to 2 machines at the same time, Mac and/or Windows. You can deactivate and move whenever you want.",
+      "faq.q8": "How do I receive the product?",
+      "faq.a8": "Instant access. After payment you get an email with the download link and your account details. Log into the panel and the whole library is available.",
+      "faq.q9": "What if I don't like it?",
+      "faq.a9": "7 days to try it. If it's not for you, we refund 100%. Just send an email — no questionnaire.",
+
+      "foot.terms": "Terms",
+      "foot.privacy": "Privacy",
+      "foot.license": "License",
+      "foot.support": "Support",
+
+      "sticky.price": "$21.90",
+      "sticky.label": "one-time payment",
+      "sticky.btn": "Get it",
+
+      "mock.search": "Search sounds…",
+      "mock.folders": "Folders",
+      "mock.favorites": "Favorites",
+      "mock.sort": "Name",
+      "mock.all": "All",
+      "mock.library": "dropSFX Library",
+      "mock.sounds": "sounds",
+      "mock.gain": "Gain",
+      "mock.inpoint": "⇧↵ at in-point",
+      "mock.insert": "Insert",
+
+      "cat.whooshes": "Whooshes",
+      "cat.transitions": "Transitions",
+      "cat.drops": "Cinematic Drops",
+      "cat.clicks": "Clicks & UI",
+      "cat.foley": "Foley & Diegetic",
+      "cat.risers": "Risers",
+      "cat.elements": "Elements",
+      "cat.memes": "Memes & Cartoon",
+      "cat.hits": "Hits & Impacts",
+      "cat.glitches": "Glitches",
+      "cat.guns": "Guns",
+      "cat.reverb": "Reverb",
+      "cat.retro": "Retro",
+      "cat.hud": "HUD & Digital",
+      "cat.ambient": "Ambiences",
+      "cat.nature": "Nature",
+      "cat.emotion": "Emotion",
+      "cat.camera": "Camera",
+      "cat.bells": "Bells & Buttons",
+      "cat.slowmo": "Slow Motion",
+      "cat.tonal": "Tonal"
+    },
+
+    /* ============================= ESPAÑOL ============================= */
+    es: {
+      "meta.title": "dropSFX: Efectos de sonido a un clic, dentro de Adobe Premiere Pro",
+      "meta.desc": "El panel de efectos de sonido que vive dentro de Premiere Pro. Más de 1.400 SFX profesionales: dos clics y el sonido está en la línea de tiempo.",
+
+      "nav.cta": "Comprar · $21.90",
+
+      "hero.badge": "PARA ADOBE PREMIERE PRO",
+      "hero.tagline": "Más de 1.400 efectos de sonido profesionales dentro de Premiere Pro.<br><strong>Dos clics y el sonido está en la línea de tiempo.</strong>",
+      "hero.cta": "Quiero dropSFX",
+      "hero.meta": "<span>Pago único de <b>$21.90</b></span> · <span>Garantía de 7 días</span>",
+
+      "problem.eyebrow": "Menos tiempo buscando. Más tiempo creando.",
+      "problem.title": "<span class='fill'>Diseño sonoro</span><br><span class='fill'>en segundos</span>",
+      "problem.lead": "Todo lo que necesitas para dar impacto a tus vídeos sin interrumpir tu edición.",
+
+      "panel.eyebrow": "№ 00 · El panel",
+      "panel.title": "<span style='color:#fff'>Esto vive dentro</span><br><span class='blue'>de tu Premiere.</span>",
+      "panel.lead": "Un panel nativo, acoplado a tu interfaz. Toda tu biblioteca, organizada en carpetas con colores, a un gesto de la línea de tiempo.",
+
+      "hover.eyebrow": "№ 01 · Pre-escucha",
+      "hover.title": "Pasas el mouse<br><span class='blue'>y ya está sonando.</span>",
+      "hover.lead": "Olvídate de abrir cada archivo para saber qué es. <strong>Solo pasa el cursor sobre el sonido</strong> y suena al instante, con la forma de onda en vivo. Recorre decenas de efectos en segundos.",
+
+      "quote1": "<span class='quote-line'>\"Cuando las herramientas siguen tu creatividad,</span><span class='quote-line accent'>los resultados llegan más rápido.\"</span>",
+
+      "twoclick.eyebrow": "№ 02 · Inserción",
+      "twoclick.title": "Dos clics.<br><span class='blue'>Ya está en la timeline.</span>",
+      "twoclick.lead": "¿Encontraste el sonido? <strong>Doble clic</strong> y cae exactamente en el playhead de Premiere, en la pista que elegiste. Sin arrastrar archivos, sin exportar, sin cambiar de ventana.",
+
+      "gain.eyebrow": "№ 04 · Control",
+      "gain.title": "<span class='fill'>La ganancia justa,</span><br><span class='blue'>antes de insertar.</span>",
+      "gain.lead": "¿El whoosh siempre demasiado alto? ¿El riser bajo? Elige <strong>-12, 0 o +6 dB</strong> y el sonido entra en la línea de tiempo al volumen correcto. Adiós a abrir el mixer en cada clip.",
+
+      "library.eyebrow": "№ 05 · La biblioteca",
+      "library.title": "<span class='fill'>1.463 sonidos</span><br><span class='blue'>21 categorías</span>",
+      "library.lead": "Curados para edición real: desde whooshes e impactos hasta glitches, risers y foley. Cada categoría con su propio color, para encontrarla de un vistazo.",
+
+      "pricing.eyebrow": "Inversión",
+      "pricing.title": "<span class='fill'>Paga una vez.</span><br><span class='blue'>Úsalo para siempre.</span>",
+      "pricing.ribbon": "▸ Oferta de lanzamiento",
+      "pricing.off": "63% OFF",
+      "pricing.desc": "Biblioteca completa de efectos de sonido profesionales y el panel nativo para Premiere, para usar cuantas veces quieras.",
+      "pricing.from": "antes $59.00",
+      "pricing.save": "ahorra $37.10",
+      "pricing.installments": "",
+      "pricing.currency": "$",
+      "pricing.val": "21",
+      "pricing.cents": ".90",
+      "pricing.cash": "pago único con tarjeta o PayPal",
+      "pricing.once": "Pago único · sin mensualidad, sin renovación",
+      "pricing.f1": "<strong>1.463 efectos de sonido</strong> profesionales",
+      "pricing.f2": "Panel <strong>nativo</strong> para Adobe Premiere Pro",
+      "pricing.f3": "Pre-escucha al pasar el cursor, <strong>2 clics</strong> y atajos",
+      "pricing.f4": "Control de <strong>ganancia al insertar</strong>",
+      "pricing.f5": "Carpetas propias + importa tus audios",
+      "pricing.f6": "Licencia para <strong>hasta 2 equipos</strong>",
+      "pricing.f7": "<strong>De por vida</strong> · 100% libre de regalías",
+      "pricing.cta": "Quiero dropSFX ahora",
+      "pricing.guarantee": "<strong>Garantía de 7 días.</strong> ¿No te gustó? Devolvemos el 100%.",
+
+      "faq.eyebrow": "Preguntas",
+      "faq.title": "<span class='fill'>Todo lo que preguntan.</span>",
+      "faq.q1": "¿En qué versiones de Premiere Pro funciona?",
+      "faq.a1": "Compatible con Adobe Premiere Pro CC 2020 en adelante, en Mac (Intel y Apple Silicon) y en Windows 10/11.",
+      "faq.q2": "¿Cómo inserto un sonido en la línea de tiempo?",
+      "faq.a2": "Como prefieras: doble clic coloca el sonido en el playhead, o usa el botón Insertar. Con el teclado, las flechas navegan y Enter inserta; Shift+Enter lo coloca en tu punto de entrada. Y además eliges la ganancia (-12 / 0 / +6 dB) antes de insertar.",
+      "faq.q3": "¿Puedo escuchar antes de insertar?",
+      "faq.a3": "Sí. Basta con pasar el mouse sobre el sonido (sin clic) y suena al instante, con forma de onda visual. Es la forma más rápida de recorrer varios sonidos y encontrar el correcto.",
+      "faq.q4": "¿Es pago único o mensualidad?",
+      "faq.a4": "100% pago único. Compras una vez y lo usas para siempre. Sin mensualidad, sin renovación.",
+      "faq.q5": "¿Puedo usarlo en proyectos comerciales?",
+      "faq.a5": "Sí. Todos los sonidos son 100% libres de regalías para cualquier uso comercial: YouTube monetizado, comerciales, cine, jingles, videojuegos.",
+      "faq.q6": "¿Puedo crear carpetas e importar mis sonidos?",
+      "faq.a6": "Sí. Además de las 21 categorías listas, creas tus propias carpetas con colores, importas tus audios y arrastras sonidos entre carpetas. El panel también arma una pestaña \"Top\" con los sonidos que más usas.",
+      "faq.q7": "¿En cuántos equipos puedo instalarlo?",
+      "faq.a7": "Hasta 2 equipos simultáneamente, Mac y/o Windows. Puedes desactivar y mover cuando quieras.",
+      "faq.q8": "¿Cómo recibo el producto?",
+      "faq.a8": "Acceso inmediato. Tras el pago recibes por correo el enlace de descarga y los datos para crear tu cuenta. Inicia sesión en el panel y toda la biblioteca queda disponible.",
+      "faq.q9": "¿Y si no me gusta?",
+      "faq.a9": "7 días para probarlo. Si no funciona para ti, devolvemos el 100%. Solo envía un correo, sin cuestionarios.",
+
+      "foot.terms": "Términos",
+      "foot.privacy": "Privacidad",
+      "foot.license": "Licencia",
+      "foot.support": "Soporte",
+
+      "sticky.price": "$21.90",
+      "sticky.label": "pago único",
+      "sticky.btn": "Comprar",
+
+      "mock.search": "Buscar sonidos…",
+      "mock.folders": "Carpetas",
+      "mock.favorites": "Favoritos",
+      "mock.sort": "Nombre",
+      "mock.all": "Todos",
+      "mock.library": "Biblioteca dropSFX",
+      "mock.sounds": "sonidos",
+      "mock.gain": "Ganancia",
+      "mock.inpoint": "⇧↵ en in-point",
+      "mock.insert": "Insertar",
+
+      "cat.whooshes": "Whooshes",
+      "cat.transitions": "Transiciones",
+      "cat.drops": "Cinematic Drops",
+      "cat.clicks": "Clicks & UI",
+      "cat.foley": "Foley & Diégesis",
+      "cat.risers": "Risers",
+      "cat.elements": "Elements",
+      "cat.memes": "Memes & Cartoon",
+      "cat.hits": "Hits & Impacts",
+      "cat.glitches": "Glitches",
+      "cat.guns": "Guns",
+      "cat.reverb": "Reverb",
+      "cat.retro": "Retro",
+      "cat.hud": "HUD & Digital",
+      "cat.ambient": "Ambientes",
+      "cat.nature": "Naturaleza",
+      "cat.emotion": "Emoción",
+      "cat.camera": "Cámara",
+      "cat.bells": "Bells & Buttons",
+      "cat.slowmo": "Slow Motion",
+      "cat.tonal": "Tonalidad"
+    }
+  };
+
+  // =====================================================================
+  // LINKS DE CHECKOUT POR IDIOMA
+  // Troque aqui quando tiver os links internacionais na Kiwify/Gumroad etc.
+  // =====================================================================
+  var CHECKOUT = {
+    pt: 'https://pay.kiwify.com.br/uzVAstc',
+    en: 'https://pay.kiwify.com.br/uzVAstc',
+    es: 'https://pay.kiwify.com.br/uzVAstc'
+  };
+
+  var LANG_META = {
+    pt: { label: 'PT', htmlLang: 'pt-BR', ogLocale: 'pt_BR' },
+    en: { label: 'EN', htmlLang: 'en',    ogLocale: 'en_US' },
+    es: { label: 'ES', htmlLang: 'es',    ogLocale: 'es_ES' }
+  };
+
+  // =====================================================================
+  // MOTOR I18N
+  // =====================================================================
+  var DropI18N = (function () {
+    var LS_KEY = 'dropsfx_lang';
+    var current = 'pt';
+
+    function detect() {
+      // 1) ?lang= na URL
+      try {
+        var q = new URLSearchParams(window.location.search).get('lang');
+        if (q && I18N[q.toLowerCase().slice(0, 2)]) return q.toLowerCase().slice(0, 2);
+      } catch (e) {}
+
+      // 2) escolha salva
+      try {
+        var saved = localStorage.getItem(LS_KEY);
+        if (saved && I18N[saved]) return saved;
+      } catch (e) {}
+
+      // 3) idioma do navegador
+      var navLangs = navigator.languages || [navigator.language || 'pt'];
+      for (var i = 0; i < navLangs.length; i++) {
+        var code = String(navLangs[i]).toLowerCase().slice(0, 2);
+        if (I18N[code]) return code;
+      }
+
+      // 4) fallback
+      return 'pt';
+    }
+
+    function t(key, lang) {
+      var dict = I18N[lang] || I18N.pt;
+      return (dict[key] !== undefined) ? dict[key] : (I18N.pt[key] !== undefined ? I18N.pt[key] : '');
+    }
+
+    function applyCheckoutLinks(lang) {
+      var base = CHECKOUT[lang] || CHECKOUT.pt;
+      document.querySelectorAll('.js-buy-cta').forEach(function (a) {
+        var pos = a.getAttribute('data-position') || 'unknown';
+        a.href = base + '?utm_source=site&utm_medium=' + pos + '&utm_campaign=dropsfx&lang=' + lang;
+      });
+    }
+
+    function apply(lang) {
+      if (!I18N[lang]) lang = 'pt';
+      current = lang;
+
+      // texto puro
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var v = t(el.getAttribute('data-i18n'), lang);
+        if (v !== '') el.textContent = v; else el.textContent = '';
+      });
+
+      // conteúdo com HTML
+      document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+        el.innerHTML = t(el.getAttribute('data-i18n-html'), lang);
+      });
+
+      // atributos (placeholder / aria-label / title / alt)
+      document.querySelectorAll('[data-i18n-attr]').forEach(function (el) {
+        var pairs = el.getAttribute('data-i18n-attr').split(',');
+        pairs.forEach(function (p) {
+          var kv = p.split(':');
+          if (kv.length === 2) el.setAttribute(kv[0].trim(), t(kv[1].trim(), lang));
+        });
+      });
+
+      // metadados
+      var meta = LANG_META[lang];
+      document.documentElement.setAttribute('lang', meta.htmlLang);
+      document.title = t('meta.title', lang);
+
+      var setMeta = function (sel, val) {
+        var m = document.querySelector(sel);
+        if (m) m.setAttribute('content', val);
+      };
+      setMeta('meta[name="description"]', t('meta.desc', lang));
+      setMeta('meta[property="og:title"]', t('meta.title', lang));
+      setMeta('meta[property="og:description"]', t('meta.desc', lang));
+      setMeta('meta[property="og:locale"]', meta.ogLocale);
+      setMeta('meta[name="twitter:title"]', t('meta.title', lang));
+
+      // botão do seletor
+      var cur = document.getElementById('langCurrent');
+      if (cur) cur.textContent = meta.label;
+
+      document.querySelectorAll('.lang-opt').forEach(function (b) {
+        b.classList.toggle('on', b.getAttribute('data-lang') === lang);
+      });
+
+      // links de checkout
+      applyCheckoutLinks(lang);
+
+      // marquee de categorias
+      if (window.renderMarquee) window.renderMarquee(lang);
+
+      // eventos customizados (útil se quiser plugar mais coisas depois)
+      document.dispatchEvent(new CustomEvent('dropsfx:langchange', { detail: { lang: lang } }));
+    }
+
+    function set(lang) {
+      try { localStorage.setItem(LS_KEY, lang); } catch (e) {}
+      apply(lang);
+
+      // atualiza a URL sem recarregar
+      try {
+        var url = new URL(window.location.href);
+        url.searchParams.set('lang', lang);
+        window.history.replaceState({}, '', url);
+      } catch (e) {}
+    }
+
+    return {
+      init: function () { apply(detect()); },
+      set: set,
+      get: function () { return current; },
+      t: function (k) { return t(k, current); }
+    };
+  })();
+
+  // =====================================================================
+  // SELETOR DE IDIOMA — UI
+  // =====================================================================
+  (function () {
+    var wrap = document.getElementById('langSwitch');
+    var btn  = document.getElementById('langBtn');
+    if (!wrap || !btn) return;
+
+    function close() {
+      wrap.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = wrap.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    wrap.querySelectorAll('.lang-opt').forEach(function (opt) {
+      opt.addEventListener('click', function (e) {
+        e.stopPropagation();
+        DropI18N.set(opt.getAttribute('data-lang'));
+        close();
+      });
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!wrap.contains(e.target)) close();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') close();
+    });
+  })();
+
   // =====================================================================
   // LOADER DO VÍDEO HERO — some assim que o vídeo estiver pronto pra tocar
   // =====================================================================
@@ -1713,7 +2428,6 @@
       loader.classList.add('hide');
     }
 
-    // readyState >= 3 (HAVE_FUTURE_DATA) já é suficiente pra tocar sem travar
     if (video.readyState >= 3) {
       hideLoader();
     } else {
@@ -1722,8 +2436,6 @@
       video.addEventListener('loadeddata', hideLoader, { once: true });
     }
 
-    // Fallback: se algo impedir os eventos (ex.: WKWebView/iOS em condições
-    // atípicas), remove o loader mesmo assim após um tempo pra não travar a UI.
     setTimeout(hideLoader, 4000);
   })();
 
@@ -1745,17 +2457,10 @@
       currency: 'BRL'
     };
 
-    // ── ViewContent: dispara assim que o pixel confirmar carregamento ──
-    // Usa fbq.callMethod/queue, então funciona mesmo antes do fbevents.js
-    // carregar completamente (o stub já enfileira).
-    // Delay mínimo de 800ms para garantir que o init processou.
     setTimeout(function () {
       window.dropsfxEvent('ViewContent', PIXEL_DATA);
     }, 800);
 
-    // ── InitiateCheckout: todos os botões de compra ──
-    // Usamos delegação de evento no document para pegar qualquer botão,
-    // incluindo o sticky CTA que pode ser inserido depois do DOMContentLoaded.
     document.addEventListener('click', function (e) {
       var el = e.target.closest('.js-buy-cta');
       if (!el) return;
@@ -1770,13 +2475,13 @@
         value: PIXEL_DATA.value,
         currency: PIXEL_DATA.currency,
         num_items: 1,
-        // custom param para saber de onde o clique veio
-        custom_data: { cta_position: position }
+        custom_data: {
+          cta_position: position,
+          lang: (window.DropI18N ? DropI18N.get() : 'pt')
+        }
       });
     });
 
-    // ── AddToCart: dispara quando o bloco de preço fica visível ──
-    // Representa "usuário viu a oferta completa" — evento de intenção alto.
     var addToCartFired = false;
     var pricingSection = document.getElementById('comprar');
 
@@ -1793,7 +2498,6 @@
 
       priceObserver.observe(pricingSection);
     } else if (pricingSection) {
-      // Fallback scroll para Safari iOS < 12.2
       function checkPricingVisible() {
         if (addToCartFired) return;
         var r = pricingSection.getBoundingClientRect();
@@ -2073,33 +2777,42 @@
   })();
 
   // =====================================================================
-  // LIBRARY MARQUEE
+  // LIBRARY MARQUEE (re-renderiza a cada troca de idioma)
   // =====================================================================
-  (function () {
+  window.renderMarquee = (function () {
     var cats = [
-      ['Whooshes',240,'#2dd4bf'],['Transitions',179,'#facc15'],['Cinematic Drops',142,'#a78bfa'],
-      ['Clicks & UI',130,'#38bdf8'],['Foley & Diegese',127,'#06b6d4'],['Risers',98,'#fb923c'],
-      ['Elements',85,'#4ade80'],['Memes & Cartoon',71,'#f472b6'],['Hits & Impacts',63,'#f87171'],
-      ['Glitches',45,'#60a5fa'],['Guns',45,'#f87171'],['Reverb',39,'#4ade80'],
-      ['Retro',29,'#b45309'],['HUD & Digital',27,'#38bdf8'],['Ambientes',26,'#4ade80'],
-      ['Natureza',24,'#4ade80'],['Emoção',18,'#f472b6'],['Camera',17,'#94a3b8'],
-      ['Bells & Buttons',16,'#b45309'],['Slow Motion',13,'#a78bfa'],['Tonalidade',29,'#facc15']
+      ['cat.whooshes',240,'#2dd4bf'],['cat.transitions',179,'#facc15'],['cat.drops',142,'#a78bfa'],
+      ['cat.clicks',130,'#38bdf8'],['cat.foley',127,'#06b6d4'],['cat.risers',98,'#fb923c'],
+      ['cat.elements',85,'#4ade80'],['cat.memes',71,'#f472b6'],['cat.hits',63,'#f87171'],
+      ['cat.glitches',45,'#60a5fa'],['cat.guns',45,'#f87171'],['cat.reverb',39,'#4ade80'],
+      ['cat.retro',29,'#b45309'],['cat.hud',27,'#38bdf8'],['cat.ambient',26,'#4ade80'],
+      ['cat.nature',24,'#4ade80'],['cat.emotion',18,'#f472b6'],['cat.camera',17,'#94a3b8'],
+      ['cat.bells',16,'#b45309'],['cat.slowmo',13,'#a78bfa'],['cat.tonal',29,'#facc15']
     ];
 
-    function card(c) {
-      return '<div class="mq-cat"><span class="mq-ic" style="background:' + c[2] + '"></span>' +
-             '<span class="mq-name">' + c[0] + '</span>' +
-             '<span class="mq-n" style="color:' + c[2] + '">' + c[1] + '</span></div>';
-    }
+    return function (lang) {
+      var dict = I18N[lang] || I18N.pt;
+      function card(c) {
+        var name = dict[c[0]] || I18N.pt[c[0]] || c[0];
+        return '<div class="mq-cat"><span class="mq-ic" style="background:' + c[2] + '"></span>' +
+               '<span class="mq-name">' + name + '</span>' +
+               '<span class="mq-n" style="color:' + c[2] + '">' + c[1] + '</span></div>';
+      }
 
-    var h1 = cats.slice(0, 11), h2 = cats.slice(11);
-    var r1 = document.getElementById('mqRow1');
-    var r2 = document.getElementById('mqRow2');
+      var h1 = cats.slice(0, 11), h2 = cats.slice(11);
+      var r1 = document.getElementById('mqRow1');
+      var r2 = document.getElementById('mqRow2');
 
-    if (r1) r1.innerHTML = h1.map(card).join('') + h1.map(card).join('');
-    if (r2) r2.innerHTML = (h2.map(card).join('') + h1.slice(0,4).map(card).join('')) +
-                           (h2.map(card).join('') + h1.slice(0,4).map(card).join(''));
+      if (r1) r1.innerHTML = h1.map(card).join('') + h1.map(card).join('');
+      if (r2) r2.innerHTML = (h2.map(card).join('') + h1.slice(0,4).map(card).join('')) +
+                             (h2.map(card).join('') + h1.slice(0,4).map(card).join(''));
+    };
   })();
+
+  // =====================================================================
+  // BOOT
+  // =====================================================================
+  DropI18N.init();
   </script>
 
 </body>
