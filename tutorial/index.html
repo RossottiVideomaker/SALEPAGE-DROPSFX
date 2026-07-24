@@ -107,12 +107,23 @@
     border-bottom:1px solid var(--line);}
   .nav-in{max-width:780px;margin:0 auto;padding:14px 22px;
     display:flex;align-items:center;justify-content:space-between}
+  .nav-right{display:flex;align-items:center;gap:10px}
   .logo-img{height:26px;width:auto;display:block;
     filter:drop-shadow(0 0 8px rgba(214,236,242,.25))}
   .nav-cta{font-size:12.5px;font-weight:600;color:var(--wa);text-decoration:none;
     display:inline-flex;align-items:center;gap:6px;padding:7px 13px;
     border:1px solid rgba(37,211,102,.3);border-radius:999px;transition:.2s;}
   .nav-cta:hover{background:rgba(37,211,102,.12);transform:translateY(-1px)}
+
+  .lang-seg{display:flex;gap:2px;background:var(--surface);border:1px solid var(--line2);
+    border-radius:999px;padding:3px}
+  .lang-seg button{background:none;border:none;color:var(--txt3);font-family:var(--font);
+    font-size:11px;font-weight:700;letter-spacing:.5px;padding:5px 10px;border-radius:999px;
+    cursor:pointer;transition:.2s}
+  .lang-seg button.active{background:linear-gradient(135deg,var(--accent),var(--accent-hi));
+    color:#fff;box-shadow:0 2px 10px var(--accent-glow)}
+  .lang-seg button:not(.active):hover{color:var(--txt2)}
+  @media(max-width:420px){.lang-seg button{padding:5px 8px;font-size:10px}}
 
   header{padding:80px 0 50px;text-align:center;position:relative}
   .hero-logo{height:60px;width:auto;margin:0 auto 28px;display:block;position:relative;
@@ -408,7 +419,7 @@
 <div id="intro">
   <img class="intro-logo" src="logo.png" alt="dropSFX"/>
   <div class="intro-bar"><div class="intro-bar-fill"></div></div>
-  <div class="intro-text">Preparando sua experiência</div>
+  <div class="intro-text" data-i18n="intro.text">Preparando sua experiência</div>
 </div>
 
 <div class="ambient">
@@ -422,10 +433,17 @@
 <nav>
   <div class="nav-in">
     <img class="logo-img" src="logo.png" alt="dropSFX"/>
-    <a class="nav-cta" href="https://wa.me/5527992625721" target="_blank" rel="noopener">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35z"/></svg>
-      Suporte
-    </a>
+    <div class="nav-right">
+      <div class="lang-seg" id="langSeg">
+        <button type="button" data-lang="pt" onclick="setLang('pt')">PT</button>
+        <button type="button" data-lang="en" onclick="setLang('en')">EN</button>
+        <button type="button" data-lang="es" onclick="setLang('es')">ES</button>
+      </div>
+      <a class="nav-cta" href="https://wa.me/5527992625721" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35z"/></svg>
+        <span data-i18n="nav.support">Suporte</span>
+      </a>
+    </div>
   </div>
 </nav>
 
@@ -434,17 +452,17 @@
     <div class="progress-steps">
       <div class="pstep active" data-step="0">
         <div class="pstep-dot">1</div>
-        <div class="pstep-label">Instalar</div>
+        <div class="pstep-label" data-i18n="progress.install">Instalar</div>
       </div>
       <div class="pstep-line"></div>
       <div class="pstep" data-step="1">
         <div class="pstep-dot">2</div>
-        <div class="pstep-label">Entrar</div>
+        <div class="pstep-label" data-i18n="progress.signin">Entrar</div>
       </div>
       <div class="pstep-line"></div>
       <div class="pstep" data-step="2">
         <div class="pstep-dot">3</div>
-        <div class="pstep-label">Usar</div>
+        <div class="pstep-label" data-i18n="progress.use">Usar</div>
       </div>
     </div>
   </div>
@@ -453,9 +471,9 @@
 <header>
   <div class="wrap">
     <img class="hero-logo" src="logo.png" alt="dropSFX"/>
-    <span class="badge"><span class="badge-dot"></span>Compra confirmada</span>
-    <h1>Bem-vindo ao<br><span class="ice">próximo nível.</span></h1>
-    <p>Sua jornada começa agora. Em poucos minutos, o dropSFX vai estar rodando dentro do seu Premiere.</p>
+    <span class="badge"><span class="badge-dot"></span><span data-i18n="hero.badge">Compra confirmada</span></span>
+    <h1 data-i18n="hero.title">Bem-vindo ao<br><span class="ice">próximo nível.</span></h1>
+    <p data-i18n="hero.sub">Sua jornada começa agora. Em poucos minutos, o dropSFX vai estar rodando dentro do seu Premiere.</p>
   </div>
 </header>
 
@@ -463,10 +481,10 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="sec-badge">01</div>
-      <div class="sec-num">Instalação</div>
+      <div class="sec-num" data-i18n="s1.num">Instalação</div>
     </div>
-    <h2 class="reveal d1">Instale o painel.</h2>
-    <p class="sec-sub reveal d2">Baixe o arquivo e siga o passo a passo do seu sistema. Marque cada etapa conforme avança.</p>
+    <h2 class="reveal d1" data-i18n="s1.h2">Instale o painel.</h2>
+    <p class="sec-sub reveal d2" data-i18n="s1.sub">Baixe o arquivo e siga o passo a passo do seu sistema. Marque cada etapa conforme avança.</p>
 
     <div class="dl-card reveal d2">
       <div class="dl-inner">
@@ -477,16 +495,16 @@
           </div>
         </div>
         <div class="dl-info">
-          <h3>DropSFX.zip</h3>
+          <h3>DropSFX.2.0.zip</h3>
           <div class="dl-meta">
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Versão 1.0</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Mac e Windows</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="dl.version">Versão 2.0</span></span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span data-i18n="dl.platforms">Mac e Windows</span></span>
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/></svg>~280 MB</span>
           </div>
         </div>
-        <a class="dl-btn" href="https://github.com/RossottiVideomaker/SALEPAGE-DROPSFX/releases/download/1.0.0/DropSFX.zip" download onclick="onDownload()">
+        <a class="dl-btn" href="https://github.com/RossottiVideomaker/SALEPAGE-DROPSFX/releases/download/1.0.0/DropSFX.2.0.zip" download onclick="onDownload()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span>Baixar agora</span>
+          <span data-i18n="dl.btn">Baixar agora</span>
         </a>
       </div>
     </div>
@@ -508,36 +526,36 @@
         <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div class="step-n">1</div>
         <div class="step-body">
-          <strong>Extraia o arquivo</strong>
-          <p>Clique duas vezes no <b>DropSFX.zip</b> que você baixou. Vai criar uma pasta chamada <b>DropSFX</b>.</p>
+          <strong data-i18n="mac1.t">Extraia o arquivo</strong>
+          <p data-i18n="mac1.p">Clique duas vezes no <b>DropSFX.2.0.zip</b> que você baixou. Vai criar uma pasta chamada <b>DropSFX</b>.</p>
         </div>
       </div>
       <div class="step reveal" data-stepid="mac2">
         <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div class="step-n">2</div>
         <div class="step-body">
-          <strong>Abra a pasta de extensões</strong>
-          <p>No Finder, aperte <b>⇧⌘G</b> e cole o caminho:</p>
-          <div class="path"><span class="path-text">~/Library/Application Support/Adobe/CEP/extensions/</span><button class="copy-btn" onclick="copyTxt(this,'~/Library/Application Support/Adobe/CEP/extensions/')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>copiar</button></div>
-          <p style="margin-top:8px">Cole a pasta <b>DropSFX</b> aqui dentro. (Se a pasta <b>extensions</b> não existir, crie ela.)</p>
+          <strong data-i18n="mac2.t">Abra a pasta de extensões</strong>
+          <p data-i18n="mac2.p1">No Finder, aperte <b>⇧⌘G</b> e cole o caminho:</p>
+          <div class="path"><span class="path-text">~/Library/Application Support/Adobe/CEP/extensions/</span><button class="copy-btn" onclick="copyTxt(this,'~/Library/Application Support/Adobe/CEP/extensions/')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg><span data-i18n="copy.label">copiar</span></button></div>
+          <p style="margin-top:8px" data-i18n="mac2.p2">Cole a pasta <b>DropSFX</b> aqui dentro. (Se a pasta <b>extensions</b> não existir, crie ela.)</p>
         </div>
       </div>
       <div class="step reveal" data-stepid="mac3">
         <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div class="step-n">3</div>
         <div class="step-body">
-          <strong>Libere extensões (funciona em todas as versões)</strong>
-          <p>Abra o <b>Terminal</b>, cole o comando abaixo e aperte Enter. Ele libera de uma vez pra qualquer versão do Premiere.</p>
-          <div class="path"><span class="path-text">for v in 6 7 8 9 10 11 12; do defaults write com.adobe.CSXS.$v PlayerDebugMode 1; done; killall cfprefsd</span><button class="copy-btn" onclick="copyTxt(this,'for v in 6 7 8 9 10 11 12; do defaults write com.adobe.CSXS.$v PlayerDebugMode 1; done; killall cfprefsd')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>copiar</button></div>
-          <p style="margin-top:8px">Não precisa saber qual versão você tem — o comando cobre da CS até o Premiere mais recente.</p>
+          <strong data-i18n="mac3.t">Libere extensões (funciona em todas as versões)</strong>
+          <p data-i18n="mac3.p1">Abra o <b>Terminal</b>, cole o comando abaixo e aperte Enter. Ele libera de uma vez pra qualquer versão do Premiere.</p>
+          <div class="path"><span class="path-text">for v in 6 7 8 9 10 11 12; do defaults write com.adobe.CSXS.$v PlayerDebugMode 1; done; killall cfprefsd</span><button class="copy-btn" onclick="copyTxt(this,'for v in 6 7 8 9 10 11 12; do defaults write com.adobe.CSXS.$v PlayerDebugMode 1; done; killall cfprefsd')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg><span data-i18n="copy.label">copiar</span></button></div>
+          <p style="margin-top:8px" data-i18n="mac3.p2">Não precisa saber qual versão você tem — o comando cobre da CS até o Premiere mais recente.</p>
         </div>
       </div>
       <div class="step reveal" data-stepid="mac4">
         <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div class="step-n">4</div>
         <div class="step-body">
-          <strong>Reinicie o Premiere</strong>
-          <p>Feche e abra o Premiere Pro. O painel fica em <b>Janela → Extensões → DropSFX</b>.</p>
+          <strong data-i18n="mac4.t">Reinicie o Premiere</strong>
+          <p data-i18n="mac4.p">Feche e abra o Premiere Pro. O painel fica em <b>Janela → Extensões → DropSFX</b>.</p>
         </div>
       </div>
     </div>
@@ -547,36 +565,36 @@
         <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div class="step-n">1</div>
         <div class="step-body">
-          <strong>Extraia o arquivo</strong>
-          <p>Botão direito no <b>DropSFX.zip</b> → <b>Extrair tudo</b>. Vai criar uma pasta chamada <b>DropSFX</b>.</p>
+          <strong data-i18n="win1.t">Extraia o arquivo</strong>
+          <p data-i18n="win1.p">Botão direito no <b>DropSFX.2.0.zip</b> → <b>Extrair tudo</b>. Vai criar uma pasta chamada <b>DropSFX</b>.</p>
         </div>
       </div>
       <div class="step reveal" data-stepid="win2">
         <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div class="step-n">2</div>
         <div class="step-body">
-          <strong>Abra a pasta de extensões</strong>
-          <p>No <b>Explorador de Arquivos</b>, cole o caminho na barra de endereço:</p>
-          <div class="path"><span class="path-text">C:\Program Files (x86)\Common Files\Adobe\CEP\extensions\</span><button class="copy-btn" onclick="copyTxt(this,'C:\\Program Files (x86)\\Common Files\\Adobe\\CEP\\extensions\\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>copiar</button></div>
-          <p style="margin-top:8px">Cole a pasta <b>DropSFX</b> aqui. (Se <b>CEP\extensions</b> não existir, crie. Pode pedir permissão de admin — clique "Continuar".)</p>
+          <strong data-i18n="win2.t">Abra a pasta de extensões</strong>
+          <p data-i18n="win2.p1">No <b>Explorador de Arquivos</b>, cole o caminho na barra de endereço:</p>
+          <div class="path"><span class="path-text">C:\Program Files (x86)\Common Files\Adobe\CEP\extensions\</span><button class="copy-btn" onclick="copyTxt(this,'C:\\Program Files (x86)\\Common Files\\Adobe\\CEP\\extensions\\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg><span data-i18n="copy.label">copiar</span></button></div>
+          <p style="margin-top:8px" data-i18n="win2.p2">Cole a pasta <b>DropSFX</b> aqui. (Se <b>CEP\extensions</b> não existir, crie. Pode pedir permissão de admin — clique "Continuar".)</p>
         </div>
       </div>
       <div class="step reveal" data-stepid="win3">
         <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div class="step-n">3</div>
         <div class="step-body">
-          <strong>Libere extensões (funciona em todas as versões)</strong>
-          <p>Aperte <b>Win + R</b>, digite <b>cmd</b> e aperte Enter. Cole o comando abaixo e aperte Enter:</p>
-          <div class="path"><span class="path-text">for %v in (6 7 8 9 10 11 12) do reg add HKCU\Software\Adobe\CSXS.%v /v PlayerDebugMode /t REG_SZ /d 1 /f</span><button class="copy-btn" onclick="copyTxt(this,'for %v in (6 7 8 9 10 11 12) do reg add HKCU\\Software\\Adobe\\CSXS.%v /v PlayerDebugMode /t REG_SZ /d 1 /f')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>copiar</button></div>
-          <p style="margin-top:8px">Não precisa saber qual versão você tem — o comando cobre da CS até o Premiere mais recente.</p>
+          <strong data-i18n="win3.t">Libere extensões (funciona em todas as versões)</strong>
+          <p data-i18n="win3.p1">Aperte <b>Win + R</b>, digite <b>cmd</b> e aperte Enter. Cole o comando abaixo e aperte Enter:</p>
+          <div class="path"><span class="path-text">for %v in (6 7 8 9 10 11 12) do reg add HKCU\Software\Adobe\CSXS.%v /v PlayerDebugMode /t REG_SZ /d 1 /f</span><button class="copy-btn" onclick="copyTxt(this,'for %v in (6 7 8 9 10 11 12) do reg add HKCU\\Software\\Adobe\\CSXS.%v /v PlayerDebugMode /t REG_SZ /d 1 /f')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg><span data-i18n="copy.label">copiar</span></button></div>
+          <p style="margin-top:8px" data-i18n="win3.p2">Não precisa saber qual versão você tem — o comando cobre da CS até o Premiere mais recente.</p>
         </div>
       </div>
       <div class="step reveal" data-stepid="win4">
         <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div class="step-n">4</div>
         <div class="step-body">
-          <strong>Reinicie o Premiere</strong>
-          <p>Feche e abra o Premiere Pro. O painel fica em <b>Janela → Extensões → DropSFX</b>.</p>
+          <strong data-i18n="win4.t">Reinicie o Premiere</strong>
+          <p data-i18n="win4.p">Feche e abra o Premiere Pro. O painel fica em <b>Janela → Extensões → DropSFX</b>.</p>
         </div>
       </div>
     </div>
@@ -587,20 +605,20 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="sec-badge">02</div>
-      <div class="sec-num">Acesso</div>
+      <div class="sec-num" data-i18n="s2.num">Acesso</div>
     </div>
-    <h2 class="reveal d1">Entre com o Google.</h2>
-    <p class="sec-sub reveal d2">Sem senha, sem cadastro. O login é feito com a mesma conta Google do e-mail que você usou na compra.</p>
+    <h2 class="reveal d1" data-i18n="s2.h2">Entre com o Google.</h2>
+    <p class="sec-sub reveal d2" data-i18n="s2.sub">Sem senha, sem cadastro. O login é feito com a mesma conta Google do e-mail que você usou na compra.</p>
 
     <div class="step reveal" data-stepid="acc1">
       <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
       <div class="step-n">1</div>
       <div class="step-body">
-        <strong>Abra o painel dropSFX</strong>
-        <p>No Premiere, vá em <b>Janela → Extensões → dropSFX</b>. Na tela de login, clique em <b>Entrar com Google</b>.</p>
+        <strong data-i18n="acc1.t">Abra o painel dropSFX</strong>
+        <p data-i18n="acc1.p">No Premiere, vá em <b>Janela → Extensões → dropSFX</b>. Na tela de login, clique em <b>Entrar com Google</b>.</p>
         <div class="gbtn-preview">
           <svg viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 01-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.02-3.7H.96v2.34A9 9 0 009 18z"/><path fill="#FBBC05" d="M3.98 10.72a5.4 5.4 0 010-3.44V4.94H.96a9 9 0 000 8.12l3.02-2.34z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.46 3.44 1.35l2.58-2.58C13.47.9 11.43 0 9 0A9 9 0 00.96 4.94l3.02 2.34C4.68 5.16 6.66 3.58 9 3.58z"/></svg>
-          <span>Entrar com Google</span>
+          <span data-i18n="gbtn.label">Entrar com Google</span>
         </div>
       </div>
     </div>
@@ -608,22 +626,22 @@
       <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
       <div class="step-n">2</div>
       <div class="step-body">
-        <strong>Escolha sua conta no navegador</strong>
-        <p>Uma aba abre no seu navegador. <b>Selecione a conta Google do e-mail que você usou na compra</b> e autorize o acesso.</p>
+        <strong data-i18n="acc2.t">Escolha sua conta no navegador</strong>
+        <p data-i18n="acc2.p">Uma aba abre no seu navegador. <b>Selecione a conta Google do e-mail que você usou na compra</b> e autorize o acesso.</p>
       </div>
     </div>
     <div class="step reveal" data-stepid="acc3">
       <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
       <div class="step-n">3</div>
       <div class="step-body">
-        <strong>Volte pro Premiere</strong>
-        <p>A página vai dizer <b>"Tudo certo!"</b>. É só voltar pro Premiere — o plugin entra sozinho em alguns segundos.</p>
+        <strong data-i18n="acc3.t">Volte pro Premiere</strong>
+        <p data-i18n="acc3.p">A página vai dizer <b>"Tudo certo!"</b>. É só voltar pro Premiere — o plugin entra sozinho em alguns segundos.</p>
       </div>
     </div>
 
     <div class="note info reveal">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-      <div>Use a mesma conta Google do e-mail que aparece no seu comprovante do Kiwify. Se logar com outra conta, o acesso vai ser bloqueado.</div>
+      <div data-i18n="note.access">Use a mesma conta Google do e-mail que aparece no seu comprovante do Kiwify. Se logar com outra conta, o acesso vai ser bloqueado.</div>
     </div>
   </div>
 </section>
@@ -632,39 +650,39 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="sec-badge">03</div>
-      <div class="sec-num">Como usar</div>
+      <div class="sec-num" data-i18n="s3.num">Como usar</div>
     </div>
-    <h2 class="reveal d1">Som na timeline<br>em um clique.</h2>
-    <p class="sec-sub reveal d2">O fluxo é simples: escolha, escute, insira.</p>
+    <h2 class="reveal d1" data-i18n="s3.h2">Som na timeline<br>em um clique.</h2>
+    <p class="sec-sub reveal d2" data-i18n="s3.sub">O fluxo é simples: escolha, escute, insira.</p>
 
     <div class="cards">
       <div class="ucard reveal">
         <div class="ucard-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
-        <h3>1. Encontre o som</h3>
-        <p>Use a busca ("whoosh suave", "impacto") ou navegue pelas categorias coloridas.</p>
+        <h3 data-i18n="uc1.t">1. Encontre o som</h3>
+        <p data-i18n="uc1.p">Use a busca ("whoosh suave", "impacto") ou navegue pelas categorias coloridas.</p>
       </div>
       <div class="ucard reveal d1">
         <div class="ucard-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-        <h3>2. Pré-escute</h3>
-        <p>Clique no play pra ouvir com a forma de onda antes de inserir. Sinta o som.</p>
+        <h3 data-i18n="uc2.t">2. Pré-escute</h3>
+        <p data-i18n="uc2.p">Clique no play pra ouvir com a forma de onda antes de inserir. Sinta o som.</p>
       </div>
       <div class="ucard reveal d2">
         <div class="ucard-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
-        <h3>3. Escolha a trilha</h3>
-        <p>Selecione a faixa de áudio (A1, A2…) no seletor, ou deixe no <b>Auto</b>.</p>
+        <h3 data-i18n="uc3.t">3. Escolha a trilha</h3>
+        <p data-i18n="uc3.p">Selecione a faixa de áudio (A1, A2…) no seletor, ou deixe no <b>Auto</b>.</p>
       </div>
       <div class="ucard reveal d3">
         <div class="ucard-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg></div>
-        <h3>4. Clique em Inserir</h3>
-        <p>O som entra exatamente no cursor de tempo, na trilha escolhida. Pronto.</p>
+        <h3 data-i18n="uc4.t">4. Clique em Inserir</h3>
+        <p data-i18n="uc4.p">O som entra exatamente no cursor de tempo, na trilha escolhida. Pronto.</p>
       </div>
     </div>
 
     <div class="trial reveal">
       <div class="trial-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
       <div>
-        <strong>Período de teste (7 dias)</strong>
-        <p>Nos primeiros 7 dias você usa 200 efeitos selecionados. Depois, a biblioteca completa (1.463 sons) é liberada automaticamente — sem fazer nada.</p>
+        <strong data-i18n="trial.t">Período de teste (7 dias)</strong>
+        <p data-i18n="trial.p">Nos primeiros 7 dias você usa 200 efeitos selecionados. Depois, a biblioteca completa (1.463 sons) é liberada automaticamente — sem fazer nada.</p>
       </div>
     </div>
   </div>
@@ -674,47 +692,47 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="sec-badge">04</div>
-      <div class="sec-num">Dúvidas</div>
+      <div class="sec-num" data-i18n="s4.num">Dúvidas</div>
     </div>
-    <h2 class="reveal d1">Perguntas frequentes.</h2>
-    <p class="sec-sub reveal d2">As dúvidas mais comuns de quem tá começando.</p>
+    <h2 class="reveal d1" data-i18n="s4.h2">Perguntas frequentes.</h2>
+    <p class="sec-sub reveal d2" data-i18n="s4.sub">As dúvidas mais comuns de quem tá começando.</p>
 
     <div class="reveal d2">
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">O painel não aparece no menu Extensões. E agora?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Confirme 3 coisas: (1) a pasta <b>DropSFX</b> está diretamente dentro de <b>extensions</b> (não dentro de outra pasta); (2) você rodou o comando de liberar extensões do passo 3; (3) reiniciou o Premiere por completo. Se ainda não aparecer, chame no suporte.</p></div>
+        <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq1.q">O painel não aparece no menu Extensões. E agora?</span><span class="faq-icon"></span></button>
+        <div class="faq-a"><p data-i18n="faq1.a">Confirme 3 coisas: (1) a pasta <b>DropSFX</b> está diretamente dentro de <b>extensions</b> (não dentro de outra pasta); (2) você rodou o comando de liberar extensões do passo 3; (3) reiniciou o Premiere por completo. Se ainda não aparecer, chame no suporte.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Preciso saber qual versão do CSXS eu tenho?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Não. O comando do passo 3 libera todas as versões de uma vez (da 6 até a 12), então funciona em qualquer Premiere. Só pra referência: <b>CSXS.11</b> = Premiere 2022/2023 e <b>CSXS.12</b> = Premiere 2024/2025 em diante. Rodar em versões que você não tem instaladas não causa nenhum problema.</p></div>
+        <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq2.q">Preciso saber qual versão do CSXS eu tenho?</span><span class="faq-icon"></span></button>
+        <div class="faq-a"><p data-i18n="faq2.a">Não. O comando do passo 3 libera todas as versões de uma vez (da 6 até a 12), então funciona em qualquer Premiere. Só pra referência: <b>CSXS.11</b> = Premiere 2022/2023 e <b>CSXS.12</b> = Premiere 2024/2025 em diante. Rodar em versões que você não tem instaladas não causa nenhum problema.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Posso entrar com uma conta Google diferente do e-mail da compra?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Não. Sua licença fica vinculada ao e-mail que aparece no comprovante do Kiwify. Se você entrar com outra conta Google, o plugin vai avisar que essa conta não tem acesso. Precisa trocar o e-mail vinculado? Fala com o suporte que a gente ajusta.</p></div>
+        <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq3.q">Posso entrar com uma conta Google diferente do e-mail da compra?</span><span class="faq-icon"></span></button>
+        <div class="faq-a"><p data-i18n="faq3.a">Não. Sua licença fica vinculada ao e-mail que aparece no comprovante do Kiwify. Se você entrar com outra conta Google, o plugin vai avisar que essa conta não tem acesso. Precisa trocar o e-mail vinculado? Fala com o suporte que a gente ajusta.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">A tela de escolher conta do Google não aparece.<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Se você só tem uma conta Google logada no navegador, ele pode entrar direto sem perguntar. Se precisar trocar de conta, clique no seu avatar no canto superior direito do Google e escolha <b>Adicionar outra conta</b> antes de tentar de novo.</p></div>
+        <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq4.q">A tela de escolher conta do Google não aparece.</span><span class="faq-icon"></span></button>
+        <div class="faq-a"><p data-i18n="faq4.a">Se você só tem uma conta Google logada no navegador, ele pode entrar direto sem perguntar. Se precisar trocar de conta, clique no seu avatar no canto superior direito do Google e escolha <b>Adicionar outra conta</b> antes de tentar de novo.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Prefiro entrar com e-mail e senha. Ainda dá?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Dá sim. Na tela de login do plugin tem também a opção tradicional de e-mail e senha. Se precisar criar a senha, use o link <b>"Criar minha senha"</b> que veio no seu e-mail de boas-vindas, ou peça um novo no suporte.</p></div>
+        <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq5.q">Prefiro entrar com e-mail e senha. Ainda dá?</span><span class="faq-icon"></span></button>
+        <div class="faq-a"><p data-i18n="faq5.a">Dá sim. Na tela de login do plugin tem também a opção tradicional de e-mail e senha. Se precisar criar a senha, use o link <b>"Criar minha senha"</b> que veio no seu e-mail de boas-vindas, ou peça um novo no suporte.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Em quantos computadores posso usar?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Até 2 máquinas (Mac e/ou Windows). Se precisar trocar de máquina, é só chamar o suporte pra liberar.</p></div>
+        <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq6.q">Em quantos computadores posso usar?</span><span class="faq-icon"></span></button>
+        <div class="faq-a"><p data-i18n="faq6.a">Até 2 máquinas (Mac e/ou Windows). Se precisar trocar de máquina, é só chamar o suporte pra liberar.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Por que só aparecem 200 sons?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Você está no período de teste de 7 dias, que libera 200 efeitos. Após esse período, todos os 1.463 sons aparecem automaticamente, sem precisar reinstalar nem fazer nada.</p></div>
+        <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq7.q">Por que só aparecem 200 sons?</span><span class="faq-icon"></span></button>
+        <div class="faq-a"><p data-i18n="faq7.a">Você está no período de teste de 7 dias, que libera 200 efeitos. Após esse período, todos os 1.463 sons aparecem automaticamente, sem precisar reinstalar nem fazer nada.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Preciso de internet pra usar?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Só na primeira vez, pra login e verificação. Depois os sons ficam no seu computador e você usa offline.</p></div>
+        <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq8.q">Preciso de internet pra usar?</span><span class="faq-icon"></span></button>
+        <div class="faq-a"><p data-i18n="faq8.a">Só na primeira vez, pra login e verificação. Depois os sons ficam no seu computador e você usa offline.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Funciona em qual versão do Premiere?<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>Adobe Premiere Pro CC 2020 em diante, incluindo as versões mais recentes, no Mac (Intel e Apple Silicon) e Windows 10/11.</p></div>
+        <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq9.q">Funciona em qual versão do Premiere?</span><span class="faq-icon"></span></button>
+        <div class="faq-a"><p data-i18n="faq9.a">Adobe Premiere Pro CC 2020 em diante, incluindo as versões mais recentes, no Mac (Intel e Apple Silicon) e Windows 10/11.</p></div>
       </div>
     </div>
   </div>
@@ -723,11 +741,11 @@
 <div class="wrap">
   <div class="support reveal">
     <div class="support-content">
-      <h2>Travou em algum passo?</h2>
-      <p>Manda mensagem no WhatsApp. A gente te ajuda a instalar em minutos.</p>
-      <a class="wa-btn" href="https://wa.me/5527992625721?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20a%20instala%C3%A7%C3%A3o%20do%20dropSFX" target="_blank" rel="noopener">
+      <h2 data-i18n="support.h2">Travou em algum passo?</h2>
+      <p data-i18n="support.p">Manda mensagem no WhatsApp. A gente te ajuda a instalar em minutos.</p>
+      <a class="wa-btn" id="waSupportBtn" href="https://wa.me/5527992625721?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20a%20instala%C3%A7%C3%A3o%20do%20dropSFX" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Falar no WhatsApp
+        <span data-i18n="support.btn">Falar no WhatsApp</span>
       </a>
     </div>
   </div>
@@ -735,7 +753,7 @@
 
 <footer>
   <img class="logo-img" src="logo.png" alt="dropSFX"/>
-  <div>© 2026 dropSFX · Plugin para Adobe Premiere Pro</div>
+  <div data-i18n="footer.txt">© 2026 dropSFX · Plugin para Adobe Premiere Pro</div>
 </footer>
 
 <div id="celebrate">
@@ -743,19 +761,231 @@
     <div class="celebrate-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
     </div>
-    <h2>Tudo pronto! 🎉</h2>
-    <p>Você completou a instalação do dropSFX. Agora é só abrir o Premiere e deixar a criatividade fluir.</p>
+    <h2 data-i18n="celebrate.h2">Tudo pronto! 🎉</h2>
+    <p data-i18n="celebrate.p">Você completou a instalação do dropSFX. Agora é só abrir o Premiere e deixar a criatividade fluir.</p>
     <button class="celebrate-btn" onclick="closeCelebrate()">
-      Bora editar
+      <span data-i18n="celebrate.btn">Bora editar</span>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
     </button>
     <br>
-    <button class="celebrate-close" onclick="closeCelebrate()">Fechar</button>
+    <button class="celebrate-close" onclick="closeCelebrate()" data-i18n="celebrate.close">Fechar</button>
   </div>
 </div>
 <canvas id="confetti"></canvas>
 
 <script>
+  /* ═══════════════ i18n (PT canônico no HTML · EN/ES no dicionário) ═══════════════ */
+  const I18N={
+    en:{
+      'page.title':'dropSFX — Welcome',
+      'page.desc':'Your dropSFX journey starts now. Install, activate and transform your editing in Premiere Pro.',
+      'intro.text':'Preparing your experience',
+      'nav.support':'Support',
+      'progress.install':'Install','progress.signin':'Sign in','progress.use':'Use',
+      'hero.badge':'Purchase confirmed',
+      'hero.title':'Welcome to the<br><span class="ice">next level.</span>',
+      'hero.sub':'Your journey starts now. In a few minutes, dropSFX will be running inside your Premiere.',
+      's1.num':'Installation','s1.h2':'Install the panel.',
+      's1.sub':'Download the file and follow the steps for your system. Check off each step as you go.',
+      'dl.version':'Version 2.0','dl.platforms':'Mac & Windows','dl.btn':'Download now',
+      'mac1.t':'Extract the file',
+      'mac1.p':'Double-click the <b>DropSFX.2.0.zip</b> you downloaded. It will create a folder called <b>DropSFX</b>.',
+      'mac2.t':'Open the extensions folder',
+      'mac2.p1':'In Finder, press <b>⇧⌘G</b> and paste the path:',
+      'mac2.p2':'Paste the <b>DropSFX</b> folder in here. (If the <b>extensions</b> folder doesn\u2019t exist, create it.)',
+      'mac3.t':'Enable extensions (works on every version)',
+      'mac3.p1':'Open <b>Terminal</b>, paste the command below and press Enter. It enables everything at once for any Premiere version.',
+      'mac3.p2':'You don\u2019t need to know which version you have — the command covers everything from CS to the latest Premiere.',
+      'mac4.t':'Restart Premiere',
+      'mac4.p':'Close and reopen Premiere Pro. The panel is under <b>Window → Extensions → DropSFX</b>.',
+      'win1.t':'Extract the file',
+      'win1.p':'Right-click <b>DropSFX.2.0.zip</b> → <b>Extract All</b>. It will create a folder called <b>DropSFX</b>.',
+      'win2.t':'Open the extensions folder',
+      'win2.p1':'In <b>File Explorer</b>, paste the path into the address bar:',
+      'win2.p2':'Paste the <b>DropSFX</b> folder here. (If <b>CEP\\extensions</b> doesn\u2019t exist, create it. It may ask for admin permission — click "Continue".)',
+      'win3.t':'Enable extensions (works on every version)',
+      'win3.p1':'Press <b>Win + R</b>, type <b>cmd</b> and press Enter. Paste the command below and press Enter:',
+      'win3.p2':'You don\u2019t need to know which version you have — the command covers everything from CS to the latest Premiere.',
+      'win4.t':'Restart Premiere',
+      'win4.p':'Close and reopen Premiere Pro. The panel is under <b>Window → Extensions → DropSFX</b>.',
+      's2.num':'Access','s2.h2':'Sign in with Google.',
+      's2.sub':'No password, no sign-up. You log in with the same Google account as the email you used for the purchase.',
+      'acc1.t':'Open the dropSFX panel',
+      'acc1.p':'In Premiere, go to <b>Window → Extensions → dropSFX</b>. On the login screen, click <b>Sign in with Google</b>.',
+      'gbtn.label':'Sign in with Google',
+      'acc2.t':'Choose your account in the browser',
+      'acc2.p':'A tab opens in your browser. <b>Select the Google account of the email you used for the purchase</b> and authorize access.',
+      'acc3.t':'Go back to Premiere',
+      'acc3.p':'The page will say <b>"All set!"</b>. Just go back to Premiere — the plugin signs in by itself within a few seconds.',
+      'note.access':'Use the same Google account as the email on your Kiwify receipt. If you sign in with a different account, access will be blocked.',
+      's3.num':'How to use','s3.h2':'Sound on the timeline<br>in one click.',
+      's3.sub':'The flow is simple: pick, listen, insert.',
+      'uc1.t':'1. Find the sound',
+      'uc1.p':'Use the search ("soft whoosh", "impact") or browse the color-coded categories.',
+      'uc2.t':'2. Preview it',
+      'uc2.p':'Hit play to listen with the waveform before inserting. Feel the sound.',
+      'uc3.t':'3. Pick the track',
+      'uc3.p':'Select the audio track (A1, A2…) in the selector, or leave it on <b>Auto</b>.',
+      'uc4.t':'4. Click Insert',
+      'uc4.p':'The sound lands exactly at the playhead, on the chosen track. Done.',
+      'trial.t':'Trial period (7 days)',
+      'trial.p':'For the first 7 days you get 200 hand-picked effects. After that, the full library (1,463 sounds) is unlocked automatically — no action needed.',
+      's4.num':'Questions','s4.h2':'Frequently asked questions.',
+      's4.sub':'The most common questions from people getting started.',
+      'faq1.q':'The panel doesn\u2019t show up in the Extensions menu. Now what?',
+      'faq1.a':'Check 3 things: (1) the <b>DropSFX</b> folder is directly inside <b>extensions</b> (not inside another folder); (2) you ran the enable-extensions command from step 3; (3) you fully restarted Premiere. If it still doesn\u2019t show up, message support.',
+      'faq2.q':'Do I need to know which CSXS version I have?',
+      'faq2.a':'No. The step-3 command enables every version at once (6 through 12), so it works on any Premiere. Just for reference: <b>CSXS.11</b> = Premiere 2022/2023 and <b>CSXS.12</b> = Premiere 2024/2025 onward. Running it for versions you don\u2019t have installed causes no problems.',
+      'faq3.q':'Can I sign in with a Google account different from my purchase email?',
+      'faq3.a':'No. Your license is tied to the email on your Kiwify receipt. If you sign in with a different Google account, the plugin will tell you that account has no access. Need to change the linked email? Message support and we\u2019ll sort it out.',
+      'faq4.q':'The Google account picker doesn\u2019t appear.',
+      'faq4.a':'If you only have one Google account signed in on your browser, it may log you in directly without asking. If you need to switch accounts, click your avatar in the top-right corner of Google and choose <b>Add another account</b> before trying again.',
+      'faq5.q':'I\u2019d rather sign in with email and password. Is that still possible?',
+      'faq5.a':'Yes. The plugin\u2019s login screen also has the traditional email and password option. If you need to create your password, use the <b>"Create my password"</b> link from your welcome email, or ask support for a new one.',
+      'faq6.q':'On how many computers can I use it?',
+      'faq6.a':'Up to 2 machines (Mac and/or Windows). If you need to switch machines, just message support to free up a slot.',
+      'faq7.q':'Why do I only see 200 sounds?',
+      'faq7.a':'You\u2019re in the 7-day trial period, which unlocks 200 effects. After that, all 1,463 sounds appear automatically — no reinstall, no action needed.',
+      'faq8.q':'Do I need internet to use it?',
+      'faq8.a':'Only the first time, for login and verification. After that the sounds live on your computer and you can use it offline.',
+      'faq9.q':'Which Premiere versions does it work with?',
+      'faq9.a':'Adobe Premiere Pro CC 2020 and later, including the latest versions, on Mac (Intel and Apple Silicon) and Windows 10/11.',
+      'support.h2':'Stuck on a step?',
+      'support.p':'Send us a WhatsApp message. We\u2019ll help you get installed in minutes.',
+      'support.btn':'Chat on WhatsApp',
+      'wa.msg':'Hi! I need help installing dropSFX',
+      'footer.txt':'© 2026 dropSFX · Plugin for Adobe Premiere Pro',
+      'celebrate.h2':'All set! 🎉',
+      'celebrate.p':'You\u2019ve completed the dropSFX installation. Now just open Premiere and let the creativity flow.',
+      'celebrate.btn':'Let\u2019s edit','celebrate.close':'Close',
+      'copy.label':'copy','copy.done':'copied'
+    },
+    es:{
+      'page.title':'dropSFX — Bienvenido',
+      'page.desc':'Tu experiencia con dropSFX empieza ahora. Instala, activa y transforma tu edición en Premiere Pro.',
+      'intro.text':'Preparando tu experiencia',
+      'nav.support':'Soporte',
+      'progress.install':'Instalar','progress.signin':'Entrar','progress.use':'Usar',
+      'hero.badge':'Compra confirmada',
+      'hero.title':'Bienvenido al<br><span class="ice">siguiente nivel.</span>',
+      'hero.sub':'Tu experiencia empieza ahora. En pocos minutos, dropSFX estará funcionando dentro de tu Premiere.',
+      's1.num':'Instalación','s1.h2':'Instala el panel.',
+      's1.sub':'Descarga el archivo y sigue el paso a paso de tu sistema. Marca cada etapa a medida que avanzas.',
+      'dl.version':'Versión 2.0','dl.platforms':'Mac y Windows','dl.btn':'Descargar ahora',
+      'mac1.t':'Extrae el archivo',
+      'mac1.p':'Haz doble clic en el <b>DropSFX.2.0.zip</b> que descargaste. Se creará una carpeta llamada <b>DropSFX</b>.',
+      'mac2.t':'Abre la carpeta de extensiones',
+      'mac2.p1':'En el Finder, pulsa <b>⇧⌘G</b> y pega la ruta:',
+      'mac2.p2':'Pega la carpeta <b>DropSFX</b> aquí dentro. (Si la carpeta <b>extensions</b> no existe, créala.)',
+      'mac3.t':'Habilita las extensiones (funciona en todas las versiones)',
+      'mac3.p1':'Abre la <b>Terminal</b>, pega el comando de abajo y pulsa Enter. Habilita todo de una vez para cualquier versión de Premiere.',
+      'mac3.p2':'No necesitas saber qué versión tienes — el comando cubre desde CS hasta el Premiere más reciente.',
+      'mac4.t':'Reinicia Premiere',
+      'mac4.p':'Cierra y abre Premiere Pro. El panel está en <b>Ventana → Extensiones → DropSFX</b>.',
+      'win1.t':'Extrae el archivo',
+      'win1.p':'Clic derecho en <b>DropSFX.2.0.zip</b> → <b>Extraer todo</b>. Se creará una carpeta llamada <b>DropSFX</b>.',
+      'win2.t':'Abre la carpeta de extensiones',
+      'win2.p1':'En el <b>Explorador de archivos</b>, pega la ruta en la barra de direcciones:',
+      'win2.p2':'Pega la carpeta <b>DropSFX</b> aquí. (Si <b>CEP\\extensions</b> no existe, créala. Puede pedir permiso de administrador — haz clic en "Continuar".)',
+      'win3.t':'Habilita las extensiones (funciona en todas las versiones)',
+      'win3.p1':'Pulsa <b>Win + R</b>, escribe <b>cmd</b> y pulsa Enter. Pega el comando de abajo y pulsa Enter:',
+      'win3.p2':'No necesitas saber qué versión tienes — el comando cubre desde CS hasta el Premiere más reciente.',
+      'win4.t':'Reinicia Premiere',
+      'win4.p':'Cierra y abre Premiere Pro. El panel está en <b>Ventana → Extensiones → DropSFX</b>.',
+      's2.num':'Acceso','s2.h2':'Entra con Google.',
+      's2.sub':'Sin contraseña, sin registro. Inicias sesión con la misma cuenta de Google del email que usaste en la compra.',
+      'acc1.t':'Abre el panel dropSFX',
+      'acc1.p':'En Premiere, ve a <b>Ventana → Extensiones → dropSFX</b>. En la pantalla de inicio de sesión, haz clic en <b>Entrar con Google</b>.',
+      'gbtn.label':'Entrar con Google',
+      'acc2.t':'Elige tu cuenta en el navegador',
+      'acc2.p':'Se abre una pestaña en tu navegador. <b>Selecciona la cuenta de Google del email que usaste en la compra</b> y autoriza el acceso.',
+      'acc3.t':'Vuelve a Premiere',
+      'acc3.p':'La página dirá <b>"¡Todo listo!"</b>. Solo vuelve a Premiere — el plugin inicia sesión solo en unos segundos.',
+      'note.access':'Usa la misma cuenta de Google del email que aparece en tu comprobante de Kiwify. Si entras con otra cuenta, el acceso será bloqueado.',
+      's3.num':'Cómo usar','s3.h2':'Sonido en la línea de tiempo<br>en un clic.',
+      's3.sub':'El flujo es simple: elige, escucha, inserta.',
+      'uc1.t':'1. Encuentra el sonido',
+      'uc1.p':'Usa el buscador ("whoosh suave", "impacto") o navega por las categorías de colores.',
+      'uc2.t':'2. Escúchalo antes',
+      'uc2.p':'Dale al play para escucharlo con la forma de onda antes de insertar. Siente el sonido.',
+      'uc3.t':'3. Elige la pista',
+      'uc3.p':'Selecciona la pista de audio (A1, A2…) en el selector, o déjalo en <b>Auto</b>.',
+      'uc4.t':'4. Haz clic en Insertar',
+      'uc4.p':'El sonido entra exactamente en el cursor de tiempo, en la pista elegida. Listo.',
+      'trial.t':'Período de prueba (7 días)',
+      'trial.p':'Durante los primeros 7 días usas 200 efectos seleccionados. Después, la biblioteca completa (1.463 sonidos) se desbloquea automáticamente — sin hacer nada.',
+      's4.num':'Dudas','s4.h2':'Preguntas frecuentes.',
+      's4.sub':'Las dudas más comunes de quienes están empezando.',
+      'faq1.q':'El panel no aparece en el menú Extensiones. ¿Y ahora?',
+      'faq1.a':'Confirma 3 cosas: (1) la carpeta <b>DropSFX</b> está directamente dentro de <b>extensions</b> (no dentro de otra carpeta); (2) ejecutaste el comando de habilitar extensiones del paso 3; (3) reiniciaste Premiere por completo. Si aún no aparece, escribe al soporte.',
+      'faq2.q':'¿Necesito saber qué versión de CSXS tengo?',
+      'faq2.a':'No. El comando del paso 3 habilita todas las versiones de una vez (de la 6 a la 12), así que funciona en cualquier Premiere. Solo como referencia: <b>CSXS.11</b> = Premiere 2022/2023 y <b>CSXS.12</b> = Premiere 2024/2025 en adelante. Ejecutarlo para versiones que no tienes instaladas no causa ningún problema.',
+      'faq3.q':'¿Puedo entrar con una cuenta de Google distinta del email de compra?',
+      'faq3.a':'No. Tu licencia queda vinculada al email que aparece en el comprobante de Kiwify. Si entras con otra cuenta de Google, el plugin avisará que esa cuenta no tiene acceso. ¿Necesitas cambiar el email vinculado? Habla con el soporte y lo ajustamos.',
+      'faq4.q':'La pantalla para elegir cuenta de Google no aparece.',
+      'faq4.a':'Si solo tienes una cuenta de Google iniciada en el navegador, puede entrar directamente sin preguntar. Si necesitas cambiar de cuenta, haz clic en tu avatar en la esquina superior derecha de Google y elige <b>Añadir otra cuenta</b> antes de intentarlo de nuevo.',
+      'faq5.q':'Prefiero entrar con email y contraseña. ¿Todavía se puede?',
+      'faq5.a':'Sí. La pantalla de inicio de sesión del plugin también tiene la opción tradicional de email y contraseña. Si necesitas crear tu contraseña, usa el enlace <b>"Crear mi contraseña"</b> que llegó en tu email de bienvenida, o pide uno nuevo al soporte.',
+      'faq6.q':'¿En cuántas computadoras puedo usarlo?',
+      'faq6.a':'Hasta 2 equipos (Mac y/o Windows). Si necesitas cambiar de equipo, solo escribe al soporte para liberarlo.',
+      'faq7.q':'¿Por qué solo aparecen 200 sonidos?',
+      'faq7.a':'Estás en el período de prueba de 7 días, que habilita 200 efectos. Después de ese período, los 1.463 sonidos aparecen automáticamente, sin reinstalar ni hacer nada.',
+      'faq8.q':'¿Necesito internet para usarlo?',
+      'faq8.a':'Solo la primera vez, para el inicio de sesión y la verificación. Después los sonidos quedan en tu computadora y puedes usarlo sin conexión.',
+      'faq9.q':'¿Con qué versión de Premiere funciona?',
+      'faq9.a':'Adobe Premiere Pro CC 2020 en adelante, incluidas las versiones más recientes, en Mac (Intel y Apple Silicon) y Windows 10/11.',
+      'support.h2':'¿Te trabaste en algún paso?',
+      'support.p':'Envíanos un mensaje por WhatsApp. Te ayudamos a instalarlo en minutos.',
+      'support.btn':'Hablar por WhatsApp',
+      'wa.msg':'¡Hola! Necesito ayuda con la instalación de dropSFX',
+      'footer.txt':'© 2026 dropSFX · Plugin para Adobe Premiere Pro',
+      'celebrate.h2':'¡Todo listo! 🎉',
+      'celebrate.p':'Completaste la instalación de dropSFX. Ahora solo abre Premiere y deja fluir la creatividad.',
+      'celebrate.btn':'A editar','celebrate.close':'Cerrar',
+      'copy.label':'copiar','copy.done':'copiado'
+    }
+  };
+
+  let currentLang='pt';
+  const PT_STORE={};
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.dataset.i18n;
+    if(!(k in PT_STORE))PT_STORE[k]=el.innerHTML;
+  });
+
+  function t(key,fallbackPT){
+    if(currentLang==='pt')return fallbackPT!==undefined?fallbackPT:(PT_STORE[key]||'');
+    return (I18N[currentLang]&&I18N[currentLang][key])||(fallbackPT!==undefined?fallbackPT:(PT_STORE[key]||''));
+  }
+
+  function setLang(l,persist=true){
+    if(l!=='pt'&&l!=='en'&&l!=='es')l='en';
+    currentLang=l;
+    if(persist){try{localStorage.setItem('dropsfx_lang',l)}catch(e){}}
+    document.documentElement.setAttribute('lang',l==='pt'?'pt-BR':l);
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const k=el.dataset.i18n;
+      el.innerHTML=(l==='pt')?PT_STORE[k]:((I18N[l]&&I18N[l][k])||PT_STORE[k]);
+    });
+    document.title=t('page.title','dropSFX — Bem-vindo');
+    const md=document.querySelector('meta[name="description"]');
+    if(md)md.setAttribute('content',t('page.desc','Sua jornada com o dropSFX começa agora. Instale, ative e transforme sua edição no Premiere Pro.'));
+    const wa=document.getElementById('waSupportBtn');
+    if(wa)wa.href='https://wa.me/5527992625721?text='+encodeURIComponent(t('wa.msg','Olá! Preciso de ajuda com a instalação do dropSFX'));
+    document.querySelectorAll('.lang-seg button').forEach(b=>b.classList.toggle('active',b.dataset.lang===l));
+  }
+
+  (function initLang(){
+    let saved=null;try{saved=localStorage.getItem('dropsfx_lang')}catch(e){}
+    let l=saved;
+    if(!l){
+      const nav=((navigator.language||navigator.userLanguage||'pt')+'').toLowerCase();
+      l=nav.startsWith('pt')?'pt':(nav.startsWith('es')?'es':'en');
+    }
+    setLang(l,false);
+  })();
+
+  /* ═══════════════ página ═══════════════ */
   window.addEventListener('load',()=>{
     setTimeout(()=>{
       document.getElementById('intro').classList.add('gone');
@@ -824,10 +1054,12 @@
   function copyTxt(btn,txt){
     navigator.clipboard.writeText(txt).then(()=>{
       copySound();
-      const old=btn.innerHTML;
-      btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>copiado';
+      btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>'+t('copy.done','copiado');
       btn.classList.add('done');
-      setTimeout(()=>{btn.innerHTML=old;btn.classList.remove('done')},1700);
+      setTimeout(()=>{
+        btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg><span data-i18n="copy.label">'+t('copy.label','copiar')+'</span>';
+        btn.classList.remove('done');
+      },1700);
     });
   }
 
