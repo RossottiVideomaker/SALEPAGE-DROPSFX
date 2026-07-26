@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>dropSFX · Criar senha</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="https://www.dropsfx.com.br/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root{
+    --bg:#0a0a0f; --panel:#101018; --panel-2:#15151f;
+    --line:#23232f; --ink:#f2f2f7; --ink-dim:#9a9aab; --ink-mute:#5a5a6b;
+    --blue:#3b6ef5; --blue-hi:#5b8aff;
+    --amber:#ffb340; --amber-bg:#231a08; --amber-line:#6b4d10;
+    --green:#30d158; --red:#ff453a;
+    --mono:'JetBrains Mono',ui-monospace,'SF Mono',monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:Inter,-apple-system,'Helvetica Neue',Arial,sans-serif;
+    display:flex; align-items:center; justify-content:center;
+    padding:24px 16px; line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  .shell{width:100%;max-width:460px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line);background:#0d0d14}
+  .bar-title{font:700 11px/1 var(--mono);letter-spacing:2.5px;color:var(--ink-mute);text-transform:uppercase}
+  .status{display:flex;align-items:center;gap:7px;font:700 10px/1 var(--mono);letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-mute)}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--ink-mute)}
+  .status.ok{color:var(--green)} .status.ok .dot{background:var(--green)}
+  .status.err{color:var(--red)} .status.err .dot{background:var(--red)}
+
+  .body{padding:28px 26px 30px}
+  .logo{display:block;width:170px;height:auto;margin-bottom:22px}
+  h1{font-size:24px;font-weight:800;letter-spacing:-.4px;line-height:1.2;margin:0 0 10px}
+  h1 em{font-style:normal;color:var(--blue)}
+  .sub{color:var(--ink-dim);font-size:14.5px;margin:0 0 24px}
+
+  .who{display:flex;align-items:center;gap:10px;background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin-bottom:20px;font:400 13px/1.3 var(--mono);color:var(--ink);word-break:break-all}
+  .who span{font-weight:700;color:var(--blue);flex:none}
+
+  label{display:block;font:700 10px/1 var(--mono);letter-spacing:2px;color:var(--ink-mute);text-transform:uppercase;margin:0 0 8px}
+  .field{margin-bottom:18px}
+  input{width:100%;background:#0c0c13;border:1px solid var(--line);border-radius:11px;padding:14px 15px;color:var(--ink);font-size:15px;font-family:inherit;transition:border-color .15s,background .15s}
+  input:focus{outline:none;border-color:var(--blue);background:#0e0e18}
+  input::placeholder{color:#3f3f4d}
+  .reveal{background:none;border:0;color:var(--ink-mute);font:700 10px/1 var(--mono);letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;padding:0;float:right}
+  .reveal:hover{color:var(--blue-hi)}
+
+  .meter{margin:-6px 0 18px}
+  .bars{display:flex;gap:3px;align-items:flex-end;height:26px;margin-bottom:7px}
+  .bars i{flex:1;background:#1a1a24;border-radius:1px;transition:background .18s,height .18s}
+  .meter-label{display:flex;justify-content:space-between;font:700 10px/1 var(--mono);letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-mute)}
+  .meter-label b{font-weight:700}
+
+  button.cta{width:100%;background:var(--blue);color:#fff;border:0;border-radius:12px;padding:16px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;transition:filter .15s,transform .05s}
+  button.cta:hover{filter:brightness(1.1)}
+  button.cta:active{transform:translateY(1px)}
+  button.cta:disabled{opacity:.45;cursor:not-allowed;filter:none}
+
+  .warn-box{background:var(--amber-bg);border:1px solid var(--amber-line);border-radius:11px;padding:14px 15px;margin-bottom:22px}
+  .warn-box h3{margin:0 0 5px;font:700 11px/1.3 var(--mono);letter-spacing:1.5px;color:var(--amber);text-transform:uppercase}
+  .warn-box p{margin:0;font-size:13px;color:#c9a86a}
+
+  .msg{border-radius:11px;padding:13px 15px;margin-bottom:18px;font-size:13.5px;display:none}
+  .msg.show{display:block}
+  .msg.err{background:#2a1012;border:1px solid #5e1f22;color:#ff8a82}
+  .msg.ok{background:#0e2417;border:1px solid #1d5c33;color:#6ee79a}
+
+  .steps{margin:22px 0 0;padding:0;list-style:none}
+  .steps li{display:flex;gap:12px;padding:7px 0;font-size:14px}
+  .steps li b{font:700 13px/1.5 var(--mono);color:var(--blue);flex:none}
+  .steps li span{color:var(--ink-dim)}
+
+  .foot{margin:22px 0 0;font-size:12.5px;color:var(--ink-mute)}
+  .foot a{color:var(--blue-hi);text-decoration:none}
+  .foot a:hover{text-decoration:underline}
+  .brand{text-align:center;margin-top:18px;font:400 10px/1 var(--mono);letter-spacing:2px;color:#3a3a4a;text-transform:uppercase}
+  .screen{display:none} .screen.on{display:block}
+  .spin{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;display:inline-block;animation:sp .7s linear infinite;vertical-align:-3px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .boot{display:flex;gap:3px;align-items:flex-end;height:34px;justify-content:center;padding:34px 0}
+  .boot i{width:3px;background:var(--blue);border-radius:1px;animation:pulse 1s ease-in-out infinite}
+  @keyframes pulse{0%,100%{height:6px;opacity:.35}50%{height:30px;opacity:1}}
+  @media (prefers-reduced-motion:reduce){.boot i,.spin{animation:none}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="panel">
+    <div class="bar">
+      <div class="bar-title">dropSFX · Criar senha</div>
+      <div class="status" id="status"><span class="dot"></span><span id="statusText">Verificando</span></div>
+    </div>
+
+    <div class="body">
+      <img class="logo" src="https://www.dropsfx.com.br/assets/logo.png" alt="dropSFX">
+
+      <!-- CARREGANDO -->
+      <section class="screen on" id="s-boot">
+        <div class="boot">
+          <i style="animation-delay:0s"></i><i style="animation-delay:.08s"></i><i style="animation-delay:.16s"></i>
+          <i style="animation-delay:.24s"></i><i style="animation-delay:.32s"></i><i style="animation-delay:.4s"></i>
+          <i style="animation-delay:.48s"></i><i style="animation-delay:.56s"></i>
+        </div>
+      </section>
+
+      <!-- CRIAR SENHA -->
+      <section class="screen" id="s-set">
+        <h1>Crie sua senha,<br><em>e o acesso é seu pra sempre.</em></h1>
+        <p class="sub">É com este e-mail e esta senha que você vai entrar no painel do dropSFX dentro do Premiere.</p>
+
+        <div class="who"><span>E-MAIL DA COMPRA</span><div id="setEmail">—</div></div>
+
+        <div class="warn-box">
+          <h3>⏱ Você chegou dentro do prazo</h3>
+          <p>Este link é de uso único e vale 24 horas. Termine agora e ele nunca mais será necessário.</p>
+        </div>
+
+        <div class="msg err" id="setErr"></div>
+
+        <div class="field">
+          <label>Sua senha <button class="reveal" data-for="pw1">mostrar</button></label>
+          <input type="password" id="pw1" autocomplete="new-password" placeholder="mínimo 8 caracteres">
+        </div>
+
+        <div class="meter">
+          <div class="bars" id="bars"></div>
+          <div class="meter-label"><b>FORÇA DO SINAL</b><b id="strength">—</b></div>
+        </div>
+
+        <div class="field">
+          <label>Repita a senha</label>
+          <input type="password" id="pw2" autocomplete="new-password" placeholder="a mesma coisa de novo">
+        </div>
+
+        <button class="cta" id="setBtn">Criar minha senha</button>
+      </section>
+
+      <!-- PEDIR LINK -->
+      <section class="screen" id="s-ask">
+        <h1 id="askTitle">Receba seu link<br><em>pra criar a senha.</em></h1>
+        <p class="sub" id="askSub">Digite o e-mail que você usou na compra. Em segundos chega um link pra criar sua senha.</p>
+
+        <div class="warn-box">
+          <h3>⏱ O link vale 24 horas</h3>
+          <p>Deixe esta aba aberta, abra o e-mail e conclua na hora — assim ele não expira de novo.</p>
+        </div>
+
+        <div class="msg err" id="askErr"></div>
+        <div class="msg ok" id="askOk"></div>
+
+        <div class="field">
+          <label>E-mail da compra</label>
+          <input type="email" id="askEmail" autocomplete="email" placeholder="voce@exemplo.com">
+        </div>
+
+        <button class="cta" id="askBtn">Enviar link</button>
+
+        <p class="foot">
+          Não chegou em 5 minutos? Olhe o spam / lixo eletrônico, ou chame no
+          <a href="https://wa.me/5527992625721" target="_blank" rel="noopener">WhatsApp</a>.
+        </p>
+      </section>
+
+      <!-- SUCESSO -->
+      <section class="screen" id="s-done">
+        <h1>Senha criada.<br><em>1.463 sons liberados.</em></h1>
+        <p class="sub">Agora é só voltar pro Premiere e entrar com estes dados.</p>
+
+        <div class="who"><span>E-MAIL</span><div id="doneEmail">—</div></div>
+
+        <ol class="steps">
+          <li><b>01</b><span>Abra o Premiere Pro</span></li>
+          <li><b>02</b><span>Vá em Janela → Extensões → dropSFX</span></li>
+          <li><b>03</b><span>Digite este e-mail e a senha que você acabou de criar</span></li>
+        </ol>
+
+        <p class="foot" style="margin-top:24px">
+          Ainda não instalou? <a href="https://www.dropsfx.com.br/tutorial/">Ver o tutorial de instalação</a>
+        </p>
+      </section>
+
+    </div>
+  </div>
+  <div class="brand">dropSFX · Rossotti Videomaker</div>
+</div>
+
+<script>
+/* ===== CONFIG ===== */
+const CFG = {
+  SUPABASE_URL : 'https://bwgrxdjdvrdawarbnqjv.supabase.co',
+  SUPABASE_ANON: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3Z3J4ZGpkdnJkYXdhcmJucWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwMjIxNDgsImV4cCI6MjA5NDU5ODE0OH0.M1Yw6ljgUzPQWTW0CC8DBn8WV6nZDKCCKTwzcZN_Zo0',
+  MIN_LEN      : 8
+};
+
+const sb = window.supabase.createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON, {
+  auth:{ detectSessionInUrl:false, persistSession:true, flowType:'implicit' }
+});
+
+const $ = id => document.getElementById(id);
+const show = id => {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
+  $(id).classList.add('on');
+};
+const setStatus = (text, kind='') => {
+  $('status').className = 'status ' + kind;
+  $('statusText').textContent = text;
+};
+const msg = (id, text) => {
+  const el = $(id);
+  if (!text){ el.classList.remove('show'); el.textContent=''; return; }
+  el.textContent = text; el.classList.add('show');
+};
+const busy = (btn, on, label) => {
+  btn.disabled = on;
+  btn.innerHTML = on ? '<span class="spin"></span>' : label;
+};
+document.querySelectorAll('.reveal').forEach(b => b.onclick = e => {
+  e.preventDefault();
+  const inp = $(b.dataset.for);
+  const hidden = inp.type === 'password';
+  inp.type = hidden ? 'text' : 'password';
+  b.textContent = hidden ? 'ocultar' : 'mostrar';
+});
+
+function human(err){
+  const m = (err && err.message ? err.message : String(err)).toLowerCase();
+  if (m.includes('should be at least') || m.includes('weak'))
+    return 'Senha muito curta ou fraca. Use ao menos ' + CFG.MIN_LEN + ' caracteres.';
+  if (m.includes('same as the old') || m.includes('different from the old'))
+    return 'Essa senha é igual à anterior. Escolha outra.';
+  if (m.includes('expired') || m.includes('invalid') || m.includes('token'))
+    return 'Este link já expirou ou foi usado. Peça um novo abaixo.';
+  if (m.includes('rate limit') || m.includes('too many'))
+    return 'Muitas tentativas seguidas. Espere 1 minuto e tente de novo.';
+  if (m.includes('user not found'))
+    return 'Não encontramos esse e-mail. Use o mesmo da compra ou chame no WhatsApp.';
+  if (m.includes('failed to fetch') || m.includes('network'))
+    return 'Sem conexão com o servidor. Verifique sua internet e tente de novo.';
+  return (err && err.message) || 'Algo deu errado. Tente de novo ou chame no WhatsApp.';
+}
+
+/* ===== medidor de força ===== */
+const BARS = 14;
+const barsEl = $('bars');
+for (let i=0;i<BARS;i++) barsEl.appendChild(document.createElement('i'));
+const barEls = Array.prototype.slice.call(barsEl.children);
+
+function score(pw){
+  if (!pw) return 0;
+  let s = 0;
+  s += Math.min(pw.length / 16, 1) * 55;
+  if (/[a-z]/.test(pw)) s += 8;
+  if (/[A-Z]/.test(pw)) s += 12;
+  if (/[0-9]/.test(pw)) s += 12;
+  if (/[^A-Za-z0-9]/.test(pw)) s += 13;
+  if (/^(.)\1+$/.test(pw)) s = 10;
+  if (/^(123|abc|senha|password|qwerty)/i.test(pw)) s = Math.min(s, 25);
+  return Math.min(Math.round(s), 100);
+}
+function paint(pw){
+  const s = score(pw);
+  const lit = Math.round(s / 100 * BARS);
+  const color = s < 40 ? 'var(--red)' : s < 70 ? 'var(--amber)' : 'var(--green)';
+  barEls.forEach(function(b,i){
+    b.style.height = (8 + (i/(BARS-1)) * 18) + 'px';
+    b.style.background = i < lit ? color : '#1a1a24';
+  });
+  const label = !pw ? '—' : s < 40 ? 'FRACO' : s < 70 ? 'OK' : 'FORTE';
+  $('strength').textContent = label;
+  $('strength').style.color = pw ? color : 'var(--ink-mute)';
+}
+paint('');
+$('pw1').addEventListener('input', e => paint(e.target.value));
+$('pw2').addEventListener('keydown', e => { if (e.key === 'Enter') $('setBtn').click(); });
+
+/* ===== criar senha ===== */
+$('setBtn').onclick = async () => {
+  const a = $('pw1').value, b = $('pw2').value;
+  msg('setErr','');
+  if (a.length < CFG.MIN_LEN) return msg('setErr','A senha precisa ter no mínimo ' + CFG.MIN_LEN + ' caracteres.');
+  if (a !== b)                return msg('setErr','As duas senhas não são iguais.');
+
+  busy($('setBtn'), true);
+  const { error } = await sb.auth.updateUser({ password:a });
+  if (error){ busy($('setBtn'), false, 'Criar minha senha'); return msg('setErr', human(error)); }
+
+  const { data:{ session } } = await sb.auth.getSession();
+  $('doneEmail').textContent = (session && session.user && session.user.email) || '';
+  setStatus('Senha ativa','ok');
+  show('s-done');
+};
+
+/* ===== pedir link ===== */
+$('askBtn').onclick = async () => {
+  const email = $('askEmail').value.trim();
+  msg('askErr',''); msg('askOk','');
+  if (!email) return msg('askErr','Digite o e-mail da sua compra.');
+
+  busy($('askBtn'), true);
+  const { error } = await sb.auth.resetPasswordForEmail(email, {
+    redirectTo: location.origin + location.pathname
+  });
+  busy($('askBtn'), false, 'Enviar link');
+  if (error) return msg('askErr', human(error));
+  msg('askOk','Link enviado pra ' + email + '. Ele vale 24 horas — abra agora e crie sua senha.');
+};
+$('askEmail').addEventListener('keydown', e => { if (e.key === 'Enter') $('askBtn').click(); });
+
+function goAsk(expired){
+  if (expired){
+    $('askTitle').innerHTML = 'Este link <em>já expirou</em>.';
+    $('askSub').textContent = 'Links de acesso valem 24 horas e são de uso único. Peça um novo aqui — é instantâneo e sua compra continua valendo.';
+    setStatus('Link expirado','err');
+  } else {
+    setStatus('Aguardando e-mail');
+  }
+  show('s-ask');
+}
+
+function openSet(session){
+  $('setEmail').textContent = (session && session.user && session.user.email) || '';
+  setStatus('Link válido','ok');
+  show('s-set');
+}
+
+/* ===== BOOT ===== */
+(async function boot(){
+  const hash   = new URLSearchParams(location.hash.replace(/^#/,''));
+  const params = new URLSearchParams(location.search);
+
+  // link com erro explícito
+  if (hash.get('error') || hash.get('error_code')){
+    history.replaceState(null,'',location.pathname);
+    return goAsk(true);
+  }
+
+  // tokens no hash (invite / recovery)
+  const at = hash.get('access_token'), rt = hash.get('refresh_token');
+  if (at && rt){
+    const { data, error } = await sb.auth.setSession({ access_token:at, refresh_token:rt });
+    history.replaceState(null,'',location.pathname);
+    if (error) return goAsk(true);
+    return openSet(data.session);
+  }
+
+  // formato PKCE (?token_hash=...&type=...)
+  const th = params.get('token_hash'), qt = params.get('type');
+  if (th && qt){
+    const { data, error } = await sb.auth.verifyOtp({ token_hash:th, type:qt });
+    history.replaceState(null,'',location.pathname);
+    if (error) return goAsk(true);
+    return openSet(data.session);
+  }
+
+  // sessão já salva neste navegador
+  const { data:{ session } } = await sb.auth.getSession();
+  if (session) return openSet(session);
+
+  // entrada direta
+  goAsk(false);
+})();
+</script>
+</body>
+</html>
