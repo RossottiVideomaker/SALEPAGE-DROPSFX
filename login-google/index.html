@@ -1,322 +1,521 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex" />
-  <title>dropSFX — Entrar com Google</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --bg: #000; --card: #0c0c0e; --line: rgba(255,255,255,0.09);
-      --accent: #3b6ef5; --accent-hi: #5b8aff; --accent-glow: rgba(59,110,245,0.4);
-      --txt: #f2f2f7; --muted: #9a9aab; --dim: #5a5a6b; --green: #30d158;
-      --red: #f87171;
-      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    }
-    body {
-      font-family: var(--font); background: var(--bg); color: var(--txt);
-      min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      padding: 24px;
-    }
-    .card {
-      width: 100%; max-width: 430px; background: var(--card);
-      border: 1px solid var(--line); border-radius: 18px; padding: 40px 36px;
-      position: relative; text-align: center;
-    }
-    .card::before {
-      content: ''; position: absolute; top: -30px; left: 50%; transform: translateX(-50%);
-      width: 240px; height: 240px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(59,110,245,0.28) 0%, transparent 68%);
-      filter: blur(45px); opacity: 0.5; pointer-events: none;
-    }
-    .logo { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; position: relative; }
-    .logo span { color: var(--accent-hi); }
-    h1 { font-size: 19px; font-weight: 700; margin: 20px 0 8px; }
-    p.sub { color: var(--muted); font-size: 14px; line-height: 1.55; margin-bottom: 26px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>dropSFX · Acesso</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="https://www.dropsfx.com.br/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root{
+    --bg:#0a0a0f; --panel:#101018; --panel-2:#15151f;
+    --line:#23232f; --line-hot:#2c3e7a;
+    --ink:#f2f2f7; --ink-dim:#9a9aab; --ink-mute:#5a5a6b;
+    --blue:#3b6ef5; --blue-lo:#2a4fb0; --blue-hi:#5b8aff;
+    --amber:#ffb340; --amber-bg:#231a08; --amber-line:#6b4d10;
+    --green:#30d158; --red:#ff453a;
+    --mono:'JetBrains Mono',ui-monospace,'SF Mono',monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:Inter,-apple-system,'Helvetica Neue',Arial,sans-serif;
+    display:flex; align-items:center; justify-content:center;
+    padding:24px 16px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .shell{width:100%;max-width:460px}
 
-    .spinner {
-      width: 30px; height: 30px; border: 3px solid var(--line);
-      border-top-color: var(--accent); border-radius: 50%;
-      animation: spin 0.8s linear infinite; margin: 26px auto;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
+  /* ---- painel estilo extensão CEP ---- */
+  .panel{
+    background:var(--panel); border:1px solid var(--line);
+    border-radius:20px; overflow:hidden;
+  }
+  .bar{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:14px 20px; border-bottom:1px solid var(--line); background:#0d0d14;
+  }
+  .bar-title{font:700 11px/1 var(--mono);letter-spacing:2.5px;color:var(--ink-mute);text-transform:uppercase}
+  .status{display:flex;align-items:center;gap:7px;font:700 10px/1 var(--mono);letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-mute)}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--ink-mute)}
+  .status.ok{color:var(--green)} .status.ok .dot{background:var(--green)}
+  .status.warn{color:var(--amber)} .status.warn .dot{background:var(--amber)}
+  .status.err{color:var(--red)} .status.err .dot{background:var(--red)}
 
-    .google-btn {
-      width: 100%; padding: 13px; background: #fff; color: #1f1f1f;
-      border: none; border-radius: 12px; font-size: 14px; font-weight: 700;
-      font-family: inherit; cursor: pointer; display: flex; align-items: center;
-      justify-content: center; gap: 10px; transition: 0.15s;
-    }
-    .google-btn:hover { background: #f0f0f0; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .body{padding:28px 26px 30px}
+  .logo{display:block;width:170px;height:auto;margin-bottom:22px}
 
-    /* Code display */
-    .code-box {
-      background: rgba(59,110,245,0.08); border: 1px solid rgba(59,110,245,0.3);
-      border-radius: 14px; padding: 22px; margin: 8px 0 6px;
-    }
-    .code-label { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
-    .code-value {
-      font-size: 34px; font-weight: 800; letter-spacing: 4px; color: var(--txt);
-      font-family: 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
-      user-select: all; cursor: pointer;
-    }
-    .copy-btn {
-      margin-top: 14px; padding: 9px 20px; background: var(--accent);
-      color: #fff; border: none; border-radius: 9px; font-size: 13px; font-weight: 700;
-      font-family: inherit; cursor: pointer; transition: 0.15s;
-    }
-    .copy-btn:hover { background: var(--accent-hi); }
-    .copy-btn.copied { background: var(--green); }
+  h1{font-size:24px;font-weight:800;letter-spacing:-.4px;line-height:1.2;margin:0 0 10px}
+  h1 em{font-style:normal;color:var(--blue)}
+  .sub{color:var(--ink-dim);font-size:14.5px;margin:0 0 24px}
+  .eyebrow{font:700 10px/1 var(--mono);letter-spacing:2px;color:var(--ink-mute);text-transform:uppercase;margin:0 0 12px}
 
-    .instr {
-      text-align: left; background: rgba(255,255,255,0.03); border: 1px solid var(--line);
-      border-radius: 12px; padding: 16px 18px; margin-top: 20px;
-    }
-    .instr-title { font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .instr ol { margin: 0; padding-left: 20px; }
-    .instr li { font-size: 13px; color: var(--txt); line-height: 1.7; }
+  .who{
+    display:flex;align-items:center;gap:10px;
+    background:var(--panel-2);border:1px solid var(--line);border-radius:10px;
+    padding:11px 13px;margin-bottom:20px;
+    font:400 13px/1.3 var(--mono);color:var(--ink);word-break:break-all;
+  }
+  .who span{font-weight:700;color:var(--blue);flex:none}
 
-    .email-tag {
-      display: inline-block; background: rgba(48,209,88,0.12); color: var(--green);
-      border: 1px solid rgba(48,209,88,0.25); border-radius: 8px;
-      padding: 4px 12px; font-size: 12.5px; font-weight: 600; margin-top: 4px;
-    }
+  label{display:block;font:700 10px/1 var(--mono);letter-spacing:2px;color:var(--ink-mute);text-transform:uppercase;margin:0 0 8px}
+  .field{margin-bottom:18px}
+  input{
+    width:100%;background:#0c0c13;border:1px solid var(--line);border-radius:11px;
+    padding:14px 15px;color:var(--ink);font-size:15px;font-family:inherit;
+    transition:border-color .15s, background .15s;
+  }
+  input:focus{outline:none;border-color:var(--blue);background:#0e0e18}
+  input::placeholder{color:#3f3f4d}
+  .reveal{
+    background:none;border:0;color:var(--ink-mute);font:700 10px/1 var(--mono);
+    letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;padding:0;float:right;
+  }
+  .reveal:hover{color:var(--blue-hi)}
 
-    .msg { font-size: 13.5px; line-height: 1.5; padding: 13px 15px; border-radius: 11px; margin-top: 10px; }
-    .msg.err { background: rgba(248,113,113,0.1); color: var(--red); border: 1px solid rgba(248,113,113,0.25); }
+  /* ---- assinatura: força da senha como medidor de áudio ---- */
+  .meter{margin:-6px 0 18px}
+  .bars{display:flex;gap:3px;align-items:flex-end;height:26px;margin-bottom:7px}
+  .bars i{flex:1;background:#1a1a24;border-radius:1px;transition:background .18s,height .18s}
+  .meter-label{display:flex;justify-content:space-between;font:700 10px/1 var(--mono);letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-mute)}
+  .meter-label b{color:var(--ink-mute);font-weight:700}
 
-    .state { display: none; }
-    .state.active { display: block; }
+  button.cta{
+    width:100%;background:var(--blue);color:#fff;border:0;border-radius:12px;
+    padding:16px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;
+    transition:filter .15s,transform .05s;
+  }
+  button.cta:hover{filter:brightness(1.1)}
+  button.cta:active{transform:translateY(1px)}
+  button.cta:disabled{opacity:.45;cursor:not-allowed;filter:none}
+  button.ghost{
+    width:100%;background:transparent;color:var(--blue-hi);
+    border:1px solid var(--blue);border-radius:12px;padding:15px;
+    font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:10px;
+  }
+  button.ghost:hover{background:rgba(59,110,245,.08)}
+  button.ghost svg{width:18px;height:18px;flex:none}
 
-    .foot { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--dim); }
-    .foot a { color: var(--accent-hi); text-decoration: none; }
-  </style>
+  .split{display:flex;align-items:center;gap:12px;margin:20px 0}
+  .split:before,.split:after{content:'';flex:1;height:1px;background:var(--line)}
+  .split span{font:700 10px/1 var(--mono);letter-spacing:2px;color:var(--ink-mute);text-transform:uppercase}
+
+  .warn-box{
+    background:var(--amber-bg);border:1px solid var(--amber-line);border-radius:11px;
+    padding:14px 15px;margin-bottom:22px;
+  }
+  .warn-box h3{margin:0 0 5px;font:700 11px/1.3 var(--mono);letter-spacing:1.5px;color:var(--amber);text-transform:uppercase}
+  .warn-box p{margin:0;font-size:13px;color:#c9a86a}
+
+  .msg{border-radius:11px;padding:13px 15px;margin-bottom:18px;font-size:13.5px;display:none}
+  .msg.show{display:block}
+  .msg.err{background:#2a1012;border:1px solid #5e1f22;color:#ff8a82}
+  .msg.ok{background:#0e2417;border:1px solid #1d5c33;color:#6ee79a}
+
+  .steps{margin:22px 0 0;padding:0;list-style:none;counter-reset:s}
+  .steps li{display:flex;gap:12px;padding:7px 0;font-size:14px;color:var(--ink)}
+  .steps li b{font:700 13px/1.5 var(--mono);color:var(--blue);flex:none}
+  .steps li span{color:var(--ink-dim)}
+
+  .foot{margin:22px 0 0;font-size:12.5px;color:var(--ink-mute)}
+  .foot a{color:var(--blue-hi);text-decoration:none}
+  .foot a:hover{text-decoration:underline}
+  .linkish{background:none;border:0;padding:0;color:var(--blue-hi);font:inherit;font-size:12.5px;cursor:pointer}
+  .linkish:hover{text-decoration:underline}
+
+  .brand{text-align:center;margin-top:18px;font:400 10px/1 var(--mono);letter-spacing:2px;color:#3a3a4a;text-transform:uppercase}
+
+  .screen{display:none} .screen.on{display:block}
+
+  .spin{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;display:inline-block;animation:sp .7s linear infinite;vertical-align:-3px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+
+  .boot{display:flex;gap:3px;align-items:flex-end;height:34px;justify-content:center;padding:34px 0}
+  .boot i{width:3px;background:var(--blue);border-radius:1px;animation:pulse 1s ease-in-out infinite}
+  @keyframes pulse{0%,100%{height:6px;opacity:.35}50%{height:30px;opacity:1}}
+  @media (prefers-reduced-motion:reduce){.boot i,.spin{animation:none}}
+</style>
 </head>
 <body>
-  <div class="card">
-    <div class="logo">drop<span>SFX</span></div>
-
-    <!-- STATE: loading (checking existing session / processing return) -->
-    <div class="state active" id="s-loading">
-      <h1>Só um instante…</h1>
-      <div class="spinner"></div>
+<div class="shell">
+  <div class="panel">
+    <div class="bar">
+      <div class="bar-title">dropSFX · Access</div>
+      <div class="status" id="status"><span class="dot"></span><span id="statusText">Verificando</span></div>
     </div>
 
-    <!-- STATE: needs to click login -->
-    <div class="state" id="s-login">
-      <h1>Entrar com Google</h1>
-      <p class="sub">Use a mesma conta Google do e-mail que você usou na compra do dropSFX.</p>
-      <button class="google-btn" id="btn-google">
-        <svg width="17" height="17" viewBox="0 0 18 18" aria-hidden="true">
-          <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 01-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62z"/>
-          <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.02-3.7H.96v2.34A9 9 0 009 18z"/>
-          <path fill="#FBBC05" d="M3.98 10.72a5.4 5.4 0 010-3.44V4.94H.96a9 9 0 000 8.12l3.02-2.34z"/>
-          <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.46 3.44 1.35l2.58-2.58C13.47.9 11.43 0 9 0A9 9 0 00.96 4.94l3.02 2.34C4.68 5.16 6.66 3.58 9 3.58z"/>
-        </svg>
-        <span>Continuar com Google</span>
-      </button>
-    </div>
+    <div class="body">
+      <img class="logo" src="https://www.dropsfx.com.br/assets/logo.png" alt="dropSFX">
 
-    <!-- STATE: done — automatic pairing, nothing to type -->
-    <div class="state" id="s-done">
-      <h1>Tudo certo! 🎉</h1>
-      <p class="sub">Logado como<br><span class="email-tag" id="user-email">—</span></p>
-      <div class="code-box">
-        <div class="code-label" style="font-size:14px;color:var(--txt);">Pode voltar para o <strong>Premiere Pro</strong></div>
-        <div class="code-label" style="margin-top:8px;margin-bottom:0;">O plugin vai entrar sozinho em alguns segundos.<br>Você já pode fechar esta aba.</div>
-      </div>
-    </div>
+      <!-- ================= CARREGANDO ================= -->
+      <section class="screen on" id="s-boot">
+        <div class="boot">
+          <i style="animation-delay:0s"></i><i style="animation-delay:.08s"></i><i style="animation-delay:.16s"></i>
+          <i style="animation-delay:.24s"></i><i style="animation-delay:.32s"></i><i style="animation-delay:.4s"></i>
+          <i style="animation-delay:.48s"></i><i style="animation-delay:.56s"></i>
+        </div>
+      </section>
 
-    <!-- STATE: manual fallback — show pairing code -->
-    <div class="state" id="s-code">
-      <h1>Quase lá! 🎉</h1>
-      <p class="sub">Logado como<br><span class="email-tag" id="user-email-2">—</span></p>
+      <!-- ================= CRIAR SENHA ================= -->
+      <section class="screen" id="s-set">
+        <h1>Defina sua senha,<br><em>e o acesso é seu pra sempre.</em></h1>
+        <p class="sub">Esta senha é o que você vai usar pra entrar no painel do dropSFX dentro do Premiere.</p>
 
-      <div class="code-box">
-        <div class="code-label">Seu código de acesso</div>
-        <div class="code-value" id="code-value">····</div>
-        <button class="copy-btn" id="copy-btn">Copiar código</button>
-      </div>
+        <div class="who"><span>CONTA</span><div id="setEmail">—</div></div>
 
-      <div class="instr">
-        <div class="instr-title">Como usar</div>
-        <ol>
-          <li>Volte para o <strong>Premiere Pro</strong></li>
-          <li>No plugin, clique em <strong>"Entrar com código manual"</strong></li>
-          <li>Cole o código e clique em <strong>OK</strong></li>
+        <div class="warn-box">
+          <h3>⏱ Você chegou dentro do prazo</h3>
+          <p>Este link é de uso único e vale 24 horas. Termine agora e ele nunca mais será necessário.</p>
+        </div>
+
+        <div class="msg err" id="setErr"></div>
+
+        <div class="field">
+          <label>Nova senha <button class="reveal" data-for="pw1">mostrar</button></label>
+          <input type="password" id="pw1" autocomplete="new-password" placeholder="mínimo 8 caracteres">
+        </div>
+
+        <div class="meter">
+          <div class="bars" id="bars"></div>
+          <div class="meter-label"><b>FORÇA DO SINAL</b><b id="strength">—</b></div>
+        </div>
+
+        <div class="field">
+          <label>Repita a senha</label>
+          <input type="password" id="pw2" autocomplete="new-password" placeholder="a mesma coisa de novo">
+        </div>
+
+        <button class="cta" id="setBtn">Criar senha e entrar</button>
+      </section>
+
+      <!-- ================= LOGIN ================= -->
+      <section class="screen" id="s-login">
+        <h1>Entrar no <em>dropSFX</em></h1>
+        <p class="sub">Use a conta do e-mail da sua compra.</p>
+
+        <div class="msg err" id="logErr"></div>
+        <div class="msg ok" id="logOk"></div>
+
+        <button class="ghost" id="googleBtn">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45 24c0-1.6-.1-2.7-.4-4H24v8h12c-.2 2-1.5 4.9-4.4 6.9l6.7 5.2C42.2 36.3 45 30.7 45 24z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.3-5.9l-6.7-5.2c-1.8 1.3-4.3 2.1-7.6 2.1-5.8 0-10.8-3.9-12.6-9.2l-7 5.4C7.9 41 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.4 27.8c-.5-1.4-.7-2.9-.7-4.4s.3-3 .7-4.4l-7-5.4C3.5 16.6 2.7 20.2 2.7 24s.8 7.4 2.4 10.4l6.3-6.6z"/><path fill="#EA4335" d="M24 10.5c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 4.3 29.9 2 24 2 15.4 2 7.9 7 5.1 14.6l6.3 4.8C13.2 14.1 18.2 10.5 24 10.5z"/></svg>
+          Entrar com Google
+        </button>
+
+        <div class="split"><span>ou com senha</span></div>
+
+        <div class="field">
+          <label>E-mail da compra</label>
+          <input type="email" id="logEmail" autocomplete="email" placeholder="voce@exemplo.com">
+        </div>
+        <div class="field">
+          <label>Senha <button class="reveal" data-for="logPw">mostrar</button></label>
+          <input type="password" id="logPw" autocomplete="current-password" placeholder="sua senha">
+        </div>
+
+        <button class="cta" id="logBtn">Entrar</button>
+
+        <p class="foot">
+          Ainda não tem senha ou esqueceu?
+          <button class="linkish" id="toForgot">Receber um link novo</button>
+        </p>
+      </section>
+
+      <!-- ================= LINK EXPIRADO / PEDIR NOVO ================= -->
+      <section class="screen" id="s-forgot">
+        <h1 id="forgotTitle">Pedir um <em>link novo</em></h1>
+        <p class="sub" id="forgotSub">Informe o e-mail que você usou na compra. Em segundos chega um link pra definir sua senha.</p>
+
+        <div class="warn-box">
+          <h3>⏱ O novo link também vale 24 horas</h3>
+          <p>Deixe esta aba aberta, abra o e-mail e conclua na hora — assim não expira de novo.</p>
+        </div>
+
+        <div class="msg err" id="fgErr"></div>
+        <div class="msg ok" id="fgOk"></div>
+
+        <div class="field">
+          <label>E-mail da compra</label>
+          <input type="email" id="fgEmail" autocomplete="email" placeholder="voce@exemplo.com">
+        </div>
+
+        <button class="cta" id="fgBtn">Enviar link</button>
+
+        <p class="foot">
+          Não chegou em 5 minutos? Olhe o spam/lixo eletrônico ou chame no
+          <a href="https://wa.me/5527992625721" target="_blank" rel="noopener">WhatsApp</a>.
+          <br><button class="linkish" id="toLogin">Já tenho senha — entrar</button>
+        </p>
+      </section>
+
+      <!-- ================= SUCESSO ================= -->
+      <section class="screen" id="s-done">
+        <h1>Tudo pronto.<br><em>1.463 sons liberados.</em></h1>
+        <p class="sub" id="doneSub">Sua senha está ativa. Agora é só voltar pro Premiere.</p>
+
+        <div class="who"><span>CONTA</span><div id="doneEmail">—</div></div>
+
+        <ol class="steps">
+          <li><b>01</b><span>Abra o Premiere Pro</span></li>
+          <li><b>02</b><span>Vá em Janela → Extensões → dropSFX</span></li>
+          <li><b>03</b><span>Entre com este e-mail e a senha que você criou</span></li>
         </ol>
-      </div>
-      <p class="sub" style="margin-top:16px;font-size:12.5px;">O código expira em 10 minutos. Se expirar, é só recarregar esta página.</p>
-    </div>
 
-    <!-- STATE: error -->
-    <div class="state" id="s-error">
-      <h1>Ops, algo deu errado</h1>
-      <div class="msg err" id="error-text">Não foi possível completar o login.</div>
-      <button class="google-btn" id="btn-retry" style="margin-top:18px;">
-        <span>Tentar de novo</span>
-      </button>
-    </div>
+        <p class="foot" style="margin-top:24px">
+          Ainda não instalou? <a href="https://www.dropsfx.com.br/tutorial/">Ver o tutorial de instalação</a>
+        </p>
+      </section>
 
-    <div class="foot">
-      Problemas? Fale no <a href="https://wa.me/5527992625721" target="_blank">WhatsApp</a>
     </div>
   </div>
+  <div class="brand">dropSFX · Rossotti Videomaker</div>
+</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    if (window.__dropsfxLoginInit) { console.warn('login-google já inicializado'); }
-    else {
-    window.__dropsfxLoginInit = true;
-    // ============================================================
-    // CONFIG
-    // ============================================================
-    const SUPABASE_URL      = 'https://bwgrxdjdvrdawarbnqjv.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3Z3J4ZGpkdnJkYXdhcmJucWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwMjIxNDgsImV4cCI6MjA5NDU5ODE0OH0.M1Yw6ljgUzPQWTW0CC8DBn8WV6nZDKCCKTwzcZN_Zo0';
-    const PAIR_CODE_URL     = SUPABASE_URL + '/functions/v1/pair-code';
-    const THIS_PAGE         = 'https://www.dropsfx.com.br/login-google/';
-    // ============================================================
+<script>
+/* ============================================================
+   CONFIG — ajuste apenas este bloco
+   ============================================================ */
+const CFG = {
+  SUPABASE_URL : 'https://bwgrxdjdvrdawarbnqjv.supabase.co',
+  SUPABASE_ANON: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3Z3J4ZGpkdnJkYXdhcmJucWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwMjIxNDgsImV4cCI6MjA5NDU5ODE0OH0.M1Yw6ljgUzPQWTW0CC8DBn8WV6nZDKCCKTwzcZN_Zo0',
+  PAIR_ENDPOINT: 'https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/pair-code',
+  MIN_LEN      : 8
+};
 
-    // Pairing ID vindo do plugin (?pair=...). Guardamos em sessionStorage
-    // porque o redirect do Google perde a query string.
-    let freshArrival = false; // chegou agora com ?pair= (pedido novo do plugin)
-    (function capturePairId() {
-      const p = new URLSearchParams(window.location.search).get('pair');
-      if (p && /^[a-f0-9]{24,64}$/i.test(p)) {
-        sessionStorage.setItem('dropsfx_pair', p);
-        freshArrival = true;
-      }
-    })();
+const sb = window.supabase.createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON, {
+  auth:{ detectSessionInUrl:false, persistSession:true, flowType:'implicit' }
+});
 
-    const _sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-      auth: { flowType: 'implicit', detectSessionInUrl: true, persistSession: true }
+/* ---------- helpers de UI ---------- */
+const $ = id => document.getElementById(id);
+const show = id => {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
+  $(id).classList.add('on');
+};
+const setStatus = (text, kind='') => {
+  $('status').className = 'status ' + kind;
+  $('statusText').textContent = text;
+};
+const msg = (id, text) => {
+  const el = $(id);
+  if (!text) { el.classList.remove('show'); el.textContent=''; return; }
+  el.textContent = text; el.classList.add('show');
+};
+const busy = (btn, on, label) => {
+  btn.disabled = on;
+  btn.innerHTML = on ? '<span class="spin"></span>' : label;
+};
+document.querySelectorAll('.reveal').forEach(b => b.onclick = e => {
+  e.preventDefault();
+  const inp = $(b.dataset.for);
+  const hidden = inp.type === 'password';
+  inp.type = hidden ? 'text' : 'password';
+  b.textContent = hidden ? 'ocultar' : 'mostrar';
+});
+
+/* ---------- erros do Supabase em português ---------- */
+function human(err){
+  const m = (err?.message || String(err) || '').toLowerCase();
+  if (m.includes('invalid login credentials')) return 'E-mail ou senha incorretos. Se você nunca criou senha, peça um link novo abaixo.';
+  if (m.includes('email not confirmed'))       return 'Esta conta ainda não foi confirmada. Peça um link novo abaixo.';
+  if (m.includes('should be at least') || m.includes('password'))
+    return 'Senha muito curta ou fraca. Use ao menos ' + CFG.MIN_LEN + ' caracteres.';
+  if (m.includes('expired') || m.includes('invalid') || m.includes('token'))
+    return 'Este link já expirou ou foi usado. Peça um novo.';
+  if (m.includes('rate limit') || m.includes('too many'))
+    return 'Muitas tentativas seguidas. Espere 1 minuto e tente de novo.';
+  if (m.includes('user not found'))            return 'Não encontramos esse e-mail. Use o mesmo da compra ou chame no WhatsApp.';
+  if (m.includes('failed to fetch') || m.includes('network'))
+    return 'Sem conexão com o servidor. Verifique sua internet e tente de novo.';
+  return err?.message || 'Algo deu errado. Tente de novo ou chame no WhatsApp.';
+}
+
+/* ---------- medidor de força (assinatura visual) ---------- */
+const BARS = 14;
+const barsEl = $('bars');
+for (let i=0;i<BARS;i++) barsEl.appendChild(document.createElement('i'));
+const barEls = [...barsEl.children];
+
+function score(pw){
+  if (!pw) return 0;
+  let s = 0;
+  s += Math.min(pw.length / 16, 1) * 55;
+  if (/[a-z]/.test(pw)) s += 8;
+  if (/[A-Z]/.test(pw)) s += 12;
+  if (/[0-9]/.test(pw)) s += 12;
+  if (/[^A-Za-z0-9]/.test(pw)) s += 13;
+  if (/^(.)\1+$/.test(pw)) s = 10;
+  if (/^(123|abc|senha|password|qwerty)/i.test(pw)) s = Math.min(s, 25);
+  return Math.min(Math.round(s), 100);
+}
+function paint(pw){
+  const s = score(pw);
+  const lit = Math.round(s / 100 * BARS);
+  const color = s < 40 ? 'var(--red)' : s < 70 ? 'var(--amber)' : 'var(--green)';
+  barEls.forEach((b,i) => {
+    b.style.height = (8 + (i/(BARS-1)) * 18) + 'px';
+    b.style.background = i < lit ? color : '#1a1a24';
+  });
+  const label = !pw ? '—' : s < 40 ? 'FRACO' : s < 70 ? 'OK' : 'FORTE';
+  $('strength').textContent = label;
+  $('strength').style.color = pw ? color : 'var(--ink-mute)';
+}
+paint('');
+$('pw1').addEventListener('input', e => paint(e.target.value));
+
+/* ---------- pareamento com o plugin (CEP) ---------- */
+/* O plugin abre esta página com ?pair=CODIGO. Após autenticar, mandamos a
+   sessão pra Edge Function e o plugin, que está fazendo polling, entra sozinho. */
+const params    = new URLSearchParams(location.search);
+const pairCode  = params.get('pair') || params.get('pair_code') || null;
+
+async function pairDevice(session){
+  if (!pairCode || !session) return false;
+  try{
+    const r = await fetch(CFG.PAIR_ENDPOINT, {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json', 'apikey':CFG.SUPABASE_ANON,
+                'Authorization':'Bearer ' + session.access_token },
+      body: JSON.stringify({
+        code: pairCode,
+        access_token: session.access_token,
+        refresh_token: session.refresh_token
+      })
     });
+    return r.ok;
+  }catch(_){ return false; }
+}
 
-    const states = ['s-loading', 's-login', 's-done', 's-code', 's-error'];
-    function show(id) { states.forEach(s => document.getElementById(s).classList.toggle('active', s === id)); }
-    function showError(txt) { document.getElementById('error-text').textContent = txt; show('s-error'); }
+async function finish(session){
+  const email = session?.user?.email || '';
+  $('doneEmail').textContent = email;
+  const paired = await pairDevice(session);
+  if (paired){
+    $('doneSub').textContent = 'Sessão enviada pro plugin. Volte pro Premiere — o painel já vai estar logado.';
+    document.querySelector('.steps').style.display = 'none';
+  }
+  setStatus('Liberado','ok');
+  show('s-done');
+}
 
-    // Turn a session into a pairing code via the Edge Function
-    async function createPairingCode(session) {
-      const res = await fetch(PAIR_CODE_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY },
-        body: JSON.stringify({
-          action: 'create',
-          access_token:  session.access_token,
-          refresh_token: session.refresh_token,
-          expires_in:    session.expires_in,
-          email:         session.user && session.user.email || ''
-        })
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || !data.code) throw new Error(data.error || 'Falha ao gerar código');
-      return { code: data.code, email: (session.user && session.user.email) || '' };
+/* ---------- criar senha ---------- */
+$('setBtn').onclick = async () => {
+  const a = $('pw1').value, b = $('pw2').value;
+  msg('setErr','');
+  if (a.length < CFG.MIN_LEN) return msg('setErr','A senha precisa ter no mínimo ' + CFG.MIN_LEN + ' caracteres.');
+  if (a !== b)                return msg('setErr','As duas senhas não são iguais.');
+
+  busy($('setBtn'), true);
+  const { data, error } = await sb.auth.updateUser({ password:a });
+  if (error){ busy($('setBtn'), false, 'Criar senha e entrar'); return msg('setErr', human(error)); }
+  const { data:{ session } } = await sb.auth.getSession();
+  await finish(session);
+};
+
+/* ---------- login com senha ---------- */
+$('logBtn').onclick = async () => {
+  const email = $('logEmail').value.trim(), pw = $('logPw').value;
+  msg('logErr',''); msg('logOk','');
+  if (!email || !pw) return msg('logErr','Preencha e-mail e senha.');
+
+  busy($('logBtn'), true);
+  const { data, error } = await sb.auth.signInWithPassword({ email, password:pw });
+  if (error){ busy($('logBtn'), false, 'Entrar'); return msg('logErr', human(error)); }
+  await finish(data.session);
+};
+$('logPw').addEventListener('keydown', e => { if (e.key === 'Enter') $('logBtn').click(); });
+
+/* ---------- login com Google ---------- */
+$('googleBtn').onclick = async () => {
+  const redirectTo = location.origin + location.pathname + (pairCode ? '?pair=' + encodeURIComponent(pairCode) : '');
+  const { error } = await sb.auth.signInWithOAuth({ provider:'google', options:{ redirectTo } });
+  if (error) msg('logErr', human(error));
+};
+
+/* ---------- pedir link novo ---------- */
+$('fgBtn').onclick = async () => {
+  const email = $('fgEmail').value.trim();
+  msg('fgErr',''); msg('fgOk','');
+  if (!email) return msg('fgErr','Digite o e-mail da sua compra.');
+
+  busy($('fgBtn'), true);
+  const redirectTo = location.origin + location.pathname + (pairCode ? '?pair=' + encodeURIComponent(pairCode) : '');
+  const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo });
+  busy($('fgBtn'), false, 'Enviar link');
+  if (error) return msg('fgErr', human(error));
+  msg('fgOk','Link enviado pra ' + email + '. Ele vale 24 horas — abra agora e defina sua senha.');
+};
+$('toForgot').onclick = () => { $('fgEmail').value = $('logEmail').value; goForgot(); };
+$('toLogin').onclick  = () => { setStatus('Aguardando login'); show('s-login'); };
+
+function goForgot(expired){
+  if (expired){
+    $('forgotTitle').innerHTML = 'Este link <em>já expirou</em>.';
+    $('forgotSub').textContent = 'Links de acesso valem 24 horas e são de uso único. Pede um novo aqui — é instantâneo e sua compra continua valendo.';
+    setStatus('Link expirado','err');
+  }
+  show('s-forgot');
+}
+
+/* ============================================================
+   BOOT — decide qual tela abrir
+   ============================================================ */
+(async function boot(){
+  if (CFG.SUPABASE_ANON.startsWith('COLE_AQUI')){
+    setStatus('Config pendente','err');
+    msg('logErr','Falta preencher SUPABASE_ANON no topo do arquivo.');
+    return show('s-login');
+  }
+
+  const hash = new URLSearchParams(location.hash.replace(/^#/,''));
+
+  // 1) o link veio com erro explícito (expirado, já usado, inválido)
+  if (hash.get('error') || hash.get('error_code')){
+    history.replaceState(null,'',location.pathname + location.search);
+    return goForgot(true);
+  }
+
+  // 2) link de convite / recuperação: tokens no hash
+  const at = hash.get('access_token'), rt = hash.get('refresh_token');
+  const type = hash.get('type'); // invite | recovery | signup | magiclink
+  if (at && rt){
+    const { data, error } = await sb.auth.setSession({ access_token:at, refresh_token:rt });
+    history.replaceState(null,'',location.pathname + location.search);
+    if (error) return goForgot(true);
+
+    // veio do Google (magiclink/oauth) → já está logado, não precisa criar senha
+    if (type && type !== 'invite' && type !== 'recovery' && type !== 'signup'){
+      return finish(data.session);
     }
+    $('setEmail').textContent = data.session?.user?.email || '';
+    setStatus('Link válido','ok');
+    return show('s-set');
+  }
 
-    // Attach the session to the plugin's pairing ID (automatic flow)
-    async function attachToPlugin(session, pairId) {
-      const res = await fetch(PAIR_CODE_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY },
-        body: JSON.stringify({
-          action: 'attach',
-          code: pairId,
-          access_token:  session.access_token,
-          refresh_token: session.refresh_token,
-          expires_in:    session.expires_in,
-          email:         session.user && session.user.email || ''
-        })
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || !data.ok) throw new Error(data.error || 'Falha ao conectar com o plugin');
-    }
+  // 3) formato PKCE (?token_hash=...&type=...)
+  const th = params.get('token_hash'), qt = params.get('type');
+  if (th && qt){
+    const { data, error } = await sb.auth.verifyOtp({ token_hash:th, type:qt });
+    history.replaceState(null,'',location.pathname + (pairCode ? '?pair=' + pairCode : ''));
+    if (error) return goForgot(true);
+    $('setEmail').textContent = data.session?.user?.email || '';
+    setStatus('Link válido','ok');
+    return show('s-set');
+  }
 
-    async function proceedWithSession(session) {
-      const email = (session.user && session.user.email) || 'sua conta Google';
-      const pairId = sessionStorage.getItem('dropsfx_pair');
-      try {
-        if (pairId) {
-          // Automatic flow: hand the session to the plugin, nothing to type
-          await attachToPlugin(session, pairId);
-          sessionStorage.removeItem('dropsfx_pair');
-          document.getElementById('user-email').textContent = email;
-          show('s-done');
-        } else {
-          // Manual fallback: show a short code to paste in the plugin
-          const { code } = await createPairingCode(session);
-          document.getElementById('code-value').textContent = code;
-          document.getElementById('user-email-2').textContent = email;
-          show('s-code');
-        }
-        history.replaceState(null, '', THIS_PAGE);
-      } catch (err) {
-        showError(err.message || 'Não foi possível conectar com o plugin.');
-      }
-    }
+  // 4) já tem sessão salva no navegador
+  const { data:{ session } } = await sb.auth.getSession();
+  if (session) return finish(session);
 
-    // Kick off Google OAuth
-    async function startGoogleLogin() {
-      const { error } = await _sbClient.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: THIS_PAGE,
-          queryParams: { prompt: 'select_account' } // sempre mostra a escolha de conta
-        }
-      });
-      if (error) showError(error.message);
-    }
-
-    document.getElementById('btn-google').addEventListener('click', startGoogleLogin);
-    document.getElementById('btn-retry').addEventListener('click', () => show('s-login'));
-
-    // Copy button
-    document.getElementById('copy-btn').addEventListener('click', async () => {
-      const code = document.getElementById('code-value').textContent;
-      try { await navigator.clipboard.writeText(code); } catch(e) {}
-      const btn = document.getElementById('copy-btn');
-      btn.textContent = 'Copiado! ✓'; btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'Copiar código'; btn.classList.remove('copied'); }, 2000);
-    });
-
-    // On load: did we come back from Google with a session?
-    (async () => {
-      // Give supabase-js a moment to parse the URL hash
-      const errParam = new URLSearchParams(window.location.hash.substring(1)).get('error_description')
-                    || new URLSearchParams(window.location.search).get('error_description');
-      if (errParam) {
-        let msg = decodeURIComponent(errParam).replace(/\+/g, ' ');
-        // Traduz os erros mais comuns pra mensagens que se explicam sozinhas
-        if (/signups? not allowed/i.test(msg)) {
-          msg = 'Essa conta Google não está ligada a nenhuma compra do dropSFX. ' +
-                'Tente de novo com o e-mail que você usou na compra — ou, se acabou de comprar, ' +
-                'aguarde alguns minutos e tente novamente. Precisa de ajuda? Chama no WhatsApp aí embaixo. 👇';
-        }
-        showError(msg);
-        return;
-      }
-
-      if (freshArrival) {
-        // Pedido novo vindo do plugin: descarta sessão antiga do navegador
-        // pra pessoa poder escolher a conta certa no Google.
-        try { await _sbClient.auth.signOut({ scope: 'local' }); } catch(e) {}
-        show('s-login');
-        return;
-      }
-
-      const { data } = await _sbClient.auth.getSession();
-      if (data && data.session) {
-        await proceedWithSession(data.session);
-      } else {
-        // No session yet — also listen in case it resolves a beat later
-        show('s-login');
-        _sbClient.auth.onAuthStateChange((event, session) => {
-          if (session && event === 'SIGNED_IN') proceedWithSession(session);
-        });
-      }
-    })();
-    } // end init guard
-  </script>
+  // 5) entrada direta → tela de login
+  setStatus('Aguardando login');
+  show('s-login');
+})();
+</script>
 </body>
 </html>
