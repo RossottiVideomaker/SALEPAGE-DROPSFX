@@ -38,12 +38,12 @@
 
   <title>dropSFX: Sound Effects no clique, dentro do Adobe Premiere Pro</title>
   <meta name="description"
-    content="O painel de sound effects que vive dentro do Premiere Pro. Mais de 1.400 SFX profissionais, dois cliques e o som está na timeline. R$ 109,79 (pagamento único)." />
+    content="O painel de sound effects que vive dentro do Premiere Pro. Mais de 1.400 SFX profissionais, dois cliques e o som está na timeline. Pagamento único, acesso vitalício." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="dropSFX" />
   <meta property="og:title" content="dropSFX: Sound effects no clique, dentro do Premiere Pro" />
   <meta property="og:description"
-    content="Mais de 1.400 SFX profissionais, dois cliques e o som está na timeline. R$ 109,79 pagamento único." />
+    content="Mais de 1.400 SFX profissionais, dois cliques e o som está na timeline. Pagamento único, acesso vitalício." />
   <meta property="og:image" content="https://www.dropsfx.com.br/assets/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -483,7 +483,7 @@
       font-size: clamp(46px, 9vw, 150px);
     }
 
-    .display, .fg-copy h2, .tf-num, .price-now .x, .price-now .cur, .price-now .val, .price-now .cents, .sticky-cta .sc-price {
+    .display, .fg-copy h2, .tf-num, .pp-v, .sticky-cta .sc-price {
       font-weight: 400;
     }
 
@@ -715,6 +715,8 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .hero-meta b {
@@ -1279,22 +1281,27 @@
 
     .price-block { padding: 26px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 28px; }
 
-    .price-old {
-      font-family: var(--font-mono); font-size: 13px; color: var(--muted);
-      margin-bottom: 10px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+    .price-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+
+    .pp {
+      display: flex; flex-direction: column; gap: 6px;
+      padding: 18px 12px; text-align: center;
+      border: 1px solid var(--line-2); border-radius: 14px;
+      background: rgba(255, 255, 255, .03);
     }
-    .price-old .strike { text-decoration: line-through; }
-    .price-old .save { background: var(--accent-soft); color: var(--accent-hi); padding: 3px 9px; border-radius: 5px; font-weight: 700; }
 
-    .price-now { display: flex; align-items: baseline; gap: 5px; margin-bottom: 10px; }
-    .price-now .x { font-family: var(--font-display); font-size: 34px; color: var(--accent-hi); }
-    .price-now .cur { font-family: var(--font-display); font-size: 26px; color: var(--muted); }
-    .price-now .val { font-family: var(--font-display); font-size: clamp(64px, 9vw, 96px); line-height: .9; color: #fff; }
-    .price-now .cents { font-family: var(--font-display); font-size: 30px; align-self: flex-start; margin-top: 10px; color: #fff; }
+    .pp-k { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    .pp-v { font-family: var(--font-display); font-size: clamp(20px, 3.4vw, 30px); line-height: 1; color: #fff; text-transform: uppercase; }
 
-    .price-avista { font-size: 15px; color: var(--ink-2); margin-bottom: 4px; }
-    .price-avista strong { color: #fff; }
-    .price-once { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: .05em; }
+    .pp:nth-child(2) { border-color: rgba(59, 110, 245, .45); background: var(--accent-soft); }
+    .pp:nth-child(2) .pp-v { color: var(--accent-hi); }
+
+    @media (max-width:420px) {
+      .price-pillars { gap: 7px; }
+      .pp { padding: 14px 7px; }
+    }
+
+    .price-once { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: .05em; line-height: 1.6; }
 
     .price-feats { list-style: none; margin-bottom: 30px; }
     .price-feats li { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; font-size: 14px; color: var(--ink-2); border-bottom: 1px solid var(--line); }
@@ -1361,8 +1368,7 @@
       transition: transform .5s cubic-bezier(.2, .8, .3, 1);
     }
     .sticky-cta.show { transform: translateY(0); }
-    .sticky-cta .sc-price { font-family: var(--font-display); font-size: 17px; color: #fff; }
-    .sticky-cta .sc-price .cur { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-right: 3px; }
+    .sticky-cta .sc-price { font-family: var(--font-display); font-size: 17px; color: #fff; text-transform: uppercase; line-height: 1.1; }
     .sticky-cta .sc-label { display: block; font-family: var(--font-mono); font-size: 9px; color: var(--muted); letter-spacing: .05em; margin-top: 2px; }
     .sticky-cta .sc-btn { background: var(--accent); color: #fff; padding: 12px 20px; border-radius: 100px; font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; }
 
@@ -1472,7 +1478,7 @@
       </div>
       <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=nav&utm_campaign=dropsfx"
         class="nav-cta js-buy-cta" data-position="nav" data-i18n="nav.cta"
-        target="_blank" rel="noopener">Comprar · 12x R$ 11,36</a>
+        target="_blank" rel="noopener">Comprar agora</a>
     </div>
   </nav>
 
@@ -1505,7 +1511,7 @@
         <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=hero&utm_campaign=dropsfx"
           class="hero-cta js-buy-cta" data-position="hero"
           target="_blank" rel="noopener"><span data-i18n="hero.cta">Quero o dropSFX</span> <span class="arr">→</span></a>
-        <div class="hero-meta" data-i18n-html="hero.meta"><span>12x de <b>R$ 11,36</b></span> · <span>Garantia de 7 dias</span></div>
+        <div class="hero-meta" data-i18n-html="hero.meta"><span>Pagamento <b>único</b></span> · <span>Acesso vitalício</span> · <span>Garantia de 7 dias</span></div>
       </div>
     </div>
   </section>
@@ -1767,10 +1773,12 @@
           <img src="assets/logo.png" alt="dropSFX" class="pb-logo" />
           <div class="price-desc" data-i18n="pricing.desc">Biblioteca completa de efeitos sonoros profissionais e o painel nativo pro Premiere, pra usar quantas vezes quiser.</div>
           <div class="price-block">
-            <div class="price-old"><span class="strike" data-i18n="pricing.from">de R$ 297,00</span><span class="save" data-i18n="pricing.save">economize R$ 187,21</span></div>
-            <div class="price-now"><span class="x" data-i18n="pricing.installments">12x</span><span class="cur" data-i18n="pricing.currency">R$</span><span class="val" data-i18n="pricing.val">11</span><span class="cents" data-i18n="pricing.cents">,36</span></div>
-            <div class="price-avista" data-i18n-html="pricing.cash">ou <strong>R$ 109,79</strong> à vista no Pix</div>
-            <div class="price-once" data-i18n="pricing.once">Pagamento único · sem mensalidade, sem renovação</div>
+            <div class="price-pillars">
+              <div class="pp"><span class="pp-k" data-i18n="pricing.pay">Pagamento</span><span class="pp-v" data-i18n="pricing.payv">Único</span></div>
+              <div class="pp"><span class="pp-k" data-i18n="pricing.access">Acesso</span><span class="pp-v" data-i18n="pricing.accessv">Vitalício</span></div>
+              <div class="pp"><span class="pp-k" data-i18n="pricing.warranty">Garantia</span><span class="pp-v" data-i18n="pricing.warrantyv">7 dias</span></div>
+            </div>
+            <div class="price-once" data-i18n="pricing.once">Sem mensalidade, sem renovação · condição atual na página de checkout</div>
           </div>
           <ul class="price-feats">
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n-html="pricing.f1"><strong>1.463 efeitos sonoros</strong> profissionais</span></li>
@@ -1783,7 +1791,7 @@
           </ul>
           <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=pricing&utm_campaign=dropsfx"
             class="price-cta js-buy-cta" data-position="pricing"
-            target="_blank" rel="noopener"><span data-i18n="pricing.cta">Quero o dropSFX agora</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+            target="_blank" rel="noopener"><span data-i18n="pricing.cta">Ver oferta e garantir acesso</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
           <div class="guarantee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg><span data-i18n-html="pricing.guarantee"><strong>Garantia de 7 dias.</strong> Não gostou? Devolvemos 100%.</span></div>
         </div>
       </div>
@@ -1811,7 +1819,7 @@
         </div>
         <div class="faq-item" onclick="this.classList.toggle('open')">
           <div class="faq-q"><span data-i18n="faq.q4">É pagamento único ou mensalidade?</span> <span class="plus">+</span></div>
-          <div class="faq-a" data-i18n="faq.a4">100% pagamento único de R$ 109,79. Você compra uma vez e usa para sempre. Sem mensalidade, sem renovação.</div>
+          <div class="faq-a" data-i18n="faq.a4">100% pagamento único. Você compra uma vez e usa para sempre, sem mensalidade e sem renovação. O valor da condição atual aparece na página de checkout.</div>
         </div>
         <div class="faq-item" onclick="this.classList.toggle('open')">
           <div class="faq-q"><span data-i18n="faq.q5">Posso usar em projetos comerciais?</span> <span class="plus">+</span></div>
@@ -1849,8 +1857,8 @@
   <!-- MOBILE STICKY CTA -->
   <div class="sticky-cta" id="stickyCta">
     <div>
-      <div class="sc-price"><span class="cur" data-i18n="pricing.installments">12x</span><span data-i18n="sticky.price">R$ 11,36</span></div>
-      <span class="sc-label" data-i18n="sticky.label">ou R$ 109,79 à vista</span>
+      <div class="sc-price" data-i18n="sticky.price">Pagamento único</div>
+      <span class="sc-label" data-i18n="sticky.label">Vitalício · garantia de 7 dias</span>
     </div>
     <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=sticky&utm_campaign=dropsfx"
       class="sc-btn js-buy-cta" data-position="sticky" data-i18n="sticky.btn"
@@ -1861,6 +1869,7 @@
   // =====================================================================
   // I18N — DICIONÁRIO
   // Para editar textos, mexa APENAS aqui embaixo.
+  // OBS: preços foram removidos da página — valor só aparece no checkout.
   // =====================================================================
   var I18N = {
 
@@ -1869,12 +1878,12 @@
       "meta.title": "dropSFX: Sound Effects no clique, dentro do Adobe Premiere Pro",
       "meta.desc": "O painel de sound effects que vive dentro do Premiere Pro. Mais de 1.400 SFX profissionais, dois cliques e o som está na timeline.",
 
-      "nav.cta": "Comprar · 12x R$ 11,36",
+      "nav.cta": "Comprar agora",
 
       "hero.badge": "PARA ADOBE PREMIERE PRO",
       "hero.tagline": "Mais de 1.400 efeitos sonoros profissionais dentro do Premiere Pro.<br><strong>Dois cliques e o som está na timeline.</strong>",
       "hero.cta": "Quero o dropSFX",
-      "hero.meta": "<span>12x de <b>R$ 11,36</b></span> · <span>Garantia de 7 dias</span>",
+      "hero.meta": "<span>Pagamento <b>único</b></span> · <span>Acesso vitalício</span> · <span>Garantia de 7 dias</span>",
 
       "problem.eyebrow": "Menos tempo procurando. Mais tempo criando.",
       "problem.title": "<span class='fill'>Sound design</span><br><span class='fill'>em segundos</span>",
@@ -1907,14 +1916,13 @@
       "pricing.ribbon": "▸ Oferta de lançamento",
       "pricing.off": "63% OFF",
       "pricing.desc": "Biblioteca completa de efeitos sonoros profissionais e o painel nativo pro Premiere, pra usar quantas vezes quiser.",
-      "pricing.from": "de R$ 297,00",
-      "pricing.save": "economize R$ 187,21",
-      "pricing.installments": "12x",
-      "pricing.currency": "R$",
-      "pricing.val": "11",
-      "pricing.cents": ",36",
-      "pricing.cash": "ou <strong>R$ 109,79</strong> à vista no Pix",
-      "pricing.once": "Pagamento único · sem mensalidade, sem renovação",
+      "pricing.pay": "Pagamento",
+      "pricing.payv": "Único",
+      "pricing.access": "Acesso",
+      "pricing.accessv": "Vitalício",
+      "pricing.warranty": "Garantia",
+      "pricing.warrantyv": "7 dias",
+      "pricing.once": "Sem mensalidade, sem renovação · condição atual na página de checkout",
       "pricing.f1": "<strong>1.463 efeitos sonoros</strong> profissionais",
       "pricing.f2": "Painel <strong>nativo</strong> pro Adobe Premiere Pro",
       "pricing.f3": "Pré-escuta no hover, <strong>2 cliques</strong> e atalhos",
@@ -1922,7 +1930,7 @@
       "pricing.f5": "Pastas próprias + importe seus áudios",
       "pricing.f6": "Licença pra <strong>até 2 máquinas</strong>",
       "pricing.f7": "<strong>Vitalício</strong> · 100% royalty-free",
-      "pricing.cta": "Quero o dropSFX agora",
+      "pricing.cta": "Ver oferta e garantir acesso",
       "pricing.guarantee": "<strong>Garantia de 7 dias.</strong> Não gostou? Devolvemos 100%.",
 
       "faq.eyebrow": "Dúvidas",
@@ -1934,7 +1942,7 @@
       "faq.q3": "Posso ouvir antes de inserir?",
       "faq.a3": "Sim. Basta passar o mouse sobre o som (sem clicar) que ele toca na hora, com forma de onda visual. É a forma mais rápida de varrer vários sons e achar o certo.",
       "faq.q4": "É pagamento único ou mensalidade?",
-      "faq.a4": "100% pagamento único de R$ 109,79. Você compra uma vez e usa para sempre. Sem mensalidade, sem renovação.",
+      "faq.a4": "100% pagamento único. Você compra uma vez e usa para sempre, sem mensalidade e sem renovação. O valor da condição atual aparece na página de checkout.",
       "faq.q5": "Posso usar em projetos comerciais?",
       "faq.a5": "Sim. Todos os sons são 100% royalty-free para qualquer uso comercial: YouTube monetizado, comerciais, filme, jingle, jogo.",
       "faq.q6": "Posso criar pastas e importar meus sons?",
@@ -1951,8 +1959,8 @@
       "foot.license": "Licença",
       "foot.support": "Suporte",
 
-      "sticky.price": "R$ 11,36",
-      "sticky.label": "ou R$ 109,79 à vista",
+      "sticky.price": "Pagamento único",
+      "sticky.label": "Vitalício · garantia de 7 dias",
       "sticky.btn": "Comprar",
 
       "mock.search": "Buscar sons…",
@@ -1994,12 +2002,12 @@
       "meta.title": "dropSFX: Sound Effects one click away, inside Adobe Premiere Pro",
       "meta.desc": "The sound effects panel that lives inside Premiere Pro. Over 1,400 pro SFX — two clicks and the sound is on your timeline.",
 
-      "nav.cta": "Get it · $21.90",
+      "nav.cta": "Get it now",
 
       "hero.badge": "FOR ADOBE PREMIERE PRO",
       "hero.tagline": "Over 1,400 professional sound effects inside Premiere Pro.<br><strong>Two clicks and the sound is on your timeline.</strong>",
       "hero.cta": "Get dropSFX",
-      "hero.meta": "<span>One-time <b>$21.90</b></span> · <span>7-day guarantee</span>",
+      "hero.meta": "<span><b>One-time</b> payment</span> · <span>Lifetime access</span> · <span>7-day guarantee</span>",
 
       "problem.eyebrow": "Less time searching. More time creating.",
       "problem.title": "<span class='fill'>Sound design</span><br><span class='fill'>in seconds</span>",
@@ -2032,14 +2040,13 @@
       "pricing.ribbon": "▸ Launch offer",
       "pricing.off": "63% OFF",
       "pricing.desc": "The complete professional sound effects library plus the native Premiere panel — use it as many times as you want.",
-      "pricing.from": "was $59.00",
-      "pricing.save": "save $37.10",
-      "pricing.installments": "",
-      "pricing.currency": "$",
-      "pricing.val": "21",
-      "pricing.cents": ".90",
-      "pricing.cash": "one-time payment via card or PayPal",
-      "pricing.once": "One-time payment · no subscription, no renewal",
+      "pricing.pay": "Payment",
+      "pricing.payv": "One-time",
+      "pricing.access": "Access",
+      "pricing.accessv": "Lifetime",
+      "pricing.warranty": "Guarantee",
+      "pricing.warrantyv": "7 days",
+      "pricing.once": "No subscription, no renewal · current price shown at checkout",
       "pricing.f1": "<strong>1,463 professional</strong> sound effects",
       "pricing.f2": "<strong>Native</strong> panel for Adobe Premiere Pro",
       "pricing.f3": "Hover preview, <strong>2 clicks</strong> and shortcuts",
@@ -2047,7 +2054,7 @@
       "pricing.f5": "Custom folders + import your own audio",
       "pricing.f6": "License for <strong>up to 2 machines</strong>",
       "pricing.f7": "<strong>Lifetime</strong> · 100% royalty-free",
-      "pricing.cta": "Get dropSFX now",
+      "pricing.cta": "See the offer and get access",
       "pricing.guarantee": "<strong>7-day guarantee.</strong> Not for you? Full refund.",
 
       "faq.eyebrow": "FAQ",
@@ -2059,7 +2066,7 @@
       "faq.q3": "Can I preview before inserting?",
       "faq.a3": "Yes. Just hover over the sound (no click needed) and it plays instantly, with a visual waveform. It's the fastest way to scan through sounds and find the right one.",
       "faq.q4": "Is it a one-time payment or a subscription?",
-      "faq.a4": "100% one-time payment. Buy once, use forever. No subscription, no renewal.",
+      "faq.a4": "100% one-time payment. Buy once, use forever — no subscription, no renewal. The current price is shown on the checkout page.",
       "faq.q5": "Can I use it in commercial projects?",
       "faq.a5": "Yes. Every sound is 100% royalty-free for any commercial use: monetized YouTube, commercials, film, jingles, games.",
       "faq.q6": "Can I create folders and import my own sounds?",
@@ -2076,8 +2083,8 @@
       "foot.license": "License",
       "foot.support": "Support",
 
-      "sticky.price": "$21.90",
-      "sticky.label": "one-time payment",
+      "sticky.price": "One-time payment",
+      "sticky.label": "Lifetime · 7-day guarantee",
       "sticky.btn": "Get it",
 
       "mock.search": "Search sounds…",
@@ -2119,12 +2126,12 @@
       "meta.title": "dropSFX: Efectos de sonido a un clic, dentro de Adobe Premiere Pro",
       "meta.desc": "El panel de efectos de sonido que vive dentro de Premiere Pro. Más de 1.400 SFX profesionales: dos clics y el sonido está en la línea de tiempo.",
 
-      "nav.cta": "Comprar · $21.90",
+      "nav.cta": "Comprar ahora",
 
       "hero.badge": "PARA ADOBE PREMIERE PRO",
       "hero.tagline": "Más de 1.400 efectos de sonido profesionales dentro de Premiere Pro.<br><strong>Dos clics y el sonido está en la línea de tiempo.</strong>",
       "hero.cta": "Quiero dropSFX",
-      "hero.meta": "<span>Pago único de <b>$21.90</b></span> · <span>Garantía de 7 días</span>",
+      "hero.meta": "<span>Pago <b>único</b></span> · <span>Acceso de por vida</span> · <span>Garantía de 7 días</span>",
 
       "problem.eyebrow": "Menos tiempo buscando. Más tiempo creando.",
       "problem.title": "<span class='fill'>Diseño sonoro</span><br><span class='fill'>en segundos</span>",
@@ -2157,14 +2164,13 @@
       "pricing.ribbon": "▸ Oferta de lanzamiento",
       "pricing.off": "63% OFF",
       "pricing.desc": "Biblioteca completa de efectos de sonido profesionales y el panel nativo para Premiere, para usar cuantas veces quieras.",
-      "pricing.from": "antes $59.00",
-      "pricing.save": "ahorra $37.10",
-      "pricing.installments": "",
-      "pricing.currency": "$",
-      "pricing.val": "21",
-      "pricing.cents": ".90",
-      "pricing.cash": "pago único con tarjeta o PayPal",
-      "pricing.once": "Pago único · sin mensualidad, sin renovación",
+      "pricing.pay": "Pago",
+      "pricing.payv": "Único",
+      "pricing.access": "Acceso",
+      "pricing.accessv": "De por vida",
+      "pricing.warranty": "Garantía",
+      "pricing.warrantyv": "7 días",
+      "pricing.once": "Sin mensualidad, sin renovación · el precio actual aparece en el checkout",
       "pricing.f1": "<strong>1.463 efectos de sonido</strong> profesionales",
       "pricing.f2": "Panel <strong>nativo</strong> para Adobe Premiere Pro",
       "pricing.f3": "Pre-escucha al pasar el cursor, <strong>2 clics</strong> y atajos",
@@ -2172,7 +2178,7 @@
       "pricing.f5": "Carpetas propias + importa tus audios",
       "pricing.f6": "Licencia para <strong>hasta 2 equipos</strong>",
       "pricing.f7": "<strong>De por vida</strong> · 100% libre de regalías",
-      "pricing.cta": "Quiero dropSFX ahora",
+      "pricing.cta": "Ver oferta y obtener acceso",
       "pricing.guarantee": "<strong>Garantía de 7 días.</strong> ¿No te gustó? Devolvemos el 100%.",
 
       "faq.eyebrow": "Preguntas",
@@ -2184,7 +2190,7 @@
       "faq.q3": "¿Puedo escuchar antes de insertar?",
       "faq.a3": "Sí. Basta con pasar el mouse sobre el sonido (sin clic) y suena al instante, con forma de onda visual. Es la forma más rápida de recorrer varios sonidos y encontrar el correcto.",
       "faq.q4": "¿Es pago único o mensualidad?",
-      "faq.a4": "100% pago único. Compras una vez y lo usas para siempre. Sin mensualidad, sin renovación.",
+      "faq.a4": "100% pago único. Compras una vez y lo usas para siempre, sin mensualidad y sin renovación. El precio de la condición actual aparece en la página de checkout.",
       "faq.q5": "¿Puedo usarlo en proyectos comerciales?",
       "faq.a5": "Sí. Todos los sonidos son 100% libres de regalías para cualquier uso comercial: YouTube monetizado, comerciales, cine, jingles, videojuegos.",
       "faq.q6": "¿Puedo crear carpetas e importar mis sonidos?",
@@ -2201,8 +2207,8 @@
       "foot.license": "Licencia",
       "foot.support": "Soporte",
 
-      "sticky.price": "$21.90",
-      "sticky.label": "pago único",
+      "sticky.price": "Pago único",
+      "sticky.label": "De por vida · garantía de 7 días",
       "sticky.btn": "Comprar",
 
       "mock.search": "Buscar sonidos…",
@@ -2446,6 +2452,7 @@
 
   // =====================================================================
   // META PIXEL — helpers de rastreamento
+  // (o value fica aqui só pro Meta calcular ROAS; não aparece na página)
   // =====================================================================
   (function () {
     var PIXEL_DATA = {
