@@ -723,6 +723,58 @@
       color: var(--accent-hi);
     }
 
+    .proof-bar {
+      display: inline-flex; align-items: center; gap: 14px;
+      margin-top: 26px;
+      padding: 9px 18px 9px 9px;
+      border: 1px solid var(--line-2); border-radius: 100px;
+      background: rgba(255,255,255,.03);
+    }
+
+    .proof-avatars { display: flex; align-items: center; }
+
+    .proof-av {
+      width: 30px; height: 30px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font); font-size: 10.5px; font-weight: 700;
+      color: #fff;
+      background: color-mix(in srgb, var(--c) 55%, #000);
+      border: 2px solid var(--bg);
+      margin-left: -10px;
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--c) 40%, transparent);
+    }
+    .proof-avatars .proof-av:first-child { margin-left: 0; }
+
+    .proof-av-more {
+      background: rgba(255,255,255,.08);
+      color: var(--ink-2);
+      font-size: 11px;
+    }
+
+    .proof-av-photo {
+      padding: 0;
+      overflow: hidden;
+      background: #1a1a1e;
+    }
+    .proof-av-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .proof-bar-text {
+      font-size: 13px; font-weight: 400; color: var(--ink-2);
+      white-space: nowrap;
+    }
+    .proof-bar-text strong { color: #fff; font-weight: 700; }
+
+    @media (max-width: 520px) {
+      .proof-bar { padding: 8px 14px 8px 8px; gap: 10px; }
+      .proof-av { width: 26px; height: 26px; font-size: 9.5px; margin-left: -9px; }
+      .proof-bar-text { font-size: 12px; white-space: normal; }
+    }
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -1513,6 +1565,20 @@
           target="_blank" rel="noopener"><span data-i18n="hero.cta">Quero o dropSFX</span> <span class="arr">→</span></a>
         <div class="hero-meta" data-i18n-html="hero.meta"><span>Pagamento <b>único</b></span> · <span>Acesso vitalício</span> · <span>Garantia de 7 dias</span></div>
       </div>
+
+      <div class="proof-bar r">
+        <div class="proof-avatars">
+          <span class="proof-av" style="--c:#3b6ef5">JP</span>
+          <span class="proof-av" style="--c:#2dd4bf">MC</span>
+          <span class="proof-av" style="--c:#a78bfa">RS</span>
+          <span class="proof-av" style="--c:#fb923c">TF</span>
+          <span class="proof-av" style="--c:#f472b6">GV</span>
+          <span class="proof-av proof-av-more">+</span>
+        </div>
+        <span class="proof-bar-text" data-i18n-html="proof.bar">
+          <strong>+1.000 pessoas</strong> já adquiriram o dropSFX
+        </span>
+      </div>
     </div>
   </section>
 
@@ -1885,6 +1951,8 @@
       "hero.cta": "Quero o dropSFX",
       "hero.meta": "<span>Pagamento <b>único</b></span> · <span>Acesso vitalício</span> · <span>Garantia de 7 dias</span>",
 
+      "proof.bar": "<strong>+1.000 pessoas</strong> já adquiriram o dropSFX",
+
       "problem.eyebrow": "Menos tempo procurando. Mais tempo criando.",
       "problem.title": "<span class='fill'>Sound design</span><br><span class='fill'>em segundos</span>",
       "problem.lead": "Tudo o que você precisa para dar impacto aos seus vídeos sem interromper sua edição.",
@@ -2009,6 +2077,8 @@
       "hero.cta": "Get dropSFX",
       "hero.meta": "<span><b>One-time</b> payment</span> · <span>Lifetime access</span> · <span>7-day guarantee</span>",
 
+      "proof.bar": "<strong>1,000+ people</strong> already got dropSFX",
+
       "problem.eyebrow": "Less time searching. More time creating.",
       "problem.title": "<span class='fill'>Sound design</span><br><span class='fill'>in seconds</span>",
       "problem.lead": "Everything you need to add impact to your videos without ever breaking your editing flow.",
@@ -2132,6 +2202,8 @@
       "hero.tagline": "Más de 1.400 efectos de sonido profesionales dentro de Premiere Pro.<br><strong>Dos clics y el sonido está en la línea de tiempo.</strong>",
       "hero.cta": "Quiero dropSFX",
       "hero.meta": "<span>Pago <b>único</b></span> · <span>Acceso de por vida</span> · <span>Garantía de 7 días</span>",
+
+      "proof.bar": "<strong>+1.000 personas</strong> ya adquirieron dropSFX",
 
       "problem.eyebrow": "Menos tiempo buscando. Más tiempo creando.",
       "problem.title": "<span class='fill'>Diseño sonoro</span><br><span class='fill'>en segundos</span>",
@@ -2814,6 +2886,37 @@
       if (r2) r2.innerHTML = (h2.map(card).join('') + h1.slice(0,4).map(card).join('')) +
                              (h2.map(card).join('') + h1.slice(0,4).map(card).join(''));
     };
+  })();
+
+  // =====================================================================
+  // AVATARES REAIS (Supabase) — troca as iniciais por fotos, com fallback
+  // =====================================================================
+  (function () {
+    var container = document.querySelector('.proof-avatars');
+    if (!container) return;
+
+    var ENDPOINT = 'https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/public-avatars';
+    var MAX_SHOW = 5;
+
+    fetch(ENDPOINT)
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var avatars = (data.avatars || []).slice(0, MAX_SHOW);
+        if (!avatars.length) return; // mantém as iniciais se não vier nada
+
+        var html = avatars.map(function (url) {
+          return '<span class="proof-av proof-av-photo">' +
+            '<img src="' + url + '" alt="" loading="lazy" ' +
+            'onerror="this.parentElement.style.display=\'none\'">' +
+            '</span>';
+        }).join('');
+
+        html += '<span class="proof-av proof-av-more">+</span>';
+        container.innerHTML = html;
+      })
+      .catch(function () {
+        // erro de rede → mantém as bolinhas de iniciais que já estão no HTML
+      });
   })();
 
   // =====================================================================
