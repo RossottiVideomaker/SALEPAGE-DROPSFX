@@ -56,6 +56,7 @@
   <link rel="alternate" hreflang="pt-BR" href="https://www.dropsfx.com.br/?lang=pt" />
   <link rel="alternate" hreflang="en" href="https://www.dropsfx.com.br/?lang=en" />
   <link rel="alternate" hreflang="es" href="https://www.dropsfx.com.br/?lang=es" />
+  <link rel="alternate" hreflang="hi" href="https://www.dropsfx.com.br/?lang=hi" />
   <link rel="alternate" hreflang="x-default" href="https://www.dropsfx.com.br/" />
 
   <link rel="icon" type="image/svg+xml"
@@ -63,7 +64,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@300;400;600;700;800&display=swap"
     rel="stylesheet">
 
   <style>
@@ -88,9 +89,9 @@
       --red: #f87171;
       --pink: #f472b6;
       --gray: #94a3b8;
-      --font-display: 'Bebas Neue', sans-serif;
-      --font: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --font-display: 'Bebas Neue', 'Noto Sans Devanagari', sans-serif;
+      --font: 'Sora', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Noto Sans Devanagari', monospace;
     }
 
     * {
@@ -1506,6 +1507,31 @@
       width: 100%; height: 100%; object-fit: cover; display: block;
     }
 
+    /* =================== HINDI (devanágari) =================== */
+    html[lang="hi"] .display,
+    html[lang="hi"] .fg-copy h2 {
+      font-weight: 700;
+      line-height: 1.18;
+      letter-spacing: -.01em;
+      text-transform: none;
+      font-size: clamp(30px, 4.4vw, 64px) !important;
+    }
+    html[lang="hi"] .display .blue,
+    html[lang="hi"] .fg-copy h2 .blue {
+      color: var(--accent-hi);
+      -webkit-text-stroke: 0;
+    }
+    html[lang="hi"] .pp-v {
+      font-weight: 700; text-transform: none;
+      font-size: clamp(13px, 2vw, 18px); line-height: 1.3;
+    }
+    html[lang="hi"] .sticky-cta .sc-price { font-weight: 700; font-size: 14px; text-transform: none; }
+    html[lang="hi"] .eyebrow { letter-spacing: .12em; }
+    html[lang="hi"] .quote { font-style: normal; }
+    html[lang="hi"] .quote .quote-line { white-space: normal; }
+    html[lang="hi"] .price-cta { text-transform: none; letter-spacing: 0; }
+    html[lang="hi"] .lead { line-height: 1.7; }
+
     /* =================== MOBILE PERFORMANCE =================== */
     @media (max-width: 720px) {
       .hero-badge { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(8, 8, 10, .88); }
@@ -1555,6 +1581,7 @@
           <button class="lang-opt" type="button" data-lang="pt" role="menuitem"><span class="flag">🇧🇷</span> Português <span class="code">PT-BR</span></button>
           <button class="lang-opt" type="button" data-lang="en" role="menuitem"><span class="flag">🇺🇸</span> English <span class="code">EN</span></button>
           <button class="lang-opt" type="button" data-lang="es" role="menuitem"><span class="flag">🇪🇸</span> Español <span class="code">ES</span></button>
+          <button class="lang-opt" type="button" data-lang="hi" role="menuitem"><span class="flag">🇮🇳</span> हिन्दी <span class="code">HI</span></button>
         </div>
       </div>
       <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=nav&utm_campaign=dropsfx"
@@ -2259,6 +2286,132 @@
       "cat.bells": "Bells & Buttons",
       "cat.slowmo": "Slow Motion",
       "cat.tonal": "Tonalidad"
+    },
+
+    /* ============================== हिन्दी ============================== */
+    hi: {
+      "meta.title": "dropSFX: एक क्लिक में साउंड इफ़ेक्ट्स, Adobe Premiere Pro के अंदर",
+      "meta.desc": "साउंड इफ़ेक्ट्स का पैनल जो Premiere Pro के अंदर ही रहता है। 1,400 से ज़्यादा प्रोफ़ेशनल SFX — दो क्लिक और साउंड टाइमलाइन पर।",
+
+      "nav.cta": "अभी खरीदें",
+
+      "hero.badge": "ADOBE PREMIERE PRO के लिए",
+      "hero.tagline": "Premiere Pro के अंदर 1,400 से ज़्यादा प्रोफ़ेशनल साउंड इफ़ेक्ट्स।<br><strong>दो क्लिक और साउंड टाइमलाइन पर।</strong>",
+      "hero.cta": "मुझे dropSFX चाहिए",
+      "hero.meta": "<span><b>एक बार</b> भुगतान</span> · <span>लाइफ़टाइम एक्सेस</span> · <span>7 दिन की गारंटी</span>",
+
+      "proof.bar": "<strong>1,000+ लोग</strong> dropSFX ले चुके हैं",
+
+      "problem.eyebrow": "खोजने में कम समय। बनाने में ज़्यादा।",
+      "problem.title": "<span class='fill'>साउंड डिज़ाइन</span><br><span class='fill'>सेकंडों में</span>",
+      "problem.lead": "एडिटिंग रोके बिना अपने वीडियो को दमदार बनाने के लिए जो चाहिए, सब यहीं है।",
+
+      "panel.eyebrow": "№ 01 · पैनल",
+      "panel.title": "<span style='color:#fff'>यह रहता है</span><br><span class='blue'>आपके Premiere के अंदर।</span>",
+      "panel.lead": "आपके इंटरफ़ेस से जुड़ा एक नेटिव पैनल। पूरी लाइब्रेरी, रंगीन फ़ोल्डरों में सजी, टाइमलाइन से बस एक कदम दूर।",
+
+      "hover.eyebrow": "№ 01 · प्री-लिसन",
+      "hover.title": "माउस ले जाइए,<br><span class='blue'>साउंड बजने लगा।</span>",
+      "hover.lead": "हर फ़ाइल खोलकर देखना भूल जाइए। <strong>बस कर्सर साउंड पर ले जाइए</strong> और वह तुरंत बजता है, लाइव वेवफ़ॉर्म के साथ। सेकंडों में दर्जनों इफ़ेक्ट्स सुन लीजिए।",
+
+      "quote1": "<span class='quote-line'>\"जब टूल आपकी क्रिएटिविटी का साथ देते हैं,</span><span class='quote-line accent'>नतीजे जल्दी दिखते हैं।\"</span>",
+
+      "twoclick.eyebrow": "№ 02 · इन्सर्ट",
+      "twoclick.title": "दो क्लिक।<br><span class='blue'>टाइमलाइन पर।</span>",
+      "twoclick.lead": "साउंड मिल गया? <strong>डबल-क्लिक</strong> कीजिए और वह ठीक Premiere के प्लेहेड पर, आपके चुने ट्रैक पर आ जाता है। न फ़ाइल खींचना, न एक्सपोर्ट, न विंडो बदलना।",
+
+      "gain.eyebrow": "№ 03 · कंट्रोल",
+      "gain.title": "<span class='fill'>सही गेन,</span><br><span class='blue'>इन्सर्ट करने से पहले।</span>",
+      "gain.lead": "व्हूश हमेशा बहुत तेज़? राइज़र धीमा? <strong>-12, 0 या +6 dB</strong> चुनिए और साउंड सही वॉल्यूम पर ही टाइमलाइन में आएगा। हर क्लिप के लिए मिक्सर खोलना बंद।",
+
+      "library.eyebrow": "№ 00 · लाइब्रेरी",
+      "library.title": "<span class='fill'>1,463 साउंड</span><br><span class='blue'>21 कैटेगरी</span>",
+      "library.lead": "असली एडिटिंग के लिए चुने गए: व्हूश और इम्पैक्ट से लेकर ग्लिच, राइज़र और फ़ॉली तक। हर कैटेगरी का अपना रंग, ताकि एक नज़र में मिल जाए।",
+
+      "pricing.eyebrow": "निवेश",
+      "pricing.title": "<span class='fill'>एक बार दीजिए।</span><br><span class='blue'>हमेशा इस्तेमाल कीजिए।</span>",
+      "pricing.ribbon": "▸ लॉन्च ऑफ़र",
+      "pricing.off": "63% छूट",
+      "pricing.desc": "प्रोफ़ेशनल साउंड इफ़ेक्ट्स की पूरी लाइब्रेरी और Premiere का नेटिव पैनल — जितनी बार चाहें इस्तेमाल कीजिए।",
+      "pricing.pay": "भुगतान",
+      "pricing.payv": "एक बार",
+      "pricing.access": "एक्सेस",
+      "pricing.accessv": "लाइफ़टाइम",
+      "pricing.warranty": "गारंटी",
+      "pricing.warrantyv": "7 दिन",
+      "pricing.once": "कोई मासिक शुल्क नहीं, कोई रिन्यूअल नहीं · मौजूदा कीमत चेकआउट पेज पर",
+      "pricing.f1": "<strong>1,463 प्रोफ़ेशनल</strong> साउंड इफ़ेक्ट्स",
+      "pricing.f2": "Adobe Premiere Pro के लिए <strong>नेटिव</strong> पैनल",
+      "pricing.f3": "हॉवर प्री-लिसन, <strong>2 क्लिक</strong> और शॉर्टकट",
+      "pricing.f4": "इन्सर्ट पर <strong>गेन कंट्रोल</strong>",
+      "pricing.f5": "अपने फ़ोल्डर + अपने ऑडियो इम्पोर्ट करें",
+      "pricing.f6": "<strong>2 मशीनों तक</strong> का लाइसेंस",
+      "pricing.f7": "<strong>लाइफ़टाइम</strong> · 100% रॉयल्टी-फ़्री",
+      "pricing.cta": "ऑफ़र देखें और एक्सेस पाएँ",
+      "pricing.guarantee": "<strong>7 दिन की गारंटी।</strong> पसंद नहीं आया? पूरा पैसा वापस।",
+
+      "faq.eyebrow": "सवाल-जवाब",
+      "faq.title": "<span class='fill'>जो सब पूछते हैं।</span>",
+      "faq.q1": "Premiere Pro के किस वर्ज़न में चलता है?",
+      "faq.a1": "Adobe Premiere Pro CC 2020 और उसके बाद के वर्ज़न में — Mac (Intel और Apple Silicon) तथा Windows 10/11 पर।",
+      "faq.q2": "टाइमलाइन में साउंड कैसे डालें?",
+      "faq.a2": "जैसे चाहें: डबल-क्लिक साउंड को प्लेहेड पर डाल देता है, या Insert बटन इस्तेमाल कीजिए। कीबोर्ड से ↑↓ नेविगेट करते हैं और Enter इन्सर्ट करता है; Shift+Enter उसे आपके इन-पॉइंट पर रखता है। और इन्सर्ट करने से पहले गेन (-12 / 0 / +6 dB) भी चुन सकते हैं।",
+      "faq.q3": "इन्सर्ट करने से पहले सुन सकते हैं?",
+      "faq.a3": "हाँ। बस माउस साउंड पर ले जाइए (क्लिक की ज़रूरत नहीं) और वह वेवफ़ॉर्म के साथ तुरंत बजता है। सही साउंड ढूँढ़ने का यह सबसे तेज़ तरीका है।",
+      "faq.q4": "एक बार का भुगतान है या मासिक?",
+      "faq.a4": "100% एक बार का भुगतान। एक बार खरीदिए और हमेशा इस्तेमाल कीजिए — न मासिक शुल्क, न रिन्यूअल। मौजूदा कीमत चेकआउट पेज पर दिखती है।",
+      "faq.q5": "क्या कमर्शियल प्रोजेक्ट में इस्तेमाल कर सकते हैं?",
+      "faq.a5": "हाँ। सभी साउंड किसी भी कमर्शियल इस्तेमाल के लिए 100% रॉयल्टी-फ़्री हैं: मॉनिटाइज़्ड YouTube, विज्ञापन, फ़िल्म, जिंगल, गेम।",
+      "faq.q6": "क्या अपने फ़ोल्डर बनाकर अपने साउंड इम्पोर्ट कर सकते हैं?",
+      "faq.a6": "हाँ। पहले से मौजूद 21 कैटेगरी के अलावा आप अपने रंगीन फ़ोल्डर बना सकते हैं, अपने ऑडियो इम्पोर्ट कर सकते हैं और साउंड को फ़ोल्डरों के बीच खींच सकते हैं। पैनल आपके सबसे ज़्यादा इस्तेमाल किए गए साउंड का \"Top\" टैब भी बनाता है।",
+      "faq.q7": "कितनी मशीनों पर इंस्टॉल कर सकते हैं?",
+      "faq.a7": "एक साथ 2 मशीनों तक, Mac और/या Windows। जब चाहें डीएक्टिवेट करके दूसरी मशीन पर ले जा सकते हैं।",
+      "faq.q8": "प्रोडक्ट कैसे मिलेगा?",
+      "faq.a8": "तुरंत एक्सेस। भुगतान के बाद ईमेल पर डाउनलोड लिंक और अकाउंट बनाने की जानकारी आती है। पैनल में लॉगिन कीजिए और पूरी लाइब्रेरी उपलब्ध।",
+      "faq.q9": "अगर पसंद न आए तो?",
+      "faq.a9": "आज़माने के लिए 7 दिन। पसंद न आए तो 100% रिफ़ंड। बस एक ईमेल भेजिए, कोई सवाल-जवाब नहीं।",
+
+      "foot.terms": "शर्तें",
+      "foot.privacy": "निजता",
+      "foot.license": "लाइसेंस",
+      "foot.support": "सपोर्ट",
+
+      "sticky.price": "एक बार भुगतान",
+      "sticky.label": "लाइफ़टाइम · 7 दिन की गारंटी",
+      "sticky.btn": "खरीदें",
+
+      "mock.search": "साउंड खोजें…",
+      "mock.folders": "फ़ोल्डर",
+      "mock.favorites": "पसंदीदा",
+      "mock.sort": "नाम",
+      "mock.all": "सभी",
+      "mock.library": "dropSFX लाइब्रेरी",
+      "mock.sounds": "साउंड",
+      "mock.gain": "गेन",
+      "mock.inpoint": "⇧↵ इन-पॉइंट पर",
+      "mock.insert": "इन्सर्ट",
+
+      "cat.whooshes": "व्हूश",
+      "cat.transitions": "ट्रांज़िशन",
+      "cat.drops": "सिनेमैटिक ड्रॉप्स",
+      "cat.clicks": "क्लिक्स & UI",
+      "cat.foley": "फ़ॉली & डाइजेटिक",
+      "cat.risers": "राइज़र",
+      "cat.elements": "एलिमेंट्स",
+      "cat.memes": "मीम्स & कार्टून",
+      "cat.hits": "हिट्स & इम्पैक्ट्स",
+      "cat.glitches": "ग्लिच",
+      "cat.guns": "गन्स",
+      "cat.reverb": "रिवर्ब",
+      "cat.retro": "रेट्रो",
+      "cat.hud": "HUD & डिजिटल",
+      "cat.ambient": "एम्बिएंस",
+      "cat.nature": "नेचर",
+      "cat.emotion": "इमोशन",
+      "cat.camera": "कैमरा",
+      "cat.bells": "बेल्स & बटन्स",
+      "cat.slowmo": "स्लो मोशन",
+      "cat.tonal": "टोनैलिटी"
     }
   };
 
@@ -2269,13 +2422,15 @@
   var CHECKOUT = {
     pt: 'https://pay.kiwify.com.br/uzVAstc',
     en: 'https://pay.kiwify.com.br/uzVAstc',
-    es: 'https://pay.kiwify.com.br/uzVAstc'
+    es: 'https://pay.kiwify.com.br/uzVAstc',
+    hi: 'https://pay.kiwify.com.br/uzVAstc'
   };
 
   var LANG_META = {
     pt: { label: 'PT', htmlLang: 'pt-BR', ogLocale: 'pt_BR' },
     en: { label: 'EN', htmlLang: 'en',    ogLocale: 'en_US' },
-    es: { label: 'ES', htmlLang: 'es',    ogLocale: 'es_ES' }
+    es: { label: 'ES', htmlLang: 'es',    ogLocale: 'es_ES' },
+    hi: { label: 'HI', htmlLang: 'hi',    ogLocale: 'hi_IN' }
   };
 
   // =====================================================================
