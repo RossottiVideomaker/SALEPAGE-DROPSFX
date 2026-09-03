@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#000000" />
+<meta name="robots" content="noindex" />
+<title>dropSFX — Teste grátis por 3 dias</title>
+<meta name="description" content="Instale o dropSFX, entre com sua conta Google e use a biblioteca completa por 3 dias, sem compromisso." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000;--ink:#fff;--ink-2:#c4c8d4;--muted:#888d99;--dim:#4a4d57;
+    --line:rgba(255,255,255,.09);--line-2:rgba(255,255,255,.16);
+    --accent:#3b6ef5;--accent-hi:#6e9bff;--accent-glow:rgba(59,110,245,.5);--accent-soft:rgba(59,110,245,.14);
+    --teal:#2dd4bf;--green:#4ade80;--green-soft:rgba(74,222,128,.14);--orange:#ffc46b;--orange-soft:rgba(255,196,107,.12);
+    --font-display:'Bebas Neue',sans-serif;--font:'Sora',-apple-system,BlinkMacSystemFont,sans-serif;--font-mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  img{display:block;max-width:100%;}
+  a{color:inherit;}
+
+  .nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    padding:16px 28px;background:rgba(0,0,0,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);}
+  .nav-logo img{height:24px;width:auto;filter:drop-shadow(0 0 8px var(--accent-glow));}
+  .nav-cta{font-size:12.5px;font-weight:700;color:#fff;background:var(--accent);padding:9px 18px;border-radius:100px;text-decoration:none;white-space:nowrap;}
+  .nav-cta:hover{background:#2554d6;}
+
+  .steps-bar{display:flex;align-items:center;justify-content:center;gap:0;padding:22px 20px 0;flex-wrap:wrap;}
+  .step-pill{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;font-weight:700;
+    letter-spacing:.05em;color:var(--dim);padding:6px 4px;}
+  .step-pill .num{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-size:10px;}
+  .step-pill.active{color:var(--ink);}
+  .step-pill.active .num{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .step-sep{width:28px;height:1px;background:var(--line-2);margin:0 4px;}
+
+  .hero{max-width:760px;margin:0 auto;padding:56px 24px 20px;text-align:center;}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border:1px solid rgba(255,196,107,.35);
+    background:var(--orange-soft);border-radius:100px;font-family:var(--font-mono);font-size:11px;font-weight:700;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--orange);margin-bottom:22px;}
+  .hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--orange);box-shadow:0 0 8px var(--orange);}
+  h1{font-family:var(--font-display);font-weight:400;text-transform:uppercase;font-size:clamp(34px,6vw,58px);line-height:.98;}
+  h1 .blue{color:var(--accent-hi);}
+  .hero-lead{color:var(--ink-2);font-size:16px;font-weight:300;max-width:520px;margin:18px auto 0;}
+  .hero-lead strong{color:#fff;font-weight:600;}
+
+  section.block{max-width:760px;margin:0 auto;padding:44px 24px;border-top:1px solid var(--line);}
+  .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent-hi);
+    display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .eyebrow .n{font-family:var(--font-display);font-size:15px;color:var(--dim);}
+  h2{font-family:var(--font-display);font-weight:400;text-transform:uppercase;font-size:clamp(24px,3.6vw,36px);line-height:1;margin-bottom:10px;}
+  h2 .blue{color:var(--accent-hi);}
+  .block-lead{color:var(--ink-2);font-size:14.5px;font-weight:300;margin-bottom:26px;max-width:520px;}
+
+  .dl-card{background:linear-gradient(180deg,rgba(18,18,23,.9),rgba(8,8,12,.9));border:1px solid var(--line-2);
+    border-radius:16px;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;
+    flex-wrap:wrap;margin-bottom:26px;}
+  .dl-info .dl-name{font-weight:700;font-size:15px;}
+  .dl-info .dl-meta{font-family:var(--font-mono);font-size:11.5px;color:var(--muted);margin-top:4px;}
+  .dl-btn{display:inline-flex;align-items:center;gap:9px;background:var(--accent);color:#fff;font-weight:700;
+    font-size:13.5px;padding:12px 22px;border-radius:100px;text-decoration:none;white-space:nowrap;
+    box-shadow:0 8px 24px var(--accent-glow);transition:.2s;}
+  .dl-btn:hover{background:#2554d6;transform:translateY(-1px);}
+
+  .os-tabs{display:flex;gap:8px;margin-bottom:18px;}
+  .os-tab{font-size:12.5px;font-weight:700;padding:8px 16px;border-radius:100px;border:1px solid var(--line-2);
+    background:rgba(255,255,255,.03);color:var(--muted);cursor:pointer;}
+  .os-tab.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-hi);}
+  .os-panel{display:none;}
+  .os-panel.on{display:block;}
+
+  .step-item{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line);}
+  .step-item:last-child{border-bottom:none;}
+  .step-num{width:26px;height:26px;flex-shrink:0;border-radius:50%;background:var(--accent-soft);border:1px solid var(--accent);
+    color:var(--accent-hi);font-family:var(--font-mono);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .step-text{font-size:14px;color:var(--ink-2);line-height:1.6;}
+  .step-text strong{color:#fff;}
+  code.pathbox{display:block;background:rgba(255,255,255,.04);border:1px solid var(--line-2);border-radius:8px;
+    padding:9px 12px;font-family:var(--font-mono);font-size:12px;color:var(--accent-hi);margin-top:8px;word-break:break-all;}
+
+  .trial-callout{background:var(--orange-soft);border:1px solid rgba(255,196,107,.3);border-radius:14px;
+    padding:18px 20px;margin-top:26px;}
+  .trial-callout strong{color:var(--orange);display:block;font-size:13.5px;margin-bottom:6px;}
+  .trial-callout span{color:rgba(255,196,107,.85);font-size:13px;line-height:1.55;}
+
+  .google-btn-preview{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#1f1f1f;
+    border-radius:10px;padding:10px 20px;font-weight:700;font-size:13px;margin:10px 0;}
+
+  .faq-item{border-top:1px solid var(--line);cursor:pointer;}
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-q{padding:16px 0;display:flex;justify-content:space-between;align-items:center;gap:14px;font-weight:600;font-size:14.5px;}
+  .faq-q .plus{font-weight:300;font-size:20px;color:var(--accent-hi);transition:.3s;flex-shrink:0;}
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;font-size:13.5px;font-weight:300;color:var(--ink-2);line-height:1.6;}
+  .faq-item.open .faq-a{max-height:260px;padding-bottom:16px;}
+
+  .buy-band{max-width:760px;margin:0 auto;padding:40px 24px 60px;text-align:center;}
+  .buy-box{background:linear-gradient(180deg,rgba(59,110,245,.1),rgba(0,0,0,0));border:1px solid var(--accent-soft);
+    border-radius:18px;padding:32px 26px;}
+  .buy-box h3{font-family:var(--font-display);font-weight:400;text-transform:uppercase;font-size:26px;margin-bottom:8px;}
+  .buy-box p{color:var(--ink-2);font-size:13.5px;margin-bottom:20px;}
+  .buy-cta{display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#053017;font-weight:800;
+    font-size:14px;padding:14px 30px;border-radius:100px;text-decoration:none;box-shadow:0 10px 28px var(--green-soft);}
+  .buy-cta:hover{background:#5ee892;}
+
+  footer{border-top:1px solid var(--line);padding:30px 24px;text-align:center;}
+  footer img{height:22px;width:auto;opacity:.8;margin:0 auto 14px;}
+  footer a.wa{color:var(--accent-hi);text-decoration:none;font-weight:600;}
+  footer .credit{font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-top:10px;}
+
+  @media(max-width:600px){
+    .step-pill span.txt{display:none;}
+    .dl-card{flex-direction:column;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo"><img src="assets/logo.png" alt="dropSFX" /></div>
+  <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=trial_page&utm_medium=nav" class="nav-cta" target="_blank" rel="noopener">Comprar agora</a>
+</nav>
+
+<div class="steps-bar">
+  <div class="step-pill active"><span class="num">1</span><span class="txt">Instalar</span></div>
+  <div class="step-sep"></div>
+  <div class="step-pill"><span class="num">2</span><span class="txt">Entrar</span></div>
+  <div class="step-sep"></div>
+  <div class="step-pill"><span class="num">3</span><span class="txt">Usar</span></div>
+</div>
+
+<div class="hero">
+  <div class="hero-badge"><span class="dot"></span>Teste grátis · 3 dias</div>
+  <h1>Antes de comprar,<br><span class="blue">use de verdade.</span></h1>
+  <p class="hero-lead">Você vai instalar o <strong>mesmo dropSFX</strong> que a gente vende — biblioteca completa, sem versão limitada. Por <strong>3 dias</strong>, sem precisar pagar nada.</p>
+</div>
+
+<!-- STEP 1: INSTALAR -->
+<section class="block" id="s1">
+  <div class="eyebrow"><span class="n">01</span>Instalação</div>
+  <h2>Instale o painel.</h2>
+  <p class="block-lead">Baixe o arquivo e siga o passo a passo do seu sistema.</p>
+
+  <div class="dl-card">
+    <div class="dl-info">
+      <div class="dl-name">dropSFX.2.0.zip</div>
+      <div class="dl-meta">Versão 2.0 · Mac e Windows · ~280&nbsp;MB</div>
+    </div>
+    <a href="https://github.com/RossottiVideomaker/SALEPAGE-DROPSFX/releases/download/1.0.0/DropSFX.2.0.zip" class="dl-btn" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Baixar agora
+    </a>
+  </div>
+
+  <div class="os-tabs">
+    <button class="os-tab on" data-os="mac">macOS</button>
+    <button class="os-tab" data-os="win">Windows</button>
+  </div>
+
+  <div class="os-panel on" data-os="mac">
+    <div class="step-item"><div class="step-num">1</div><div class="step-text"><strong>Extraia o arquivo.</strong> Clique duas vezes no dropSFX.2.0.zip que você baixou. Vai criar uma pasta chamada <strong>dropSFX</strong>.</div></div>
+    <div class="step-item"><div class="step-num">2</div><div class="step-text"><strong>Abra a pasta de extensões.</strong> No Finder, aperte ⇧⌘G e cole o caminho:<code class="pathbox">~/Library/Application Support/Adobe/CEP/extensions/</code>Cole a pasta dropSFX aqui dentro. (Se a pasta extensions não existir, crie ela.)</div></div>
+    <div class="step-item"><div class="step-num">3</div><div class="step-text"><strong>Libere extensões.</strong> Abra o Terminal, cole o comando abaixo e aperte Enter:<code class="pathbox">for v in 6 7 8 9 10 11 12; do defaults write com.adobe.CSXS.$v PlayerDebugMode 1; done; killall cfprefsd</code></div></div>
+    <div class="step-item"><div class="step-num">4</div><div class="step-text"><strong>Reinicie o Premiere.</strong> Feche e abra o Premiere Pro. O painel fica em Janela → Extensões → dropSFX.</div></div>
+  </div>
+
+  <div class="os-panel" data-os="win">
+    <div class="step-item"><div class="step-num">1</div><div class="step-text"><strong>Extraia o arquivo.</strong> Botão direito no dropSFX.2.0.zip → Extrair tudo. Vai criar uma pasta chamada <strong>dropSFX</strong>.</div></div>
+    <div class="step-item"><div class="step-num">2</div><div class="step-text"><strong>Abra a pasta de extensões.</strong> No Explorador de Arquivos, cole o caminho na barra de endereço:<code class="pathbox">C:\Program Files (x86)\Common Files\Adobe\CEP\extensions\</code>Cole a pasta dropSFX aqui. (Se CEP\extensions não existir, crie — pode pedir permissão de admin.)</div></div>
+    <div class="step-item"><div class="step-num">3</div><div class="step-text"><strong>Libere extensões.</strong> Aperte Win+R, digite cmd e Enter. Cole o comando abaixo e aperte Enter:<code class="pathbox">for %v in (6 7 8 9 10 11 12) do reg add HKCU\Software\Adobe\CSXS.%v /v PlayerDebugMode /t REG_SZ /d 1 /f</code></div></div>
+    <div class="step-item"><div class="step-num">4</div><div class="step-text"><strong>Reinicie o Premiere.</strong> Feche e abra o Premiere Pro. O painel fica em Janela → Extensões → dropSFX.</div></div>
+  </div>
+</section>
+
+<!-- STEP 2: ENTRAR -->
+<section class="block" id="s2">
+  <div class="eyebrow"><span class="n">02</span>Acesso</div>
+  <h2>Entre com o <span class="blue">Google.</span></h2>
+  <p class="block-lead">Sem senha, sem cadastro. Qualquer conta Google serve — não precisa ter comprado ainda.</p>
+
+  <div class="step-item"><div class="step-num">1</div><div class="step-text"><strong>Abra o painel dropSFX.</strong> No Premiere, vá em Janela → Extensões → dropSFX. Na tela de login, clique em <strong>Entrar com Google</strong>.<div class="google-btn-preview"><svg width="15" height="15" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 01-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.02-3.7H.96v2.34A9 9 0 009 18z"/><path fill="#FBBC05" d="M3.98 10.72a5.4 5.4 0 010-3.44V4.94H.96a9 9 0 000 8.12l3.02-2.34z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.46 3.44 1.35l2.58-2.58C13.47.9 11.43 0 9 0A9 9 0 00.96 4.94l3.02 2.34C4.68 5.16 6.66 3.58 9 3.58z"/></svg>Entrar com Google</div></div></div>
+  <div class="step-item"><div class="step-num">2</div><div class="step-text"><strong>Escolha sua conta no navegador.</strong> Uma aba abre no seu navegador. Selecione qualquer conta Google e autorize o acesso.</div></div>
+  <div class="step-item"><div class="step-num">3</div><div class="step-text"><strong>Volte pro Premiere.</strong> A página vai dizer "Tudo certo!". É só voltar pro Premiere — o plugin entra sozinho em alguns segundos, com a biblioteca completa liberada.</div></div>
+
+  <div class="trial-callout">
+    <strong>⏱ Como funciona o teste de 3 dias</strong>
+    <span>A partir do primeiro login, você tem <strong style="color:#fff">3 dias com acesso total</strong> aos 1.463 sons — sem limitação de biblioteca. Depois desse prazo, o painel pede pra você comprar pra continuar usando. Se comprar, é só entrar de novo com a mesma conta e a biblioteca fica liberada pra sempre, sem precisar reinstalar nada.</span>
+  </div>
+</section>
+
+<!-- STEP 3: USAR -->
+<section class="block" id="s3">
+  <div class="eyebrow"><span class="n">03</span>Como usar</div>
+  <h2>Som na timeline <span class="blue">em um clique.</span></h2>
+  <p class="block-lead">O fluxo é simples: escolha, escute, insira.</p>
+
+  <div class="step-item"><div class="step-num">1</div><div class="step-text"><strong>Encontre o som.</strong> Use a busca ("whoosh suave", "impacto") ou navegue pelas categorias coloridas.</div></div>
+  <div class="step-item"><div class="step-num">2</div><div class="step-text"><strong>Pré-escute.</strong> Passe o mouse ou clique no play pra ouvir com a forma de onda antes de inserir.</div></div>
+  <div class="step-item"><div class="step-num">3</div><div class="step-text"><strong>Escolha a trilha.</strong> Selecione a faixa de áudio (A1, A2…) no seletor, ou deixe no Auto.</div></div>
+  <div class="step-item"><div class="step-num">4</div><div class="step-text"><strong>Clique em Inserir.</strong> O som entra exatamente no cursor de tempo, na trilha escolhida. Pronto.</div></div>
+</section>
+
+<!-- FAQ -->
+<section class="block" id="s4">
+  <div class="eyebrow"><span class="n">04</span>Dúvidas</div>
+  <h2>Perguntas <span class="blue">frequentes.</span></h2>
+
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q"><span>Preciso cadastrar cartão ou pagar algo pra testar?</span><span class="plus">+</span></div>
+    <div class="faq-a">Não. É só entrar com sua conta Google — sem cartão, sem cobrança, sem cadastro em formulário nenhum.</div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q"><span>O que acontece quando os 3 dias acabam?</span><span class="plus">+</span></div>
+    <div class="faq-a">O painel bloqueia o uso e mostra um botão pra comprar. Se comprar, é só entrar de novo com a mesma conta Google e a biblioteca fica liberada pra sempre.</div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q"><span>Se eu comprar, preciso baixar o plugin de novo?</span><span class="plus">+</span></div>
+    <div class="faq-a">Não. É o mesmo arquivo que você já instalou. Só entra de novo com a mesma conta Google usada no teste e o acesso vitalício é liberado automaticamente.</div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q"><span>O painel não aparece no menu Extensões. E agora?</span><span class="plus">+</span></div>
+    <div class="faq-a">Confirme 3 coisas: (1) a pasta dropSFX está diretamente dentro de extensions (não dentro de outra pasta); (2) você rodou o comando de liberar extensões do passo 3; (3) reiniciou o Premiere por completo. Se ainda não aparecer, chama no suporte.</div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q"><span>Em quantos computadores posso testar?</span><span class="plus">+</span></div>
+    <div class="faq-a">Até 2 máquinas (Mac e/ou Windows), igual ao plano pago — assim seu teste já reflete exatamente como vai ser depois de comprar.</div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q"><span>Preciso de internet pra usar?</span><span class="plus">+</span></div>
+    <div class="faq-a">Só na primeira vez, pra login e verificação. Depois os sons ficam no seu computador e você usa offline.</div>
+  </div>
+  <div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-q"><span>Funciona em qual versão do Premiere?</span><span class="plus">+</span></div>
+    <div class="faq-a">Adobe Premiere Pro CC 2020 em diante, incluindo as versões mais recentes, no Mac (Intel e Apple Silicon) e Windows 10/11.</div>
+  </div>
+</section>
+
+<!-- BUY BAND -->
+<div class="buy-band">
+  <div class="buy-box">
+    <h3>Já decidiu?</h3>
+    <p>Pagamento único, acesso vitalício, garantia de 7 dias.</p>
+    <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=trial_page&utm_medium=bottom" class="buy-cta" target="_blank" rel="noopener">
+      Comprar o dropSFX →
+    </a>
+  </div>
+</div>
+
+<footer>
+  <img src="assets/logo.png" alt="dropSFX" />
+  <p>Travou em algum passo? <a class="wa" href="https://wa.me/5527992625721?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20o%20teste%20do%20dropSFX" target="_blank" rel="noopener">Fala no WhatsApp</a></p>
+  <div class="credit">© 2026 dropSFX · Plugin para Adobe Premiere Pro</div>
+</footer>
+
+<script>
+  document.querySelectorAll('.os-tab').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var os = btn.dataset.os;
+      document.querySelectorAll('.os-tab').forEach(function(b){ b.classList.toggle('on', b === btn); });
+      document.querySelectorAll('.os-panel').forEach(function(p){ p.classList.toggle('on', p.dataset.os === os); });
+    });
+  });
+
+  // realça o passo do menu de cima conforme rola a página
+  var sections = ['s1','s2','s3'].map(function(id){ return document.getElementById(id); });
+  var pills = document.querySelectorAll('.step-pill');
+  window.addEventListener('scroll', function(){
+    var y = window.scrollY + 140;
+    var idx = 0;
+    sections.forEach(function(s, i){ if (s && s.offsetTop <= y) idx = i; });
+    pills.forEach(function(p, i){ p.classList.toggle('active', i === idx); });
+  }, { passive: true });
+</script>
+
+</body>
+</html>
