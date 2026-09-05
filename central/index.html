@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>dropSFX · Central</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#08080b;--card:#101015;--card2:#16161d;--line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);
+    --ink:#f2f2f7;--ink-2:#a8adba;--muted:#6a6f7d;--dim:#494e5a;
+    --accent:#3b6ef5;--accent-hi:#6e9bff;--accent-soft:rgba(59,110,245,.12);
+    --green:#4ade80;--green-soft:rgba(74,222,128,.12);
+    --orange:#ffc46b;--orange-soft:rgba(255,196,107,.12);
+    --red:#f87171;--red-soft:rgba(248,113,113,.12);
+    --purple:#a78bfa;--purple-soft:rgba(167,139,250,.12);
+    --font:'Sora',-apple-system,BlinkMacSystemFont,sans-serif;--mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased;}
+
+  /* ── LOGIN GATE ── */
+  #gate{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:24px;}
+  #gate.hide{display:none;}
+  .gate-card{width:100%;max-width:360px;background:var(--card);border:1px solid var(--line-2);border-radius:18px;padding:34px 30px;text-align:center;}
+  .gate-logo{font-weight:800;font-size:20px;letter-spacing:-.4px;margin-bottom:4px;}
+  .gate-logo span{color:var(--accent-hi);}
+  .gate-sub{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:26px;}
+  .gate-card input{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;color:var(--ink);font-family:var(--mono);font-size:13px;margin-bottom:12px;}
+  .gate-card input:focus{outline:none;border-color:var(--accent);}
+  .gate-card button{width:100%;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:12px;font-family:var(--font);font-weight:700;font-size:14px;cursor:pointer;transition:.2s;}
+  .gate-card button:hover{background:#2554d6;}
+  .gate-err{color:var(--red);font-size:12.5px;margin-top:12px;min-height:16px;}
+
+  /* ── APP ── */
+  #app{display:none;max-width:1240px;margin:0 auto;padding:24px 20px 60px;}
+  #app.show{display:block;}
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px;flex-wrap:wrap;gap:12px;}
+  .topbar h1{font-size:20px;font-weight:800;letter-spacing:-.3px;}
+  .topbar h1 span{color:var(--accent-hi);}
+  .topbar .actions{display:flex;gap:8px;align-items:center;}
+  .btn{background:rgba(255,255,255,.05);border:1px solid var(--line-2);color:var(--ink-2);border-radius:9px;padding:8px 14px;font-family:var(--font);font-size:12.5px;font-weight:600;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:7px;}
+  .btn:hover{color:var(--ink);border-color:var(--accent);}
+  .btn svg{width:14px;height:14px;}
+
+  /* ── SUMMARY CARDS ── */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:26px;}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative;overflow:hidden;}
+  .stat::before{content:"";position:absolute;top:0;left:0;width:3px;height:100%;background:var(--c,var(--accent));}
+  .stat .k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+  .stat .v{font-size:28px;font-weight:800;line-height:1;letter-spacing:-.5px;}
+  .stat .sub{font-size:11px;color:var(--dim);margin-top:5px;}
+
+  /* ── FILTERS ── */
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center;}
+  .search-wrap{flex:1;min-width:200px;position:relative;}
+  .search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--muted);}
+  .search-wrap input{width:100%;background:var(--card);border:1px solid var(--line-2);border-radius:9px;padding:9px 12px 9px 34px;color:var(--ink);font-family:var(--font);font-size:13px;}
+  .search-wrap input:focus{outline:none;border-color:var(--accent);}
+  .fchip{background:var(--card);border:1px solid var(--line-2);color:var(--ink-2);border-radius:100px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;transition:.15s;white-space:nowrap;}
+  .fchip:hover{color:var(--ink);}
+  .fchip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-hi);}
+
+  /* ── TABLE ── */
+  .table-wrap{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+  .table-scroll{overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;min-width:820px;}
+  th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:13px 16px;border-bottom:1px solid var(--line);white-space:nowrap;position:sticky;top:0;background:var(--card2);cursor:pointer;user-select:none;}
+  th:hover{color:var(--ink-2);}
+  th .arrow{opacity:.4;margin-left:3px;font-size:9px;}
+  td{padding:13px 16px;border-bottom:1px solid var(--line);font-size:13px;color:var(--ink-2);white-space:nowrap;}
+  tr:last-child td{border-bottom:none;}
+  tr:hover td{background:rgba(255,255,255,.02);}
+  .email-cell{color:var(--ink);font-weight:500;font-family:var(--mono);font-size:12px;}
+  .tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;white-space:nowrap;}
+  .tag .dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
+  .tag.trial_ativo{background:var(--orange-soft);color:var(--orange);}
+  .tag.trial_expirado{background:var(--red-soft);color:var(--red);}
+  .tag.converteu{background:var(--green-soft);color:var(--green);}
+  .tag.comprador_direto{background:var(--accent-soft);color:var(--accent-hi);}
+  .tag.sem_atividade{background:rgba(255,255,255,.05);color:var(--muted);}
+  .date-cell{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);}
+  .date-cell .rel{color:var(--dim);font-size:10px;display:block;margin-top:1px;}
+  .empty-dash{color:var(--dim);}
+  .count-line{font-size:12px;color:var(--muted);margin-top:14px;font-family:var(--mono);}
+
+  .loading{text-align:center;padding:60px 20px;color:var(--muted);font-size:13px;}
+  .spinner{width:32px;height:32px;border:3px solid var(--line-2);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN GATE -->
+<div id="gate">
+  <div class="gate-card">
+    <div class="gate-logo">drop<span>SFX</span></div>
+    <div class="gate-sub">Central privada</div>
+    <input type="password" id="gate-pass" placeholder="Senha de acesso" autocomplete="off"/>
+    <button id="gate-btn">Entrar</button>
+    <div class="gate-err" id="gate-err"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="topbar">
+    <h1>drop<span>SFX</span> · Central de usuários</h1>
+    <div class="actions">
+      <button class="btn" id="btn-refresh">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+        Atualizar
+      </button>
+      <button class="btn" id="btn-export">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Exportar CSV
+      </button>
+      <button class="btn" id="btn-logout">Sair</button>
+    </div>
+  </div>
+
+  <div id="content">
+    <div class="loading"><div class="spinner"></div>Carregando dados…</div>
+  </div>
+</div>
+
+<script>
+  // ═══════════════════════════════════════════════════════════
+  // CONFIG — troque pela URL da sua Edge Function admin-users
+  // ═══════════════════════════════════════════════════════════
+  var ADMIN_ENDPOINT = 'https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/admin-users';
+  // A ANON KEY do projeto (a mesma que já aparece nas outras páginas — é pública, não é segredo).
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3Z3J4ZGpkdnJkYXdhcmJucWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwMjIxNDgsImV4cCI6MjA5NDU5ODE0OH0.M1Yw6ljgUzPQWTW0CC8DBn8WV6nZDKCCKTwzcZN_Zo0';
+  // ═══════════════════════════════════════════════════════════
+
+  var CAT_LABELS = {
+    trial_ativo:      'Trial ativo',
+    trial_expirado:   'Trial expirado',
+    converteu:        'Converteu',
+    comprador_direto: 'Comprou direto',
+    sem_atividade:    'Sem atividade'
+  };
+
+  var state = { users: [], summary: {}, filter: 'all', search: '', sortKey: 'last_sign_in', sortDir: -1, token: '' };
+
+  // ── login ──
+  var gate = document.getElementById('gate');
+  var gateErr = document.getElementById('gate-err');
+  var gatePass = document.getElementById('gate-pass');
+
+  document.getElementById('gate-btn').addEventListener('click', tryLogin);
+  gatePass.addEventListener('keydown', function(e){ if(e.key==='Enter') tryLogin(); });
+
+  // se já logou antes nessa sessão, entra direto
+  var saved = sessionStorage.getItem('dropsfx_admin_token');
+  if (saved) { state.token = saved; enterApp(); }
+
+  function tryLogin(){
+    var pass = gatePass.value.trim();
+    if(!pass){ gateErr.textContent = 'Digite a senha.'; return; }
+    gateErr.textContent = '';
+    state.token = pass;
+    load(function(ok, err){
+      if(ok){
+        sessionStorage.setItem('dropsfx_admin_token', pass);
+        enterApp();
+      } else {
+        gateErr.textContent = err === 401 ? 'Senha incorreta.' : 'Erro ao conectar. Tenta de novo.';
+      }
+    });
+  }
+
+  function enterApp(){
+    gate.classList.add('hide');
+    document.getElementById('app').classList.add('show');
+    render();
+    if(!state.users.length) load();
+  }
+
+  document.getElementById('btn-logout').addEventListener('click', function(){
+    sessionStorage.removeItem('dropsfx_admin_token');
+    location.reload();
+  });
+  document.getElementById('btn-refresh').addEventListener('click', function(){ load(); });
+  document.getElementById('btn-export').addEventListener('click', exportCSV);
+
+  // ── carrega dados ──
+  function load(cb){
+    var content = document.getElementById('content');
+    if(document.getElementById('app').classList.contains('show')){
+      content.innerHTML = '<div class="loading"><div class="spinner"></div>Carregando dados…</div>';
+    }
+    fetch(ADMIN_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'x-admin-token': state.token
+      }
+    })
+    .then(function(r){
+      if(!r.ok){ if(cb)cb(false, r.status); throw new Error(r.status); }
+      return r.json();
+    })
+    .then(function(data){
+      state.users = data.users || [];
+      state.summary = data.summary || {};
+      if(cb)cb(true);
+      if(document.getElementById('app').classList.contains('show')) render();
+    })
+    .catch(function(e){
+      if(document.getElementById('app').classList.contains('show')){
+        document.getElementById('content').innerHTML = '<div class="loading">Erro ao carregar. <a href="#" onclick="location.reload()" style="color:var(--accent-hi)">Recarregar</a></div>';
+      }
+    });
+  }
+
+  // ── formatação de datas ──
+  function fmtDate(iso){
+    if(!iso) return null;
+    var d = new Date(iso);
+    var dd = String(d.getDate()).padStart(2,'0');
+    var mm = String(d.getMonth()+1).padStart(2,'0');
+    var yy = d.getFullYear();
+    var hh = String(d.getHours()).padStart(2,'0');
+    var mi = String(d.getMinutes()).padStart(2,'0');
+    return dd+'/'+mm+'/'+yy+' '+hh+':'+mi;
+  }
+  function relTime(iso){
+    if(!iso) return '';
+    var diff = Date.now() - new Date(iso).getTime();
+    var day = 86400000;
+    if(diff < day) return 'hoje';
+    var days = Math.floor(diff/day);
+    if(days === 1) return 'ontem';
+    if(days < 30) return 'há '+days+' dias';
+    var months = Math.floor(days/30);
+    if(months < 12) return 'há '+months+' '+(months===1?'mês':'meses');
+    return 'há '+Math.floor(months/12)+' ano(s)';
+  }
+
+  // ── render ──
+  function render(){
+    var s = state.summary;
+    var cards =
+      card('Total de contas', s.total||0, 'var(--muted)', '') +
+      card('Trial ativo', s.trial_ativo||0, 'var(--orange)', 'testando agora') +
+      card('Converteram', s.converteu||0, 'var(--green)', 'trial → compra') +
+      card('Taxa de conversão', (s.taxa_conversao||0)+'%', 'var(--accent-hi)', 'dos que testaram') +
+      card('Trial expirado', s.trial_expirado||0, 'var(--red)', 'sem comprar') +
+      card('Compraram direto', s.comprador_direto||0, 'var(--accent)', 'sem passar por trial');
+
+    var chips = ['all','trial_ativo','converteu','trial_expirado','comprador_direto','sem_atividade'].map(function(c){
+      var label = c==='all' ? 'Todos' : CAT_LABELS[c];
+      var n = c==='all' ? state.users.length : (state.users.filter(function(u){return u.category===c;}).length);
+      return '<div class="fchip '+(state.filter===c?'on':'')+'" data-f="'+c+'">'+label+' ('+n+')</div>';
+    }).join('');
+
+    var rows = filteredSorted();
+
+    var html =
+      '<div class="cards">'+cards+'</div>'+
+      '<div class="filters">'+
+        '<div class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>'+
+        '<input type="text" id="search" placeholder="Buscar por e-mail…" value="'+escapeAttr(state.search)+'"/></div>'+
+        chips+
+      '</div>'+
+      '<div class="table-wrap"><div class="table-scroll"><table>'+
+        '<thead><tr>'+
+          th('E-mail','email')+
+          th('Categoria','category')+
+          th('Trial iniciado','trial_started')+
+          th('Trial expira','trial_ends')+
+          th('Comprou em','purchased_at')+
+          th('Último login','last_sign_in')+
+          th('Conta criada','account_created')+
+        '</tr></thead><tbody>'+
+        (rows.length ? rows.map(rowHtml).join('') : '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--dim)">Nenhum resultado</td></tr>')+
+        '</tbody></table></div></div>'+
+      '<div class="count-line">'+rows.length+' de '+state.users.length+' contas</div>';
+
+    document.getElementById('content').innerHTML = html;
+
+    // rebind
+    document.getElementById('search').addEventListener('input', function(e){
+      state.search = e.target.value; renderTableOnly();
+    });
+    document.querySelectorAll('.fchip').forEach(function(ch){
+      ch.addEventListener('click', function(){ state.filter = ch.dataset.f; render(); });
+    });
+    document.querySelectorAll('th[data-sort]').forEach(function(h){
+      h.addEventListener('click', function(){
+        var k = h.dataset.sort;
+        if(state.sortKey===k){ state.sortDir *= -1; } else { state.sortKey=k; state.sortDir=-1; }
+        render();
+      });
+    });
+  }
+
+  // re-render só a tabela (pra busca não perder foco do input)
+  function renderTableOnly(){
+    var rows = filteredSorted();
+    var tbody = document.querySelector('tbody');
+    if(tbody) tbody.innerHTML = rows.length ? rows.map(rowHtml).join('') : '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--dim)">Nenhum resultado</td></tr>';
+    var cl = document.querySelector('.count-line');
+    if(cl) cl.textContent = rows.length+' de '+state.users.length+' contas';
+  }
+
+  function card(k,v,color,sub){
+    return '<div class="stat" style="--c:'+color+'"><div class="k">'+k+'</div><div class="v">'+v+'</div>'+(sub?'<div class="sub">'+sub+'</div>':'')+'</div>';
+  }
+  function th(label,key){
+    var arrow = state.sortKey===key ? '<span class="arrow">'+(state.sortDir>0?'▲':'▼')+'</span>' : '';
+    return '<th data-sort="'+key+'">'+label+arrow+'</th>';
+  }
+  function rowHtml(u){
+    var trialStarted = u.trial_started ? '<span class="date-cell">'+fmtDate(u.trial_started)+'<span class="rel">'+relTime(u.trial_started)+'</span></span>' : '<span class="empty-dash">—</span>';
+    var trialEnds = u.trial_ends ? '<span class="date-cell">'+fmtDate(u.trial_ends)+'</span>' : '<span class="empty-dash">—</span>';
+    var bought = u.purchased_at ? '<span class="date-cell">'+fmtDate(u.purchased_at)+'<span class="rel">'+relTime(u.purchased_at)+'</span></span>' : '<span class="empty-dash">—</span>';
+    var lastLogin = u.last_sign_in ? '<span class="date-cell">'+fmtDate(u.last_sign_in)+'<span class="rel">'+relTime(u.last_sign_in)+'</span></span>' : '<span class="empty-dash">—</span>';
+    var created = u.account_created ? '<span class="date-cell">'+fmtDate(u.account_created)+'</span>' : '<span class="empty-dash">—</span>';
+    return '<tr>'+
+      '<td class="email-cell">'+escapeHtml(u.email)+'</td>'+
+      '<td><span class="tag '+u.category+'"><span class="dot"></span>'+CAT_LABELS[u.category]+'</span></td>'+
+      '<td>'+trialStarted+'</td>'+
+      '<td>'+trialEnds+'</td>'+
+      '<td>'+bought+'</td>'+
+      '<td>'+lastLogin+'</td>'+
+      '<td>'+created+'</td>'+
+    '</tr>';
+  }
+
+  function filteredSorted(){
+    var out = state.users.slice();
+    if(state.filter !== 'all') out = out.filter(function(u){ return u.category === state.filter; });
+    if(state.search.trim()){
+      var q = state.search.trim().toLowerCase();
+      out = out.filter(function(u){ return (u.email||'').toLowerCase().indexOf(q) !== -1; });
+    }
+    var k = state.sortKey, dir = state.sortDir;
+    out.sort(function(a,b){
+      var va = a[k], vb = b[k];
+      if(k==='email' || k==='category'){
+        va = (va||'').toString(); vb = (vb||'').toString();
+        return va.localeCompare(vb) * dir;
+      }
+      var ta = va ? new Date(va).getTime() : 0;
+      var tb = vb ? new Date(vb).getTime() : 0;
+      return (ta - tb) * dir;
+    });
+    return out;
+  }
+
+  function exportCSV(){
+    var rows = filteredSorted();
+    var head = ['email','categoria','trial_iniciado','trial_expira','comprou_em','ultimo_login','conta_criada'];
+    var lines = [head.join(',')];
+    rows.forEach(function(u){
+      lines.push([
+        u.email,
+        CAT_LABELS[u.category],
+        u.trial_started||'',
+        u.trial_ends||'',
+        u.purchased_at||'',
+        u.last_sign_in||'',
+        u.account_created||''
+      ].map(csvCell).join(','));
+    });
+    var blob = new Blob([lines.join('\n')], {type:'text/csv;charset=utf-8;'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = 'dropsfx-usuarios-'+new Date().toISOString().slice(0,10)+'.csv';
+    a.click(); URL.revokeObjectURL(url);
+  }
+  function csvCell(v){ v = (v==null?'':''+v); if(/[",\n]/.test(v)) v = '"'+v.replace(/"/g,'""')+'"'; return v; }
+
+  function escapeHtml(s){ return (s||'').replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); }
+  function escapeAttr(s){ return (s||'').replace(/"/g,'&quot;'); }
+</script>
+</body>
+</html>
