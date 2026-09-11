@@ -384,45 +384,6 @@
       }
     }
 
-    .scene-glow {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    @supports (overflow: clip) {
-      .scene-glow {
-        overflow: clip;
-      }
-    }
-
-    .scene-glow::before {
-      content: "";
-      position: absolute;
-      width: 70%;
-      height: 80%;
-      border-radius: 50%;
-      filter: blur(110px);
-      opacity: .5;
-      background: radial-gradient(circle, var(--g1, rgba(59, 110, 245, .3)), transparent 65%);
-      top: var(--gy, 20%);
-      left: var(--gx, 30%);
-    }
-
-    .scene-glow::after {
-      content: "";
-      position: absolute;
-      width: 45%;
-      height: 55%;
-      border-radius: 50%;
-      filter: blur(110px);
-      opacity: .4;
-      background: radial-gradient(circle, var(--g2, rgba(45, 212, 191, .18)), transparent 65%);
-      bottom: 10%;
-      right: 8%;
-    }
 
     .scene.tall {
       min-height: auto;
@@ -532,16 +493,136 @@
       font-weight: 600;
     }
 
-    /* =================== HERO =================== */
-    #hero {
-      min-height: 100vh;
+    /* =================== SLIDE UP TEXT (palavra por palavra) =================== */
+    .swu-word {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: top;
+    }
+    .swu-word > span {
+      display: inline-block;
+      transform: translateY(115%);
+      opacity: 0;
+      will-change: transform, opacity;
+      transition: transform .55s cubic-bezier(.625, .05, 0, 1), opacity .55s cubic-bezier(.625, .05, 0, 1);
+    }
+    .slide-up-text.swu-in .swu-word > span {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    @media (max-width: 720px), (prefers-reduced-motion: reduce) {
+      .swu-word > span { transition: none; transform: translateY(0); opacity: 1; }
     }
 
-    #hero .video-container {
-      margin-top: 16px;
-      margin-bottom: 24px;
+    /* =================== SHIMMER TEXT =================== */
+    .shimmer-text {
+      background: linear-gradient(90deg, #fff 0%, #fff 35%, rgba(255,255,255,.55) 50%, #fff 65%, #fff 100%);
+      background-size: 250% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: #fff;
+      animation: shimmerMove 2.8s linear infinite;
+    }
+    @keyframes shimmerMove {
+      0% { background-position: 200% center; }
+      100% { background-position: -50% center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .shimmer-text { animation: none; -webkit-text-fill-color: initial; background: none; }
+    }
+
+    /* =================== HIGHLIGHTED TEXT (sweep) =================== */
+    .hl-sweep {
+      position: relative;
+      z-index: 1;
+    }
+    .hl-sweep::before {
+      content: '';
+      position: absolute;
+      left: -5px; right: -5px; top: 10%; bottom: 6%;
+      background: var(--accent-soft);
+      border-radius: 5px;
+      transform: scaleX(0);
+      transform-origin: left;
+      z-index: -1;
+      transition: transform .65s cubic-bezier(.65, 0, .35, 1);
+    }
+    .hl-sweep.hl-in::before { transform: scaleX(1); }
+
+    /* =================== POP BUTTON (afunda ao clicar) =================== */
+    .pop-btn {
+      transition: transform .15s cubic-bezier(.34, 1.56, .64, 1), box-shadow .15s ease;
+    }
+    .pop-btn:active {
+      transform: translateY(3px) scale(.97) !important;
+      box-shadow: 0 2px 10px var(--accent-glow) !important;
+      transition: transform .1s ease, box-shadow .1s ease;
+    }
+
+    /* =================== QR CODE CARD =================== */
+    .qr-card {
+      display: flex; align-items: center; gap: 14px;
+      margin-top: 18px; padding: 12px 16px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--line-2); border-radius: 14px;
+      transform-style: preserve-3d;
+      transition: transform .15s ease-out, border-color .2s;
+      will-change: transform;
+    }
+    .qr-card:hover { border-color: rgba(59, 110, 245, .35); }
+    .qr-card img {
+      width: 62px; height: 62px; border-radius: 8px;
+      background: #fff; padding: 4px; flex-shrink: 0;
+      transform: translateZ(18px);
+    }
+    .qr-card-text { text-align: left; transform: translateZ(10px); }
+    .qr-card-text .qr-k {
+      font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--accent-hi); font-weight: 700;
+    }
+    .qr-card-text .qr-v {
+      font-size: 13px; color: var(--ink-2); margin-top: 2px;
+    }
+    @media (max-width: 720px) { .qr-card { transform: none !important; } }
+
+    /* =================== HERO =================== */
+    #hero {
+      min-height: auto;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      position: relative;
+    }
+
+    /* vídeo de fundo no topo, sem moldura de janela */
+    .hero-bg-video {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 660px;
+      max-height: 78vh;
+      overflow: hidden;
+      z-index: 0;
       opacity: 0;
-      animation: fadeUp 1.1s .65s forwards;
+      animation: fadeUp 1.3s .3s forwards;
+    }
+    .hero-bg-video video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.68) 0%, rgba(0,0,0,.3) 30%, rgba(0,0,0,.55) 68%, var(--bg) 100%),
+        linear-gradient(90deg, rgba(0,0,0,.35) 0%, transparent 25%, transparent 75%, rgba(0,0,0,.35) 100%);
+    }
+    .hero-bg-video .video-loader {
+      position: absolute; inset: 0; z-index: 1;
+    }
+    @media (max-width: 720px) {
+      .hero-bg-video { height: 420px; max-height: 58vh; }
     }
 
     .hero-logo-glow {
@@ -1581,9 +1662,6 @@
     @media (max-width: 720px) {
       .hero-badge { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(8, 8, 10, .88); }
 
-      .scene-glow::before,
-      .scene-glow::after { filter: none; opacity: .18; }
-
       .hero-logo-glow::after { animation: none; opacity: .5; }
 
       .hero-logo { filter: drop-shadow(0 0 18px rgba(110, 155, 255, .45)); }
@@ -1637,33 +1715,25 @@
 
   <!-- ============ HERO ============ -->
   <section class="scene" id="hero">
+    <div class="hero-bg-video">
+      <div class="video-loader" id="videoLoader">
+        <div class="video-loader-spinner"></div>
+      </div>
+      <video id="heroVideo" autoplay loop muted playsinline preload="auto">
+        <source src="assets/Video.mp4" type="video/mp4">
+      </video>
+      <div class="hero-bg-overlay"></div>
+    </div>
+
     <div class="hero-content">
       <div class="hero-badge"><span class="dot"></span><span class="pr">Pr</span> <span data-i18n="hero.badge">PARA ADOBE PREMIERE PRO</span></div>
       <img src="assets/logo.png" alt="dropSFX" class="hero-logo" />
 
-      <div class="video-container">
-        <div class="video-header">
-          <div class="video-dots">
-            <span class="video-dot red"></span>
-            <span class="video-dot yellow"></span>
-            <span class="video-dot green"></span>
-          </div>
-        </div>
-        <div class="video-body">
-          <div class="video-loader" id="videoLoader">
-            <div class="video-loader-spinner"></div>
-          </div>
-          <video id="heroVideo" autoplay loop muted playsinline preload="auto">
-            <source src="assets/Video.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-
-      <p class="hero-tagline" data-i18n-html="hero.tagline">Mais de 1.400 efeitos sonoros profissionais dentro do Premiere Pro.<br><strong>Dois cliques e o som está na timeline.</strong></p>
+      <p class="hero-tagline" data-i18n-html="hero.tagline">Mais de 1.400 efeitos sonoros profissionais dentro do Premiere Pro.<br><strong class="hl-sweep">Dois cliques e o som está na timeline.</strong></p>
       <div class="hero-cta-row">
         <div class="hero-buttons">
           <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=hero&utm_campaign=dropsfx"
-            class="hero-cta js-buy-cta" data-position="hero"
+            class="hero-cta js-buy-cta pop-btn" data-position="hero"
             target="_blank" rel="noopener"><span data-i18n="hero.cta">Quero o dropSFX</span> <span class="arr">→</span></a>
           <a href="https://www.dropsfx.com.br/teste/"
             class="hero-trial-link js-trial-cta"
@@ -1693,7 +1763,6 @@
 
   <!-- ============ LIBRARY ============ -->
   <section class="scene" id="library">
-    <div class="scene-glow" style="--g1:rgba(59,110,245,.30);--g2:rgba(45,212,191,.16);--gx:45%;--gy:15%;"></div>
     <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.62));"></div>
     <div class="scene-content">
       <div class="feat-grid library-grid">
@@ -1731,7 +1800,6 @@
 
   <!-- ============ FEATURE: HOVER ============ -->
   <section class="scene" id="hover">
-    <div class="scene-glow" style="--g1:rgba(45,212,191,.26);--g2:rgba(59,110,245,.18);--gx:60%;--gy:15%;"></div>
     <div class="scene-tint" style="background:linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.4));"></div>
     <div class="scene-content">
       <div class="feat-grid">
@@ -1781,16 +1849,14 @@
 
   <!-- ============ ANCHOR QUOTE 1 ============ -->
   <section class="scene anchor" id="quote1">
-    <div class="scene-glow" style="--g1:rgba(59,110,245,.24);--g2:rgba(167,139,250,.12);--gx:40%;--gy:25%;"></div>
     <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.7));"></div>
     <div class="scene-content" style="text-align:center;display:flex;justify-content:center;">
-      <p class="quote r" data-i18n-html="quote1"><span class="quote-line">"Quando as ferramentas acompanham sua criatividade,</span><span class="quote-line accent">os resultados aparecem mais rápido."</span></p>
+      <p class="quote slide-up-text" data-i18n-html="quote1"><span class="quote-line">"Quando as ferramentas acompanham sua criatividade,</span><span class="quote-line accent">os resultados aparecem mais rápido."</span></p>
     </div>
   </section>
 
   <!-- ============ FEATURE: TWO CLICKS ============ -->
   <section class="scene" id="twoclick">
-    <div class="scene-glow" style="--g1:rgba(59,110,245,.30);--g2:rgba(167,139,250,.14);--gx:25%;--gy:15%;"></div>
     <div class="scene-tint" style="background:linear-gradient(90deg,rgba(0,0,0,.4),rgba(0,0,0,.72));"></div>
     <div class="scene-content">
       <div class="feat-grid flip">
@@ -1833,7 +1899,6 @@
 
   <!-- ============ FEATURE: GAIN ============ -->
   <section class="scene anchor" id="gain">
-    <div class="scene-glow" style="--g1:rgba(59,110,245,.30);--g2:rgba(251,146,60,.13);--gx:50%;--gy:20%;"></div>
     <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.72));"></div>
     <div class="scene-content" style="text-align:center;display:flex;flex-direction:column;align-items:center;">
       <div class="eyebrow r" data-i18n="gain.eyebrow">№ 03 · Controle</div>
@@ -1852,13 +1917,12 @@
 
   <!-- ============ PRICING ============ -->
   <section class="scene tall" id="comprar">
-    <div class="scene-glow" style="--g1:rgba(59,110,245,.30);--g2:rgba(59,110,245,.16);--gx:40%;--gy:12%;"></div>
     <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.6),rgba(0,0,0,.72));"></div>
     <div class="scene-content" style="text-align:center;display:flex;flex-direction:column;align-items:center;">
       <div class="eyebrow r" style="justify-content:center;" data-i18n="pricing.eyebrow">Investimento</div>
       <h2 class="display r d1" style="font-size:clamp(40px,7vw,100px)" data-i18n-html="pricing.title"><span class="fill">Pague uma vez.</span><br><span class="blue">Use pra sempre.</span></h2>
       <div class="price-shell r d2">
-        <div class="price-ribbon"><span data-i18n="pricing.ribbon">▸ Oferta de lançamento</span><span data-i18n="pricing.off">63% OFF</span></div>
+        <div class="price-ribbon"><span data-i18n="pricing.ribbon">▸ Oferta de lançamento</span><span class="shimmer-text" data-i18n="pricing.off">63% OFF</span></div>
         <div class="price-body">
           <img src="assets/logo.png" alt="dropSFX" class="pb-logo" />
           <div class="price-desc" data-i18n="pricing.desc">Biblioteca completa de efeitos sonoros profissionais e o painel nativo pro Premiere, pra usar quantas vezes quiser.</div>
@@ -1880,8 +1944,15 @@
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n-html="pricing.f7"><strong>Vitalício</strong> · 100% royalty-free</span></li>
           </ul>
           <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=pricing&utm_campaign=dropsfx"
-            class="price-cta js-buy-cta" data-position="pricing"
+            class="price-cta js-buy-cta pop-btn" data-position="pricing"
             target="_blank" rel="noopener"><span data-i18n="pricing.cta">Ver oferta e garantir acesso</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <div class="qr-card">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCAQAAAABUY/ToAAAEAElEQVR4nO2dT4rjOhCHv3oWzNKGHKCPotxgjtS8I/UNrKPMAR7IywaZmkVJlpxezbwJSYaqhUlsf0SGQvrVHzmi/J6lf34TBCeddNLJG3KTald2gS0gV0BEAqQFgF1IEmh3hseN1smnJCdVVVVgUtJbAbYAMYO8ZyBJ/UpUVdX8yNE6+WxkAEBgKrBdisQMCqUe0pIRAIlrAbYF4sejRuvk85O7tKUtINdNRK6Arkyq6xbu8ptOvjoZbk+kN0WYM5qWqZC+74GYLwhMf+g3nfy7SPOh2wA/fghEBYkZJS0TxI8LMCuw/b/fdPLvI3cLtoBJiT8C9oktYGHae263JxERWR45WiefjQx1agFgA2UDTW8F0oIolOHucb56red08n4kqnmqrhFVFebSLli8D0Qtt/fp+lrP6eT9SHMV1Qy6ntxHV2pIRjT3GQ/uQ04eZvNLzACzap9zumFpyNyifPV5yMkz2WefHyKwfavJ6iQict2CrWWmpKN+ymNH6+TTkXXOWZlGvRwz6Do3eRS12Fdb7mL2tczJwZoUUlXVUt1Hh0NTQfEoqbkecvJkVfvkSWFWHUV09ysdJyOPy5w8W/ehqq4PTb1CXbfqBdU2S/k85GS3APOnaLoi9qme30WZM8L8KcT1UzSJJR9bhe21ntPJ+5FN8cxNNWumLl52VauIhkN2u6Z28mRDGuhIEqlqoR9q4ii3JJHnh5w8WVfNJoCqv3BS0keO0X3Iya82lMWObGNteT0CMeaWrPa4zMmvVqMsSyDWA6Z9zKVa1LYexOr5ISdHa/XVaSyLmbC2oll1pKqk56ae3IecHMhd5N2yQruQlklF3lTtwpWWM/p3AWyX0PLI0Tr5bGSwrRpJjjNzRtkEmBWBPZCW/4IyZ4h5RyCUV3tOJ+9HtrVsLmOBrNc6jpzR2F3k+SEnR6tx2VGeH0sf54psPgvw13pOJ+9H0othNhmtQK+N1ZTjqT3E4zInz3ZTzRiWtlrBpxU3LD/k/UNO3lrdPW9tHxzZ6doV2yYoHfNDHts7ebImcQpNFNW0dW+gthtjzxS5Dzk52iCTa321rVa93DrMUtnnISdvbdjXMa5gpw1ltMifofTxWs/p5P3IofejR/QMbdNHGX+shLgPOTlYcxqGBpChqTq2cmsP03wtc/JkAXt9FSBsF+1fbec9FCTmBYn5Yudgu3itw8lu4+6fDD2pOKrr8yLn+SEnT3bjQz04OyUVYWy59rXMydG++FCmpq1rmNa7iwDPDzn5xU7vQZtLqB0fc3t/Z5KpmBRKV1C2RTQt+UGjdfIZyYC9yROoTvM9Hy6lSPxYbOOZvVoPJnt17Ks9p5P3I49Nib9q/l8LTjrp5B8ifwIShdyd/9dC5gAAAABJRU5ErkJggg==" alt="QR code para o checkout" loading="lazy">
+            <div class="qr-card-text">
+              <div class="qr-k" data-i18n="pricing.qrLabel">Prefere no celular?</div>
+              <div class="qr-v" data-i18n="pricing.qrSub">Aponte a câmera e finalize por lá</div>
+            </div>
+          </div>
           <div class="guarantee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg><span data-i18n-html="pricing.guarantee"><strong>Garantia de 7 dias.</strong> Não gostou? Devolvemos 100%.</span></div>
         </div>
       </div>
@@ -1971,7 +2042,7 @@
       "nav.cta": "Comprar agora",
 
       "hero.badge": "PARA ADOBE PREMIERE PRO",
-      "hero.tagline": "Mais de 1.400 efeitos sonoros profissionais dentro do Premiere Pro.<br><strong>Dois cliques e o som está na timeline.</strong>",
+      "hero.tagline": "Mais de 1.400 efeitos sonoros profissionais dentro do Premiere Pro.<br><strong class='hl-sweep'>Dois cliques e o som está na timeline.</strong>",
       "hero.cta": "Quero o dropSFX",
       "hero.meta": "<span>Pagamento <b>único</b></span> · <span>Acesso vitalício</span> · <span>Garantia de 7 dias</span>",
       "hero.trial": "Testar grátis por 3 dias",
@@ -2024,6 +2095,8 @@
       "pricing.f6": "Licença pra <strong>até 2 máquinas</strong>",
       "pricing.f7": "<strong>Vitalício</strong> · 100% royalty-free",
       "pricing.cta": "Ver oferta e garantir acesso",
+      "pricing.qrLabel": "Prefere no celular?",
+      "pricing.qrSub": "Aponte a câmera e finalize por lá",
       "pricing.guarantee": "<strong>Garantia de 7 dias.</strong> Não gostou? Devolvemos 100%.",
 
       "faq.eyebrow": "Dúvidas",
@@ -2098,7 +2171,7 @@
       "nav.cta": "Get it now",
 
       "hero.badge": "FOR ADOBE PREMIERE PRO",
-      "hero.tagline": "Over 1,400 professional sound effects inside Premiere Pro.<br><strong>Two clicks and the sound is on your timeline.</strong>",
+      "hero.tagline": "Over 1,400 professional sound effects inside Premiere Pro.<br><strong class='hl-sweep'>Two clicks and the sound is on your timeline.</strong>",
       "hero.cta": "Get dropSFX",
       "hero.meta": "<span><b>One-time</b> payment</span> · <span>Lifetime access</span> · <span>7-day guarantee</span>",
       "hero.trial": "Try free for 3 days",
@@ -2151,6 +2224,8 @@
       "pricing.f6": "License for <strong>up to 2 machines</strong>",
       "pricing.f7": "<strong>Lifetime</strong> · 100% royalty-free",
       "pricing.cta": "See the offer and get access",
+      "pricing.qrLabel": "Prefer your phone?",
+      "pricing.qrSub": "Scan the code to check out there",
       "pricing.guarantee": "<strong>7-day guarantee.</strong> Not for you? Full refund.",
 
       "faq.eyebrow": "FAQ",
@@ -2225,7 +2300,7 @@
       "nav.cta": "Comprar ahora",
 
       "hero.badge": "PARA ADOBE PREMIERE PRO",
-      "hero.tagline": "Más de 1.400 efectos de sonido profesionales dentro de Premiere Pro.<br><strong>Dos clics y el sonido está en la línea de tiempo.</strong>",
+      "hero.tagline": "Más de 1.400 efectos de sonido profesionales dentro de Premiere Pro.<br><strong class='hl-sweep'>Dos clics y el sonido está en la línea de tiempo.</strong>",
       "hero.cta": "Quiero dropSFX",
       "hero.meta": "<span>Pago <b>único</b></span> · <span>Acceso de por vida</span> · <span>Garantía de 7 días</span>",
       "hero.trial": "Probar gratis por 3 días",
@@ -2278,6 +2353,8 @@
       "pricing.f6": "Licencia para <strong>hasta 2 equipos</strong>",
       "pricing.f7": "<strong>De por vida</strong> · 100% libre de regalías",
       "pricing.cta": "Ver oferta y obtener acceso",
+      "pricing.qrLabel": "¿Prefieres el celular?",
+      "pricing.qrSub": "Escanea el código y paga desde ahí",
       "pricing.guarantee": "<strong>Garantía de 7 días.</strong> ¿No te gustó? Devolvemos el 100%.",
 
       "faq.eyebrow": "Preguntas",
@@ -2352,7 +2429,7 @@
       "nav.cta": "अभी खरीदें",
 
       "hero.badge": "ADOBE PREMIERE PRO के लिए",
-      "hero.tagline": "Premiere Pro के अंदर 1,400 से ज़्यादा प्रोफ़ेशनल साउंड इफ़ेक्ट्स।<br><strong>दो क्लिक और साउंड टाइमलाइन पर।</strong>",
+      "hero.tagline": "Premiere Pro के अंदर 1,400 से ज़्यादा प्रोफ़ेशनल साउंड इफ़ेक्ट्स।<br><strong class='hl-sweep'>दो क्लिक और साउंड टाइमलाइन पर।</strong>",
       "hero.cta": "मुझे dropSFX चाहिए",
       "hero.meta": "<span><b>एक बार</b> भुगतान</span> · <span>लाइफ़टाइम एक्सेस</span> · <span>7 दिन की गारंटी</span>",
       "hero.trial": "3 दिन मुफ़्त आज़माएँ",
@@ -2405,6 +2482,8 @@
       "pricing.f6": "<strong>2 मशीनों तक</strong> का लाइसेंस",
       "pricing.f7": "<strong>लाइफ़टाइम</strong> · 100% रॉयल्टी-फ़्री",
       "pricing.cta": "ऑफ़र देखें और एक्सेस पाएँ",
+      "pricing.qrLabel": "मोबाइल पसंद है?",
+      "pricing.qrSub": "कोड स्कैन करें और वहीं से भुगतान करें",
       "pricing.guarantee": "<strong>7 दिन की गारंटी।</strong> पसंद नहीं आया? पूरा पैसा वापस।",
 
       "faq.eyebrow": "सवाल-जवाब",
@@ -3086,6 +3165,128 @@
       .catch(function () {
         // erro de rede → mantém as bolinhas de iniciais que já estão no HTML
       });
+  })();
+
+  // =====================================================================
+  // SLIDE UP TEXT — revela palavra por palavra, com stagger
+  // (inspirado no componente "Slide Up Text" da Spell UI, refeito em JS puro
+  // pra funcionar neste site estático, sem React)
+  // =====================================================================
+  (function () {
+    var STAGGER = 0.1;   // segundos entre cada palavra
+    var BASE_DELAY = 0;  // atraso inicial
+
+    function wrapWords(container) {
+      // preserva as sub-tags existentes (ex: .quote-line, .accent) —
+      // processa cada uma como uma "linha" própria, palavra por palavra.
+      var lines = container.children.length ? Array.from(container.children) : [container];
+      var wordIndex = 0;
+
+      lines.forEach(function (line) {
+        var text = line.textContent;
+        var words = text.split(/(\s+)/); // mantém os espaços como itens separados
+        var html = '';
+        words.forEach(function (w) {
+          if (!w.trim()) { html += w; return; } // espaço em branco, mantém como está
+          html += '<span class="swu-word"><span style="transition-delay:' +
+            (BASE_DELAY + wordIndex * STAGGER).toFixed(2) + 's">' + w + '</span></span>';
+          wordIndex++;
+        });
+        line.innerHTML = html;
+      });
+    }
+
+    function initSlideUpText() {
+      document.querySelectorAll('.slide-up-text').forEach(function (el) {
+        el.classList.remove('swu-in');
+        wrapWords(el);
+      });
+      observeSlideUp();
+    }
+
+    var io;
+    function observeSlideUp() {
+      if (io) io.disconnect();
+      var els = document.querySelectorAll('.slide-up-text');
+      if (!els.length) return;
+
+      if (window.matchMedia('(max-width: 720px)').matches ||
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        els.forEach(function (el) { el.classList.add('swu-in'); });
+        return;
+      }
+
+      if ('IntersectionObserver' in window) {
+        io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('swu-in');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.4 });
+        els.forEach(function (el) { io.observe(el); });
+      } else {
+        els.forEach(function (el) { el.classList.add('swu-in'); });
+      }
+    }
+
+    // primeira montagem
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSlideUpText);
+    } else {
+      initSlideUpText();
+    }
+
+    // reaplica quando o idioma troca (o i18n reescreve o innerHTML e perderia as tags)
+    document.addEventListener('dropsfx:langchange', function () {
+      setTimeout(initSlideUpText, 30);
+    });
+  })();
+
+  // highlight sweep na frase-chave do hero — dispara pouco depois do load
+  (function () {
+    function triggerHighlight() {
+      document.querySelectorAll('.hl-sweep').forEach(function (el) { el.classList.add('hl-in'); });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () { setTimeout(triggerHighlight, 1400); });
+    } else {
+      setTimeout(triggerHighlight, 1400);
+    }
+    document.addEventListener('dropsfx:langchange', function () { setTimeout(triggerHighlight, 60); });
+  })();
+
+  // tilt 3D no card do QR code — segue o mouse
+  (function () {
+    if (window.matchMedia('(max-width: 720px)').matches ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if ('ontouchstart' in window) return;
+
+    function wireTilt() {
+      var card = document.querySelector('.qr-card');
+      if (!card || card._tiltWired) return;
+      card._tiltWired = true;
+
+      var MAX = 8;
+      card.addEventListener('mousemove', function (e) {
+        var r = card.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width;
+        var py = (e.clientY - r.top) / r.height;
+        var rx = (0.5 - py) * MAX * 2;
+        var ry = (px - 0.5) * MAX * 2;
+        card.style.transform = 'perspective(500px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.transform = 'perspective(500px) rotateX(0deg) rotateY(0deg)';
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', wireTilt);
+    } else {
+      wireTilt();
+    }
   })();
 
   // =====================================================================
