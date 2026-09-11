@@ -22,21 +22,22 @@
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased;}
 
-  /* ── LOGIN GATE ── */
   #gate{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:24px;}
   #gate.hide{display:none;}
   .gate-card{width:100%;max-width:360px;background:var(--card);border:1px solid var(--line-2);border-radius:18px;padding:34px 30px;text-align:center;}
   .gate-logo{font-weight:800;font-size:20px;letter-spacing:-.4px;margin-bottom:4px;}
   .gate-logo span{color:var(--accent-hi);}
   .gate-sub{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:26px;}
-  .gate-card input{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;color:var(--ink);font-family:var(--mono);font-size:13px;margin-bottom:12px;}
+  .gate-card input[type=password]{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;color:var(--ink);font-family:var(--mono);font-size:13px;margin-bottom:12px;}
   .gate-card input:focus{outline:none;border-color:var(--accent);}
+  .gate-remember{display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:16px;}
+  .gate-remember input{accent-color:var(--accent);width:14px;height:14px;}
+  .gate-remember label{font-size:12px;color:var(--ink-2);cursor:pointer;user-select:none;}
   .gate-card button{width:100%;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:12px;font-family:var(--font);font-weight:700;font-size:14px;cursor:pointer;transition:.2s;}
   .gate-card button:hover{background:#2554d6;}
   .gate-err{color:var(--red);font-size:12.5px;margin-top:12px;min-height:16px;}
 
-  /* ── APP ── */
-  #app{display:none;max-width:1240px;margin:0 auto;padding:24px 20px 60px;}
+  #app{display:none;max-width:1320px;margin:0 auto;padding:24px 20px 60px;}
   #app.show{display:block;}
   .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px;flex-wrap:wrap;gap:12px;}
   .topbar h1{font-size:20px;font-weight:800;letter-spacing:-.3px;}
@@ -45,16 +46,34 @@
   .btn{background:rgba(255,255,255,.05);border:1px solid var(--line-2);color:var(--ink-2);border-radius:9px;padding:8px 14px;font-family:var(--font);font-size:12.5px;font-weight:600;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:7px;}
   .btn:hover{color:var(--ink);border-color:var(--accent);}
   .btn svg{width:14px;height:14px;}
+  .btn-primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .btn-primary:hover{background:#2554d6;color:#fff;}
 
-  /* ── SUMMARY CARDS ── */
-  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:26px;}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:22px;}
   .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative;overflow:hidden;}
   .stat::before{content:"";position:absolute;top:0;left:0;width:3px;height:100%;background:var(--c,var(--accent));}
   .stat .k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
   .stat .v{font-size:28px;font-weight:800;line-height:1;letter-spacing:-.5px;}
   .stat .sub{font-size:11px;color:var(--dim);margin-top:5px;}
 
-  /* ── FILTERS ── */
+  .grant-box{
+    background:linear-gradient(135deg,rgba(59,110,245,.1),rgba(59,110,245,.02));
+    border:1px solid rgba(59,110,245,.25);border-radius:14px;
+    padding:16px 18px;margin-bottom:22px;
+  }
+  .grant-head{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+  .grant-head svg{width:16px;height:16px;color:var(--accent-hi);}
+  .grant-head span{font-size:13px;font-weight:700;}
+  .grant-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .grant-row input{
+    flex:1;min-width:180px;background:rgba(255,255,255,.05);border:1px solid var(--line-2);
+    border-radius:9px;padding:10px 13px;color:var(--ink);font-family:var(--font);font-size:13px;
+  }
+  .grant-row input:focus{outline:none;border-color:var(--accent);}
+  .grant-msg{font-size:11.5px;margin-top:9px;min-height:15px;}
+  .grant-msg.ok{color:var(--green);}
+  .grant-msg.err{color:var(--red);}
+
   .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center;}
   .search-wrap{flex:1;min-width:200px;position:relative;}
   .search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--muted);}
@@ -64,51 +83,80 @@
   .fchip:hover{color:var(--ink);}
   .fchip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-hi);}
 
-  /* ── TABLE ── */
   .table-wrap{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
   .table-scroll{overflow-x:auto;}
-  table{width:100%;border-collapse:collapse;min-width:820px;}
-  th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:13px 16px;border-bottom:1px solid var(--line);white-space:nowrap;position:sticky;top:0;background:var(--card2);cursor:pointer;user-select:none;}
+  table{width:100%;border-collapse:collapse;min-width:1040px;}
+  th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:13px 14px;border-bottom:1px solid var(--line);white-space:nowrap;position:sticky;top:0;background:var(--card2);cursor:pointer;user-select:none;}
   th:hover{color:var(--ink-2);}
   th .arrow{opacity:.4;margin-left:3px;font-size:9px;}
-  td{padding:13px 16px;border-bottom:1px solid var(--line);font-size:13px;color:var(--ink-2);white-space:nowrap;}
+  td{padding:12px 14px;border-bottom:1px solid var(--line);font-size:12.5px;color:var(--ink-2);white-space:nowrap;}
   tr:last-child td{border-bottom:none;}
   tr:hover td{background:rgba(255,255,255,.02);}
-  .email-cell{color:var(--ink);font-weight:500;font-family:var(--mono);font-size:12px;}
-  .tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;white-space:nowrap;}
+  .who-cell{display:flex;flex-direction:column;gap:2px;}
+  .who-name{color:var(--ink);font-weight:600;font-size:12.5px;}
+  .who-email{color:var(--muted);font-family:var(--mono);font-size:10.5px;}
+  .tag{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:100px;white-space:nowrap;}
   .tag .dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
   .tag.trial_ativo{background:var(--orange-soft);color:var(--orange);}
   .tag.trial_expirado{background:var(--red-soft);color:var(--red);}
   .tag.converteu{background:var(--green-soft);color:var(--green);}
   .tag.comprador_direto{background:var(--accent-soft);color:var(--accent-hi);}
   .tag.sem_atividade{background:rgba(255,255,255,.05);color:var(--muted);}
-  .date-cell{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);}
-  .date-cell .rel{color:var(--dim);font-size:10px;display:block;margin-top:1px;}
+  .tag-manual{font-size:9px;color:var(--purple);background:var(--purple-soft);padding:2px 7px;border-radius:100px;margin-left:5px;}
+  .date-cell{font-family:var(--mono);font-size:11px;color:var(--ink-2);}
+  .date-cell .rel{color:var(--dim);font-size:9.5px;display:block;margin-top:1px;}
   .empty-dash{color:var(--dim);}
   .count-line{font-size:12px;color:var(--muted);margin-top:14px;font-family:var(--mono);}
+  .comm-cell{font-size:11.5px;}
+  .comm-cell b{color:var(--ink);}
+  .comm-cell .no-user{color:var(--dim);}
+
+  .row-actions{display:flex;gap:5px;}
+  .rbtn{
+    background:rgba(255,255,255,.05);border:1px solid var(--line-2);color:var(--ink-2);
+    border-radius:7px;padding:5px 9px;font-size:10.5px;font-weight:600;cursor:pointer;
+    font-family:var(--font);transition:.15s;white-space:nowrap;
+  }
+  .rbtn:hover{color:var(--ink);}
+  .rbtn.grant{color:var(--green);border-color:rgba(74,222,128,.3);}
+  .rbtn.grant:hover{background:var(--green-soft);}
+  .rbtn.revoke{color:var(--red);border-color:rgba(248,113,113,.3);}
+  .rbtn.revoke:hover{background:var(--red-soft);}
 
   .loading{text-align:center;padding:60px 20px;color:var(--muted);font-size:13px;}
   .spinner{width:32px;height:32px;border:3px solid var(--line-2);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px;}
   @keyframes spin{to{transform:rotate(360deg);}}
+
+  #toast{
+    position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);
+    background:var(--card2);border:1px solid var(--line-2);border-radius:10px;
+    padding:11px 18px;font-size:12.5px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.5);
+    opacity:0;visibility:hidden;transition:.25s;z-index:200;
+  }
+  #toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);}
+  #toast.ok{border-color:rgba(74,222,128,.4);color:var(--green);}
+  #toast.err{border-color:rgba(248,113,113,.4);color:var(--red);}
 </style>
 </head>
 <body>
 
-<!-- LOGIN GATE -->
 <div id="gate">
   <div class="gate-card">
     <div class="gate-logo">drop<span>SFX</span></div>
     <div class="gate-sub">Central privada</div>
-    <input type="password" id="gate-pass" placeholder="Senha de acesso" autocomplete="off"/>
+    <input type="password" id="gate-pass" placeholder="Senha de acesso" autocomplete="current-password"/>
+    <div class="gate-remember">
+      <input type="checkbox" id="gate-remember-check" checked>
+      <label for="gate-remember-check">Lembrar minha senha neste navegador</label>
+    </div>
     <button id="gate-btn">Entrar</button>
     <div class="gate-err" id="gate-err"></div>
   </div>
 </div>
 
-<!-- APP -->
 <div id="app">
   <div class="topbar">
-    <h1>drop<span>SFX</span> · Central de usuários</h1>
+    <h1>drop<span>SFX</span> · Central de controle</h1>
     <div class="actions">
       <button class="btn" id="btn-refresh">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
@@ -127,14 +175,11 @@
   </div>
 </div>
 
+<div id="toast"></div>
+
 <script>
-  // ═══════════════════════════════════════════════════════════
-  // CONFIG — troque pela URL da sua Edge Function admin-users
-  // ═══════════════════════════════════════════════════════════
   var ADMIN_ENDPOINT = 'https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/admin-users';
-  // A ANON KEY do projeto (a mesma que já aparece nas outras páginas — é pública, não é segredo).
   var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3Z3J4ZGpkdnJkYXdhcmJucWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwMjIxNDgsImV4cCI6MjA5NDU5ODE0OH0.M1Yw6ljgUzPQWTW0CC8DBn8WV6nZDKCCKTwzcZN_Zo0';
-  // ═══════════════════════════════════════════════════════════
 
   var CAT_LABELS = {
     trial_ativo:      'Trial ativo',
@@ -146,29 +191,43 @@
 
   var state = { users: [], summary: {}, filter: 'all', search: '', sortKey: 'last_sign_in', sortDir: -1, token: '' };
 
-  // ── login ──
   var gate = document.getElementById('gate');
   var gateErr = document.getElementById('gate-err');
   var gatePass = document.getElementById('gate-pass');
+  var gateRemember = document.getElementById('gate-remember-check');
 
   document.getElementById('gate-btn').addEventListener('click', tryLogin);
   gatePass.addEventListener('keydown', function(e){ if(e.key==='Enter') tryLogin(); });
 
-  // se já logou antes nessa sessão, entra direto
-  var saved = sessionStorage.getItem('dropsfx_admin_token');
-  if (saved) { state.token = saved; enterApp(); }
+  var savedPass = localStorage.getItem('dropsfx_admin_saved_pass');
+  var savedSession = sessionStorage.getItem('dropsfx_admin_token');
+
+  if (savedSession) {
+    state.token = savedSession;
+    enterApp();
+  } else if (savedPass) {
+    gatePass.value = savedPass;
+    tryLogin();
+  }
 
   function tryLogin(){
     var pass = gatePass.value.trim();
     if(!pass){ gateErr.textContent = 'Digite a senha.'; return; }
     gateErr.textContent = '';
     state.token = pass;
-    load(function(ok, err){
+    apiCall({ action: 'list' }, function(ok, data, status){
       if(ok){
         sessionStorage.setItem('dropsfx_admin_token', pass);
+        if (gateRemember.checked) {
+          localStorage.setItem('dropsfx_admin_saved_pass', pass);
+        } else {
+          localStorage.removeItem('dropsfx_admin_saved_pass');
+        }
+        state.users = data.users || [];
+        state.summary = data.summary || {};
         enterApp();
       } else {
-        gateErr.textContent = err === 401 ? 'Senha incorreta.' : 'Erro ao conectar. Tenta de novo.';
+        gateErr.textContent = status === 401 ? 'Senha incorreta.' : 'Erro ao conectar. Tenta de novo.';
       }
     });
   }
@@ -176,8 +235,11 @@
   function enterApp(){
     gate.classList.add('hide');
     document.getElementById('app').classList.add('show');
-    render();
-    if(!state.users.length) load();
+    if (state.users.length) {
+      render();
+    } else {
+      load();
+    }
   }
 
   document.getElementById('btn-logout').addEventListener('click', function(){
@@ -187,12 +249,7 @@
   document.getElementById('btn-refresh').addEventListener('click', function(){ load(); });
   document.getElementById('btn-export').addEventListener('click', exportCSV);
 
-  // ── carrega dados ──
-  function load(cb){
-    var content = document.getElementById('content');
-    if(document.getElementById('app').classList.contains('show')){
-      content.innerHTML = '<div class="loading"><div class="spinner"></div>Carregando dados…</div>';
-    }
+  function apiCall(payload, cb){
     fetch(ADMIN_ENDPOINT, {
       method: 'POST',
       headers: {
@@ -200,26 +257,35 @@
         'apikey': SUPABASE_ANON_KEY,
         'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
         'x-admin-token': state.token
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(function(r){ return r.json().then(function(data){ cb(r.ok, data, r.status); }); })
+    .catch(function(){ cb(false, {}, 0); });
+  }
+
+  function load(){
+    var content = document.getElementById('content');
+    content.innerHTML = '<div class="loading"><div class="spinner"></div>Carregando dados…</div>';
+    apiCall({ action: 'list' }, function(ok, data){
+      if(!ok){
+        content.innerHTML = '<div class="loading">Erro ao carregar. <a href="#" onclick="location.reload()" style="color:var(--accent-hi)">Recarregar</a></div>';
+        return;
       }
-    })
-    .then(function(r){
-      if(!r.ok){ if(cb)cb(false, r.status); throw new Error(r.status); }
-      return r.json();
-    })
-    .then(function(data){
       state.users = data.users || [];
       state.summary = data.summary || {};
-      if(cb)cb(true);
-      if(document.getElementById('app').classList.contains('show')) render();
-    })
-    .catch(function(e){
-      if(document.getElementById('app').classList.contains('show')){
-        document.getElementById('content').innerHTML = '<div class="loading">Erro ao carregar. <a href="#" onclick="location.reload()" style="color:var(--accent-hi)">Recarregar</a></div>';
-      }
+      render();
     });
   }
 
-  // ── formatação de datas ──
+  function showToast(msg, kind){
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'show ' + (kind||'');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(function(){ t.classList.remove('show'); }, 3200);
+  }
+
   function fmtDate(iso){
     if(!iso) return null;
     var d = new Date(iso);
@@ -243,7 +309,6 @@
     return 'há '+Math.floor(months/12)+' ano(s)';
   }
 
-  // ── render ──
   function render(){
     var s = state.summary;
     var cards =
@@ -264,20 +329,34 @@
 
     var html =
       '<div class="cards">'+cards+'</div>'+
+
+      '<div class="grant-box">'+
+        '<div class="grant-head">'+
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>'+
+          '<span>Liberar acesso vitalício pra qualquer e-mail</span>'+
+        '</div>'+
+        '<div class="grant-row">'+
+          '<input type="email" id="grant-email" placeholder="email@exemplo.com">'+
+          '<input type="text" id="grant-name" placeholder="Nome (opcional)">'+
+          '<button class="btn btn-primary" id="grant-btn">Liberar</button>'+
+        '</div>'+
+        '<div class="grant-msg" id="grant-msg"></div>'+
+      '</div>'+
+
       '<div class="filters">'+
         '<div class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>'+
-        '<input type="text" id="search" placeholder="Buscar por e-mail…" value="'+escapeAttr(state.search)+'"/></div>'+
+        '<input type="text" id="search" placeholder="Buscar por e-mail ou nome…" value="'+escapeAttr(state.search)+'"/></div>'+
         chips+
       '</div>'+
       '<div class="table-wrap"><div class="table-scroll"><table>'+
         '<thead><tr>'+
-          th('E-mail','email')+
+          th('Cliente','email')+
           th('Categoria','category')+
+          th('Comunidade','community_posts')+
           th('Trial iniciado','trial_started')+
-          th('Trial expira','trial_ends')+
           th('Comprou em','purchased_at')+
           th('Último login','last_sign_in')+
-          th('Conta criada','account_created')+
+          '<th>Ações</th>'+
         '</tr></thead><tbody>'+
         (rows.length ? rows.map(rowHtml).join('') : '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--dim)">Nenhum resultado</td></tr>')+
         '</tbody></table></div></div>'+
@@ -285,7 +364,6 @@
 
     document.getElementById('content').innerHTML = html;
 
-    // rebind
     document.getElementById('search').addEventListener('input', function(e){
       state.search = e.target.value; renderTableOnly();
     });
@@ -299,15 +377,61 @@
         render();
       });
     });
+    document.getElementById('grant-btn').addEventListener('click', function(){
+      doGrant(document.getElementById('grant-email').value, document.getElementById('grant-name').value);
+    });
+    document.getElementById('grant-email').addEventListener('keydown', function(e){
+      if(e.key==='Enter') doGrant(this.value, document.getElementById('grant-name').value);
+    });
+    bindRowActions();
   }
 
-  // re-render só a tabela (pra busca não perder foco do input)
   function renderTableOnly(){
     var rows = filteredSorted();
     var tbody = document.querySelector('tbody');
     if(tbody) tbody.innerHTML = rows.length ? rows.map(rowHtml).join('') : '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--dim)">Nenhum resultado</td></tr>';
     var cl = document.querySelector('.count-line');
     if(cl) cl.textContent = rows.length+' de '+state.users.length+' contas';
+    bindRowActions();
+  }
+
+  function bindRowActions(){
+    document.querySelectorAll('.rbtn.grant').forEach(function(b){
+      b.addEventListener('click', function(){ doGrant(b.dataset.email, ''); });
+    });
+    document.querySelectorAll('.rbtn.revoke').forEach(function(b){
+      b.addEventListener('click', function(){ doRevoke(b.dataset.email); });
+    });
+  }
+
+  function doGrant(email, name){
+    email = (email||'').trim().toLowerCase();
+    if(!email || email.indexOf('@')===-1){
+      var msg = document.getElementById('grant-msg');
+      if(msg){ msg.textContent = 'Digita um e-mail válido.'; msg.className='grant-msg err'; }
+      return;
+    }
+    apiCall({ action:'grant_license', email: email, buyer_name: name||'' }, function(ok, data){
+      var msg = document.getElementById('grant-msg');
+      if(ok){
+        if(msg){ msg.textContent = '✓ '+email+' liberado com acesso vitalício.'; msg.className='grant-msg ok'; }
+        showToast(email + ' liberado!', 'ok');
+        document.getElementById('grant-email').value = '';
+        document.getElementById('grant-name').value = '';
+        load();
+      } else {
+        if(msg){ msg.textContent = 'Erro: '+(data.error||'falha ao liberar'); msg.className='grant-msg err'; }
+        showToast('Erro ao liberar', 'err');
+      }
+    });
+  }
+
+  function doRevoke(email){
+    if(!confirm('Revogar o acesso de '+email+'? Isso bloqueia o plugin pra essa conta.')) return;
+    apiCall({ action:'revoke_license', email: email }, function(ok, data){
+      if(ok){ showToast('Acesso de '+email+' revogado.', 'ok'); load(); }
+      else { showToast('Erro ao revogar', 'err'); }
+    });
   }
 
   function card(k,v,color,sub){
@@ -318,19 +442,35 @@
     return '<th data-sort="'+key+'">'+label+arrow+'</th>';
   }
   function rowHtml(u){
+    var name = u.buyer_name || u.community_username || '';
+    var whoHtml = '<div class="who-cell">' +
+      (name ? '<span class="who-name">'+escapeHtml(name)+'</span>' : '') +
+      '<span class="who-email">'+escapeHtml(u.email)+'</span>' +
+    '</div>';
+
+    var catTag = '<span class="tag '+u.category+'"><span class="dot"></span>'+CAT_LABELS[u.category]+'</span>' +
+      (u.is_manual_grant ? '<span class="tag-manual">manual</span>' : '');
+
+    var commHtml = u.community_username
+      ? '<span class="comm-cell">@<b>'+escapeHtml(u.community_username)+'</b><br>'+u.community_posts+' posts · '+u.community_downloads+' downloads</span>'
+      : '<span class="comm-cell no-user">sem perfil</span>';
+
     var trialStarted = u.trial_started ? '<span class="date-cell">'+fmtDate(u.trial_started)+'<span class="rel">'+relTime(u.trial_started)+'</span></span>' : '<span class="empty-dash">—</span>';
-    var trialEnds = u.trial_ends ? '<span class="date-cell">'+fmtDate(u.trial_ends)+'</span>' : '<span class="empty-dash">—</span>';
     var bought = u.purchased_at ? '<span class="date-cell">'+fmtDate(u.purchased_at)+'<span class="rel">'+relTime(u.purchased_at)+'</span></span>' : '<span class="empty-dash">—</span>';
     var lastLogin = u.last_sign_in ? '<span class="date-cell">'+fmtDate(u.last_sign_in)+'<span class="rel">'+relTime(u.last_sign_in)+'</span></span>' : '<span class="empty-dash">—</span>';
-    var created = u.account_created ? '<span class="date-cell">'+fmtDate(u.account_created)+'</span>' : '<span class="empty-dash">—</span>';
+
+    var actions = u.purchased
+      ? '<button class="rbtn revoke" data-email="'+escapeAttr(u.email)+'">Revogar</button>'
+      : '<button class="rbtn grant" data-email="'+escapeAttr(u.email)+'">Liberar</button>';
+
     return '<tr>'+
-      '<td class="email-cell">'+escapeHtml(u.email)+'</td>'+
-      '<td><span class="tag '+u.category+'"><span class="dot"></span>'+CAT_LABELS[u.category]+'</span></td>'+
+      '<td>'+whoHtml+'</td>'+
+      '<td>'+catTag+'</td>'+
+      '<td>'+commHtml+'</td>'+
       '<td>'+trialStarted+'</td>'+
-      '<td>'+trialEnds+'</td>'+
       '<td>'+bought+'</td>'+
       '<td>'+lastLogin+'</td>'+
-      '<td>'+created+'</td>'+
+      '<td><div class="row-actions">'+actions+'</div></td>'+
     '</tr>';
   }
 
@@ -339,7 +479,11 @@
     if(state.filter !== 'all') out = out.filter(function(u){ return u.category === state.filter; });
     if(state.search.trim()){
       var q = state.search.trim().toLowerCase();
-      out = out.filter(function(u){ return (u.email||'').toLowerCase().indexOf(q) !== -1; });
+      out = out.filter(function(u){
+        return (u.email||'').toLowerCase().indexOf(q) !== -1 ||
+               (u.buyer_name||'').toLowerCase().indexOf(q) !== -1 ||
+               (u.community_username||'').toLowerCase().indexOf(q) !== -1;
+      });
     }
     var k = state.sortKey, dir = state.sortDir;
     out.sort(function(a,b){
@@ -347,6 +491,9 @@
       if(k==='email' || k==='category'){
         va = (va||'').toString(); vb = (vb||'').toString();
         return va.localeCompare(vb) * dir;
+      }
+      if(k==='community_posts'){
+        return ((a.community_posts||0) - (b.community_posts||0)) * dir;
       }
       var ta = va ? new Date(va).getTime() : 0;
       var tb = vb ? new Date(vb).getTime() : 0;
@@ -357,17 +504,13 @@
 
   function exportCSV(){
     var rows = filteredSorted();
-    var head = ['email','categoria','trial_iniciado','trial_expira','comprou_em','ultimo_login','conta_criada'];
+    var head = ['email','nome','usuario_comunidade','categoria','posts_comunidade','downloads_comunidade','trial_iniciado','comprou_em','ultimo_login','conta_criada'];
     var lines = [head.join(',')];
     rows.forEach(function(u){
       lines.push([
-        u.email,
-        CAT_LABELS[u.category],
-        u.trial_started||'',
-        u.trial_ends||'',
-        u.purchased_at||'',
-        u.last_sign_in||'',
-        u.account_created||''
+        u.email, u.buyer_name||'', u.community_username||'',
+        CAT_LABELS[u.category], u.community_posts||0, u.community_downloads||0,
+        u.trial_started||'', u.purchased_at||'', u.last_sign_in||'', u.account_created||''
       ].map(csvCell).join(','));
     });
     var blob = new Blob([lines.join('\n')], {type:'text/csv;charset=utf-8;'});
