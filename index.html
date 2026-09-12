@@ -605,7 +605,7 @@
       overflow: hidden;
       z-index: 0;
       opacity: 0;
-      animation: fadeUp 1.3s .3s forwards;
+      animation: heroVideoFadeUp 1.3s .3s forwards;
     }
     .hero-bg-video video {
       width: 100%;
@@ -915,6 +915,14 @@
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* animação própria do vídeo de fundo — mantém a centralização
+       (translateX -50%) em todos os quadros, senão a animação genérica
+       'fadeUp' (que só mexe em translateY) apaga a centralização */
+    @keyframes heroVideoFadeUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
 
     /* =================== FEATURE SCENE LAYOUT =================== */
