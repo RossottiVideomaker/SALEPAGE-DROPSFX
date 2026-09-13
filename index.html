@@ -618,7 +618,7 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.15) 25%, rgba(0,0,0,.6) 62%, var(--bg) 88%),
+        linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.15) 25%, rgba(0,0,0,.45) 52%, rgba(0,0,0,.78) 70%, var(--bg) 94%),
         linear-gradient(90deg, var(--bg) 0%, transparent 18%, transparent 82%, var(--bg) 100%);
     }
     .hero-bg-video .video-loader {
@@ -775,8 +775,7 @@
         flex-direction: column;
         width: 100%;
       }
-      .hero-buttons .hero-cta,
-      .hero-buttons .hero-trial-link {
+      .hero-buttons .hero-cta {
         width: 100%;
         justify-content: center;
       }
@@ -833,31 +832,6 @@
 
     .hero-meta b {
       color: var(--accent-hi);
-    }
-
-    .hero-trial-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      padding: 16px 34px;
-      font-family: var(--font);
-      font-weight: 700;
-      font-size: 14px;
-      text-decoration: none;
-      background: transparent;
-      color: var(--teal);
-      border: 1.5px solid rgba(45, 212, 191, .5);
-      border-radius: 100px;
-      transition: all .3s cubic-bezier(.2, .8, .3, 1);
-    }
-    .hero-trial-link:hover {
-      background: rgba(45, 212, 191, .1);
-      border-color: var(--teal);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(45, 212, 191, .25);
-    }
-    .hero-trial-link svg {
-      width: 18px; height: 18px; flex-shrink: 0;
     }
 
     .proof-bar {
@@ -1752,12 +1726,6 @@
           <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=hero&utm_campaign=dropsfx"
             class="hero-cta js-buy-cta pop-btn" data-position="hero"
             target="_blank" rel="noopener"><span data-i18n="hero.cta">Quero o dropSFX</span> <span class="arr">→</span></a>
-          <a href="https://www.dropsfx.com.br/teste/"
-            class="hero-trial-link js-trial-cta"
-            target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            <span data-i18n="hero.trial">Testar grátis por 3 dias</span>
-          </a>
         </div>
         <div class="hero-meta" data-i18n-html="hero.meta"><span>Pagamento <b>único</b></span> · <span>Acesso vitalício</span> · <span>Garantia de 7 dias</span></div>
       </div>
@@ -2062,7 +2030,6 @@
       "hero.tagline": "Mais de 1.400 efeitos sonoros profissionais dentro do Premiere Pro.<br><strong class='hl-sweep'>Dois cliques e o som está na timeline.</strong>",
       "hero.cta": "Quero o dropSFX",
       "hero.meta": "<span>Pagamento <b>único</b></span> · <span>Acesso vitalício</span> · <span>Garantia de 7 dias</span>",
-      "hero.trial": "Testar grátis por 3 dias",
 
       "proof.bar": "<strong>+1.000 pessoas</strong> já adquiriram o dropSFX",
 
@@ -2191,7 +2158,6 @@
       "hero.tagline": "Over 1,400 professional sound effects inside Premiere Pro.<br><strong class='hl-sweep'>Two clicks and the sound is on your timeline.</strong>",
       "hero.cta": "Get dropSFX",
       "hero.meta": "<span><b>One-time</b> payment</span> · <span>Lifetime access</span> · <span>7-day guarantee</span>",
-      "hero.trial": "Try free for 3 days",
 
       "proof.bar": "<strong>1,000+ people</strong> already got dropSFX",
 
@@ -2320,7 +2286,6 @@
       "hero.tagline": "Más de 1.400 efectos de sonido profesionales dentro de Premiere Pro.<br><strong class='hl-sweep'>Dos clics y el sonido está en la línea de tiempo.</strong>",
       "hero.cta": "Quiero dropSFX",
       "hero.meta": "<span>Pago <b>único</b></span> · <span>Acceso de por vida</span> · <span>Garantía de 7 días</span>",
-      "hero.trial": "Probar gratis por 3 días",
 
       "proof.bar": "<strong>+1.000 personas</strong> ya adquirieron dropSFX",
 
@@ -2449,7 +2414,6 @@
       "hero.tagline": "Premiere Pro के अंदर 1,400 से ज़्यादा प्रोफ़ेशनल साउंड इफ़ेक्ट्स।<br><strong class='hl-sweep'>दो क्लिक और साउंड टाइमलाइन पर।</strong>",
       "hero.cta": "मुझे dropSFX चाहिए",
       "hero.meta": "<span><b>एक बार</b> भुगतान</span> · <span>लाइफ़टाइम एक्सेस</span> · <span>7 दिन की गारंटी</span>",
-      "hero.trial": "3 दिन मुफ़्त आज़माएँ",
 
       "proof.bar": "<strong>1,000+ लोग</strong> dropSFX ले चुके हैं",
 
@@ -2813,19 +2777,6 @@
           }
         });
         return;
-      }
-
-      var trialEl = e.target.closest('.js-trial-cta');
-      if (trialEl) {
-        window.dropsfxEvent('Lead', {
-          content_name: 'dropSFX Trial 3 dias',
-          content_category: 'Premiere Pro Plugin',
-          content_ids: ['dropsfx-trial'],
-          content_type: 'product',
-          custom_data: {
-            lang: (window.DropI18N ? DropI18N.get() : 'pt')
-          }
-        });
       }
     });
 
