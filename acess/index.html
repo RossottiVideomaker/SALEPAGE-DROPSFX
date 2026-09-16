@@ -100,9 +100,19 @@ button{font-family:var(--font);}
   background:radial-gradient(ellipse 90% 140% at 100% 0%, rgba(59,110,245,.22), transparent 60%),
              radial-gradient(ellipse 70% 100% at 100% 100%, rgba(45,212,191,.14), transparent 60%),
              #08090c;
-  padding:38px 40px;min-height:220px;display:flex;flex-direction:column;justify-content:center;
+  display:flex;min-height:190px;
 }
-.hero-wave{position:absolute;right:-40px;top:50%;transform:translateY(-50%);width:62%;opacity:.35;}
+.ticket-main{flex:1;min-width:0;padding:34px 36px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;position:relative;z-index:1;}
+.ticket-stub{
+  flex:0 0 168px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;
+}
+.ticket-perf{position:relative;flex:0 0 1px;background-image:linear-gradient(var(--line-2) 50%, transparent 50%);background-size:1px 10px;margin:20px 0;}
+.ticket-notch{
+  position:absolute;left:-11px;width:22px;height:22px;border-radius:50%;background:var(--bg);z-index:2;
+}
+.ticket-notch.top{top:-11px;}
+.ticket-notch.bottom{bottom:-11px;}
+.hero-wave{position:absolute;right:-30px;top:50%;transform:translateY(-50%);width:70%;opacity:.3;pointer-events:none;}
 .hero-badge{
   display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.3px;
   padding:5px 11px;border-radius:99px;border:1px solid rgba(74,222,128,.35);color:var(--green);
@@ -111,13 +121,11 @@ button{font-family:var(--font);}
 .hero-badge.trial{border-color:rgba(250,204,21,.35);color:var(--yellow);background:rgba(250,204,21,.08);}
 .hero-badge.off{border-color:rgba(248,113,113,.35);color:var(--red);background:rgba(248,113,113,.08);}
 .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
-.hero-title{font-family:var(--font-display);font-size:52px;font-weight:400;letter-spacing:.5px;line-height:1;margin-bottom:8px;position:relative;z-index:1;}
-.hero-sub{font-size:13.5px;color:var(--muted);max-width:400px;line-height:1.55;margin-bottom:22px;position:relative;z-index:1;}
-.hero-actions{display:flex;align-items:center;gap:14px;position:relative;z-index:1;}
-.btn-primary{background:var(--accent);color:#fff;border:none;border-radius:11px;padding:12px 22px;font-size:13.5px;font-weight:700;cursor:pointer;text-decoration:none;transition:.15s;display:inline-flex;}
-.btn-primary:hover{background:var(--accent-hi);}
-.hero-meta{font-size:12px;color:var(--muted);}
+.hero-title{font-family:var(--font-display);font-size:52px;font-weight:400;letter-spacing:.5px;line-height:1;margin-bottom:10px;}
+.hero-meta{font-size:11.5px;color:var(--muted);}
 .hero-meta strong{color:var(--ink);}
+.btn-primary{background:var(--accent);color:#fff;border:none;border-radius:11px;padding:12px 22px;font-size:13.5px;font-weight:700;cursor:pointer;text-decoration:none;transition:.15s;display:inline-flex;white-space:nowrap;}
+.btn-primary:hover{background:var(--accent-hi);}
 
 /* ─── POSTER ROW ─── */
 .row{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;scroll-behavior:smooth;}
@@ -148,6 +156,17 @@ button{font-family:var(--font);}
 .foot{margin-top:8px;text-align:center;font-size:11px;color:var(--dim);}
 .foot a{color:var(--dim);}
 
+@media(max-width:560px){
+  .hero{flex-direction:column;}
+  .ticket-main{padding:26px 24px 20px;}
+  .hero-title{font-size:38px;}
+  .ticket-perf{flex:none;width:auto;height:1px;margin:0 24px;background-image:linear-gradient(90deg, var(--line-2) 50%, transparent 50%);background-size:10px 1px;}
+  .ticket-notch{left:auto;top:-11px;}
+  .ticket-notch.top{left:-11px;}
+  .ticket-notch.bottom{right:-11px;bottom:auto;}
+  .ticket-stub{flex:none;padding:18px 24px;}
+  .hero-wave{width:90%;opacity:.18;}
+}
 @media(max-width:760px){
   .app{flex-direction:column;}
   .sidebar{
@@ -267,12 +286,17 @@ button{font-family:var(--font);}
             <rect x="297" y="10.8" width="4" height="38.5" rx="2"/>
             </g>
           </svg>
-          <div class="hero-badge" id="heroBadge"><span class="hero-badge-dot"></span><span id="heroBadgeText">Carregando…</span></div>
-          <div class="hero-title">dropSFX</div>
-          <div class="hero-sub" id="heroSub">1.463 efeitos sonoros pra editar mais rápido, direto no Premiere Pro.</div>
-          <div class="hero-actions">
-            <a class="btn-primary" href="https://github.com/RossottiVideomaker/SALEPAGE-DROPSFX/releases/latest/download/dropSFX-oficial.zip" download>Baixar plugin</a>
-            <span class="hero-meta" id="heroMeta"></span>
+          <div class="ticket-main">
+            <div class="hero-badge" id="heroBadge"><span class="hero-badge-dot"></span><span id="heroBadgeText">Carregando…</span></div>
+            <div class="hero-title">dropSFX</div>
+            <div class="hero-meta" id="heroMeta"></div>
+          </div>
+          <div class="ticket-perf">
+            <div class="ticket-notch top"></div>
+            <div class="ticket-notch bottom"></div>
+          </div>
+          <div class="ticket-stub">
+            <a class="btn-primary" href="https://github.com/RossottiVideomaker/SALEPAGE-DROPSFX/releases/latest/download/dropSFX-oficial.zip" download>Baixar</a>
           </div>
         </div>
       </div>
