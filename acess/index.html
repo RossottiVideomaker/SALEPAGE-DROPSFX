@@ -8,155 +8,160 @@
 <link rel="icon" href="assets/logo.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#050506;--ink:#f4f5f8;--muted:#71757f;--dim:#3d3f46;
+  --bg:#000000;--surface:#0a0a0c;--ink:#f5f6f8;--muted:#83868f;--dim:#45474d;
   --line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);
-  --accent:#3b6ef5;--accent-hi:#6e9bff;--accent-soft:rgba(59,110,245,.13);
+  --accent:#3b6ef5;--accent-hi:#6e9bff;
   --teal:#2dd4bf;--purple:#a78bfa;--green:#4ade80;--yellow:#facc15;--red:#f87171;
   --font-display:'Bebas Neue',sans-serif;
   --font:'Sora',-apple-system,BlinkMacSystemFont,sans-serif;
-  --font-mono:'JetBrains Mono',monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:var(--bg);}
 body{
-  min-height:100vh;background:var(--bg);
-  font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased;
-  display:flex;flex-direction:column;align-items:center;
+  min-height:100vh;color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased;
 }
 .hidden{display:none!important;}
 a{color:inherit;}
-
-/* ═══ TOPO ═══ */
-.topbar{
-  width:100%;max-width:860px;display:flex;align-items:center;justify-content:space-between;
-  padding:26px 24px 0;
-}
-.topbar img{height:24px;}
-.user-chip{display:flex;align-items:center;gap:12px;font-size:12.5px;color:var(--muted);}
-.logout-btn{
-  background:none;border:1px solid var(--line);color:var(--muted);
-  font-family:var(--font);font-size:11.5px;font-weight:600;padding:6px 13px;border-radius:7px;
-  cursor:pointer;transition:.15s;
-}
-.logout-btn:hover{border-color:var(--line-2);color:var(--ink);}
+button{font-family:var(--font);}
 
 /* ═══ LOGIN ═══ */
 .login-wrap{
-  flex:1;width:100%;min-height:100vh;display:flex;align-items:center;justify-content:center;
+  min-height:100vh;width:100%;display:flex;align-items:center;justify-content:center;
   padding:24px;position:relative;overflow:hidden;
 }
-.login-wave{
-  position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);
-  width:1300px;max-width:200vw;opacity:.08;pointer-events:none;
-}
+.login-wave{position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);width:1300px;max-width:200vw;opacity:.07;pointer-events:none;}
 .login-card{width:100%;max-width:360px;text-align:center;position:relative;z-index:1;}
 .login-card img{height:30px;margin-bottom:28px;}
-.login-card h1{
-  font-family:var(--font-display);font-size:38px;font-weight:400;letter-spacing:.5px;
-  line-height:1;margin-bottom:8px;
-}
+.login-card h1{font-family:var(--font-display);font-size:36px;font-weight:400;letter-spacing:.5px;line-height:1;margin-bottom:8px;}
 .login-card p{font-size:12.5px;color:var(--muted);margin-bottom:24px;line-height:1.55;}
-.google-btn{
-  width:100%;display:flex;align-items:center;justify-content:center;gap:10px;
-  background:#fff;color:#1f1f1f;border:none;border-radius:9px;padding:12px;
-  font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:.15s;
-}
+.google-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:#fff;color:#1f1f1f;border:none;border-radius:11px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;transition:.15s;}
 .google-btn:hover{background:#eee;}
 .or-divider{display:flex;align-items:center;gap:10px;margin:18px 0;color:var(--dim);font-size:10.5px;}
 .or-divider::before,.or-divider::after{content:'';flex:1;height:1px;background:var(--line);}
 .field{text-align:left;margin-bottom:11px;}
 .field label{display:block;font-size:10.5px;font-weight:600;color:var(--muted);margin-bottom:6px;letter-spacing:.2px;}
-.field input{
-  width:100%;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:9px;
-  padding:11px 13px;color:var(--ink);font-family:var(--font);font-size:13.5px;transition:.15s;
-}
+.field input{width:100%;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:11px;padding:11px 13px;color:var(--ink);font-family:var(--font);font-size:13.5px;transition:.15s;}
 .field input:focus{outline:none;border-color:var(--accent);background:rgba(255,255,255,.05);}
-.login-btn{
-  width:100%;margin-top:5px;background:var(--accent);color:#fff;border:none;border-radius:9px;
-  padding:12px;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:.15s;
-}
+.login-btn{width:100%;margin-top:5px;background:var(--accent);color:#fff;border:none;border-radius:11px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;transition:.15s;}
 .login-btn:hover{background:var(--accent-hi);}
 .login-btn:disabled{opacity:.6;cursor:default;}
 .forgot-link{display:inline-block;margin-top:16px;font-size:11px;color:var(--muted);text-decoration:none;}
 .forgot-link:hover{color:var(--accent-hi);}
-.login-error{
-  margin-top:14px;font-size:11px;color:var(--red);background:rgba(248,113,113,.08);
-  border:1px solid rgba(248,113,113,.22);border-radius:8px;padding:9px 11px;text-align:left;
-}
-.login-ok{
-  margin-top:14px;font-size:11px;color:var(--green);background:rgba(74,222,128,.08);
-  border:1px solid rgba(74,222,128,.22);border-radius:8px;padding:9px 11px;text-align:left;
-}
+.login-error{margin-top:14px;font-size:11px;color:var(--red);background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.22);border-radius:9px;padding:9px 11px;text-align:left;}
+.login-ok{margin-top:14px;font-size:11px;color:var(--green);background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.22);border-radius:9px;padding:9px 11px;text-align:left;}
 
-/* ═══ DASHBOARD ═══ */
-.dash{width:100%;max-width:860px;padding:34px 24px 60px;}
+/* ═══ APP SHELL ═══ */
+.app{display:flex;min-height:100vh;}
 
-.hero{margin-bottom:30px;}
-.hero-title{
-  font-family:var(--font-display);font-size:44px;font-weight:400;letter-spacing:.5px;
-  line-height:1;margin-bottom:6px;
+/* ─── SIDEBAR ─── */
+.sidebar{
+  width:248px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--line);
+  padding:28px 18px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;
 }
-.hero-title em{font-style:normal;color:var(--accent-hi);}
-.hero-sub{font-size:13px;color:var(--muted);}
-.hero-wave{width:100%;height:34px;margin-top:18px;opacity:.55;}
+.sb-user{padding:0 6px 22px;margin-bottom:14px;border-bottom:1px solid var(--line);}
+.sb-avatar{
+  width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--teal));
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#fff;margin-bottom:12px;
+}
+.sb-email{font-size:12px;color:var(--muted);word-break:break-all;}
+.sb-nav{display:flex;flex-direction:column;gap:2px;flex:1;}
+.sb-item{
+  display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:10px;
+  color:var(--muted);font-size:13.5px;font-weight:600;text-decoration:none;cursor:pointer;
+  border:none;background:none;width:100%;text-align:left;transition:.15s;
+}
+.sb-item svg{flex-shrink:0;opacity:.85;}
+.sb-item:hover{background:rgba(255,255,255,.04);color:var(--ink);}
+.sb-item.active{background:rgba(59,110,245,.14);color:var(--accent-hi);}
+.sb-item.active svg{opacity:1;}
+.sb-logout{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);}
 
-/* ═══ TRANSPORTE (status) ═══ */
-.transport{
-  display:flex;align-items:center;gap:22px;padding:20px 0;
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:6px;
+/* ─── CONTENT ─── */
+.content{flex:1;min-width:0;padding:36px 40px 60px;max-width:1080px;}
+.section{margin-bottom:40px;}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px;}
+.section-head h2{font-size:19px;font-weight:800;}
+.section-head p{font-size:12.5px;color:var(--muted);margin-top:2px;}
+.section-arrows{display:flex;gap:8px;flex-shrink:0;}
+.arrow-btn{
+  width:30px;height:30px;border-radius:50%;border:1px solid var(--line-2);background:var(--surface);
+  color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s;
 }
-.transport-num{
-  font-family:var(--font-display);font-size:46px;line-height:1;flex-shrink:0;min-width:64px;
-  color:var(--ink);
-}
-.transport-mid{flex:1;min-width:0;}
-.transport-label{font-size:13px;font-weight:700;margin-bottom:8px;}
-.transport-bar{position:relative;height:3px;background:var(--line);border-radius:2px;overflow:hidden;}
-.transport-fill{position:absolute;top:0;left:0;height:100%;width:0%;background:var(--accent);transition:width .6s ease;}
-.transport-fill.trial{background:var(--yellow);}
-.transport-fill.off{background:var(--red);}
-.transport-sub{font-size:11.5px;color:var(--muted);margin-top:8px;}
+.arrow-btn:hover{color:var(--ink);border-color:var(--ink);}
 
-/* ═══ TRILHAS ═══ */
-.tracks{border-top:1px solid var(--line);}
-.track{
-  display:flex;align-items:center;gap:16px;padding:22px 0;border-bottom:1px solid var(--line);
+/* ─── HERO BANNER ─── */
+.hero{
+  position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line);
+  background:radial-gradient(ellipse 90% 140% at 100% 0%, rgba(59,110,245,.22), transparent 60%),
+             radial-gradient(ellipse 70% 100% at 100% 100%, rgba(45,212,191,.14), transparent 60%),
+             #08090c;
+  padding:38px 40px;min-height:220px;display:flex;flex-direction:column;justify-content:center;
 }
-.track-id{
-  font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--dim);
-  width:24px;flex-shrink:0;letter-spacing:.5px;
+.hero-wave{position:absolute;right:-40px;top:50%;transform:translateY(-50%);width:62%;opacity:.35;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.3px;
+  padding:5px 11px;border-radius:99px;border:1px solid rgba(74,222,128,.35);color:var(--green);
+  background:rgba(74,222,128,.08);margin-bottom:16px;width:fit-content;
 }
-.track-chan{width:3px;height:38px;border-radius:2px;flex-shrink:0;background:var(--tc);}
-.track-icon{
-  width:36px;height:36px;border-radius:10px;flex-shrink:0;
-  background:color-mix(in srgb, var(--tc) 16%, transparent);color:var(--tc);
-  display:flex;align-items:center;justify-content:center;
-}
-.track-body{flex:1;min-width:0;}
-.track-body h3{font-size:14.5px;font-weight:700;margin-bottom:3px;}
-.track-body p{font-size:12px;color:var(--muted);line-height:1.5;}
-.track-action{
-  flex-shrink:0;font-size:12px;font-weight:700;padding:9px 16px;border-radius:8px;
-  text-decoration:none;transition:.15s;white-space:nowrap;
-}
-.track-action.primary{background:var(--accent);color:#fff;}
-.track-action.primary:hover{background:var(--accent-hi);}
-.track-action.outline{background:none;border:1px solid var(--line-2);color:var(--ink);}
-.track-action.outline:hover{border-color:var(--tc);color:var(--tc);}
-.track-action.soon{background:none;border:1px solid var(--line);color:var(--dim);pointer-events:none;}
+.hero-badge.trial{border-color:rgba(250,204,21,.35);color:var(--yellow);background:rgba(250,204,21,.08);}
+.hero-badge.off{border-color:rgba(248,113,113,.35);color:var(--red);background:rgba(248,113,113,.08);}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
+.hero-title{font-family:var(--font-display);font-size:52px;font-weight:400;letter-spacing:.5px;line-height:1;margin-bottom:8px;position:relative;z-index:1;}
+.hero-sub{font-size:13.5px;color:var(--muted);max-width:400px;line-height:1.55;margin-bottom:22px;position:relative;z-index:1;}
+.hero-actions{display:flex;align-items:center;gap:14px;position:relative;z-index:1;}
+.btn-primary{background:var(--accent);color:#fff;border:none;border-radius:11px;padding:12px 22px;font-size:13.5px;font-weight:700;cursor:pointer;text-decoration:none;transition:.15s;display:inline-flex;}
+.btn-primary:hover{background:var(--accent-hi);}
+.hero-meta{font-size:12px;color:var(--muted);}
+.hero-meta strong{color:var(--ink);}
 
-.foot{margin-top:30px;text-align:center;font-size:11px;color:var(--dim);}
+/* ─── POSTER ROW ─── */
+.row{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;scroll-behavior:smooth;}
+.row::-webkit-scrollbar{display:none;}
+.poster{
+  position:relative;flex:0 0 220px;aspect-ratio:3/4;min-height:290px;border-radius:18px;overflow:hidden;
+  border:1px solid var(--line);background:#0a0a0c;
+}
+.poster-art{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;}
+.poster-fade{position:absolute;left:0;right:0;bottom:0;height:62%;background:linear-gradient(to top, rgba(0,0,0,.92), transparent);}
+.poster-badge{
+  position:absolute;top:12px;left:12px;z-index:2;font-size:9.5px;font-weight:700;letter-spacing:.3px;
+  padding:4px 9px;border-radius:99px;border:1px solid rgba(74,222,128,.4);color:var(--green);background:rgba(10,10,12,.6);
+}
+.poster-badge.soon{border-color:var(--line-2);color:var(--muted);}
+.poster-body{position:absolute;left:16px;right:16px;bottom:16px;z-index:2;}
+.poster-body h3{font-size:14.5px;font-weight:800;margin-bottom:4px;}
+.poster-body p{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:12px;}
+.poster-btn{
+  display:inline-flex;font-size:11.5px;font-weight:700;padding:7px 14px;border-radius:9px;
+  text-decoration:none;transition:.15s;
+}
+.poster-btn.primary{background:var(--accent);color:#fff;}
+.poster-btn.primary:hover{background:var(--accent-hi);}
+.poster-btn.soon{background:rgba(255,255,255,.06);color:var(--muted);pointer-events:none;}
+.poster.locked .poster-art{filter:grayscale(1) brightness(.6);}
+
+.foot{margin-top:8px;text-align:center;font-size:11px;color:var(--dim);}
 .foot a{color:var(--dim);}
 
-@media(max-width:560px){
-  .hero-title{font-size:34px;}
-  .transport{gap:16px;}
-  .transport-num{font-size:36px;min-width:52px;}
-  .track{flex-wrap:wrap;}
-  .track-body{width:100%;order:1;flex-basis:100%;margin-top:6px;}
-  .track-action{order:2;margin-left:58px;}
+@media(max-width:760px){
+  .app{flex-direction:column;}
+  .sidebar{
+    width:100%;height:auto;position:static;flex-direction:row;align-items:center;
+    padding:14px 16px;gap:14px;overflow-x:auto;
+  }
+  .sb-user{display:flex;align-items:center;gap:10px;padding:0 14px 0 0;margin:0;border-bottom:none;border-right:1px solid var(--line);flex-shrink:0;}
+  .sb-avatar{margin-bottom:0;width:34px;height:34px;font-size:13px;}
+  .sb-email{display:none;}
+  .sb-nav{flex-direction:row;flex:0 0 auto;gap:4px;}
+  .sb-item{padding:8px 10px;white-space:nowrap;}
+  .sb-logout{margin:0 0 0 auto;padding:0;border-top:none;flex-shrink:0;}
+  .content{padding:24px 18px 50px;max-width:100%;}
+  .hero{padding:28px 24px;}
+  .hero-title{font-size:38px;}
+  .hero-wave{width:80%;opacity:.22;}
 }
 </style>
 </head>
@@ -172,23 +177,14 @@ a{color:inherit;}
     <img src="assets/logo.png" alt="dropSFX"/>
     <h1>MINHA CENTRAL</h1>
     <p>Entre com sua conta Google ou com o e-mail e senha que você usa no plugin.</p>
-
     <button type="button" class="google-btn" id="googleBtn">
       <svg width="17" height="17" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34 5.1 29.3 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.4-.1-2.7-.4-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l6-6C34 5.1 29.3 3 24 3 16.3 3 9.6 7.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 45c5.2 0 9.9-2 13.4-5.2l-6.2-5.2c-2 1.4-4.6 2.3-7.2 2.3-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 40.6 16.2 45 24 45z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.3-4.1 5.7l6.2 5.2C41 35.9 45 30.5 45 24c0-1.4-.1-2.7-.4-3.5z"/></svg>
       Continuar com Google
     </button>
-
     <div class="or-divider"><span>ou</span></div>
-
     <form id="loginForm">
-      <div class="field">
-        <label>E-MAIL</label>
-        <input type="email" id="loginEmail" autocomplete="email" required/>
-      </div>
-      <div class="field">
-        <label>SENHA</label>
-        <input type="password" id="loginPassword" autocomplete="current-password" required/>
-      </div>
+      <div class="field"><label>E-MAIL</label><input type="email" id="loginEmail" autocomplete="email" required/></div>
+      <div class="field"><label>SENHA</label><input type="password" id="loginPassword" autocomplete="current-password" required/></div>
       <button type="submit" class="login-btn" id="loginBtn">Entrar</button>
     </form>
     <a href="#" class="forgot-link" id="forgotLink">Esqueci minha senha</a>
@@ -197,90 +193,97 @@ a{color:inherit;}
   </div>
 </div>
 
-<!-- ═══ DASHBOARD ═══ -->
-<div class="hidden" id="dashRoot" style="width:100%;display:flex;flex-direction:column;align-items:center;">
-  <div class="topbar">
-    <img src="assets/logo.png" alt="dropSFX"/>
-    <div class="user-chip">
-      <span id="userName">—</span>
-      <button class="logout-btn" id="logoutBtn">Sair</button>
-    </div>
-  </div>
-
-  <div class="dash">
-    <div class="hero">
-      <div class="hero-title">SUA SESSÃO<em>.</em></div>
-      <div class="hero-sub">Tudo que você precisa pra usar o dropSFX está aqui.</div>
-      <svg class="hero-wave" viewBox="0 0 600 40" preserveAspectRatio="none">
-        <path d="M0 20 L8 20 L11 10 L14 30 L17 4 L20 36 L23 20 L31 20 L34 14 L37 26 L40 8 L43 32 L46 20 L54 20 L57 17 L60 23 L63 12 L66 28 L69 20 L77 20 L80 15 L83 25 L86 9 L89 31 L92 20 L100 20 L103 11 L106 29 L109 5 L112 35 L115 20 L123 20 L126 16 L129 24 L132 13 L135 27 L138 20 L146 20 L149 10 L152 30 L155 4 L158 36 L161 20 L169 20 L172 14 L175 26 L178 8 L181 32 L184 20 L192 20 L195 17 L198 23 L201 12 L204 28 L207 20 L215 20 L218 15 L221 25 L224 9 L227 31 L230 20 L238 20 L241 11 L244 29 L247 5 L250 35 L253 20 L261 20 L264 16 L267 24 L270 13 L273 27 L276 20 L284 20 L287 10 L290 30 L293 4 L296 36 L299 20 L307 20 L310 14 L313 26 L316 8 L319 32 L322 20 L330 20 L333 17 L336 23 L339 12 L342 28 L345 20 L353 20 L356 15 L359 25 L362 9 L365 31 L368 20 L376 20 L379 11 L382 29 L385 5 L388 35 L391 20 L399 20 L402 16 L405 24 L408 13 L411 27 L414 20 L422 20 L425 10 L428 30 L431 4 L434 36 L437 20 L445 20 L448 14 L451 26 L454 8 L457 32 L460 20 L468 20 L471 17 L474 23 L477 12 L480 28 L483 20 L491 20 L494 15 L497 25 L500 9 L503 31 L506 20 L514 20 L517 11 L520 29 L523 5 L526 35 L529 20 L537 20 L540 16 L543 24 L546 13 L549 27 L552 20 L560 20 L563 10 L566 30 L569 4 L572 36 L575 20 L583 20 L586 14 L589 26 L592 8 L595 32 L600 20"
-          fill="none" stroke="#3b6ef5" stroke-width="1.2"/>
-      </svg>
-    </div>
-
-    <div class="transport">
-      <div class="transport-num" id="transportNum">—</div>
-      <div class="transport-mid">
-        <div class="transport-label" id="transportLabel">Carregando…</div>
-        <div class="transport-bar"><div class="transport-fill" id="transportFill"></div></div>
-        <div class="transport-sub" id="transportSub"></div>
+<!-- ═══ APP ═══ -->
+<div class="hidden" id="dashRoot">
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sb-user">
+        <div class="sb-avatar" id="sbAvatar">?</div>
+        <div class="sb-email" id="userName">—</div>
       </div>
-    </div>
+      <nav class="sb-nav">
+        <button class="sb-item active"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>Início</button>
+        <a class="sb-item" href="#comunidade"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>Comunidade</a>
+        <a class="sb-item" href="https://wa.me/5527992625721" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 2-3 4"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Suporte</a>
+      </nav>
+      <div class="sb-logout">
+        <button class="sb-item" id="logoutBtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Sair</button>
+      </div>
+    </aside>
 
-    <div class="tracks">
-      <div class="track" style="--tc:var(--accent-hi)">
-        <div class="track-id">A1</div>
-        <div class="track-chan"></div>
-        <div class="track-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    <main class="content">
+      <div class="section">
+        <div class="hero">
+          <svg class="hero-wave" viewBox="0 0 600 40" preserveAspectRatio="none">
+            <path d="M0 20 L8 20 L11 10 L14 30 L17 4 L20 36 L23 20 L31 20 L34 14 L37 26 L40 8 L43 32 L46 20 L54 20 L57 17 L60 23 L63 12 L66 28 L69 20 L77 20 L80 15 L83 25 L86 9 L89 31 L92 20 L100 20 L103 11 L106 29 L109 5 L112 35 L115 20 L123 20 L126 16 L129 24 L132 13 L135 27 L138 20 L146 20 L149 10 L152 30 L155 4 L158 36 L161 20 L169 20 L172 14 L175 26 L178 8 L181 32 L184 20 L192 20 L195 17 L198 23 L201 12 L204 28 L207 20 L215 20 L218 15 L221 25 L224 9 L227 31 L230 20 L238 20 L241 11 L244 29 L247 5 L250 35 L253 20 L261 20 L264 16 L267 24 L270 13 L273 27 L276 20 L284 20 L287 10 L290 30 L293 4 L296 36 L299 20 L307 20 L310 14 L313 26 L316 8 L319 32 L322 20 L330 20 L333 17 L336 23 L339 12 L342 28 L345 20 L353 20 L356 15 L359 25 L362 9 L365 31 L368 20 L376 20 L379 11 L382 29 L385 5 L388 35 L391 20 L399 20 L402 16 L405 24 L408 13 L411 27 L414 20 L422 20 L425 10 L428 30 L431 4 L434 36 L437 20 L445 20 L448 14 L451 26 L454 8 L457 32 L460 20 L468 20 L471 17 L474 23 L477 12 L480 28 L483 20 L491 20 L494 15 L497 25 L500 9 L503 31 L506 20 L514 20 L517 11 L520 29 L523 5 L526 35 L529 20 L537 20 L540 16 L543 24 L546 13 L549 27 L552 20 L560 20 L563 10 L566 30 L569 4 L572 36 L575 20 L583 20 L586 14 L589 26 L592 8 L595 32 L600 20"
+              fill="none" stroke="#6e9bff" stroke-width="1.3"/>
+          </svg>
+          <div class="hero-badge" id="heroBadge"><span class="hero-badge-dot"></span><span id="heroBadgeText">Carregando…</span></div>
+          <div class="hero-title">dropSFX</div>
+          <div class="hero-sub" id="heroSub">1.463 efeitos sonoros pra editar mais rápido, direto no Premiere Pro.</div>
+          <div class="hero-actions">
+            <a class="btn-primary" href="https://github.com/RossottiVideomaker/SALEPAGE-DROPSFX/releases/latest" target="_blank" rel="noopener">Baixar plugin</a>
+            <span class="hero-meta" id="heroMeta"></span>
+          </div>
         </div>
-        <div class="track-body">
-          <h3>Baixar o plugin</h3>
-          <p>Sempre a versão mais recente, pronta pra instalar no Premiere Pro.</p>
-        </div>
-        <a class="track-action primary" href="https://github.com/RossottiVideomaker/SALEPAGE-DROPSFX/releases/latest" target="_blank" rel="noopener">Baixar</a>
       </div>
 
-      <div class="track" style="--tc:var(--teal)">
-        <div class="track-id">A2</div>
-        <div class="track-chan"></div>
-        <div class="track-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+      <div class="section" id="comunidade">
+        <div class="section-head">
+          <div>
+            <h2>Comunidade e suporte</h2>
+            <p>Pra trocar ideia, aprender e resolver qualquer dúvida.</p>
+          </div>
+          <div class="section-arrows">
+            <button class="arrow-btn" id="rowPrev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="arrow-btn" id="rowNext"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
         </div>
-        <div class="track-body">
-          <h3>Vídeo de instalação</h3>
-          <p id="videoText">Passo a passo mostrando como instalar e ativar o plugin.</p>
+
+        <div class="row" id="posterRow">
+          <div class="poster">
+            <div class="poster-art" style="background:radial-gradient(circle at 50% 35%, rgba(167,139,250,.35), transparent 65%), #0e0b16;">
+              <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity=".8"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+            </div>
+            <div class="poster-fade"></div>
+            <div class="poster-badge soon">EM BREVE</div>
+            <div class="poster-body">
+              <h3>Grupo do WhatsApp</h3>
+              <p>Troca ideia com outros editores.</p>
+              <span class="poster-btn soon">Em breve</span>
+            </div>
+          </div>
+
+          <div class="poster">
+            <div class="poster-art" style="background:radial-gradient(circle at 50% 35%, rgba(45,212,191,.3), transparent 65%), #081210;">
+              <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity=".8"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            </div>
+            <div class="poster-fade"></div>
+            <div class="poster-badge soon">EM BREVE</div>
+            <div class="poster-body">
+              <h3>Vídeo de instalação</h3>
+              <p>Passo a passo completo.</p>
+              <span class="poster-btn soon">Em breve</span>
+            </div>
+          </div>
+
+          <div class="poster">
+            <div class="poster-art" style="background:radial-gradient(circle at 50% 35%, rgba(74,222,128,.3), transparent 65%), #081208;">
+              <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity=".8"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 2-3 4"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div class="poster-fade"></div>
+            <div class="poster-badge">ATIVO</div>
+            <div class="poster-body">
+              <h3>Suporte direto</h3>
+              <p>Chama a gente no WhatsApp.</p>
+              <a class="poster-btn primary" href="https://wa.me/5527992625721" target="_blank" rel="noopener">Falar agora</a>
+            </div>
+          </div>
         </div>
-        <span class="track-action soon" id="videoBtn">Em breve</span>
       </div>
 
-      <div class="track" style="--tc:var(--purple)">
-        <div class="track-id">A3</div>
-        <div class="track-chan"></div>
-        <div class="track-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
-        </div>
-        <div class="track-body">
-          <h3>Grupo do WhatsApp</h3>
-          <p id="waGroupText">Troca ideia com outros editores e fica por dentro das novidades.</p>
-        </div>
-        <span class="track-action soon" id="waGroupBtn">Em breve</span>
-      </div>
-
-      <div class="track" style="--tc:var(--green)">
-        <div class="track-id">A4</div>
-        <div class="track-chan"></div>
-        <div class="track-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 2-3 4"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        </div>
-        <div class="track-body">
-          <h3>Suporte direto</h3>
-          <p>Deu algum problema ou ficou com dúvida? Chama a gente.</p>
-        </div>
-        <a class="track-action outline" href="https://wa.me/5527992625721" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-    </div>
-
-    <div class="foot">dropSFX © 2026 — <a href="https://dropsfx.com.br">dropsfx.com.br</a></div>
+      <div class="foot">dropSFX © 2026 — <a href="https://dropsfx.com.br">dropsfx.com.br</a></div>
+    </main>
   </div>
 </div>
 
@@ -289,7 +292,6 @@ a{color:inherit;}
 (function(){
   var SUPABASE_URL = 'https://bwgrxdjdvrdawarbnqjv.supabase.co';
   var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3Z3J4ZGpkdnJkYXdhcmJucWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwMjIxNDgsImV4cCI6MjA5NDU5ODE0OH0.M1Yw6ljgUzPQWTW0CC8DBn8WV6nZDKCCKTwzcZN_Zo0';
-  // Página em https://dropsfx.com.br/reset-password.html — ajuste se o caminho for outro.
   var RESET_PASSWORD_URL = 'https://dropsfx.com.br/reset-password.html';
   var TOTAL_EFFECTS = 1463;
 
@@ -305,44 +307,24 @@ a{color:inherit;}
   var googleBtn = document.getElementById('googleBtn');
 
   googleBtn.addEventListener('click', function(){
-    sb.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: window.location.origin + window.location.pathname }
-    });
+    sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin + window.location.pathname } });
   });
 
-  function showError(msg){
-    loginOk.classList.add('hidden');
-    loginError.textContent = msg;
-    loginError.classList.remove('hidden');
-  }
-  function showOk(msg){
-    loginError.classList.add('hidden');
-    loginOk.textContent = msg;
-    loginOk.classList.remove('hidden');
-  }
+  function showError(msg){ loginOk.classList.add('hidden'); loginError.textContent = msg; loginError.classList.remove('hidden'); }
+  function showOk(msg){ loginError.classList.add('hidden'); loginOk.textContent = msg; loginOk.classList.remove('hidden'); }
 
   loginForm.addEventListener('submit', function(e){
     e.preventDefault();
-    loginError.classList.add('hidden');
-    loginOk.classList.add('hidden');
-    loginBtn.disabled = true;
-    loginBtn.textContent = 'Entrando…';
-
+    loginError.classList.add('hidden'); loginOk.classList.add('hidden');
+    loginBtn.disabled = true; loginBtn.textContent = 'Entrando…';
     var email = document.getElementById('loginEmail').value.trim();
     var password = document.getElementById('loginPassword').value;
-
     sb.auth.signInWithPassword({ email: email, password: password }).then(function(res){
-      loginBtn.disabled = false;
-      loginBtn.textContent = 'Entrar';
-      if (res.error) {
-        showError('E-mail ou senha incorretos. Confira e tente de novo.');
-        return;
-      }
+      loginBtn.disabled = false; loginBtn.textContent = 'Entrar';
+      if (res.error) { showError('E-mail ou senha incorretos. Confira e tente de novo.'); return; }
       loadDashboard();
     }).catch(function(){
-      loginBtn.disabled = false;
-      loginBtn.textContent = 'Entrar';
+      loginBtn.disabled = false; loginBtn.textContent = 'Entrar';
       showError('Não deu pra conectar agora. Tenta de novo em instantes.');
     });
   });
@@ -365,42 +347,36 @@ a{color:inherit;}
     });
   });
 
-  function formatDate(iso){
-    if (!iso) return '';
-    var d = new Date(iso);
-    return d.toLocaleDateString('pt-BR');
-  }
+  document.getElementById('rowPrev').addEventListener('click', function(){
+    document.getElementById('posterRow').scrollBy({ left: -240, behavior: 'smooth' });
+  });
+  document.getElementById('rowNext').addEventListener('click', function(){
+    document.getElementById('posterRow').scrollBy({ left: 240, behavior: 'smooth' });
+  });
+
+  function formatDate(iso){ if (!iso) return ''; return new Date(iso).toLocaleDateString('pt-BR'); }
 
   function applyStatus(info){
-    var num = document.getElementById('transportNum');
-    var label = document.getElementById('transportLabel');
-    var fill = document.getElementById('transportFill');
-    var sub = document.getElementById('transportSub');
+    var badge = document.getElementById('heroBadge');
+    var badgeText = document.getElementById('heroBadgeText');
+    var meta = document.getElementById('heroMeta');
 
     if (info.license_status === 'active') {
-      num.textContent = TOTAL_EFFECTS;
-      label.textContent = 'Licença ativa — acesso completo';
-      fill.className = 'transport-fill';
-      fill.style.width = '100%';
-      sub.textContent = info.purchased_at ? ('Comprado em ' + formatDate(info.purchased_at)) : '';
+      badge.className = 'hero-badge';
+      badgeText.textContent = 'Acesso liberado';
+      meta.textContent = info.purchased_at ? ('Comprado em ' + formatDate(info.purchased_at)) : '';
     } else if (info.license_status === 'refunded' || info.license_status === 'chargeback' || info.license_status === 'blocked') {
-      num.textContent = '—';
-      label.textContent = 'Licença inativa';
-      fill.className = 'transport-fill off';
-      fill.style.width = '100%';
-      sub.textContent = 'Se acha que isso é um engano, chama no suporte.';
+      badge.className = 'hero-badge off';
+      badgeText.textContent = 'Licença inativa';
+      meta.textContent = 'Se acha que isso é um engano, chama no suporte.';
     } else if (info.trial && info.trial.active) {
-      num.textContent = info.trial.days_left;
-      label.textContent = 'dia(s) restante(s) de teste';
-      fill.className = 'transport-fill trial';
-      fill.style.width = Math.max(6, (1 - info.trial.days_left / 3) * 100) + '%';
-      sub.textContent = 'Depois disso, os ' + TOTAL_EFFECTS + ' efeitos são liberados automaticamente.';
+      badge.className = 'hero-badge trial';
+      badgeText.textContent = 'Teste — ' + info.trial.days_left + ' dia(s) restante(s)';
+      meta.textContent = 'Depois disso, os ' + TOTAL_EFFECTS + ' efeitos são liberados automaticamente.';
     } else {
-      num.textContent = '—';
-      label.textContent = 'Nenhuma licença encontrada pra este e-mail';
-      fill.className = 'transport-fill off';
-      fill.style.width = '0%';
-      sub.textContent = 'Se você comprou recentemente, chama no suporte que a gente resolve.';
+      badge.className = 'hero-badge off';
+      badgeText.textContent = 'Nenhuma licença encontrada';
+      meta.textContent = 'Se você comprou recentemente, chama no suporte.';
     }
   }
 
@@ -411,28 +387,25 @@ a{color:inherit;}
     sb.auth.getSession().then(function(res){
       var session = res.data && res.data.session;
       if (!session) return;
-
       var email = session.user.email || '';
       document.getElementById('userName').textContent = email;
+      document.getElementById('sbAvatar').textContent = email.charAt(0).toUpperCase();
 
       fetch(SUPABASE_URL + '/functions/v1/account-info', {
-        headers: {
-          apikey: SUPABASE_ANON_KEY,
-          Authorization: 'Bearer ' + session.access_token
-        }
+        headers: { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + session.access_token }
       }).then(function(r){ return r.json(); }).then(function(info){
-        if (info.name) document.getElementById('userName').textContent = info.name;
+        if (info.name) {
+          document.getElementById('userName').textContent = info.name;
+          document.getElementById('sbAvatar').textContent = info.name.charAt(0).toUpperCase();
+        }
         applyStatus(info);
       }).catch(function(){
-        document.getElementById('transportLabel').textContent = 'Não foi possível carregar o status agora';
+        document.getElementById('heroBadgeText').textContent = 'Não foi possível carregar o status agora';
       });
     });
   }
 
-  // Se já tem sessão salva no navegador, pula direto pro dashboard
-  sb.auth.getSession().then(function(res){
-    if (res.data && res.data.session) loadDashboard();
-  });
+  sb.auth.getSession().then(function(res){ if (res.data && res.data.session) loadDashboard(); });
 })();
 </script>
 </body>
