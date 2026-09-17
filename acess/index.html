@@ -94,36 +94,44 @@ button{font-family:var(--font);}
 }
 .arrow-btn:hover{color:var(--ink);border-color:var(--ink);}
 
-/* ─── HERO BANNER ─── */
+/* ─── HERO BANNER (ticket) ─── */
 .hero{
-  position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line);
-  background:radial-gradient(ellipse 90% 140% at 100% 0%, rgba(59,110,245,.22), transparent 60%),
-             radial-gradient(ellipse 70% 100% at 100% 100%, rgba(45,212,191,.14), transparent 60%),
-             #08090c;
-  display:flex;min-height:190px;
+  position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);
+  background:radial-gradient(ellipse 55% 90% at 68% 40%, rgba(59,110,245,.30), transparent 65%),
+             radial-gradient(ellipse 40% 70% at 85% 75%, rgba(45,212,191,.16), transparent 60%),
+             #07080b;
+  display:flex;min-height:200px;
 }
-.ticket-main{flex:1;min-width:0;padding:34px 36px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;position:relative;z-index:1;}
 .ticket-stub{
-  flex:0 0 168px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;
+  flex:0 0 64px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+  padding:20px 0;position:relative;z-index:1;
 }
-.ticket-perf{position:relative;flex:0 0 1px;background-image:linear-gradient(var(--line-2) 50%, transparent 50%);background-size:1px 10px;margin:20px 0;}
-.ticket-notch{
-  position:absolute;left:-11px;width:22px;height:22px;border-radius:50%;background:var(--bg);z-index:2;
+.stub-code{width:26px;height:104px;flex-shrink:0;opacity:.85;}
+.stub-mark{
+  width:26px;height:26px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--accent),var(--teal));
+  display:flex;align-items:center;justify-content:center;
 }
+.stub-mark img{width:15px;height:15px;object-fit:contain;filter:brightness(0) invert(1);}
+.ticket-perf{position:relative;flex:0 0 1px;background-image:linear-gradient(var(--line-2) 50%, transparent 50%);background-size:1px 10px;margin:18px 0;}
+.ticket-notch{position:absolute;left:-11px;width:22px;height:22px;border-radius:50%;background:var(--bg);z-index:2;}
 .ticket-notch.top{top:-11px;}
 .ticket-notch.bottom{bottom:-11px;}
-.hero-wave{position:absolute;right:-30px;top:50%;transform:translateY(-50%);width:70%;opacity:.3;pointer-events:none;}
+
+.ticket-main{flex:1;min-width:0;padding:24px 30px;display:flex;flex-direction:column;justify-content:space-between;position:relative;z-index:1;}
+.ticket-top{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.top-code{width:100px;height:20px;margin-top:6px;opacity:.75;flex-shrink:0;}
+.hero-logo{height:44px;width:auto;flex-shrink:0;}
+.ticket-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;}
 .hero-badge{
   display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.3px;
   padding:5px 11px;border-radius:99px;border:1px solid rgba(74,222,128,.35);color:var(--green);
-  background:rgba(74,222,128,.08);margin-bottom:16px;width:fit-content;
+  background:rgba(74,222,128,.08);margin-bottom:8px;width:fit-content;
 }
 .hero-badge.trial{border-color:rgba(250,204,21,.35);color:var(--yellow);background:rgba(250,204,21,.08);}
 .hero-badge.off{border-color:rgba(248,113,113,.35);color:var(--red);background:rgba(248,113,113,.08);}
 .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
-.hero-title{font-family:var(--font-display);font-size:52px;font-weight:400;letter-spacing:.5px;line-height:1;margin-bottom:10px;}
 .hero-meta{font-size:11.5px;color:var(--muted);}
-.hero-meta strong{color:var(--ink);}
 .btn-primary{background:var(--accent);color:#fff;border:none;border-radius:11px;padding:12px 22px;font-size:13.5px;font-weight:700;cursor:pointer;text-decoration:none;transition:.15s;display:inline-flex;white-space:nowrap;}
 .btn-primary:hover{background:var(--accent-hi);}
 
@@ -158,14 +166,16 @@ button{font-family:var(--font);}
 
 @media(max-width:560px){
   .hero{flex-direction:column;}
-  .ticket-main{padding:26px 24px 20px;}
-  .hero-title{font-size:38px;}
-  .ticket-perf{flex:none;width:auto;height:1px;margin:0 24px;background-image:linear-gradient(90deg, var(--line-2) 50%, transparent 50%);background-size:10px 1px;}
+  .ticket-stub{flex-direction:row;flex:none;padding:14px 20px;gap:12px;justify-content:flex-start;}
+  .stub-code{display:none;}
+  .ticket-perf{flex:none;width:auto;height:1px;margin:0 20px;background-image:linear-gradient(90deg, var(--line-2) 50%, transparent 50%);background-size:10px 1px;}
   .ticket-notch{left:auto;top:-11px;}
   .ticket-notch.top{left:-11px;}
   .ticket-notch.bottom{right:-11px;bottom:auto;}
-  .ticket-stub{flex:none;padding:18px 24px;}
-  .hero-wave{width:90%;opacity:.18;}
+  .ticket-main{padding:20px 20px 18px;gap:20px;}
+  .ticket-top{align-items:center;}
+  .hero-logo{height:34px;}
+  .top-code{width:70px;height:16px;}
 }
 @media(max-width:760px){
   .app{flex-direction:column;}
@@ -181,8 +191,7 @@ button{font-family:var(--font);}
   .sb-logout{margin:0 0 0 auto;padding:0;border-top:none;flex-shrink:0;}
   .content{padding:24px 18px 50px;max-width:100%;}
   .hero{padding:28px 24px;}
-  .hero-title{font-size:38px;}
-  .hero-wave{width:80%;opacity:.22;}
+  .hero-logo{height:38px;}
 }
 </style>
 </head>
@@ -235,68 +244,79 @@ button{font-family:var(--font);}
     <main class="content">
       <div class="section">
         <div class="hero">
-          <svg class="hero-wave" viewBox="0 0 306 60" preserveAspectRatio="xMidYMid meet">
-            <defs>
-              <linearGradient id="barGrad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#3b6ef5"/>
-                <stop offset="100%" stop-color="#2dd4bf"/>
-              </linearGradient>
-              <linearGradient id="barFade" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
-                <stop offset="18%" stop-color="#fff" stop-opacity="1"/>
-                <stop offset="82%" stop-color="#fff" stop-opacity="1"/>
-                <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-              </linearGradient>
-              <mask id="barMask"><rect x="0" y="0" width="306" height="60" fill="url(#barFade)"/></mask>
-            </defs>
-            <g fill="url(#barGrad)" mask="url(#barMask)">
-            <rect x="0" y="22.1" width="4" height="15.9" rx="2"/>
-            <rect x="9" y="15.7" width="4" height="28.6" rx="2"/>
-            <rect x="18" y="6.8" width="4" height="46.4" rx="2"/>
-            <rect x="27" y="7.0" width="4" height="46.0" rx="2"/>
-            <rect x="36" y="4.2" width="4" height="51.5" rx="2"/>
-            <rect x="45" y="8.6" width="4" height="42.8" rx="2"/>
-            <rect x="54" y="16.4" width="4" height="27.2" rx="2"/>
-            <rect x="63" y="20.8" width="4" height="18.4" rx="2"/>
-            <rect x="72" y="16.3" width="4" height="27.5" rx="2"/>
-            <rect x="81" y="8.0" width="4" height="44.0" rx="2"/>
-            <rect x="90" y="7.0" width="4" height="46.1" rx="2"/>
-            <rect x="99" y="6.9" width="4" height="46.1" rx="2"/>
-            <rect x="108" y="8.3" width="4" height="43.4" rx="2"/>
-            <rect x="117" y="11.9" width="4" height="36.2" rx="2"/>
-            <rect x="126" y="23.0" width="4" height="14.1" rx="2"/>
-            <rect x="135" y="15.0" width="4" height="30.0" rx="2"/>
-            <rect x="144" y="6.7" width="4" height="46.5" rx="2"/>
-            <rect x="153" y="1.7" width="4" height="56.7" rx="2"/>
-            <rect x="162" y="4.0" width="4" height="51.9" rx="2"/>
-            <rect x="171" y="8.6" width="4" height="42.9" rx="2"/>
-            <rect x="180" y="11.1" width="4" height="37.7" rx="2"/>
-            <rect x="189" y="23.3" width="4" height="13.4" rx="2"/>
-            <rect x="198" y="11.1" width="4" height="37.9" rx="2"/>
-            <rect x="207" y="8.7" width="4" height="42.6" rx="2"/>
-            <rect x="216" y="6.5" width="4" height="47.1" rx="2"/>
-            <rect x="225" y="6.8" width="4" height="46.3" rx="2"/>
-            <rect x="234" y="9.2" width="4" height="41.6" rx="2"/>
-            <rect x="243" y="12.2" width="4" height="35.5" rx="2"/>
-            <rect x="252" y="22.3" width="4" height="15.3" rx="2"/>
-            <rect x="261" y="12.6" width="4" height="34.8" rx="2"/>
-            <rect x="270" y="6.5" width="4" height="47.0" rx="2"/>
-            <rect x="279" y="5.1" width="4" height="49.9" rx="2"/>
-            <rect x="288" y="4.3" width="4" height="51.4" rx="2"/>
-            <rect x="297" y="10.8" width="4" height="38.5" rx="2"/>
-            </g>
-          </svg>
-          <div class="ticket-main">
-            <div class="hero-badge" id="heroBadge"><span class="hero-badge-dot"></span><span id="heroBadgeText">Carregando…</span></div>
-            <div class="hero-title">dropSFX</div>
-            <div class="hero-meta" id="heroMeta"></div>
+          <div class="ticket-stub">
+            <svg class="stub-code" viewBox="0 0 26 104" preserveAspectRatio="none">
+              <rect x="0" y="0.0" width="26" height="3" fill="#fff"/>
+              <rect x="0" y="6.0" width="26" height="3" fill="#fff"/>
+              <rect x="0" y="11.0" width="26" height="2" fill="#fff"/>
+              <rect x="0" y="16.0" width="26" height="1.5" fill="#fff"/>
+              <rect x="0" y="19.5" width="26" height="1.5" fill="#fff"/>
+              <rect x="0" y="24.0" width="26" height="2" fill="#fff"/>
+              <rect x="0" y="29.5" width="26" height="4" fill="#fff"/>
+              <rect x="0" y="36.0" width="26" height="1.5" fill="#fff"/>
+              <rect x="0" y="40.0" width="26" height="2" fill="#fff"/>
+              <rect x="0" y="44.5" width="26" height="2" fill="#fff"/>
+              <rect x="0" y="50.5" width="26" height="3" fill="#fff"/>
+              <rect x="0" y="56.0" width="26" height="1.5" fill="#fff"/>
+              <rect x="0" y="60.0" width="26" height="3" fill="#fff"/>
+              <rect x="0" y="65.5" width="26" height="4" fill="#fff"/>
+              <rect x="0" y="72.0" width="26" height="1.5" fill="#fff"/>
+              <rect x="0" y="76.0" width="26" height="2" fill="#fff"/>
+              <rect x="0" y="80.5" width="26" height="2" fill="#fff"/>
+              <rect x="0" y="86.0" width="26" height="1.5" fill="#fff"/>
+              <rect x="0" y="90.0" width="26" height="3" fill="#fff"/>
+              <rect x="0" y="96.0" width="26" height="2" fill="#fff"/>
+              <rect x="0" y="101.0" width="26" height="2" fill="#fff"/>
+            </svg>
+            <div class="stub-mark"><img src="assets/logo.png" alt=""/></div>
           </div>
           <div class="ticket-perf">
             <div class="ticket-notch top"></div>
             <div class="ticket-notch bottom"></div>
           </div>
-          <div class="ticket-stub">
-            <a class="btn-primary" href="https://github.com/RossottiVideomaker/SALEPAGE-DROPSFX/releases/latest/download/dropSFX-oficial.zip" download>Baixar</a>
+          <div class="ticket-main">
+            <div class="ticket-top">
+              <svg class="top-code" viewBox="0 0 132 20" preserveAspectRatio="none">
+                <rect x="0.0" y="0" width="2" height="20" fill="#fff"/>
+                <rect x="4.0" y="0" width="2" height="20" fill="#fff"/>
+                <rect x="9.0" y="0" width="1.5" height="20" fill="#fff"/>
+                <rect x="12.0" y="0" width="4" height="20" fill="#fff"/>
+                <rect x="17.5" y="0" width="2" height="20" fill="#fff"/>
+                <rect x="22.0" y="0" width="2" height="20" fill="#fff"/>
+                <rect x="27.0" y="0" width="1.5" height="20" fill="#fff"/>
+                <rect x="31.0" y="0" width="2" height="20" fill="#fff"/>
+                <rect x="36.0" y="0" width="3" height="20" fill="#fff"/>
+                <rect x="42.0" y="0" width="2" height="20" fill="#fff"/>
+                <rect x="47.0" y="0" width="4" height="20" fill="#fff"/>
+                <rect x="54.0" y="0" width="1.5" height="20" fill="#fff"/>
+                <rect x="58.0" y="0" width="2" height="20" fill="#fff"/>
+                <rect x="63.0" y="0" width="2" height="20" fill="#fff"/>
+                <rect x="68.0" y="0" width="1.5" height="20" fill="#fff"/>
+                <rect x="72.0" y="0" width="2" height="20" fill="#fff"/>
+                <rect x="77.0" y="0" width="4" height="20" fill="#fff"/>
+                <rect x="84.0" y="0" width="2" height="20" fill="#fff"/>
+                <rect x="89.0" y="0" width="1.5" height="20" fill="#fff"/>
+                <rect x="93.0" y="0" width="3" height="20" fill="#fff"/>
+                <rect x="99.0" y="0" width="2" height="20" fill="#fff"/>
+                <rect x="104.0" y="0" width="2" height="20" fill="#fff"/>
+                <rect x="109.0" y="0" width="1.5" height="20" fill="#fff"/>
+                <rect x="113.0" y="0" width="2" height="20" fill="#fff"/>
+                <rect x="118.0" y="0" width="4" height="20" fill="#fff"/>
+                <rect x="125.0" y="0" width="2" height="20" fill="#fff"/>
+                <rect x="129.5" y="0" width="1.5" height="20" fill="#fff"/>
+              </svg>
+              <img class="hero-logo" src="assets/logo.png" alt="dropSFX"/>
+            </div>
+            <div class="ticket-bottom">
+              <div>
+                <div class="hero-badge" id="heroBadge"><span class="hero-badge-dot"></span><span id="heroBadgeText">Carregando…</span></div>
+                <div class="hero-meta" id="heroMeta"></div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+                <a class="btn-primary" href="https://github.com/RossottiVideomaker/SALEPAGE-DROPSFX/releases/latest/download/dropSFX-oficial.zip" download>Baixar</a>
+                <span id="versionTag" style="font-size:10px;color:var(--muted);"></span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -465,6 +485,13 @@ button{font-family:var(--font);}
   function loadDashboard(){
     loginWrap.classList.add('hidden');
     dashRoot.classList.remove('hidden');
+
+    fetch(SUPABASE_URL + '/functions/v1/current-version', { headers: { apikey: SUPABASE_ANON_KEY } })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var el = document.getElementById('versionTag');
+        if (el && d && d.version) el.textContent = 'v' + d.version + ' · sempre atualizado';
+      }).catch(function(){});
 
     sb.auth.getSession().then(function(res){
       var session = res.data && res.data.session;
