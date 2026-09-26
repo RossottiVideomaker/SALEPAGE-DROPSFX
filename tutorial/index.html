@@ -229,6 +229,29 @@
     .dl-meta{justify-content:center}
   }
 
+
+  .app-switch{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+  .app-tab{flex:1;min-width:220px;display:flex;align-items:center;gap:12px;padding:14px 16px;
+    border-radius:14px;border:1px solid var(--line);background:var(--surface);cursor:pointer;
+    font-family:var(--font);text-align:left;transition:.25s;position:relative}
+  .app-tab:hover{border-color:var(--line2);background:var(--surface2)}
+  .app-tab.active{border-color:rgba(59,110,245,.45);background:rgba(59,110,245,.08);
+    box-shadow:0 4px 20px rgba(59,110,245,.12)}
+  .app-tab-ic{display:flex;gap:4px;flex-shrink:0}
+  .app-badge{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
+    border-radius:7px;font-size:11px;font-weight:700;color:#fff;font-family:var(--font)}
+  .app-badge.pr{background:linear-gradient(135deg,#0060e6,#003ba5)}
+  .app-badge.ae{background:linear-gradient(135deg,#7c3aed,#4c1d95)}
+  .app-badge.dv{background:linear-gradient(135deg,#c94f2c,#7a2a14)}
+  .app-icon-img{width:26px;height:26px;display:block;flex-shrink:0}
+  .app-tab-txt strong{display:block;font-size:14px;font-weight:700;color:var(--txt);line-height:1.25}
+  .app-tab-txt span{display:block;font-size:11.5px;color:var(--txt3);margin-top:2px}
+  .app-tab.active .app-tab-txt span{color:var(--txt2)}
+  .studio-tag{position:absolute;top:10px;right:12px;font-size:9px;font-weight:800;letter-spacing:1.2px;
+    padding:3px 8px;border-radius:5px;background:rgba(201,79,44,.16);color:#f08a63;
+    border:1px solid rgba(201,79,44,.4)}
+  .app-pane{display:none}
+  .app-pane.active{display:block;animation:panelFade .35s cubic-bezier(.2,.8,.2,1)}
   .tabs{display:flex;gap:6px;background:var(--surface);border:1px solid var(--line);
     border-radius:14px;padding:5px;margin-bottom:26px;position:relative}
   .tab{flex:1;text-align:center;padding:12px;border-radius:9px;font-size:14px;font-weight:600;
@@ -473,7 +496,7 @@
     <img class="hero-logo" src="logo.png" alt="dropSFX"/>
     <span class="badge"><span class="badge-dot"></span><span data-i18n="hero.badge">Compra confirmada</span></span>
     <h1 data-i18n="hero.title">Bem-vindo ao<br><span class="ice">próximo nível.</span></h1>
-    <p data-i18n="hero.sub">Sua jornada começa agora. Em poucos minutos, o dropSFX vai estar rodando dentro do seu Premiere.</p>
+    <p data-i18n="hero.sub">Sua jornada começa agora. Em poucos minutos, o dropSFX vai estar rodando dentro do seu editor.</p>
   </div>
 </header>
 
@@ -486,6 +509,27 @@
     <h2 class="reveal d1" data-i18n="s1.h2">Instale o painel.</h2>
     <p class="sec-sub reveal d2" data-i18n="s1.sub">Baixe o arquivo e siga o passo a passo do seu sistema. Marque cada etapa conforme avança.</p>
 
+
+    <div class="app-switch reveal d2">
+      <button class="app-tab active" data-app="adobe" onclick="switchApp('adobe')">
+        <span class="app-tab-ic"><span class="app-badge pr">Pr</span><span class="app-badge ae">Ae</span></span>
+        <span class="app-tab-txt">
+          <strong data-i18n="app.adobe">Premiere Pro &amp; After Effects</strong>
+          <span data-i18n="app.adobe.sub">Instalação via extensão CEP</span>
+        </span>
+      </button>
+      <button class="app-tab" data-app="resolve" onclick="switchApp('resolve')">
+        <span class="app-tab-ic"><svg class="app-icon-img" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="DaVinci Resolve"><rect width="40" height="40" rx="10" fill="#17171c"/><rect x="0.5" y="0.5" width="39" height="39" rx="9.5" stroke="rgba(255,255,255,.14)"/><g style="mix-blend-mode:screen"><circle cx="15" cy="16" r="8.5" fill="#e0453f" fill-opacity=".92"/><circle cx="25" cy="16" r="8.5" fill="#35c46b" fill-opacity=".92"/><circle cx="20" cy="25" r="8.5" fill="#3b7bf5" fill-opacity=".92"/></g></svg></span>
+        <span class="app-tab-txt">
+          <strong data-i18n="app.resolve">DaVinci Resolve</strong>
+          <span data-i18n="app.resolve.sub">Somente na versão Studio (paga)</span>
+        </span>
+        <span class="studio-tag">STUDIO</span>
+      </button>
+    </div>
+
+    <div class="app-pane active" id="pane-adobe">
+
     <div class="dl-card reveal d2">
       <div class="dl-inner">
         <div class="dl-icon-wrap">
@@ -495,14 +539,14 @@
           </div>
         </div>
         <div class="dl-info">
-          <h3>DropSFX.2.0.zip</h3>
+  <h3 id="dlFileName">dropSFX-oficial.zip</h3>
           <div class="dl-meta">
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="dl.version">Versão 2.0</span></span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="dl.version" class="dl-version-tag">Versão 2.2.1</span></span>
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span data-i18n="dl.platforms">Mac e Windows</span></span>
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/></svg>~280 MB</span>
           </div>
         </div>
-        <a class="dl-btn" href="https://github.com/RossottiVideomaker/SALEPAGE-DROPSFX/releases/latest/download/dropSFX-oficial.zip" download onclick="onDownload()">
+        <a class="dl-btn" href="https://github.com/RossottiVideomaker/SALEPAGE-DROPSFX/releases/download/1.0.0/dropsfx-oficial.zip" download onclick="onDownload()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           <span data-i18n="dl.btn">Baixar agora</span>
         </a>
@@ -521,7 +565,7 @@
       </button>
     </div>
 
-    <div class="panel active" id="panel-mac">
+    <div class="panel active" id="panel-mac" data-os="mac">
       <div class="step reveal" data-stepid="mac1">
         <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div class="step-n">1</div>
@@ -554,13 +598,13 @@
         <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div class="step-n">4</div>
         <div class="step-body">
-          <strong data-i18n="mac4.t">Reinicie o Premiere</strong>
-          <p data-i18n="mac4.p">Feche e abra o Premiere Pro. O painel fica em <b>Janela → Extensões → DropSFX</b>.</p>
+          <strong data-i18n="mac4.t">Reinicie o Premiere ou After Effects</strong>
+          <p data-i18n="mac4.p">Feche e abra o app. O painel fica em <b>Janela → Extensões → dropSFX</b> tanto no Premiere Pro quanto no After Effects.</p>
         </div>
       </div>
     </div>
 
-    <div class="panel" id="panel-win">
+    <div class="panel" id="panel-win" data-os="win">
       <div class="step reveal" data-stepid="win1">
         <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div class="step-n">1</div>
@@ -593,11 +637,114 @@
         <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div class="step-n">4</div>
         <div class="step-body">
-          <strong data-i18n="win4.t">Reinicie o Premiere</strong>
-          <p data-i18n="win4.p">Feche e abra o Premiere Pro. O painel fica em <b>Janela → Extensões → DropSFX</b>.</p>
+          <strong data-i18n="win4.t">Reinicie o Premiere ou After Effects</strong>
+          <p data-i18n="win4.p">Feche e abra o app. O painel fica em <b>Janela → Extensões → dropSFX</b> tanto no Premiere Pro quanto no After Effects.</p>
         </div>
       </div>
     </div>
+    </div><!-- /pane-adobe -->
+
+    <div class="app-pane" id="pane-resolve">
+
+      <div class="note reveal" style="margin-bottom:20px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+        <div data-i18n="res.note"><b>Requer o DaVinci Resolve Studio</b> — a versão paga, da 18.5 em diante. No Resolve gratuito o plugin não abre: a versão gratuita não carrega painéis de terceiros, o que é uma limitação da Blackmagic e vale para qualquer plugin, não só o dropSFX. Antes de instalar, confirme em <b>DaVinci Resolve → Sobre</b> que aparece <b>Studio</b> no nome.</div>
+      </div>
+
+      <div class="dl-card reveal d2">
+        <div class="dl-inner">
+          <div class="dl-icon-wrap">
+            <div class="dl-icon-ring"></div>
+            <div class="dl-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </div>
+          </div>
+          <div class="dl-info">
+            <h3>dropSFX-resolve.zip</h3>
+            <div class="dl-meta">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="dl.version" class="dl-version-tag">Versão 2.2.1</span></span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span data-i18n="dl.studio">Resolve Studio 18.5+</span></span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/></svg>~265 MB</span>
+            </div>
+          </div>
+          <a class="dl-btn" href="https://github.com/RossottiVideomaker/SALEPAGE-DROPSFX/releases/download/3.0/dropSFX-resolve.zip" download onclick="onDownload()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span data-i18n="dl.btn">Baixar agora</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="tabs reveal">
+        <div class="tab-slider"></div>
+        <button class="tab active" data-os="mac" onclick="switchOS('mac')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.5c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.83-.81-3.01-.79-1.55.02-2.98.9-3.77 2.28-1.61 2.8-.41 6.95 1.16 9.22.77 1.11 1.69 2.36 2.89 2.31 1.16-.05 1.6-.75 3-.75s1.8.75 3.02.72c1.25-.02 2.04-1.13 2.8-2.25.88-1.29 1.25-2.54 1.27-2.6-.03-.01-2.43-.93-2.45-3.69M14.77 5.2c.64-.78 1.07-1.86.95-2.94-.92.04-2.03.61-2.69 1.39-.59.69-1.11 1.79-.97 2.85 1.03.08 2.07-.52 2.71-1.3"/></svg>
+          macOS
+        </button>
+        <button class="tab" data-os="win" onclick="switchOS('win')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.48l7.5-1.02v7.23H3M11.25 4.35L21 3v8.69h-9.75M3 12.52h7.5v7.24L3 18.74M11.25 12.52H21V21l-9.75-1.34"/></svg>
+          Windows
+        </button>
+      </div>
+
+      <div class="panel active" data-os="mac">
+      <div class="step reveal" data-stepid="rmac1">
+        <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div class="step-n">1</div>
+        <div class="step-body">
+          <strong data-i18n="rmac1.t">Extraia o arquivo</strong>
+          <p data-i18n="rmac1.p">Clique duas vezes no <b>dropSFX-resolve.zip</b> que você baixou. Vai criar uma pasta chamada <b>dropSFX</b>.</p>
+        </div>
+      </div>
+      <div class="step reveal" data-stepid="rmac2">
+        <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div class="step-n">2</div>
+        <div class="step-body">
+          <strong data-i18n="rmac2.t">Cole na pasta de integrações</strong>
+          <p data-i18n="rmac2.p1">No Finder, aperte <b>⇧⌘G</b> e cole o caminho:</p>
+          <div class="path"><span class="path-text">/Library/Application Support/Blackmagic Design/DaVinci Resolve/Workflow Integration Plugins/</span><button class="copy-btn" onclick="copyTxt(this,'/Library/Application Support/Blackmagic Design/DaVinci Resolve/Workflow Integration Plugins/')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg><span data-i18n="copy.label">copiar</span></button></div>
+          <p style="margin-top:8px" data-i18n="rmac2.p2">Cole a pasta <b>dropSFX</b> aqui dentro. (Se a pasta <b>Workflow Integration Plugins</b> não existir, crie ela. Atenção: é a <b>/Library da raiz do disco</b>, não a que fica dentro da sua pasta de usuário. Vai pedir senha de administrador.)</p>
+        </div>
+      </div>
+      <div class="step reveal" data-stepid="rmac3">
+        <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div class="step-n">3</div>
+        <div class="step-body">
+          <strong data-i18n="rmac3.t">Abra o painel no Resolve</strong>
+          <p data-i18n="rmac3.p">Feche e abra o DaVinci Resolve. O painel fica em <b>Workspace → Workflow Integrations → dropSFX</b>.</p>
+        </div>
+      </div>
+      </div>
+
+      <div class="panel" data-os="win">
+      <div class="step reveal" data-stepid="rwin1">
+        <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div class="step-n">1</div>
+        <div class="step-body">
+          <strong data-i18n="rwin1.t">Extraia o arquivo</strong>
+          <p data-i18n="rwin1.p">Botão direito no <b>dropSFX-resolve.zip</b> → <b>Extrair tudo</b>. Vai criar uma pasta chamada <b>dropSFX</b>.</p>
+        </div>
+      </div>
+      <div class="step reveal" data-stepid="rwin2">
+        <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div class="step-n">2</div>
+        <div class="step-body">
+          <strong data-i18n="rwin2.t">Cole na pasta de integrações</strong>
+          <p data-i18n="rwin2.p1">No <b>Explorador de Arquivos</b>, cole o caminho na barra de endereço:</p>
+          <div class="path"><span class="path-text">C:\ProgramData\Blackmagic Design\DaVinci Resolve\Support\Workflow Integration Plugins\</span><button class="copy-btn" onclick="copyTxt(this,'C:\\ProgramData\\Blackmagic Design\\DaVinci Resolve\\Support\\Workflow Integration Plugins\\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg><span data-i18n="copy.label">copiar</span></button></div>
+          <p style="margin-top:8px" data-i18n="rwin2.p2">Cole a pasta <b>dropSFX</b> aqui dentro. (A pasta <b>ProgramData</b> é oculta — por isso cole o caminho direto na barra de endereço. Se a pasta <b>Workflow Integration Plugins</b> não existir, crie ela. Não confunda com <b>Program Files</b>.)</p>
+        </div>
+      </div>
+      <div class="step reveal" data-stepid="rwin3">
+        <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div class="step-n">3</div>
+        <div class="step-body">
+          <strong data-i18n="rwin3.t">Abra o painel no Resolve</strong>
+          <p data-i18n="rwin3.p">Feche e abra o DaVinci Resolve. O painel fica em <b>Workspace → Workflow Integrations → dropSFX</b>.</p>
+        </div>
+      </div>
+      </div>
+
+    </div><!-- /pane-resolve -->
   </div>
 </section>
 
@@ -615,7 +762,7 @@
       <div class="step-n">1</div>
       <div class="step-body">
         <strong data-i18n="acc1.t">Abra o painel dropSFX</strong>
-        <p data-i18n="acc1.p">No Premiere, vá em <b>Janela → Extensões → dropSFX</b>. Na tela de login, clique em <b>Entrar com Google</b>.</p>
+        <p data-i18n="acc1.p">Abra o painel do dropSFX: no Premiere e After Effects em <b>Janela → Extensões → dropSFX</b>; no DaVinci Resolve em <b>Workspace → Workflow Integrations → dropSFX</b>. Na tela de login, clique em <b>Entrar com Google</b>.</p>
         <div class="gbtn-preview">
           <svg viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 01-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.02-3.7H.96v2.34A9 9 0 009 18z"/><path fill="#FBBC05" d="M3.98 10.72a5.4 5.4 0 010-3.44V4.94H.96a9 9 0 000 8.12l3.02-2.34z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.46 3.44 1.35l2.58-2.58C13.47.9 11.43 0 9 0A9 9 0 00.96 4.94l3.02 2.34C4.68 5.16 6.66 3.58 9 3.58z"/></svg>
           <span data-i18n="gbtn.label">Entrar com Google</span>
@@ -723,6 +870,10 @@
         <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq9.q">Funciona em qual versão do Premiere?</span><span class="faq-icon"></span></button>
         <div class="faq-a"><p data-i18n="faq9.a">Adobe Premiere Pro CC 2020 em diante, incluindo as versões mais recentes, no Mac (Intel e Apple Silicon) e Windows 10/11.</p></div>
       </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq10.q">Funciona no DaVinci Resolve?</span><span class="faq-icon"></span></button>
+        <div class="faq-a"><p data-i18n="faq10.a">Sim, no <b>DaVinci Resolve Studio 18.5 ou mais recente</b>. A versão gratuita do Resolve não carrega painéis de terceiros, então o plugin não roda nela — é uma restrição da Blackmagic que vale pra qualquer plugin, não só o dropSFX.</p></div>
+      </div>
     </div>
   </div>
 </section>
@@ -773,7 +924,7 @@
       'progress.install':'Install','progress.signin':'Sign in','progress.use':'Use',
       'hero.badge':'Purchase confirmed',
       'hero.title':'Welcome to the<br><span class="ice">next level.</span>',
-      'hero.sub':'Your journey starts now. In a few minutes, dropSFX will be running inside your Premiere.',
+      'hero.sub':'Your journey starts now. In a few minutes, dropSFX will be running inside your editor.',
       's1.num':'Installation','s1.h2':'Install the panel.',
       's1.sub':'Download the file and follow the steps for your system. Check off each step as you go.',
       'dl.version':'Version 2.0','dl.platforms':'Mac & Windows','dl.btn':'Download now',
@@ -785,8 +936,8 @@
       'mac3.t':'Enable extensions (works on every version)',
       'mac3.p1':'Open <b>Terminal</b>, paste the command below and press Enter. It enables everything at once for any Premiere version.',
       'mac3.p2':'You don\u2019t need to know which version you have — the command covers everything from CS to the latest Premiere.',
-      'mac4.t':'Restart Premiere',
-      'mac4.p':'Close and reopen Premiere Pro. The panel is under <b>Window → Extensions → DropSFX</b>.',
+      'mac4.t':'Restart Premiere or After Effects',
+      'mac4.p':'Close and reopen the app. The panel is under <b>Window → Extensions → dropSFX</b> in both Premiere Pro and After Effects.',
       'win1.t':'Extract the file',
       'win1.p':'Right-click <b>DropSFX.2.0.zip</b> → <b>Extract All</b>. It will create a folder called <b>DropSFX</b>.',
       'win2.t':'Open the extensions folder',
@@ -795,12 +946,12 @@
       'win3.t':'Enable extensions (works on every version)',
       'win3.p1':'Press <b>Win + R</b>, type <b>cmd</b> and press Enter. Paste the command below and press Enter:',
       'win3.p2':'You don\u2019t need to know which version you have — the command covers everything from CS to the latest Premiere.',
-      'win4.t':'Restart Premiere',
-      'win4.p':'Close and reopen Premiere Pro. The panel is under <b>Window → Extensions → DropSFX</b>.',
+      'win4.t':'Restart Premiere or After Effects',
+      'win4.p':'Close and reopen the app. The panel is under <b>Window → Extensions → dropSFX</b> in both Premiere Pro and After Effects.',
       's2.num':'Access','s2.h2':'Sign in with Google.',
       's2.sub':'No password, no sign-up. You log in with the same Google account as the email you used for the purchase.',
       'acc1.t':'Open the dropSFX panel',
-      'acc1.p':'In Premiere, go to <b>Window → Extensions → dropSFX</b>. On the login screen, click <b>Sign in with Google</b>.',
+      'acc1.p':'Open the dropSFX panel: in Premiere and After Effects go to <b>Window → Extensions → dropSFX</b>; in DaVinci Resolve go to <b>Workspace → Workflow Integrations → dropSFX</b>. On the login screen, click <b>Sign in with Google</b>.',
       'gbtn.label':'Sign in with Google',
       'acc2.t':'Choose your account in the browser',
       'acc2.p':'A tab opens in your browser. <b>Select the Google account of the email you used for the purchase</b> and authorize access.',
@@ -835,6 +986,20 @@
       'faq8.a':'Only the first time, for login and verification. After that the sounds live on your computer and you can use it offline.',
       'faq9.q':'Which Premiere versions does it work with?',
       'faq9.a':'Adobe Premiere Pro CC 2020 and later, including the latest versions, on Mac (Intel and Apple Silicon) and Windows 10/11.',
+      'app.adobe':'Premiere Pro & After Effects','app.adobe.sub':'Install as a CEP extension',
+      'app.resolve':'DaVinci Resolve','app.resolve.sub':'Studio version only (paid)',
+      'dl.studio':'Resolve Studio 18.5+',
+      'res.note':'<b>Requires DaVinci Resolve Studio</b> \u2014 the paid version, 18.5 or newer. On the free Resolve the plugin will not open: the free version does not load third-party panels, a Blackmagic limitation that applies to every plugin, not just dropSFX. Before installing, check under <b>DaVinci Resolve \u2192 About</b> that it says <b>Studio</b>.',
+      'rmac1.t':'Extract the file','rmac1.p':'Double-click the <b>dropSFX-resolve.zip</b> you downloaded. It will create a folder called <b>dropSFX</b>.',
+      'rmac2.t':'Paste it in the integrations folder','rmac2.p1':'In Finder, press <b>\u21e7\u2318G</b> and paste the path:',
+      'rmac2.p2':'Paste the <b>dropSFX</b> folder in here. (If the <b>Workflow Integration Plugins</b> folder doesn\u2019t exist, create it. Note: this is the <b>/Library at the root of the disk</b>, not the one inside your user folder. It will ask for an admin password.)',
+      'rmac3.t':'Open the panel in Resolve','rmac3.p':'Close and reopen DaVinci Resolve. The panel is under <b>Workspace \u2192 Workflow Integrations \u2192 dropSFX</b>.',
+      'rwin1.t':'Extract the file','rwin1.p':'Right-click <b>dropSFX-resolve.zip</b> \u2192 <b>Extract All</b>. It will create a folder called <b>dropSFX</b>.',
+      'rwin2.t':'Paste it in the integrations folder','rwin2.p1':'In <b>File Explorer</b>, paste the path into the address bar:',
+      'rwin2.p2':'Paste the <b>dropSFX</b> folder in here. (The <b>ProgramData</b> folder is hidden \u2014 that\u2019s why you paste the path directly. If the <b>Workflow Integration Plugins</b> folder doesn\u2019t exist, create it. Don\u2019t confuse it with <b>Program Files</b>.)',
+      'rwin3.t':'Open the panel in Resolve','rwin3.p':'Close and reopen DaVinci Resolve. The panel is under <b>Workspace \u2192 Workflow Integrations \u2192 dropSFX</b>.',
+      'faq10.q':'Does it work on DaVinci Resolve?',
+      'faq10.a':'Yes, on <b>DaVinci Resolve Studio 18.5 or newer</b>. The free version of Resolve doesn\u2019t load third-party panels, so the plugin can\u2019t run there \u2014 this is a Blackmagic restriction that applies to every plugin, not just dropSFX.',
       'support.h2':'Stuck on a step?',
       'support.p':'Send us a WhatsApp message. We\u2019ll help you get installed in minutes.',
       'support.btn':'Chat on WhatsApp',
@@ -853,7 +1018,7 @@
       'progress.install':'Instalar','progress.signin':'Entrar','progress.use':'Usar',
       'hero.badge':'Compra confirmada',
       'hero.title':'Bienvenido al<br><span class="ice">siguiente nivel.</span>',
-      'hero.sub':'Tu experiencia empieza ahora. En pocos minutos, dropSFX estará funcionando dentro de tu Premiere.',
+      'hero.sub':'Tu experiencia empieza ahora. En pocos minutos, dropSFX estará funcionando dentro de tu editor.',
       's1.num':'Instalación','s1.h2':'Instala el panel.',
       's1.sub':'Descarga el archivo y sigue el paso a paso de tu sistema. Marca cada etapa a medida que avanzas.',
       'dl.version':'Versión 2.0','dl.platforms':'Mac y Windows','dl.btn':'Descargar ahora',
@@ -865,8 +1030,8 @@
       'mac3.t':'Habilita las extensiones (funciona en todas las versiones)',
       'mac3.p1':'Abre la <b>Terminal</b>, pega el comando de abajo y pulsa Enter. Habilita todo de una vez para cualquier versión de Premiere.',
       'mac3.p2':'No necesitas saber qué versión tienes — el comando cubre desde CS hasta el Premiere más reciente.',
-      'mac4.t':'Reinicia Premiere',
-      'mac4.p':'Cierra y abre Premiere Pro. El panel está en <b>Ventana → Extensiones → DropSFX</b>.',
+      'mac4.t':'Reinicia Premiere o After Effects',
+      'mac4.p':'Cierra y abre la app. El panel está en <b>Ventana → Extensiones → dropSFX</b> tanto en Premiere Pro como en After Effects.',
       'win1.t':'Extrae el archivo',
       'win1.p':'Clic derecho en <b>DropSFX.2.0.zip</b> → <b>Extraer todo</b>. Se creará una carpeta llamada <b>DropSFX</b>.',
       'win2.t':'Abre la carpeta de extensiones',
@@ -875,12 +1040,12 @@
       'win3.t':'Habilita las extensiones (funciona en todas las versiones)',
       'win3.p1':'Pulsa <b>Win + R</b>, escribe <b>cmd</b> y pulsa Enter. Pega el comando de abajo y pulsa Enter:',
       'win3.p2':'No necesitas saber qué versión tienes — el comando cubre desde CS hasta el Premiere más reciente.',
-      'win4.t':'Reinicia Premiere',
-      'win4.p':'Cierra y abre Premiere Pro. El panel está en <b>Ventana → Extensiones → DropSFX</b>.',
+      'win4.t':'Reinicia Premiere o After Effects',
+      'win4.p':'Cierra y abre la app. El panel está en <b>Ventana → Extensiones → dropSFX</b> tanto en Premiere Pro como en After Effects.',
       's2.num':'Acceso','s2.h2':'Entra con Google.',
       's2.sub':'Sin contraseña, sin registro. Inicias sesión con la misma cuenta de Google del email que usaste en la compra.',
       'acc1.t':'Abre el panel dropSFX',
-      'acc1.p':'En Premiere, ve a <b>Ventana → Extensiones → dropSFX</b>. En la pantalla de inicio de sesión, haz clic en <b>Entrar con Google</b>.',
+      'acc1.p':'Abre el panel dropSFX: en Premiere y After Effects ve a <b>Ventana → Extensiones → dropSFX</b>; en DaVinci Resolve ve a <b>Workspace → Workflow Integrations → dropSFX</b>. En la pantalla de inicio de sesión, haz clic en <b>Entrar con Google</b>.',
       'gbtn.label':'Entrar con Google',
       'acc2.t':'Elige tu cuenta en el navegador',
       'acc2.p':'Se abre una pestaña en tu navegador. <b>Selecciona la cuenta de Google del email que usaste en la compra</b> y autoriza el acceso.',
@@ -915,6 +1080,20 @@
       'faq8.a':'Solo la primera vez, para el inicio de sesión y la verificación. Después los sonidos quedan en tu computadora y puedes usarlo sin conexión.',
       'faq9.q':'¿Con qué versión de Premiere funciona?',
       'faq9.a':'Adobe Premiere Pro CC 2020 en adelante, incluidas las versiones más recientes, en Mac (Intel y Apple Silicon) y Windows 10/11.',
+      'app.adobe':'Premiere Pro & After Effects','app.adobe.sub':'Instalaci\u00f3n como extensi\u00f3n CEP',
+      'app.resolve':'DaVinci Resolve','app.resolve.sub':'Solo en la versi\u00f3n Studio (de pago)',
+      'dl.studio':'Resolve Studio 18.5+',
+      'res.note':'<b>Requiere DaVinci Resolve Studio</b> \u2014 la versi\u00f3n de pago, 18.5 o superior. En el Resolve gratuito el plugin no abre: la versi\u00f3n gratuita no carga paneles de terceros, una limitaci\u00f3n de Blackmagic que aplica a cualquier plugin, no solo a dropSFX. Antes de instalar, confirma en <b>DaVinci Resolve \u2192 Acerca de</b> que diga <b>Studio</b>.',
+      'rmac1.t':'Extrae el archivo','rmac1.p':'Haz doble clic en el <b>dropSFX-resolve.zip</b> que descargaste. Se crear\u00e1 una carpeta llamada <b>dropSFX</b>.',
+      'rmac2.t':'P\u00e9gala en la carpeta de integraciones','rmac2.p1':'En el Finder, pulsa <b>\u21e7\u2318G</b> y pega la ruta:',
+      'rmac2.p2':'Pega la carpeta <b>dropSFX</b> aqu\u00ed dentro. (Si la carpeta <b>Workflow Integration Plugins</b> no existe, cr\u00e9ala. Atenci\u00f3n: es la <b>/Library de la ra\u00edz del disco</b>, no la de tu carpeta de usuario. Pedir\u00e1 contrase\u00f1a de administrador.)',
+      'rmac3.t':'Abre el panel en Resolve','rmac3.p':'Cierra y abre DaVinci Resolve. El panel est\u00e1 en <b>Workspace \u2192 Workflow Integrations \u2192 dropSFX</b>.',
+      'rwin1.t':'Extrae el archivo','rwin1.p':'Clic derecho en <b>dropSFX-resolve.zip</b> \u2192 <b>Extraer todo</b>. Se crear\u00e1 una carpeta llamada <b>dropSFX</b>.',
+      'rwin2.t':'P\u00e9gala en la carpeta de integraciones','rwin2.p1':'En el <b>Explorador de archivos</b>, pega la ruta en la barra de direcciones:',
+      'rwin2.p2':'Pega la carpeta <b>dropSFX</b> aqu\u00ed dentro. (La carpeta <b>ProgramData</b> est\u00e1 oculta \u2014 por eso se pega la ruta directamente. Si la carpeta <b>Workflow Integration Plugins</b> no existe, cr\u00e9ala. No la confundas con <b>Program Files</b>.)',
+      'rwin3.t':'Abre el panel en Resolve','rwin3.p':'Cierra y abre DaVinci Resolve. El panel est\u00e1 en <b>Workspace \u2192 Workflow Integrations \u2192 dropSFX</b>.',
+      'faq10.q':'\u00bfFunciona en DaVinci Resolve?',
+      'faq10.a':'S\u00ed, en <b>DaVinci Resolve Studio 18.5 o superior</b>. La versi\u00f3n gratuita de Resolve no carga paneles de terceros, as\u00ed que el plugin no puede funcionar ah\u00ed \u2014 es una restricci\u00f3n de Blackmagic que aplica a cualquier plugin, no solo a dropSFX.',
       'support.h2':'¿Te trabaste en algún paso?',
       'support.p':'Envíanos un mensaje por WhatsApp. Te ayudamos a instalarlo en minutos.',
       'support.btn':'Hablar por WhatsApp',
@@ -1003,14 +1182,27 @@
   window.addEventListener('scroll',revealCheck,{passive:true});
   window.addEventListener('resize',revealCheck);
 
+  let currentOS='mac';
+  function activePane(){ return document.querySelector('.app-pane.active')||document; }
+
   function switchOS(os){
-    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.os===os));
-    document.getElementById('osTabs').classList.toggle('win',os==='win');
-    document.getElementById('panel-mac').classList.toggle('active',os==='mac');
-    document.getElementById('panel-win').classList.toggle('active',os==='win');
+    currentOS=os;
+    const pane=activePane();
+    pane.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.os===os));
+    const tabs=pane.querySelector('.tabs');
+    if(tabs) tabs.classList.toggle('win',os==='win');
+    pane.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.dataset.os===os));
     setTimeout(revealCheck,50);
     updateProgress();
   }
+
+  function switchApp(appName){
+    document.querySelectorAll('.app-tab').forEach(t=>t.classList.toggle('active',t.dataset.app===appName));
+    document.querySelectorAll('.app-pane').forEach(p=>p.classList.toggle('active',p.id==='pane-'+appName));
+    switchOS(currentOS);
+    celebrated=false;
+  }
+
   if(/Win/i.test(navigator.platform||navigator.userAgent)) switchOS('win');
 
   let audioCtx;
@@ -1054,7 +1246,7 @@
   }
 
   function updateProgress(){
-    const instSteps=[...document.querySelectorAll('.panel.active .step')];
+    const instSteps=[...document.querySelectorAll('.app-pane.active .panel.active .step')];
     const instDone=instSteps.length>0 && instSteps.every(s=>s.classList.contains('completed'));
     const accSteps=[...document.querySelectorAll('#sec-access .step')];
     const accDone=accSteps.length>0 && accSteps.every(s=>s.classList.contains('completed'));
@@ -1068,7 +1260,7 @@
 
   let celebrated=false;
   function checkAllDone(){
-    const instSteps=[...document.querySelectorAll('.panel.active .step')];
+    const instSteps=[...document.querySelectorAll('.app-pane.active .panel.active .step')];
     const accSteps=[...document.querySelectorAll('#sec-access .step')];
     const all=[...instSteps,...accSteps];
     const done=all.length>0 && all.every(s=>s.classList.contains('completed'));
@@ -1133,6 +1325,23 @@
   }
 
   updateProgress();
+
+  // Busca versão atual do Supabase e atualiza o card de download
+  (function fetchVersion(){
+    fetch('https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/current-version',{
+      headers:{'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3Z3J4ZGpkdnJkYXdhcmJucWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwMjIxNDgsImV4cCI6MjA5NDU5ODE0OH0.M1Yw6ljgUzPQWTW0CC8DBn8WV6nZDKCCKTwzcZN_Zo0'}
+    })
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(!d||!d.version)return;
+      var v=d.version;
+      var label = currentLang==='en' ? 'Version '+v : currentLang==='es' ? 'Versión '+v : 'Versão '+v;
+      document.querySelectorAll('.dl-version-tag').forEach(function(el){ el.textContent=label; });
+      if(I18N.en)I18N.en['dl.version']='Version '+v;
+      if(I18N.es)I18N.es['dl.version']='Versión '+v;
+    })
+    .catch(function(){});
+  })();
 </script>
 </body>
 </html>
