@@ -860,6 +860,19 @@
 
     .proof-avatars { display: flex; align-items: center; }
 
+    /* versão compacta da prova social dentro do hero */
+    .hero-content .proof-bar {
+      margin-top: 20px;
+      padding: 6px 16px 6px 6px;
+      gap: 10px;
+      background: rgba(0, 0, 0, .28);
+      opacity: 0;
+      animation: fadeUp 1s 1.3s forwards;
+    }
+    .hero-content .proof-av { width: 24px; height: 24px; font-size: 9px; margin-left: -8px; }
+    .hero-content .proof-avatars .proof-av:first-child { margin-left: 0; }
+    .hero-content .proof-bar-text { font-size: 12px; }
+
     .proof-av {
       width: 30px; height: 30px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
@@ -1746,17 +1759,7 @@
             target="_blank" rel="noopener"><span data-i18n="hero.cta">Comprar</span> <span class="arr">→</span></a>
         </div>
       </div>
-    </div>
-
-    <div class="hero-meta" data-i18n-html="hero.meta"><span>Pagamento <b>único</b></span><span>Acesso vitalício</span><span>Garantia de 7 dias</span></div>
-  </section>
-
-  <!-- ============ LIBRARY ============ -->
-  <section class="scene" id="library">
-    <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.62));"></div>
-    <div class="scene-content">
-      <div style="display:flex;justify-content:center;margin-bottom:56px;">
-      <div class="proof-bar r">
+      <div class="proof-bar">
         <div class="proof-avatars">
           <span class="proof-av" style="--c:#3b6ef5">JP</span>
           <span class="proof-av" style="--c:#2dd4bf">MC</span>
@@ -1769,7 +1772,15 @@
           <strong>+1.000 pessoas</strong> já adquiriram o dropSFX
         </span>
       </div>
-      </div>
+    </div>
+
+    <div class="hero-meta" data-i18n-html="hero.meta"><span>Pagamento <b>único</b></span><span>Acesso vitalício</span><span>Garantia de 7 dias</span></div>
+  </section>
+
+  <!-- ============ LIBRARY ============ -->
+  <section class="scene" id="library">
+    <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.62));"></div>
+    <div class="scene-content">
       <div class="feat-grid library-grid">
         <div class="fg-copy">
           <div class="eyebrow r" data-i18n="library.eyebrow">№ 00 · A biblioteca</div>
