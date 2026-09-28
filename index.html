@@ -169,6 +169,10 @@
       filter: drop-shadow(0 0 10px var(--accent-glow));
     }
 
+    .nav > img, .nav-cta { transition: opacity .35s, transform .2s, box-shadow .2s; }
+    .nav:not(.solid) > img,
+    .nav:not(.solid) .nav-cta { opacity: 0; pointer-events: none; }
+
     .nav-right {
       display: flex;
       align-items: center;
@@ -621,8 +625,8 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(180deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.28) 22%, rgba(0,0,0,.42) 50%, rgba(0,0,0,.72) 78%, rgba(0,0,0,.92) 92%, var(--bg) 100%),
-        linear-gradient(90deg, rgba(0,0,0,.5) 0%, transparent 26%, transparent 74%, rgba(0,0,0,.5) 100%);
+        radial-gradient(ellipse 60% 42% at 50% 46%, rgba(0,0,0,.5) 0%, rgba(0,0,0,.18) 60%, transparent 100%),
+        linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.04) 24%, rgba(0,0,0,.08) 62%, rgba(0,0,0,.7) 90%, var(--bg) 100%);
     }
     .hero-bg-video .video-loader {
       position: absolute; inset: 0; z-index: 1;
@@ -630,7 +634,8 @@
     @media (max-width: 720px) {
       .hero-bg-overlay {
         background:
-          linear-gradient(180deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,.3) 20%, rgba(0,0,0,.6) 58%, rgba(0,0,0,.88) 84%, var(--bg) 100%);
+          radial-gradient(ellipse 90% 40% at 50% 48%, rgba(0,0,0,.5) 0%, transparent 100%),
+          linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.08) 30%, rgba(0,0,0,.15) 62%, rgba(0,0,0,.8) 90%, var(--bg) 100%);
       }
     }
 
@@ -684,60 +689,18 @@
     .hero-badge {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 8px 16px;
-      border: 1px solid var(--line-2);
-      border-radius: 100px;
-      margin-bottom: 14px;
-      background: rgba(10, 10, 12, .55);
-      backdrop-filter: blur(10px);
+      margin-bottom: 22px;
       font-family: var(--font-mono);
       font-size: 11px;
-      letter-spacing: .08em;
+      letter-spacing: .3em;
       text-transform: uppercase;
-      color: var(--ink-2);
+      color: var(--accent-hi);
       opacity: 0;
       animation: fadeUp .9s .3s forwards;
     }
 
-    .hero-badge .pr {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 18px;
-      height: 18px;
-      background: linear-gradient(135deg, #0060e6, #003ba5);
-      border-radius: 4px;
-      font-size: 10px;
-      font-weight: 700;
-      color: #fff;
-      font-family: var(--font);
-    }
-
-    .hero-badge .ae {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 18px;
-      height: 18px;
-      background: linear-gradient(135deg, #7c3aed, #4c1d95);
-      border-radius: 4px;
-      font-size: 10px;
-      font-weight: 700;
-      color: #fff;
-      font-family: var(--font);
-    }
-
-    .hero-badge .dot {
-      width: 6px;
-      height: 6px;
-      background: var(--teal);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--teal);
-    }
-
     .hero-logo {
-      width: min(55vw, 440px);
+      width: min(64vw, 540px);
       height: auto;
       margin-bottom: 0;
       filter: drop-shadow(0 0 40px rgba(110, 155, 255, .5)) drop-shadow(0 0 90px rgba(59, 110, 245, .3));
@@ -752,11 +715,12 @@
 
     .hero-tagline {
       font-family: var(--font);
-      font-size: clamp(17px, 2.1vw, 25px);
+      font-size: clamp(15px, 1.5vw, 19px);
       font-weight: 300;
       color: var(--ink);
-      margin-top: 30px;
-      max-width: 760px;
+      margin-top: 22px;
+      max-width: 620px;
+      text-shadow: 0 2px 18px rgba(0,0,0,.65);
       text-wrap: balance;
       opacity: 0;
       animation: fadeUp 1s .95s forwards;
@@ -768,11 +732,11 @@
     }
 
     .hero-cta-row {
-      margin-top: 42px;
+      margin-top: 30px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
       opacity: 0;
       animation: fadeUp 1s 1.2s forwards;
     }
@@ -800,10 +764,10 @@
       display: inline-flex;
       align-items: center;
       gap: 14px;
-      padding: 18px 38px;
+      padding: 15px 32px;
       font-family: var(--font);
       font-weight: 700;
-      font-size: 15px;
+      font-size: 14px;
       text-decoration: none;
       background: var(--accent);
       color: #fff;
@@ -836,8 +800,9 @@
 
     .hero-meta {
       font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--muted);
+      font-size: 11px;
+      color: var(--ink-2);
+      text-shadow: 0 1px 12px rgba(0,0,0,.7);
       display: flex;
       align-items: center;
       gap: 10px;
@@ -1666,8 +1631,6 @@
 
     /* =================== MOBILE PERFORMANCE =================== */
     @media (max-width: 720px) {
-      .hero-badge { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(8, 8, 10, .88); }
-
       .hero-logo-glow::after { animation: none; opacity: .5; }
 
       .hero-logo { filter: drop-shadow(0 0 18px rgba(110, 155, 255, .45)); }
@@ -1733,14 +1696,11 @@
 
     <div class="hero-content">
       <div class="hero-badge">
-        <span class="dot"></span>
-        <span class="pr">Pr</span>
-        <span class="ae">Ae</span>
         <span data-i18n="hero.badge">PREMIERE PRO + AFTER EFFECTS</span>
       </div>
       <img src="assets/logo.png" alt="dropSFX" class="hero-logo" />
 
-      <p class="hero-tagline" data-i18n-html="hero.tagline">Mais de 1.400 efeitos sonoros profissionais dentro do Premiere Pro e After Effects.<br><strong class="hl-sweep">Dois cliques e o som está na timeline.</strong></p>
+      <p class="hero-tagline" data-i18n="hero.tagline">Mais de 1.400 efeitos sonoros, direto no Premiere Pro e no After Effects.</p>
       <div class="hero-cta-row">
         <div class="hero-buttons">
           <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=hero&utm_campaign=dropsfx"
@@ -1749,7 +1709,14 @@
         </div>
         <div class="hero-meta" data-i18n-html="hero.meta"><span>Pagamento <b>único</b></span> · <span>Acesso vitalício</span> · <span>Garantia de 7 dias</span></div>
       </div>
+    </div>
+  </section>
 
+  <!-- ============ LIBRARY ============ -->
+  <section class="scene" id="library">
+    <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.62));"></div>
+    <div class="scene-content">
+      <div style="display:flex;justify-content:center;margin-bottom:56px;">
       <div class="proof-bar r">
         <div class="proof-avatars">
           <span class="proof-av" style="--c:#3b6ef5">JP</span>
@@ -1763,13 +1730,7 @@
           <strong>+1.000 pessoas</strong> já adquiriram o dropSFX
         </span>
       </div>
-    </div>
-  </section>
-
-  <!-- ============ LIBRARY ============ -->
-  <section class="scene" id="library">
-    <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.62));"></div>
-    <div class="scene-content">
+      </div>
       <div class="feat-grid library-grid">
         <div class="fg-copy">
           <div class="eyebrow r" data-i18n="library.eyebrow">№ 00 · A biblioteca</div>
@@ -2047,7 +2008,7 @@
       "nav.cta": "Comprar agora",
 
       "hero.badge": "PREMIERE PRO + AFTER EFFECTS",
-      "hero.tagline": "Mais de 1.400 efeitos sonoros profissionais dentro do Premiere Pro e After Effects.<br><strong class='hl-sweep'>Dois cliques e o som está na timeline.</strong>",
+      "hero.tagline": "Mais de 1.400 efeitos sonoros, direto no Premiere Pro e no After Effects.",
       "hero.cta": "Quero o dropSFX",
       "hero.meta": "<span>Pagamento <b>único</b></span> · <span>Acesso vitalício</span> · <span>Garantia de 7 dias</span>",
 
@@ -2175,7 +2136,7 @@
       "nav.cta": "Get it now",
 
       "hero.badge": "PREMIERE PRO + AFTER EFFECTS",
-      "hero.tagline": "Over 1,400 professional sound effects inside Premiere Pro and After Effects.<br><strong class='hl-sweep'>Two clicks and the sound is on your timeline.</strong>",
+      "hero.tagline": "Over 1,400 sound effects, right inside Premiere Pro and After Effects.",
       "hero.cta": "Get dropSFX",
       "hero.meta": "<span><b>One-time</b> payment</span> · <span>Lifetime access</span> · <span>7-day guarantee</span>",
 
@@ -2303,7 +2264,7 @@
       "nav.cta": "Comprar ahora",
 
       "hero.badge": "PREMIERE PRO + AFTER EFFECTS",
-      "hero.tagline": "Más de 1.400 efectos de sonido profesionales dentro de Premiere Pro y After Effects.<br><strong class='hl-sweep'>Dos clics y el sonido está en la línea de tiempo.</strong>",
+      "hero.tagline": "Más de 1.400 efectos de sonido, directo en Premiere Pro y After Effects.",
       "hero.cta": "Quiero dropSFX",
       "hero.meta": "<span>Pago <b>único</b></span> · <span>Acceso de por vida</span> · <span>Garantía de 7 días</span>",
 
@@ -2431,7 +2392,7 @@
       "nav.cta": "अभी खरीदें",
 
       "hero.badge": "ADOBE PREMIERE PRO के लिए",
-      "hero.tagline": "Premiere Pro के अंदर 1,400 से ज़्यादा प्रोफ़ेशनल साउंड इफ़ेक्ट्स।<br><strong class='hl-sweep'>दो क्लिक और साउंड टाइमलाइन पर।</strong>",
+      "hero.tagline": "Premiere Pro और After Effects के अंदर 1,400 से ज़्यादा साउंड इफ़ेक्ट्स।",
       "hero.cta": "मुझे dropSFX चाहिए",
       "hero.meta": "<span><b>एक बार</b> भुगतान</span> · <span>लाइफ़टाइम एक्सेस</span> · <span>7 दिन की गारंटी</span>",
 
