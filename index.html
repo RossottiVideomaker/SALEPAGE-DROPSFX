@@ -678,7 +678,8 @@
       width: 100%;
       max-width: 1300px;
       margin: 0 auto;
-      padding: 96px 40px 48px;
+      /* padding extra embaixo empurra o bloco (ícones, logo, copy e botão) pra cima */
+      padding: 96px 40px calc(48px + 14vh);
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -687,7 +688,7 @@
 
     @media (max-width: 720px) {
       .hero-content {
-        padding: 88px 22px 36px;
+        padding: 88px 22px calc(36px + 12vh);
       }
     }
 
@@ -736,7 +737,7 @@
 
     .hero-tagline {
       font-family: var(--font);
-      font-size: clamp(18px, 1.9vw, 24px);
+      font-size: clamp(14px, 1.3vw, 17px);
       font-weight: 300;
       color: var(--ink);
       /* o PNG do logo tem ~10,6% da largura de margem transparente embaixo; compensa pra copy ficar colada */
