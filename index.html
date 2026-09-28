@@ -738,8 +738,9 @@
     .hero-tagline {
       font-family: var(--font);
       font-size: clamp(14px, 1.3vw, 17px);
-      font-weight: 300;
-      color: var(--ink);
+      font-weight: 400;
+      letter-spacing: .01em;
+      color: #fff;
       /* o PNG do logo tem ~10,6% da largura de margem transparente embaixo; compensa pra copy ficar colada */
       margin-top: calc(min(64vw, 540px) * -0.1064 + 22px);
       max-width: 620px;
@@ -787,16 +788,16 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 10px 24px;
+      padding: 13px 30px;
       font-family: var(--font);
       font-weight: 700;
-      font-size: 13px;
+      font-size: 14px;
       text-decoration: none;
       background: var(--accent);
       color: #fff;
       border-radius: 100px;
       transition: all .3s cubic-bezier(.2, .8, .3, 1);
-      box-shadow: 0 8px 28px var(--accent-glow);
+      box-shadow: 0 10px 36px var(--accent-glow), 0 0 0 1px rgba(255, 255, 255, .18) inset;
     }
 
     .hero-cta:hover {
@@ -831,7 +832,7 @@
       font-family: var(--font-mono);
       font-size: 11px;
       letter-spacing: .08em;
-      color: var(--ink-2);
+      color: var(--muted);
       text-shadow: 0 1px 12px rgba(0, 0, 0, .7);
       display: flex;
       align-items: center;
@@ -863,15 +864,17 @@
     /* versão compacta da prova social dentro do hero */
     .hero-content .proof-bar {
       margin-top: 2px;
-      padding: 6px 16px 6px 6px;
+      padding: 0;
       gap: 10px;
-      background: rgba(0, 0, 0, .28);
+      border: 0;
+      background: none;
       opacity: 0;
-      animation: fadeUp 1s 1.3s forwards;
+      animation: fadeUpSoft 1s 1.3s forwards;
     }
     .hero-content .proof-av { width: 24px; height: 24px; font-size: 9px; margin-left: -8px; }
     .hero-content .proof-avatars .proof-av:first-child { margin-left: 0; }
-    .hero-content .proof-bar-text { font-size: 12px; }
+    .hero-content .proof-bar-text { font-size: 12px; color: var(--muted); }
+    .hero-content .proof-bar-text strong { color: var(--ink-2); font-weight: 600; }
 
     .proof-av {
       width: 30px; height: 30px; border-radius: 50%;
@@ -913,6 +916,11 @@
       .proof-bar { padding: 8px 14px 8px 8px; gap: 10px; }
       .proof-av { width: 26px; height: 26px; font-size: 9.5px; margin-left: -9px; }
       .proof-bar-text { font-size: 12px; white-space: normal; }
+    }
+
+    @keyframes fadeUpSoft {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: .85; transform: translateY(0); }
     }
 
     @keyframes fadeUp {
