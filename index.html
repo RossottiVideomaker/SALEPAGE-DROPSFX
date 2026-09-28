@@ -61,10 +61,14 @@
 
   <link rel="icon" type="image/svg+xml"
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23000000'/%3E%3Ctext x='32' y='44' font-family='Anton, sans-serif' font-size='26' font-weight='600' fill='%235b8aff' text-anchor='middle' letter-spacing='0.5'%3ESFX%3C/text%3E%3C/svg%3E">
+  <!-- Adobe Fonts (Degular) -->
+  <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+  <link rel="stylesheet" href="https://use.typekit.net/czr1sny.css">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap"
     rel="stylesheet">
 
   <style>
@@ -89,8 +93,8 @@
       --red: #f87171;
       --pink: #f472b6;
       --gray: #94a3b8;
-      --font-display: 'Bebas Neue', 'Noto Sans Devanagari', sans-serif;
-      --font: 'Sora', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'degular-display', 'degular', 'Sora', 'Noto Sans Devanagari', sans-serif;
+      --font: 'degular', 'Sora', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'JetBrains Mono', 'Noto Sans Devanagari', monospace;
     }
 
@@ -442,15 +446,15 @@
 
     .display {
       font-family: var(--font-display);
-      font-weight: 400;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: .01em;
-      line-height: .9;
-      font-size: clamp(46px, 9vw, 150px);
+      letter-spacing: -.01em;
+      line-height: 1;
+      font-size: clamp(34px, 6vw, 100px);
     }
 
     .display, .fg-copy h2, .tf-num, .pp-v, .sticky-cta .sc-price {
-      font-weight: 400;
+      font-weight: 700;
     }
 
     .display .blue {
@@ -952,11 +956,11 @@
 
     .fg-copy h2 {
       font-family: var(--font-display);
-      font-weight: 400;
+      font-weight: 700;
       text-transform: uppercase;
-      font-size: clamp(38px, 5.5vw, 86px);
-      line-height: .94;
-      letter-spacing: .01em;
+      font-size: clamp(30px, 3.9vw, 60px);
+      line-height: 1;
+      letter-spacing: -.01em;
     }
 
     .fg-copy h2 .blue { color: var(--accent-hi); }
@@ -1425,7 +1429,7 @@
 
     /* =================== ANCHOR QUOTE =================== */
     .anchor { text-align: center; }
-    .anchor .display { font-size: clamp(40px, 8vw, 130px); }
+    .anchor .display { font-size: clamp(32px, 5.6vw, 90px); }
 
     /* =================== LIBRARY MARQUEE =================== */
     .marquee {
@@ -1503,7 +1507,7 @@
     }
 
     .pp-k { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-    .pp-v { font-family: var(--font-display); font-size: clamp(20px, 3.4vw, 30px); line-height: 1; color: #fff; text-transform: uppercase; }
+    .pp-v { font-family: var(--font-display); font-size: clamp(16px, 2.4vw, 22px); line-height: 1; color: #fff; text-transform: uppercase; }
 
     .pp:nth-child(2) { border-color: rgba(59, 110, 245, .45); background: var(--accent-soft); }
     .pp:nth-child(2) .pp-v { color: var(--accent-hi); }
@@ -1580,7 +1584,7 @@
       transition: transform .5s cubic-bezier(.2, .8, .3, 1);
     }
     .sticky-cta.show { transform: translateY(0); }
-    .sticky-cta .sc-price { font-family: var(--font-display); font-size: 17px; color: #fff; text-transform: uppercase; line-height: 1.1; }
+    .sticky-cta .sc-price { font-family: var(--font-display); font-size: 14px; color: #fff; text-transform: uppercase; line-height: 1.1; }
     .sticky-cta .sc-label { display: block; font-family: var(--font-mono); font-size: 9px; color: var(--muted); letter-spacing: .05em; margin-top: 2px; }
     .sticky-cta .sc-btn { background: var(--accent); color: #fff; padding: 12px 20px; border-radius: 100px; font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; }
 
@@ -1791,9 +1795,8 @@
     <div class="scene-content">
       <div class="feat-grid library-grid">
         <div class="fg-copy">
-          <div class="eyebrow r" data-i18n="library.eyebrow">№ 00 · A biblioteca</div>
           <h2 class="r d1" data-i18n-html="library.title"
-            style="font-family:var(--font-display);font-weight:400;text-transform:uppercase;font-size:clamp(46px,7vw,110px);line-height:.94;">
+            style="font-family:var(--font-display);font-weight:700;text-transform:uppercase;font-size:clamp(32px,4.6vw,72px);line-height:1;letter-spacing:-.01em;">
             <span style="color:#fff">1.463 sons</span><br><span class="blue">21 categorias</span>
           </h2>
           <p class="lead r d2" style="font-size:clamp(17px,1.7vw,22px);max-width:480px;" data-i18n="library.lead">Curados pra edição de verdade: de whooshes e impactos a glitches, risers e foley. Cada categoria com cor própria, pra você bater o olho e achar.</p>
@@ -1815,10 +1818,6 @@
           </div>
         </div>
       </div>
-      <div class="marquee r d2">
-        <div class="mq-row a" id="mqRow1"></div>
-        <div class="mq-row b" id="mqRow2"></div>
-      </div>
     </div>
   </section>
 
@@ -1828,7 +1827,6 @@
     <div class="scene-content">
       <div class="feat-grid">
         <div class="fg-copy">
-          <div class="eyebrow r" data-i18n="hover.eyebrow">№ 01 · Pré-escuta</div>
           <h2 class="r d1" data-i18n-html="hover.title">Passou o mouse,<br><span class="blue">já tá tocando.</span></h2>
           <p class="lead r d2" data-i18n-html="hover.lead">Esqueça abrir cada arquivo pra saber o que é. <strong>Só passe o cursor sobre o som</strong> e ele toca na hora, com a forma de onda viva. Varra dezenas de efeitos em segundos.</p>
         </div>
@@ -1885,7 +1883,6 @@
     <div class="scene-content">
       <div class="feat-grid flip">
         <div class="fg-copy">
-          <div class="eyebrow r" data-i18n="twoclick.eyebrow">№ 02 · Inserção</div>
           <h2 class="r d1" data-i18n-html="twoclick.title">Dois cliques.<br><span class="blue">Tá na timeline.</span></h2>
           <p class="lead r d2" data-i18n-html="twoclick.lead">Achou o som? <strong>Duplo-clique</strong> e ele cai exatamente no playhead do Premiere, na trilha que você escolheu. Sem arrastar arquivo, sem exportar, sem trocar de janela.</p>
         </div>
@@ -1925,8 +1922,7 @@
   <section class="scene anchor" id="gain">
     <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.72));"></div>
     <div class="scene-content" style="text-align:center;display:flex;flex-direction:column;align-items:center;">
-      <div class="eyebrow r" data-i18n="gain.eyebrow">№ 03 · Controle</div>
-      <h2 class="display r d1" style="font-size:clamp(40px,7vw,110px)" data-i18n-html="gain.title"><span class="fill">O ganho certo,</span><br><span class="blue">antes de inserir.</span></h2>
+      <h2 class="display r d1" style="font-size:clamp(30px,4.8vw,76px)" data-i18n-html="gain.title"><span class="fill">O ganho certo,</span><br><span class="blue">antes de inserir.</span></h2>
       <p class="lead r d2" style="text-align:center;margin-left:auto;margin-right:auto;" data-i18n-html="gain.lead">Whoosh sempre alto demais? Riser baixo? Escolha <strong>-12, 0 ou +6 dB</strong> e o som já entra na timeline no volume certo. Adeus, abrir o mixer pra cada clipe.</p>
       <div class="gain-demo r d3" style="margin-top:44px;">
         <div class="gain-pills-big">
@@ -1943,8 +1939,7 @@
   <section class="scene tall" id="comprar">
     <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.6),rgba(0,0,0,.72));"></div>
     <div class="scene-content" style="text-align:center;display:flex;flex-direction:column;align-items:center;">
-      <div class="eyebrow r" style="justify-content:center;" data-i18n="pricing.eyebrow">Investimento</div>
-      <h2 class="display r d1" style="font-size:clamp(40px,7vw,100px)" data-i18n-html="pricing.title"><span class="fill">Pague uma vez.</span><br><span class="blue">Use pra sempre.</span></h2>
+      <h2 class="display r d1" style="font-size:clamp(30px,4.6vw,68px)" data-i18n-html="pricing.title"><span class="fill">Pague uma vez.</span><br><span class="blue">Use pra sempre.</span></h2>
       <div class="price-shell r d2">
         <div class="price-ribbon"><span data-i18n="pricing.ribbon">▸ Oferta de lançamento</span><span class="shimmer-text" data-i18n="pricing.off">63% OFF</span></div>
         <div class="price-body">
@@ -1987,8 +1982,7 @@
   <section class="scene tall" id="faq" style="min-height:auto;">
     <div class="scene-tint" style="background:#000;"></div>
     <div class="scene-content" style="text-align:center;display:flex;flex-direction:column;align-items:center;padding-top:100px;padding-bottom:120px;">
-      <div class="eyebrow r" style="justify-content:center;" data-i18n="faq.eyebrow">Dúvidas</div>
-      <h2 class="display r d1" style="font-size:clamp(36px,6vw,84px)" data-i18n-html="faq.title"><span class="fill">Tudo que perguntam.</span></h2>
+      <h2 class="display r d1" style="font-size:clamp(28px,4vw,56px)" data-i18n-html="faq.title"><span class="fill">Tudo que perguntam.</span></h2>
       <div class="faq-wrap r d2">
         <div class="faq-item" onclick="this.classList.toggle('open')">
           <div class="faq-q"><span data-i18n="faq.q1">Funciona em qual versão do Premiere Pro?</span> <span class="plus">+</span></div>
