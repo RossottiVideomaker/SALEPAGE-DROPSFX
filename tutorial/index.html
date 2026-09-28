@@ -250,6 +250,20 @@
   .studio-tag{position:absolute;top:10px;right:12px;font-size:9px;font-weight:800;letter-spacing:1.2px;
     padding:3px 8px;border-radius:5px;background:rgba(201,79,44,.16);color:#f08a63;
     border:1px solid rgba(201,79,44,.4)}
+  .color-tip{background:linear-gradient(135deg,rgba(59,110,245,.07),rgba(59,110,245,.02));
+    border:1px solid rgba(59,110,245,.22);border-radius:16px;padding:20px 22px;margin-top:18px}
+  .color-tip-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+  .color-tip-head svg{width:18px;height:18px;color:var(--accent-hi);flex-shrink:0}
+  .color-tip-head strong{font-size:14.5px;font-weight:700;color:var(--txt)}
+  .color-tip > p{font-size:12.5px;color:var(--txt3);line-height:1.6;margin-bottom:14px}
+  .ct-steps{display:flex;flex-direction:column;gap:10px}
+  .ct-step{display:flex;gap:11px;align-items:flex-start}
+  .ct-num{flex-shrink:0;width:20px;height:20px;border-radius:6px;background:rgba(59,110,245,.15);
+    border:1px solid rgba(59,110,245,.3);color:var(--accent-hi);font-size:10px;font-weight:800;
+    display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .ct-step p{font-size:12.5px;color:var(--txt2);line-height:1.55}
+  .ct-opt{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;
+    background:var(--surface2);border:1px solid var(--line2);border-radius:6px;padding:3px 8px;margin-top:5px}
   .app-pane{display:none}
   .app-pane.active{display:block;animation:panelFade .35s cubic-bezier(.2,.8,.2,1)}
   .tabs{display:flex;gap:6px;background:var(--surface);border:1px solid var(--line);
@@ -642,6 +656,19 @@
         </div>
       </div>
     </div>
+
+      <div class="color-tip reveal">
+        <div class="color-tip-head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+          <strong data-i18n="colr.t">Deixe os sons entrarem coloridos na timeline</strong>
+        </div>
+        <p data-i18n="colr.p">O dropSFX marca cada som com a cor da categoria — whoosh em azul-esverdeado, impacto em vermelho e assim por diante. Para o Premiere mostrar essa cor nos clipes da timeline, é preciso ligar uma opção dele (vale tanto para o botão Inserir quanto para arrastar e soltar).</p>
+        <div class="ct-steps">
+          <div class="ct-step"><div class="ct-num">1</div><p data-i18n="colr.s1">No painel <b>Timeline</b>, clique no ícone de <b>chave inglesa</b> 🔧, no canto superior esquerdo, logo abaixo do timecode.</p></div>
+          <div class="ct-step"><div class="ct-num">2</div><p data-i18n="colr.s2">Marque a opção:<br><span class="ct-opt">Show Source Clip Name and Label</span><br><span style="font-size:11.5px;color:var(--txt3)">Em português: <b>Mostrar nome e rótulo do clipe de origem</b></span></p></div>
+          <div class="ct-step"><div class="ct-num">3</div><p data-i18n="colr.s3">Pronto. Os sons que você já inseriu mudam de cor na hora, e os próximos já entram coloridos.</p></div>
+        </div>
+      </div>
     </div><!-- /pane-adobe -->
 
     <div class="app-pane" id="pane-resolve">
@@ -873,6 +900,10 @@
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq10.q">Funciona no DaVinci Resolve?</span><span class="faq-icon"></span></button>
         <div class="faq-a"><p data-i18n="faq10.a">Sim, no <b>DaVinci Resolve Studio 18.5 ou mais recente</b>. A versão gratuita do Resolve não carrega painéis de terceiros, então o plugin não roda nela — é uma restrição da Blackmagic que vale pra qualquer plugin, não só o dropSFX.</p></div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq11.q">Os sons não aparecem coloridos na minha timeline. Por quê?</span><span class="faq-icon"></span></button>
+        <div class="faq-a"><p data-i18n="faq11.a">O Premiere só mostra nos clipes da timeline a cor de rótulo do item do projeto quando a opção <b>Show Source Clip Name and Label</b> está ligada — no painel Timeline, dentro do ícone da chave inglesa 🔧. Com ela desligada, cada clipe usa o rótulo próprio e as cores das categorias não aparecem. Isso é uma configuração do Premiere, não uma limitação do plugin.</p></div>
+      </div>
       </div>
     </div>
   </div>
@@ -998,6 +1029,13 @@
       'rwin2.t':'Paste it in the integrations folder','rwin2.p1':'In <b>File Explorer</b>, paste the path into the address bar:',
       'rwin2.p2':'Paste the <b>dropSFX</b> folder in here. (The <b>ProgramData</b> folder is hidden \u2014 that\u2019s why you paste the path directly. If the <b>Workflow Integration Plugins</b> folder doesn\u2019t exist, create it. Don\u2019t confuse it with <b>Program Files</b>.)',
       'rwin3.t':'Open the panel in Resolve','rwin3.p':'Close and reopen DaVinci Resolve. The panel is under <b>Workspace \u2192 Workflow Integrations \u2192 dropSFX</b>.',
+      'colr.t':'Let sounds land on the timeline already colored',
+      'colr.p':'dropSFX tags every sound with its category color \u2014 whooshes in teal, impacts in red, and so on. For Premiere to show that color on the timeline clips, one of its options has to be turned on (it applies both to the Insert button and to drag and drop).',
+      'colr.s1':'In the <b>Timeline</b> panel, click the <b>wrench</b> icon \uD83D\uDD27 in the top-left corner, just below the timecode.',
+      'colr.s2':'Tick the option:<br><span class="ct-opt">Show Source Clip Name and Label</span>',
+      'colr.s3':'That\u2019s it. Sounds already on the timeline change color right away, and the next ones land colored.',
+      'faq11.q':'The sounds are not colored on my timeline. Why?',
+      'faq11.a':'Premiere only shows the project item\u2019s label color on timeline clips when <b>Show Source Clip Name and Label</b> is enabled \u2014 in the Timeline panel, under the wrench \uD83D\uDD27 icon. With it off, every clip uses its own label and the category colors don\u2019t show. This is a Premiere setting, not a plugin limitation.',
       'faq10.q':'Does it work on DaVinci Resolve?',
       'faq10.a':'Yes, on <b>DaVinci Resolve Studio 18.5 or newer</b>. The free version of Resolve doesn\u2019t load third-party panels, so the plugin can\u2019t run there \u2014 this is a Blackmagic restriction that applies to every plugin, not just dropSFX.',
       'support.h2':'Stuck on a step?',
@@ -1092,6 +1130,13 @@
       'rwin2.t':'P\u00e9gala en la carpeta de integraciones','rwin2.p1':'En el <b>Explorador de archivos</b>, pega la ruta en la barra de direcciones:',
       'rwin2.p2':'Pega la carpeta <b>dropSFX</b> aqu\u00ed dentro. (La carpeta <b>ProgramData</b> est\u00e1 oculta \u2014 por eso se pega la ruta directamente. Si la carpeta <b>Workflow Integration Plugins</b> no existe, cr\u00e9ala. No la confundas con <b>Program Files</b>.)',
       'rwin3.t':'Abre el panel en Resolve','rwin3.p':'Cierra y abre DaVinci Resolve. El panel est\u00e1 en <b>Workspace \u2192 Workflow Integrations \u2192 dropSFX</b>.',
+      'colr.t':'Haz que los sonidos lleguen ya coloreados a la l\u00ednea de tiempo',
+      'colr.p':'dropSFX marca cada sonido con el color de su categor\u00eda \u2014 whooshes en turquesa, impactos en rojo, etc. Para que Premiere muestre ese color en los clips de la l\u00ednea de tiempo hay que activar una opci\u00f3n suya (vale tanto para el bot\u00f3n Insertar como para arrastrar y soltar).',
+      'colr.s1':'En el panel <b>Timeline</b>, haz clic en el icono de <b>llave inglesa</b> \uD83D\uDD27, arriba a la izquierda, justo debajo del timecode.',
+      'colr.s2':'Marca la opci\u00f3n:<br><span class="ct-opt">Show Source Clip Name and Label</span>',
+      'colr.s3':'Listo. Los sonidos que ya insertaste cambian de color al instante, y los siguientes entran ya coloreados.',
+      'faq11.q':'Los sonidos no aparecen coloreados en mi l\u00ednea de tiempo. \u00bfPor qu\u00e9?',
+      'faq11.a':'Premiere solo muestra el color de etiqueta del elemento de proyecto en los clips de la l\u00ednea de tiempo cuando <b>Show Source Clip Name and Label</b> est\u00e1 activado \u2014 en el panel Timeline, bajo el icono de llave \uD83D\uDD27. Con la opci\u00f3n desactivada, cada clip usa su propia etiqueta y los colores de categor\u00eda no se ven. Es un ajuste de Premiere, no una limitaci\u00f3n del plugin.',
       'faq10.q':'\u00bfFunciona en DaVinci Resolve?',
       'faq10.a':'S\u00ed, en <b>DaVinci Resolve Studio 18.5 o superior</b>. La versi\u00f3n gratuita de Resolve no carga paneles de terceros, as\u00ed que el plugin no puede funcionar ah\u00ed \u2014 es una restricci\u00f3n de Blackmagic que aplica a cualquier plugin, no solo a dropSFX.',
       'support.h2':'¿Te trabaste en algún paso?',
