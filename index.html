@@ -625,6 +625,9 @@
       position: absolute;
       inset: 0;
       background:
+        /* vinheta: só as bordas escurecem */
+        radial-gradient(ellipse 75% 70% at 50% 50%, transparent 55%, rgba(0,0,0,.35) 80%, rgba(0,0,0,.85) 100%),
+        linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)),
         radial-gradient(ellipse 60% 42% at 50% 46%, rgba(0,0,0,.5) 0%, rgba(0,0,0,.18) 60%, transparent 100%),
         linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.04) 24%, rgba(0,0,0,.08) 62%, rgba(0,0,0,.7) 90%, var(--bg) 100%);
     }
@@ -634,6 +637,8 @@
     @media (max-width: 720px) {
       .hero-bg-overlay {
         background:
+          radial-gradient(ellipse 90% 75% at 50% 50%, transparent 55%, rgba(0,0,0,.35) 80%, rgba(0,0,0,.8) 100%),
+          linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)),
           radial-gradient(ellipse 90% 40% at 50% 48%, rgba(0,0,0,.5) 0%, transparent 100%),
           linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.08) 30%, rgba(0,0,0,.15) 62%, rgba(0,0,0,.8) 90%, var(--bg) 100%);
       }
@@ -689,15 +694,31 @@
     .hero-badge {
       display: inline-flex;
       align-items: center;
-      margin-bottom: 22px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: .3em;
-      text-transform: uppercase;
-      color: var(--accent-hi);
+      gap: 8px;
+      /* compensa a margem transparente do topo do PNG do logo (~6,9% da largura) */
+      margin-bottom: calc(min(64vw, 540px) * -0.0693 + 16px);
       opacity: 0;
       animation: fadeUp .9s .3s forwards;
     }
+
+    .app-ic {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, .55);
+    }
+
+    .app-ic.pr { background: #00005b; color: #9999ff; border: 1px solid #9999ff; }
+    .app-ic.ae { background: #00005b; color: #d8a3ff; border: 1px solid #b57bff; }
+    .app-ic.dv { background: none; box-shadow: none; filter: drop-shadow(0 4px 12px rgba(0, 0, 0, .55)); }
+    .app-ic.dv svg { width: 100%; height: 100%; display: block; }
 
     .hero-logo {
       width: min(64vw, 540px);
@@ -715,10 +736,11 @@
 
     .hero-tagline {
       font-family: var(--font);
-      font-size: clamp(15px, 1.5vw, 19px);
+      font-size: clamp(18px, 1.9vw, 24px);
       font-weight: 300;
       color: var(--ink);
-      margin-top: 22px;
+      /* o PNG do logo tem ~10,6% da largura de margem transparente embaixo; compensa pra copy ficar colada */
+      margin-top: calc(min(64vw, 540px) * -0.1064 + 22px);
       max-width: 620px;
       text-shadow: 0 2px 18px rgba(0,0,0,.65);
       text-wrap: balance;
@@ -732,11 +754,11 @@
     }
 
     .hero-cta-row {
-      margin-top: 30px;
+      margin-top: 18px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       opacity: 0;
       animation: fadeUp 1s 1.2s forwards;
     }
@@ -763,17 +785,17 @@
     .hero-cta {
       display: inline-flex;
       align-items: center;
-      gap: 14px;
-      padding: 15px 32px;
+      gap: 10px;
+      padding: 10px 24px;
       font-family: var(--font);
       font-weight: 700;
-      font-size: 14px;
+      font-size: 13px;
       text-decoration: none;
       background: var(--accent);
       color: #fff;
       border-radius: 100px;
       transition: all .3s cubic-bezier(.2, .8, .3, 1);
-      box-shadow: 0 10px 40px var(--accent-glow);
+      box-shadow: 0 8px 28px var(--accent-glow);
     }
 
     .hero-cta:hover {
@@ -783,14 +805,14 @@
     }
 
     .hero-cta .arr {
-      width: 20px;
-      height: 20px;
+      width: 17px;
+      height: 17px;
       background: rgba(255, 255, 255, .2);
       border-radius: 50%;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
+      font-size: 10px;
       transition: transform .3s;
     }
 
@@ -799,15 +821,28 @@
     }
 
     .hero-meta {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 30px;
+      z-index: 4;
+      padding: 0 max(24px, calc((100% - 1200px) / 2));
       font-family: var(--font-mono);
       font-size: 11px;
+      letter-spacing: .08em;
       color: var(--ink-2);
-      text-shadow: 0 1px 12px rgba(0,0,0,.7);
+      text-shadow: 0 1px 12px rgba(0, 0, 0, .7);
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: space-between;
+      gap: 24px;
       flex-wrap: wrap;
-      justify-content: center;
+      opacity: 0;
+      animation: fadeUp 1s 1.4s forwards;
+    }
+
+    @media (max-width: 720px) {
+      .hero-meta { bottom: 22px; justify-content: center; padding: 0 24px; gap: 10px 52px; font-size: 10px; letter-spacing: .05em; }
     }
 
     .hero-meta b {
@@ -1695,21 +1730,24 @@
     </div>
 
     <div class="hero-content">
-      <div class="hero-badge">
-        <span data-i18n="hero.badge">PREMIERE PRO + AFTER EFFECTS</span>
+      <div class="hero-badge" aria-label="Premiere Pro, After Effects e DaVinci Resolve">
+        <span class="app-ic pr" title="Adobe Premiere Pro">Pr</span>
+        <span class="app-ic ae" title="Adobe After Effects">Ae</span>
+        <span class="app-ic dv" title="DaVinci Resolve"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#14161a"/><path fill="#e9ecf5" fill-rule="evenodd" d="M17.621 0 5.977.004c-1.37 0-2.756.345-3.762 1.11a4.925 4.925 0 0 0-1.61 2.003C.233 3.93 0 5.02 0 5.951l.012 12.2c.002 1.604.479 3.057 1.461 4.112.984 1.056 2.462 1.683 4.331 1.691L16.856 24c1.26.005 3.095-.036 4.303-.714 1.075-.605 2.025-1.556 2.497-2.984.278-.84.345-2.084.344-3.147l-.021-11.13c-.002-.888-.15-2.023-.547-2.934-.425-.976-1.181-1.815-2.322-2.425C20.353.26 19.123 0 17.622 0zM17.621 0.93c1.378 0 2.538.295 3.04.565.977.523 1.544 1.166 1.889 1.96.315.721.47 1.793.473 2.572l.018 11.13c.002 1.013-.097 2.257-.298 2.86-.396 1.202-1.146 1.946-2.063 2.462-.814.457-2.612.593-3.82.588l-11.05-.044c-1.657-.007-2.832-.534-3.626-1.386-.792-.851-1.212-2.06-1.212-3.485L.999 5.95c0-.829.196-1.827.474-2.437.345-.757.75-1.207 1.365-1.674C3.585 1.27 4.868.97 6.08.97z"/><path fill="#f2554a" d="M11.961 4.353c-1.976.089-3.204 1.658-3.214 3.29.019 1.443 1.635 3.481 2.884 4.53.12.099.154.109.33.18.062.025.198-.047.327-.135.36-.245.993-.947 1.648-1.738a7.67 7.67 0 0 0 1.031-1.683c.409-.89.261-1.599.235-1.888a3.983 3.983 0 0 0-.99-1.692 3.36 3.36 0 0 0-2.251-.864z"/><path fill="#4cc38a" d="M16.133 12.275a10.185 10.185 0 0 0-3.244.61c-.15.058-.26.1-.374.17-.057.036-.11.135-.105.292.017.433.29 1.278.624 2.27.384 1.135 1.066 2.27 1.844 2.74a3.23 3.23 0 0 0 2.53.342c.832-.243 1.595-.868 1.962-1.546.986-1.818.19-3.548-1.121-4.417-.447-.296-1.133-.445-1.89-.46-.074 0-.15-.002-.226-.001z"/><path fill="#3b9bf5" d="M7.701 12.313a6.201 6.201 0 0 0-.752.047c-.596.078-.932.273-1.29.51a3.177 3.177 0 0 0-1.365 1.979c-.075.552-.086 1.053.033 1.507.433 1.389 1.326 2.222 2.847 2.452.636.028 1.37-.063 1.99-.45 1.269-.782 2.08-3.17 2.412-4.742.053-.176.035-.357-.013-.42-.005-.067-.044-.113-.19-.183-.398-.192-1.32-.417-2.375-.6a7.68 7.68 0 0 0-1.297-.1z"/></svg></span>
       </div>
       <img src="assets/logo.png" alt="dropSFX" class="hero-logo" />
 
-      <p class="hero-tagline" data-i18n="hero.tagline">Mais de 1.400 efeitos sonoros, direto no Premiere Pro e no After Effects.</p>
+      <p class="hero-tagline" data-i18n="hero.tagline">O melhor plugin de SFX do mercado.</p>
       <div class="hero-cta-row">
         <div class="hero-buttons">
           <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=hero&utm_campaign=dropsfx"
             class="hero-cta js-buy-cta pop-btn" data-position="hero"
-            target="_blank" rel="noopener"><span data-i18n="hero.cta">Quero o dropSFX</span> <span class="arr">→</span></a>
+            target="_blank" rel="noopener"><span data-i18n="hero.cta">Comprar</span> <span class="arr">→</span></a>
         </div>
-        <div class="hero-meta" data-i18n-html="hero.meta"><span>Pagamento <b>único</b></span> · <span>Acesso vitalício</span> · <span>Garantia de 7 dias</span></div>
       </div>
     </div>
+
+    <div class="hero-meta" data-i18n-html="hero.meta"><span>Pagamento <b>único</b></span><span>Acesso vitalício</span><span>Garantia de 7 dias</span></div>
   </section>
 
   <!-- ============ LIBRARY ============ -->
@@ -2008,9 +2046,9 @@
       "nav.cta": "Comprar agora",
 
       "hero.badge": "PREMIERE PRO + AFTER EFFECTS",
-      "hero.tagline": "Mais de 1.400 efeitos sonoros, direto no Premiere Pro e no After Effects.",
-      "hero.cta": "Quero o dropSFX",
-      "hero.meta": "<span>Pagamento <b>único</b></span> · <span>Acesso vitalício</span> · <span>Garantia de 7 dias</span>",
+      "hero.tagline": "O melhor plugin de SFX do mercado.",
+      "hero.cta": "Comprar",
+      "hero.meta": "<span>Pagamento <b>único</b></span><span>Acesso vitalício</span><span>Garantia de 7 dias</span>",
 
       "proof.bar": "<strong>+1.000 pessoas</strong> já adquiriram o dropSFX",
 
@@ -2136,9 +2174,9 @@
       "nav.cta": "Get it now",
 
       "hero.badge": "PREMIERE PRO + AFTER EFFECTS",
-      "hero.tagline": "Over 1,400 sound effects, right inside Premiere Pro and After Effects.",
-      "hero.cta": "Get dropSFX",
-      "hero.meta": "<span><b>One-time</b> payment</span> · <span>Lifetime access</span> · <span>7-day guarantee</span>",
+      "hero.tagline": "The best SFX plugin on the market.",
+      "hero.cta": "Buy now",
+      "hero.meta": "<span><b>One-time</b> payment</span><span>Lifetime access</span><span>7-day guarantee</span>",
 
       "proof.bar": "<strong>1,000+ people</strong> already got dropSFX",
 
@@ -2264,9 +2302,9 @@
       "nav.cta": "Comprar ahora",
 
       "hero.badge": "PREMIERE PRO + AFTER EFFECTS",
-      "hero.tagline": "Más de 1.400 efectos de sonido, directo en Premiere Pro y After Effects.",
-      "hero.cta": "Quiero dropSFX",
-      "hero.meta": "<span>Pago <b>único</b></span> · <span>Acceso de por vida</span> · <span>Garantía de 7 días</span>",
+      "hero.tagline": "El mejor plugin de SFX del mercado.",
+      "hero.cta": "Comprar",
+      "hero.meta": "<span>Pago <b>único</b></span><span>Acceso de por vida</span><span>Garantía de 7 días</span>",
 
       "proof.bar": "<strong>+1.000 personas</strong> ya adquirieron dropSFX",
 
@@ -2392,9 +2430,9 @@
       "nav.cta": "अभी खरीदें",
 
       "hero.badge": "ADOBE PREMIERE PRO के लिए",
-      "hero.tagline": "Premiere Pro और After Effects के अंदर 1,400 से ज़्यादा साउंड इफ़ेक्ट्स।",
-      "hero.cta": "मुझे dropSFX चाहिए",
-      "hero.meta": "<span><b>एक बार</b> भुगतान</span> · <span>लाइफ़टाइम एक्सेस</span> · <span>7 दिन की गारंटी</span>",
+      "hero.tagline": "बाज़ार का सबसे बेहतरीन SFX प्लगइन।",
+      "hero.cta": "खरीदें",
+      "hero.meta": "<span><b>एक बार</b> भुगतान</span><span>लाइफ़टाइम एक्सेस</span><span>7 दिन की गारंटी</span>",
 
       "proof.bar": "<strong>1,000+ लोग</strong> dropSFX ले चुके हैं",
 
