@@ -1785,27 +1785,22 @@
       isolation: isolate;
     }
 
-    .ed-knock-video {
+    /* gradiente em parallax: uma faixa de cor bem mais alta que o número,
+       que desliza por dentro dele conforme a página rola (e um pouco com o mouse) */
+    .ed-knock-grad {
       position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(1.9) contrast(1.1) saturate(1.3);
+      left: -8%;
+      right: -8%;
+      top: 0;
+      height: 520%;
+      z-index: -1;
+      background: linear-gradient(172deg,
+        #1d2b6e 0%, #3b6ef5 12%, #8fd0ff 22%, #f2fbff 30%, #c9bcff 38%,
+        #7b5cf0 47%, #3a2a8c 54%, #2dd4bf 64%, #c8fbf1 72%, #ffffff 77%,
+        #9db6ff 85%, #3b6ef5 93%, #1d2b6e 100%);
+      transform: translate3d(calc(var(--px, 0) * 1%), calc(var(--py, .3) * -80.8%), 0);
+      will-change: transform;
     }
-
-    /* piso de luz em tom gelo: o número nunca some nos trechos escuros do vídeo */
-    .ed-knock::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      background: linear-gradient(180deg, rgba(216, 250, 255, .55) 0%, rgba(110, 155, 255, .35) 100%);
-      mix-blend-mode: screen;
-      pointer-events: none;
-    }
-
-    .ed-knock-video { z-index: -1; }
 
     .ed-knock-type {
       position: relative;
@@ -1957,6 +1952,71 @@
 
     /* evita que o itálico seja cortado pela máscara palavra-a-palavra */
     .ed-quote .swu-word { padding-right: .08em; margin-right: -.08em; }
+
+    /* ---------- arrastar e soltar ---------- */
+    #dragMock .plm-cursor { transition: transform .75s cubic-bezier(.5, 0, .2, 1), opacity .3s; }
+
+    .drag-ghost {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 9;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px 6px 7px;
+      border-radius: 10px;
+      --c: #2dd4bf;
+      background: color-mix(in srgb, var(--c) 16%, #0c0c0e);
+      border: 1px solid color-mix(in srgb, var(--c) 65%, transparent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, .6);
+      transition: transform .75s cubic-bezier(.5, 0, .2, 1), opacity .25s;
+    }
+
+    .dg-bars { display: flex; align-items: flex-end; gap: 2px; height: 14px; }
+    .dg-bars i { width: 2.5px; border-radius: 2px; background: var(--c); }
+    .dg-bars i:nth-child(1) { height: 40%; }
+    .dg-bars i:nth-child(2) { height: 75%; }
+    .dg-bars i:nth-child(3) { height: 55%; }
+    .dg-bars i:nth-child(4) { height: 90%; }
+
+    .dm-tracks { display: flex; flex-direction: column; gap: 5px; }
+    .dm-row { display: grid; grid-template-columns: 22px 1fr; align-items: center; }
+    .dm-lab { font-family: var(--font-mono); font-size: 8.5px; color: var(--muted); }
+
+    .dm-track {
+      position: relative;
+      height: 30px;
+      border-radius: 7px;
+      background: repeating-linear-gradient(90deg, rgba(255, 255, 255, .03) 0 20px, transparent 20px 22px);
+      transition: background .2s, box-shadow .2s;
+    }
+
+    .dm-track.over { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .28); }
+
+    .dm-clip {
+      position: absolute;
+      top: 3px;
+      bottom: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      padding: 0 4px;
+      border-radius: 5px;
+      background: color-mix(in srgb, var(--c) 34%, #111216);
+      box-shadow: inset 0 2px 0 var(--c);
+    }
+
+    .dm-clip i { width: 2px; border-radius: 1px; background: var(--c); opacity: .85; }
+
+    .dm-drop { opacity: 0; transform: translateY(-6px); transition: opacity .3s, transform .45s cubic-bezier(.2, 1.4, .4, 1); }
+    .dm-drop.in { opacity: 1; transform: none; }
 
     /* ---------- oferta ---------- */
     .ed-price-grid {
@@ -2256,9 +2316,7 @@
   <section class="ed-sec ed-cover" id="library">
     <div class="ed">
       <div class="ed-knock">
-        <video class="ed-knock-video" autoplay loop muted playsinline preload="metadata" aria-hidden="true">
-          <source src="assets/hero-video-v2-otimizado.mp4" type="video/mp4">
-        </video>
+        <div class="ed-knock-grad" aria-hidden="true"></div>
         <div class="ed-knock-type"><span class="ed-knock-num"><span class="ed-knock-ghost" data-i18n="ed.knocknum">1.463</span><span class="ed-knock-count" aria-hidden="true">0</span></span></div>
       </div>
       <p class="ed-knock-cap" data-i18n="ed.knockcap">sons prontos pra timeline, organizados em 21 categorias.</p>
@@ -2364,9 +2422,61 @@
     </div>
   </section>
 
+  <!-- ============ ARRASTAR E SOLTAR ============ -->
+  <section class="ed-sec ed-ch" id="drag">
+    <div class="ed ed-ch-grid">
+      <div class="ed-ch-copy">
+        <h2 class="ed-h" data-i18n-html="drag.title">Arrastou, soltou.<br><span class="blue">Já chega colorido.</span></h2>
+        <p class="ed-lead" data-i18n-html="drag.lead">Prefere arrastar? <strong>Puxe o som do painel direto pra timeline</strong>. Ao soltar, o clipe já entra com a cor da categoria, e sua trilha de áudio fica organizada sem você mexer em nada.</p>
+      </div>
+      <div class="ed-ch-visual">
+        <div class="pl-mini" id="dragMock">
+          <div class="plm-cursor"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 3.2l13.6 6.8c.6.3.5 1.2-.1 1.4l-5.3 1.7c-.2.1-.4.2-.5.4l-2.6 5c-.3.6-1.2.5-1.4-.1L3.2 4.6c-.2-.6.4-1.2 1-1z"/></svg></div>
+          <div class="drag-ghost" aria-hidden="true">
+            <span class="dg-bars"><i></i><i></i><i></i><i></i></span>
+            <span class="dg-name">Whoosh Fast 02</span>
+          </div>
+          <div class="plm-head">
+            <div class="plm-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg> <span data-i18n="mock.favorites">Favoritos</span></div>
+            <div class="plm-count"><span>3</span> <span data-i18n="mock.sounds">sons</span></div>
+          </div>
+          <div class="plm-list">
+            <div class="fitem" data-drag="0" data-name="Whoosh Fast 02" data-color="#2dd4bf">
+              <div class="fitem-bars" style="border-color:rgba(45,212,191,.35);background:rgba(45,212,191,.08)"><span style="background:#2dd4bf;height:40%"></span><span style="background:#2dd4bf;height:70%"></span><span style="background:#2dd4bf;height:50%"></span><span style="background:#2dd4bf;height:85%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Whoosh Fast 02</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(45,212,191,.14);color:#2dd4bf">whoosh</span> 0:01.4</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+            </div>
+            <div class="fitem" data-drag="1" data-name="Riser Tension 03" data-color="#fb923c">
+              <div class="fitem-bars" style="border-color:rgba(251,146,60,.35);background:rgba(251,146,60,.08)"><span style="background:#fb923c;height:40%"></span><span style="background:#fb923c;height:70%"></span><span style="background:#fb923c;height:50%"></span><span style="background:#fb923c;height:85%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Riser Tension 03</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(251,146,60,.14);color:#fb923c">riser</span> 0:03.8</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+            </div>
+            <div class="fitem" data-drag="2" data-name="Cinematic Drop 05" data-color="#a78bfa">
+              <div class="fitem-bars" style="border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.08)"><span style="background:#a78bfa;height:40%"></span><span style="background:#a78bfa;height:70%"></span><span style="background:#a78bfa;height:50%"></span><span style="background:#a78bfa;height:85%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Cinematic Drop 05</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(167,139,250,.14);color:#a78bfa">drop</span> 0:04.2</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+            </div>
+          </div>
+          <div class="plm-timeline">
+            <div class="plm-tl-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg> Timeline</div>
+            <div class="dm-tracks">
+              <div class="dm-row"><span class="dm-lab">A1</span><div class="dm-track">
+                <div class="dm-clip dm-drop" data-drop="0" style="--c:#2dd4bf;left:4%;width:24%"><i style="height:30%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:70%"></i><i style="height:40%"></i><i style="height:65%"></i><i style="height:50%"></i><i style="height:75%"></i><i style="height:35%"></i><i style="height:60%"></i></div>
+                <div class="dm-clip dm-drop" data-drop="2" style="--c:#a78bfa;left:64%;width:16%"><i style="height:30%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:70%"></i><i style="height:40%"></i><i style="height:65%"></i></div>
+              </div></div>
+              <div class="dm-row"><span class="dm-lab">A2</span><div class="dm-track">
+                <div class="dm-clip dm-drop" data-drop="1" style="--c:#fb923c;left:26%;width:34%"><i style="height:30%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:70%"></i><i style="height:40%"></i><i style="height:65%"></i><i style="height:50%"></i><i style="height:75%"></i><i style="height:35%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:70%"></i></div>
+              </div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ III · GANHO ============ -->
   <section class="ed-sec ed-ch" id="gain">
-    <div class="ed ed-ch-grid">
+    <div class="ed ed-ch-grid flip">
       <div class="ed-ch-copy">
         <h2 class="ed-h" data-i18n-html="gain.title"><span class="fill">O ganho certo,</span><br><span class="blue">antes de inserir.</span></h2>
         <p class="ed-lead" data-i18n-html="gain.lead">Whoosh sempre alto demais? Riser baixo? Escolha <strong>-12, 0 ou +6 dB</strong> e o som já entra na timeline no volume certo. Adeus, abrir o mixer pra cada clipe.</p>
@@ -3019,6 +3129,105 @@
     }
   };
 
+  // Demo de arrastar e soltar: os três sons, um de cada vez, caem coloridos na timeline
+  (function () {
+    var mock = document.getElementById('dragMock');
+    if (!mock) return;
+    var cursor = mock.querySelector('.plm-cursor');
+    var ghost = mock.querySelector('.drag-ghost');
+    var gname = ghost.querySelector('.dg-name');
+    var rows = [], clips = [];
+    mock.querySelectorAll('[data-drag]').forEach(function (r) { rows[+r.getAttribute('data-drag')] = r; });
+    mock.querySelectorAll('[data-drop]').forEach(function (c) { clips[+c.getAttribute('data-drop')] = c; });
+    var started = false;
+
+    function pos(el, fx, fy) {
+      var m = mock.getBoundingClientRect(), r = el.getBoundingClientRect();
+      return { x: r.left - m.left + r.width * fx, y: r.top - m.top + r.height * fy };
+    }
+    function place(el, p) { el.style.transform = 'translate(' + p.x + 'px,' + p.y + 'px)'; }
+
+    function drag(i, next) {
+      var row = rows[i], clip = clips[i], track = clip.parentNode;
+      var grab = pos(row, .3, .5);
+      cursor.style.opacity = '1';
+      place(cursor, { x: grab.x, y: grab.y - 6 });
+
+      setTimeout(function () {
+        row.classList.add('active');
+        ghost.style.setProperty('--c', row.getAttribute('data-color'));
+        gname.textContent = row.getAttribute('data-name');
+        ghost.style.transition = 'none';
+        var g0 = pos(row, .12, .18);
+        place(ghost, g0);
+        void ghost.offsetWidth;
+        ghost.style.transition = '';
+        ghost.style.opacity = '1';
+
+        setTimeout(function () {
+          var drop = pos(track, parseFloat(clip.style.left) / 100, 0);
+          place(ghost, { x: drop.x, y: drop.y - 2 });
+          place(cursor, { x: drop.x + (grab.x - g0.x), y: drop.y + (grab.y - g0.y) - 8 });
+          setTimeout(function () { track.classList.add('over'); }, 480);
+          setTimeout(function () {
+            ghost.style.opacity = '0';
+            track.classList.remove('over');
+            row.classList.remove('active');
+            clip.classList.add('in');
+            setTimeout(next, 450);
+          }, 850);
+        }, 300);
+      }, 750);
+    }
+
+    function cycle() {
+      clips.forEach(function (c) { c.classList.remove('in'); });
+      drag(0, function () {
+        drag(1, function () {
+          drag(2, function () { setTimeout(cycle, 2000); });
+        });
+      });
+    }
+
+    function tryStart() {
+      if (started) return;
+      var r = mock.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.85 && r.bottom > 0) { started = true; setTimeout(cycle, 400); }
+    }
+    tryStart();
+    window.addEventListener('scroll', tryStart, { passive: true });
+  })();
+
+  // Parallax do gradiente dentro do número: acompanha a rolagem e o mouse
+  (function () {
+    var box = document.querySelector('.ed-knock');
+    var grad = box && box.querySelector('.ed-knock-grad');
+    if (!grad) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var visible = false, running = false, mx = 0, cx = 0;
+
+    function frame() {
+      if (!visible) { running = false; return; }
+      var r = box.getBoundingClientRect(), vh = window.innerHeight;
+      var p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+      cx += (mx - cx) * 0.06;
+      grad.style.setProperty('--py', p.toFixed(4));
+      grad.style.setProperty('--px', cx.toFixed(3));
+      requestAnimationFrame(frame);
+    }
+
+    window.addEventListener('mousemove', function (e) {
+      mx = (e.clientX / window.innerWidth - 0.5) * -6;
+    }, { passive: true });
+
+    if (!('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting;
+      if (visible && !running) { running = true; requestAnimationFrame(frame); }
+    }).observe(box);
+  })();
+
   // Contagem do número da biblioteca: 0 → 1.463 quando aparece na tela
   (function () {
     var box = document.querySelector('.ed-knock');
@@ -3064,25 +3273,33 @@
         "ed.knocknum": "1.463",
         "ed.knockcap": "sons prontos pra timeline, organizados em 21 categorias.",
         "ed.libtitle": "Uma biblioteca<br><span class='blue'>feita para editar.</span>",
-        "ed.colophon": "Feito por um editor, para editores."
+        "ed.colophon": "Feito por um editor, para editores.",
+        "drag.title": "Arrastou, soltou.<br><span class='blue'>Já chega colorido.</span>",
+        "drag.lead": "Prefere arrastar? <strong>Puxe o som do painel direto pra timeline</strong>. Ao soltar, o clipe já entra com a cor da categoria, e sua trilha de áudio fica organizada sem você mexer em nada."
       },
       en: {
         "ed.knocknum": "1,463",
         "ed.knockcap": "sounds ready for the timeline, organized into 21 categories.",
         "ed.libtitle": "A library<br><span class='blue'>built for editing.</span>",
-        "ed.colophon": "Made by an editor, for editors."
+        "ed.colophon": "Made by an editor, for editors.",
+        "drag.title": "Drag it, drop it.<br><span class='blue'>It lands already colored.</span>",
+        "drag.lead": "Prefer dragging? <strong>Pull the sound from the panel straight onto the timeline</strong>. When you drop it, the clip comes in with its category color, so your audio tracks stay organized with zero extra work."
       },
       es: {
         "ed.knocknum": "1.463",
         "ed.knockcap": "sonidos listos para la timeline, organizados en 21 categorías.",
         "ed.libtitle": "Una biblioteca<br><span class='blue'>hecha para editar.</span>",
-        "ed.colophon": "Hecho por un editor, para editores."
+        "ed.colophon": "Hecho por un editor, para editores.",
+        "drag.title": "Arrastra y suelta.<br><span class='blue'>Llega ya con color.</span>",
+        "drag.lead": "¿Prefieres arrastrar? <strong>Lleva el sonido del panel directo a la timeline</strong>. Al soltarlo, el clip entra con el color de su categoría, y tus pistas de audio quedan organizadas sin esfuerzo."
       },
       hi: {
         "ed.knocknum": "1,463",
         "ed.knockcap": "टाइमलाइन के लिए तैयार साउंड, 21 कैटेगरी में।",
         "ed.libtitle": "एक लाइब्रेरी<br><span class='blue'>एडिटिंग के लिए चुनी गई।</span>",
-        "ed.colophon": "एक एडिटर द्वारा, एडिटर्स के लिए।"
+        "ed.colophon": "एक एडिटर द्वारा, एडिटर्स के लिए।",
+        "drag.title": "खींचिए, छोड़िए।<br><span class='blue'>रंग के साथ पहुँचता है।</span>",
+        "drag.lead": "खींचना पसंद है? <strong>साउंड को पैनल से सीधे टाइमलाइन पर खींचिए</strong>। छोड़ते ही क्लिप अपनी कैटेगरी के रंग में आता है, और आपके ऑडियो ट्रैक बिना मेहनत के व्यवस्थित रहते हैं।"
       }
     };
     for (var lang in add) for (var k in add[lang]) I18N[lang][k] = add[lang][k];
