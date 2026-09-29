@@ -2013,12 +2013,17 @@
 
     /* celular: as folhas viram etiquetas horizontais em duas colunas */
     @media (max-width: 640px) {
-      .fold-stage { --k: .72; height: 980px; }
+      /* celular: a área começa compacta (frase + pasta) e cresce junto com a
+         saída dos arquivos, então nunca existe um vão vazio na tela */
+      .fold-stage { --k: .72; height: 440px; transition: height .9s cubic-bezier(.22, 1, .36, 1); }
+      .fold-stage.open { height: 1000px; }
+      .fold-intro { top: auto; bottom: calc(64px + 240px * .72 + 72px); font-size: 27px; padding: 0 12px; }
+      .fold-hint { display: none; }
       .fc {
-        width: 238px;
-        height: 64px;
+        width: 220px;
+        height: 76px;
         padding: 0 12px 0 16px;
-        border-radius: 14px;
+        border-radius: 16px;
         display: grid;
         grid-template-columns: auto 1fr auto;
         align-items: center;
@@ -2026,9 +2031,20 @@
       }
       .fc-top { display: contents; }
       .fc-dot { order: 1; width: 11px; height: 11px; }
-      .fc-name { order: 2; margin: 0; font-size: 17px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-      .fc-ct { order: 3; padding: 3px 9px; }
-      .fc-ct b { font-size: 18px; }
+      .fc-name {
+        order: 2;
+        margin: 0;
+        min-width: 0;
+        font-size: 18px;
+        letter-spacing: -.02em;
+        line-height: 1.05;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .fc-ct { order: 3; padding: 4px 9px; }
+      .fc-ct b { font-size: 19px; }
       .fc-ctl { display: none; }
       .fc-lines, .fc-wave { display: none; }
     }
@@ -4052,7 +4068,8 @@
     if (!stage) return;
     var fold = stage.querySelector('.fold');
     var open = false, closeTimer = null;
-    var touch = window.matchMedia('(hover: none)').matches;
+    // no celular (ou janela estreita) a pasta abre sozinha ao aparecer; hover só faz sentido no desktop
+    var touch = window.matchMedia('(hover: none)').matches || stage.clientWidth < 640;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // fechada: as 3 primeiras espiam pela boca, o resto fica escondido atrás do vidro
@@ -4071,23 +4088,27 @@
       var idx = 0, total = cards.length;
 
       if (mobile) {
-        // duas colunas de etiquetas subindo da pasta, com leve inclinação alternada
+        // duas colunas alinhadas que cabem sempre na largura da tela
+        var gap = 10, colW = Math.floor((W - 6 - gap) / 2), half = colW / 2 + gap / 2;
         for (; idx < total; idx++) {
           var c0 = cards[idx], col = idx % 2, line = Math.floor(idx / 2);
+          c0.style.width = colW + 'px';
           var mx, my, mr;
           if (open) {
-            mx = col ? 124 : -124; my = -60 - line * 84; mr = (col ? 2.5 : -2.5) * (line % 2 ? -1 : 1);
+            mx = col ? half : -half; my = -56 - line * 86; mr = 0;
           } else if (idx < PEEK.length) {
-            mx = (idx - 1) * 30; my = -30 - idx * 34 + 150; mr = (idx - 1) * 5;
+            mx = (idx - 1) * 34; my = -30 - idx * 38 + 150; mr = (idx - 1) * 5;
           } else {
-            mx = 0; my = 190; mr = 0;
+            mx = 0; my = 200; mr = 0;
           }
-          c0.style.setProperty('--t', 'translate(-50%, -100%) translate(' + mx + 'px,' + my + 'px) rotate(' + mr + 'deg)');
-          c0.style.setProperty('--d', (open ? line * .045 : (10 - line) * .02) + 's');
+          c0.style.setProperty('--t', 'translate(-50%, -100%) translate(' + mx.toFixed(1) + 'px,' + my + 'px) rotate(' + mr + 'deg)');
+          c0.style.setProperty('--d', (open ? line * .05 + col * .02 : (10 - line) * .02) + 's');
           c0.style.zIndex = String(open ? 30 - idx : 2 + (total - idx));
         }
         return;
       }
+
+      for (var z = 0; z < total; z++) cards[z].style.width = '';
 
       rows.forEach(function (row, r) {
         var A = Math.asin(Math.min(.95, (W * row.spread) / row.R));
@@ -4131,7 +4152,7 @@
       if ('IntersectionObserver' in window) {
         var io = new IntersectionObserver(function (e) {
           if (e[0].isIntersecting) { set(true); io.disconnect(); }
-        }, { threshold: .55 });
+        }, { threshold: .6 });
         io.observe(stage);
       }
     } else {
