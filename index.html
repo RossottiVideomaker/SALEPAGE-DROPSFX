@@ -68,7 +68,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap"
     rel="stylesheet">
 
   <style>
@@ -1712,6 +1712,465 @@
       .mq-row { animation: none !important; }
       .scene-bg, .scene-fg { transform: none !important; }
     }
+
+    /* =====================================================================
+       EDITORIAL — tudo abaixo do hero
+       Sans (Degular Display bold, caixa alta) + serif itálica (Instrument
+       Serif) em linhas inteiras. Gelo (#d8faff) vem do gradiente do logo.
+       ===================================================================== */
+    :root {
+      --ice: #d8faff;
+      --steel: #8a8f9c;
+      --font-serif: 'Instrument Serif', 'Noto Sans Devanagari', Georgia, serif;
+    }
+
+    .ed {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .ed-sec {
+      position: relative;
+      padding: clamp(96px, 11vw, 168px) 0;
+      background: #000;
+    }
+
+    .ed-h {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(34px, 4.6vw, 72px);
+      line-height: .96;
+      letter-spacing: -.025em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .ed-h .fill { color: var(--ink); }
+
+    /* a segunda linha de todo título vira serif itálica */
+    .ed-h .blue {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: -.01em;
+      font-size: 1.14em;
+      line-height: 1;
+      color: var(--ice);
+      -webkit-text-stroke: 0;
+    }
+
+    .ed-lead {
+      margin-top: 28px;
+      max-width: 42ch;
+      font-family: var(--font);
+      font-size: clamp(16px, 1.2vw, 18px);
+      font-weight: 400;
+      line-height: 1.65;
+      color: var(--ink-2);
+    }
+
+    .ed-lead strong { color: #fff; font-weight: 700; }
+
+    /* ---------- capa: número vazado com vídeo ---------- */
+    .ed-cover { padding-top: clamp(64px, 8vw, 120px); }
+
+    .ed-knock {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .ed-knock-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(1.9) contrast(1.1) saturate(1.3);
+    }
+
+    /* piso de luz em tom gelo: o número nunca some nos trechos escuros do vídeo */
+    .ed-knock::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: linear-gradient(180deg, rgba(216, 250, 255, .55) 0%, rgba(110, 155, 255, .35) 100%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .ed-knock-video { z-index: -1; }
+
+    .ed-knock-type {
+      position: relative;
+      background: #000;
+      color: #fff;
+      mix-blend-mode: multiply;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(120px, 26vw, 340px);
+      line-height: .82;
+      letter-spacing: -.055em;
+      text-align: center;
+      white-space: nowrap;
+      padding: .04em 0 .08em;
+    }
+
+    /* contador: o número final fica invisível segurando a largura,
+       e a contagem corre por cima, alinhada à direita, como um odômetro */
+    .ed-knock-num { position: relative; display: inline-block; }
+    .ed-knock-ghost { color: transparent; }
+    .ed-knock-count { position: absolute; top: 0; right: 0; }
+
+    .ed-knock-cap {
+      margin: 28px auto 0;
+      max-width: 22em;
+      text-align: center;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(22px, 2.4vw, 34px);
+      line-height: 1.15;
+      color: var(--ice);
+    }
+
+    /* ---------- biblioteca ---------- */
+    .ed-lib {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: clamp(40px, 6vw, 96px);
+      align-items: center;
+      margin-top: clamp(96px, 11vw, 160px);
+    }
+
+    .ed-lib-media {
+      margin: 0;
+      aspect-ratio: 1042 / 1662;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #07080a;
+      border: 1px solid rgba(255, 255, 255, .12);
+    }
+
+    .ed-lib-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .ed-lib-copy { padding-top: 6px; }
+
+    /* índice em colunas, no estilo créditos de revista: sem linhas nem cores;
+       a cor da pasta só aparece no número quando o mouse passa */
+    .ed-index {
+      list-style: none;
+      margin-top: clamp(72px, 8vw, 120px);
+      columns: 4;
+      column-gap: clamp(24px, 4vw, 64px);
+    }
+
+    .ed-index li {
+      break-inside: avoid;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 9px 0;
+      font-family: var(--font);
+      font-size: clamp(16px, 1.35vw, 20px);
+      color: var(--ink-2);
+      transition: color .2s;
+    }
+
+    .ed-index .ct {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: .95em;
+      color: var(--steel);
+      transition: color .2s;
+    }
+
+    .ed-index li:hover { color: #fff; }
+    .ed-index li:hover .ct { color: var(--c); }
+
+    /* ---------- capítulos (pré-escuta, inserção, ganho) ---------- */
+    .ed-ch-grid {
+      display: grid;
+      grid-template-columns: 5fr 6fr;
+      gap: clamp(40px, 7vw, 120px);
+      align-items: center;
+    }
+
+    .ed-ch-grid.flip { grid-template-columns: 6fr 5fr; }
+    .ed-ch-grid.flip .ed-ch-copy { order: 2; }
+
+    .ed-ch-visual { display: flex; justify-content: center; }
+
+    .ed .pl-mini {
+      width: min(480px, 100%);
+      border-radius: 16px;
+      border-color: rgba(255, 255, 255, .12);
+      background: #060607;
+      box-shadow: 0 50px 100px -40px rgba(0, 0, 0, .95);
+    }
+
+    .ed .gain-demo { width: min(440px, 100%); align-items: stretch; gap: 22px; }
+    .ed .gain-pills-big { gap: 10px; }
+
+    .ed .gain-big {
+      flex: 1;
+      text-align: center;
+      padding: 26px 0;
+      border-radius: 14px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(18px, 1.9vw, 24px);
+      letter-spacing: -.01em;
+    }
+
+    .ed .gain-meter { width: 100%; height: 4px; }
+
+    /* ---------- citação ---------- */
+    .ed-quote { padding: clamp(110px, 14vw, 220px) 0; }
+
+    .ed-quote .quote {
+      max-width: 15em;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(32px, 4.8vw, 76px);
+      line-height: 1.06;
+      letter-spacing: -.012em;
+      text-align: left;
+      color: var(--ink);
+    }
+
+    .ed-quote .quote .quote-line { display: block; white-space: normal; }
+
+    .ed-quote .quote .accent {
+      padding-left: clamp(36px, 10vw, 200px);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--ice);
+    }
+
+    /* evita que o itálico seja cortado pela máscara palavra-a-palavra */
+    .ed-quote .swu-word { padding-right: .08em; margin-right: -.08em; }
+
+    /* ---------- oferta ---------- */
+    .ed-price-grid {
+      display: grid;
+      grid-template-columns: 6fr 5fr;
+      gap: clamp(40px, 6vw, 96px);
+      align-items: start;
+    }
+
+    .ed-terms { margin-top: 48px; border-top: 1px solid rgba(255, 255, 255, .16); }
+
+    .ed-terms > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .ed-terms dt { font-size: 15px; color: var(--steel); }
+
+    .ed-terms dd {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(26px, 2.6vw, 38px);
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .ed-note { margin-top: 18px; font-size: 13px; color: var(--steel); }
+
+    .ed-card {
+      position: sticky;
+      top: 104px;
+      padding: clamp(26px, 3vw, 40px);
+      border-radius: 24px;
+      background: linear-gradient(180deg, #0b0d13 0%, #040405 100%);
+      border: 1px solid rgba(255, 255, 255, .12);
+      box-shadow: inset 0 1px 0 rgba(216, 250, 255, .08);
+    }
+
+    .ed-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+      color: var(--ink-2);
+    }
+
+    .ed-card-top .shimmer-text {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 24px;
+      letter-spacing: -.01em;
+    }
+
+    .ed-feats { list-style: none; margin: 10px 0 30px; }
+
+    .ed-feats li {
+      position: relative;
+      padding: 13px 0 13px 24px;
+      border-bottom: 1px solid var(--line);
+      font-size: 15px;
+      line-height: 1.45;
+      color: var(--ink-2);
+    }
+
+    .ed-feats li:last-child { border-bottom: 0; }
+
+    .ed-feats li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 22px;
+      width: 11px;
+      height: 1.5px;
+      background: var(--accent-hi);
+    }
+
+    .ed-feats strong { color: #fff; font-weight: 700; }
+
+    .ed-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 19px 24px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: #000;
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+    }
+
+    .ed-cta:hover { background: var(--ice); transform: translateY(-2px); }
+    .ed-cta:focus-visible { outline: 2px solid var(--accent-hi); outline-offset: 3px; }
+
+    .ed-card .qr-card { margin-top: 16px; border-radius: 16px; }
+    .ed-card .qr-card-text .qr-k { font-family: var(--font); font-size: 13px; letter-spacing: 0; text-transform: none; }
+    .ed-card .guarantee { border-radius: 16px; }
+
+    /* ---------- FAQ ---------- */
+    .ed-faq-grid {
+      display: grid;
+      grid-template-columns: 4fr 7fr;
+      gap: clamp(40px, 6vw, 96px);
+      align-items: start;
+    }
+
+    .ed-faq-title { position: sticky; top: 104px; }
+    .ed-faq .faq-wrap { max-width: none; margin: 0; }
+    .ed-faq .faq-item { border-top-color: rgba(255, 255, 255, .14); }
+    .ed-faq .faq-item:last-child { border-bottom-color: rgba(255, 255, 255, .14); }
+
+    .ed-faq .faq-q {
+      padding: 26px 0;
+      font-family: var(--font);
+      font-weight: 400;
+      font-size: clamp(17px, 1.5vw, 21px);
+    }
+
+    .ed-faq .faq-q .plus { font-family: var(--font-serif); font-size: 32px; color: var(--ice); }
+    .ed-faq .faq-a { font-size: 16px; max-width: 58ch; }
+
+    /* ---------- rodapé ---------- */
+    footer.ed-foot {
+      padding: clamp(80px, 10vw, 140px) 0 48px;
+      border-top: 1px solid var(--line);
+      background: #000;
+    }
+
+    .ed-foot-logo { width: min(640px, 88vw); height: auto; margin-left: -2%; }
+
+    .ed-foot-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 20px 40px;
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .ed-foot-line { font-family: var(--font-serif); font-style: italic; font-size: 24px; color: var(--ink); }
+    footer.ed-foot .foot-links a { font-size: 14px; }
+    footer.ed-foot .foot-credit { font-family: var(--font); font-size: 13px; }
+
+    /* ---------- responsivo ---------- */
+    @media (max-width: 880px) {
+      .ed { padding: 0 22px; }
+
+      .ed-lib,
+      .ed-ch-grid,
+      .ed-ch-grid.flip,
+      .ed-price-grid,
+      .ed-faq-grid { grid-template-columns: 1fr; }
+
+      .ed-ch-grid.flip .ed-ch-copy { order: 0; }
+      .ed-lib-media { order: 2; width: min(360px, 100%); justify-self: center; }
+      .ed-card, .ed-faq-title { position: static; }
+      .ed-knock-type { font-size: 30vw; }
+    }
+
+    @media (max-width: 560px) {
+      .ed-index { columns: 2; }
+      .ed-quote .quote .accent { padding-left: 0; }
+    }
+
+    /* ---------- hindi ---------- */
+    html[lang="hi"] .ed-h {
+      text-transform: none;
+      line-height: 1.2;
+      letter-spacing: 0;
+      font-size: clamp(28px, 3.8vw, 56px);
+    }
+
+    html[lang="hi"] .ed-h .blue,
+    html[lang="hi"] .ed-knock-cap,
+    html[lang="hi"] .ed-quote .quote,
+    html[lang="hi"] .ed-terms dd,
+    html[lang="hi"] .ed-foot-line { font-style: normal; font-size: .9em; }
+
+    /* ---------- rolagem suave (Lenis) ---------- */
+    html.lenis, html.lenis body { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto !important; }
+    .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+    .lenis.lenis-stopped { overflow: hidden; }
+
+    /* ---------- sem glows ---------- */
+    .nav img,
+    .hero-logo,
+    .pl-logo,
+    .pb-logo { filter: none !important; }
+
+    .hero-logo-glow { display: none !important; }
+
+    .hero-cta,
+    .hero-cta:hover { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18) !important; }
+
+    .nav-cta:hover,
+    .price-cta:hover,
+    .pop-btn:active,
+    .plm-key.lit,
+    .gain-big.on,
+    .video-loader-spinner,
+    .plm-tl-playhead { box-shadow: none !important; }
   </style>
 </head>
 
@@ -1789,31 +2248,77 @@
     <div class="hero-meta" data-i18n-html="hero.meta"><span>Pagamento <b>único</b></span><span>Acesso vitalício</span><span>Garantia de 7 dias</span></div>
   </section>
 
-  <!-- ============ LIBRARY ============ -->
-  <section class="scene" id="library">
-    <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.62));"></div>
-    <div class="scene-content">
-      <div class="feat-grid library-grid">
-        <div class="fg-copy">
-          <h2 class="r d1" data-i18n-html="library.title"
-            style="font-family:var(--font-display);font-weight:700;text-transform:uppercase;font-size:clamp(32px,4.6vw,72px);line-height:1;letter-spacing:-.01em;">
-            <span style="color:#fff">1.463 sons</span><br><span class="blue">21 categorias</span>
-          </h2>
-          <p class="lead r d2" style="font-size:clamp(17px,1.7vw,22px);max-width:480px;" data-i18n="library.lead">Curados pra edição de verdade: de whooshes e impactos a glitches, risers e foley. Cada categoria com cor própria, pra você bater o olho e achar.</p>
-        </div>
-        <div class="fg-visual r d2">
-          <div class="video-frame-v">
-            <div class="video-header">
-              <div class="video-dots">
-                <span class="video-dot red"></span>
-                <span class="video-dot yellow"></span>
-                <span class="video-dot green"></span>
-              </div>
+  <!-- ================================================================
+       EDITORIAL — tudo abaixo do hero
+       ================================================================ -->
+
+  <!-- ============ BIBLIOTECA ============ -->
+  <section class="ed-sec ed-cover" id="library">
+    <div class="ed">
+      <div class="ed-knock">
+        <video class="ed-knock-video" autoplay loop muted playsinline preload="metadata" aria-hidden="true">
+          <source src="assets/hero-video-v2-otimizado.mp4" type="video/mp4">
+        </video>
+        <div class="ed-knock-type"><span class="ed-knock-num"><span class="ed-knock-ghost" data-i18n="ed.knocknum">1.463</span><span class="ed-knock-count" aria-hidden="true">0</span></span></div>
+      </div>
+      <p class="ed-knock-cap" data-i18n="ed.knockcap">sons prontos pra timeline, organizados em 21 categorias.</p>
+    </div>
+
+    <div class="ed ed-lib">
+      <figure class="ed-lib-media">
+        <video autoplay loop muted playsinline preload="metadata">
+          <source src="assets/library-proof.mp4" type="video/mp4">
+        </video>
+      </figure>
+      <div class="ed-lib-copy">
+        <h2 class="ed-h" data-i18n-html="ed.libtitle">Uma biblioteca<br><span class="blue">feita para editar.</span></h2>
+        <p class="ed-lead" data-i18n="library.lead">Selecionados pra edição de verdade: de whooshes e impactos a glitches, risers e foley. Cada categoria com cor própria, pra você bater o olho e achar.</p>
+      </div>
+    </div>
+
+    <div class="ed">
+      <ol class="ed-index" id="edIndex" aria-label="Categorias da biblioteca"></ol>
+    </div>
+  </section>
+
+  <!-- ============ I · PRÉ-ESCUTA ============ -->
+  <section class="ed-sec ed-ch" id="hover">
+    <div class="ed ed-ch-grid">
+      <div class="ed-ch-copy">
+        <h2 class="ed-h" data-i18n-html="hover.title">Passou o mouse,<br><span class="blue">já tá tocando.</span></h2>
+        <p class="ed-lead" data-i18n-html="hover.lead">Esqueça abrir cada arquivo pra saber o que é. <strong>Só passe o cursor sobre o som</strong> e ele toca na hora, com a forma de onda viva. Varra dezenas de efeitos em segundos.</p>
+      </div>
+      <div class="ed-ch-visual">
+        <div class="pl-mini" id="hoverMock">
+          <div class="plm-cursor" id="hoverCursor"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 3.2l13.6 6.8c.6.3.5 1.2-.1 1.4l-5.3 1.7c-.2.1-.4.2-.5.4l-2.6 5c-.3.6-1.2.5-1.4-.1L3.2 4.6c-.2-.6.4-1.2 1-1z"/></svg></div>
+          <div class="plm-head">
+            <div class="plm-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg> Whooshes</div>
+            <div class="plm-count"><span>240</span> <span data-i18n="mock.sounds">sons</span></div>
+          </div>
+          <div class="plm-list">
+            <div class="fitem" data-i="0">
+              <div class="fitem-bars" style="border-color:rgba(45,212,191,.35);background:rgba(45,212,191,.08)"><span style="background:#2dd4bf;height:40%"></span><span style="background:#2dd4bf;height:70%"></span><span style="background:#2dd4bf;height:50%"></span><span style="background:#2dd4bf;height:85%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Whoosh Fast 02</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(45,212,191,.14);color:#2dd4bf">whoosh</span> 0:01.4</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+              <div class="fitem-prog"><div class="fitem-prog-fill"></div></div>
             </div>
-            <div class="video-body">
-              <video autoplay loop muted playsinline preload="metadata">
-                <source src="assets/library-proof.mp4" type="video/mp4">
-              </video>
+            <div class="fitem" data-i="1">
+              <div class="fitem-bars" style="border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.08)"><span style="background:#f87171;height:60%"></span><span style="background:#f87171;height:90%"></span><span style="background:#f87171;height:45%"></span><span style="background:#f87171;height:75%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Impact Heavy 01</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(248,113,113,.14);color:#f87171">impact</span> 0:02.1</div></div>
+              <span class="fitem-star on"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+              <div class="fitem-prog"><div class="fitem-prog-fill"></div></div>
+            </div>
+            <div class="fitem" data-i="2">
+              <div class="fitem-bars" style="border-color:rgba(251,146,60,.35);background:rgba(251,146,60,.08)"><span style="background:#fb923c;height:35%"></span><span style="background:#fb923c;height:55%"></span><span style="background:#fb923c;height:75%"></span><span style="background:#fb923c;height:90%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Riser Tension 03</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(251,146,60,.14);color:#fb923c">riser</span> 0:03.8</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+              <div class="fitem-prog"><div class="fitem-prog-fill"></div></div>
+            </div>
+            <div class="fitem" data-i="3">
+              <div class="fitem-bars" style="border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.08)"><span style="background:#a78bfa;height:55%"></span><span style="background:#a78bfa;height:80%"></span><span style="background:#a78bfa;height:50%"></span><span style="background:#a78bfa;height:70%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Cinematic Drop 05</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(167,139,250,.14);color:#a78bfa">drop</span> 0:04.2</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+              <div class="fitem-prog"><div class="fitem-prog-fill"></div></div>
             </div>
           </div>
         </div>
@@ -1821,47 +2326,37 @@
     </div>
   </section>
 
-  <!-- ============ FEATURE: HOVER ============ -->
-  <section class="scene" id="hover">
-    <div class="scene-tint" style="background:linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.4));"></div>
-    <div class="scene-content">
-      <div class="feat-grid">
-        <div class="fg-copy">
-          <h2 class="r d1" data-i18n-html="hover.title">Passou o mouse,<br><span class="blue">já tá tocando.</span></h2>
-          <p class="lead r d2" data-i18n-html="hover.lead">Esqueça abrir cada arquivo pra saber o que é. <strong>Só passe o cursor sobre o som</strong> e ele toca na hora, com a forma de onda viva. Varra dezenas de efeitos em segundos.</p>
-        </div>
-        <div class="fg-visual r d2">
-          <div class="pl-mini" id="hoverMock">
-            <div class="plm-cursor" id="hoverCursor"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 3.2l13.6 6.8c.6.3.5 1.2-.1 1.4l-5.3 1.7c-.2.1-.4.2-.5.4l-2.6 5c-.3.6-1.2.5-1.4-.1L3.2 4.6c-.2-.6.4-1.2 1-1z"/></svg></div>
-            <div class="plm-head">
-              <div class="plm-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg> Whooshes</div>
-              <div class="plm-count"><span>240</span> <span data-i18n="mock.sounds">sons</span></div>
+  <!-- ============ II · INSERÇÃO ============ -->
+  <section class="ed-sec ed-ch" id="twoclick">
+    <div class="ed ed-ch-grid flip">
+      <div class="ed-ch-copy">
+        <h2 class="ed-h" data-i18n-html="twoclick.title">Dois cliques.<br><span class="blue">Tá na timeline.</span></h2>
+        <p class="ed-lead" data-i18n-html="twoclick.lead">Achou o som? <strong>Duplo-clique</strong> e ele cai exatamente no playhead do Premiere, na trilha que você escolheu. Sem arrastar arquivo, sem exportar, sem trocar de janela.</p>
+      </div>
+      <div class="ed-ch-visual">
+        <div class="pl-mini" id="clickMock">
+          <div class="plm-cursor" id="clickCursor"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 3.2l13.6 6.8c.6.3.5 1.2-.1 1.4l-5.3 1.7c-.2.1-.4.2-.5.4l-2.6 5c-.3.6-1.2.5-1.4-.1L3.2 4.6c-.2-.6.4-1.2 1-1z"/></svg></div>
+          <div class="plm-head">
+            <div class="plm-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg> Whooshes</div>
+            <div class="plm-count"><span>240</span> <span data-i18n="mock.sounds">sons</span></div>
+          </div>
+          <div class="plm-list">
+            <div class="fitem" id="clickItem" data-i="0">
+              <div class="fitem-bars" style="border-color:rgba(45,212,191,.35);background:rgba(45,212,191,.08)"><span style="background:#2dd4bf;height:40%"></span><span style="background:#2dd4bf;height:70%"></span><span style="background:#2dd4bf;height:50%"></span><span style="background:#2dd4bf;height:85%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Whoosh Fast 02</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(45,212,191,.14);color:#2dd4bf">whoosh</span> 0:01.4</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
             </div>
-            <div class="plm-list">
-              <div class="fitem" data-i="0">
-                <div class="fitem-bars" style="border-color:rgba(45,212,191,.35);background:rgba(45,212,191,.08)"><span style="background:#2dd4bf;height:40%"></span><span style="background:#2dd4bf;height:70%"></span><span style="background:#2dd4bf;height:50%"></span><span style="background:#2dd4bf;height:85%"></span></div>
-                <div class="fitem-info"><div class="fitem-name">Whoosh Fast 02</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(45,212,191,.14);color:#2dd4bf">whoosh</span> 0:01.4</div></div>
-                <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
-                <div class="fitem-prog"><div class="fitem-prog-fill"></div></div>
-              </div>
-              <div class="fitem" data-i="1">
-                <div class="fitem-bars" style="border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.08)"><span style="background:#f87171;height:60%"></span><span style="background:#f87171;height:90%"></span><span style="background:#f87171;height:45%"></span><span style="background:#f87171;height:75%"></span></div>
-                <div class="fitem-info"><div class="fitem-name">Impact Heavy 01</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(248,113,113,.14);color:#f87171">impact</span> 0:02.1</div></div>
-                <span class="fitem-star on"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
-                <div class="fitem-prog"><div class="fitem-prog-fill"></div></div>
-              </div>
-              <div class="fitem" data-i="2">
-                <div class="fitem-bars" style="border-color:rgba(251,146,60,.35);background:rgba(251,146,60,.08)"><span style="background:#fb923c;height:35%"></span><span style="background:#fb923c;height:55%"></span><span style="background:#fb923c;height:75%"></span><span style="background:#fb923c;height:90%"></span></div>
-                <div class="fitem-info"><div class="fitem-name">Riser Tension 03</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(251,146,60,.14);color:#fb923c">riser</span> 0:03.8</div></div>
-                <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
-                <div class="fitem-prog"><div class="fitem-prog-fill"></div></div>
-              </div>
-              <div class="fitem" data-i="3">
-                <div class="fitem-bars" style="border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.08)"><span style="background:#a78bfa;height:55%"></span><span style="background:#a78bfa;height:80%"></span><span style="background:#a78bfa;height:50%"></span><span style="background:#a78bfa;height:70%"></span></div>
-                <div class="fitem-info"><div class="fitem-name">Cinematic Drop 05</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(167,139,250,.14);color:#a78bfa">drop</span> 0:04.2</div></div>
-                <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
-                <div class="fitem-prog"><div class="fitem-prog-fill"></div></div>
-              </div>
+            <div class="fitem" data-i="1">
+              <div class="fitem-bars" style="border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.08)"><span style="background:#f87171;height:60%"></span><span style="background:#f87171;height:90%"></span><span style="background:#f87171;height:45%"></span><span style="background:#f87171;height:75%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Impact Heavy 01</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(248,113,113,.14);color:#f87171">impact</span> 0:02.1</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+            </div>
+          </div>
+          <div class="plm-timeline">
+            <div class="plm-tl-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg> Timeline · A1</div>
+            <div class="plm-tl-track">
+              <div class="plm-tl-playhead"></div>
+              <div class="plm-tl-clip" id="clickClip"><i style="height:30%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:70%"></i><i style="height:40%"></i><i style="height:65%"></i></div>
             </div>
           </div>
         </div>
@@ -1869,102 +2364,57 @@
     </div>
   </section>
 
-  <!-- ============ ANCHOR QUOTE 1 ============ -->
-  <section class="scene anchor" id="quote1">
-    <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.7));"></div>
-    <div class="scene-content" style="text-align:center;display:flex;justify-content:center;">
-      <p class="quote slide-up-text" data-i18n-html="quote1"><span class="quote-line">"Quando as ferramentas acompanham sua criatividade,</span><span class="quote-line accent">os resultados aparecem mais rápido."</span></p>
-    </div>
-  </section>
-
-  <!-- ============ FEATURE: TWO CLICKS ============ -->
-  <section class="scene" id="twoclick">
-    <div class="scene-tint" style="background:linear-gradient(90deg,rgba(0,0,0,.4),rgba(0,0,0,.72));"></div>
-    <div class="scene-content">
-      <div class="feat-grid flip">
-        <div class="fg-copy">
-          <h2 class="r d1" data-i18n-html="twoclick.title">Dois cliques.<br><span class="blue">Tá na timeline.</span></h2>
-          <p class="lead r d2" data-i18n-html="twoclick.lead">Achou o som? <strong>Duplo-clique</strong> e ele cai exatamente no playhead do Premiere, na trilha que você escolheu. Sem arrastar arquivo, sem exportar, sem trocar de janela.</p>
-        </div>
-        <div class="fg-visual r d2">
-          <div class="pl-mini" id="clickMock">
-            <div class="plm-cursor" id="clickCursor"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 3.2l13.6 6.8c.6.3.5 1.2-.1 1.4l-5.3 1.7c-.2.1-.4.2-.5.4l-2.6 5c-.3.6-1.2.5-1.4-.1L3.2 4.6c-.2-.6.4-1.2 1-1z"/></svg></div>
-            <div class="plm-head">
-              <div class="plm-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg> Whooshes</div>
-              <div class="plm-count"><span>240</span> <span data-i18n="mock.sounds">sons</span></div>
-            </div>
-            <div class="plm-list">
-              <div class="fitem" id="clickItem" data-i="0">
-                <div class="fitem-bars" style="border-color:rgba(45,212,191,.35);background:rgba(45,212,191,.08)"><span style="background:#2dd4bf;height:40%"></span><span style="background:#2dd4bf;height:70%"></span><span style="background:#2dd4bf;height:50%"></span><span style="background:#2dd4bf;height:85%"></span></div>
-                <div class="fitem-info"><div class="fitem-name">Whoosh Fast 02</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(45,212,191,.14);color:#2dd4bf">whoosh</span> 0:01.4</div></div>
-                <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
-              </div>
-              <div class="fitem" data-i="1">
-                <div class="fitem-bars" style="border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.08)"><span style="background:#f87171;height:60%"></span><span style="background:#f87171;height:90%"></span><span style="background:#f87171;height:45%"></span><span style="background:#f87171;height:75%"></span></div>
-                <div class="fitem-info"><div class="fitem-name">Impact Heavy 01</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(248,113,113,.14);color:#f87171">impact</span> 0:02.1</div></div>
-                <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
-              </div>
-            </div>
-            <div class="plm-timeline">
-              <div class="plm-tl-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg> Timeline · A1</div>
-              <div class="plm-tl-track">
-                <div class="plm-tl-playhead"></div>
-                <div class="plm-tl-clip" id="clickClip"><i style="height:30%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:70%"></i><i style="height:40%"></i><i style="height:65%"></i></div>
-              </div>
-            </div>
+  <!-- ============ III · GANHO ============ -->
+  <section class="ed-sec ed-ch" id="gain">
+    <div class="ed ed-ch-grid">
+      <div class="ed-ch-copy">
+        <h2 class="ed-h" data-i18n-html="gain.title"><span class="fill">O ganho certo,</span><br><span class="blue">antes de inserir.</span></h2>
+        <p class="ed-lead" data-i18n-html="gain.lead">Whoosh sempre alto demais? Riser baixo? Escolha <strong>-12, 0 ou +6 dB</strong> e o som já entra na timeline no volume certo. Adeus, abrir o mixer pra cada clipe.</p>
+      </div>
+      <div class="ed-ch-visual">
+        <div class="gain-demo">
+          <div class="gain-pills-big">
+            <div class="gain-big on" id="g-12">-12 dB</div>
+            <div class="gain-big" id="g-0">0 dB</div>
+            <div class="gain-big" id="g-6">+6 dB</div>
           </div>
+          <div class="gain-meter"><div class="gain-meter-fill" id="gainFill"></div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ FEATURE: GAIN ============ -->
-  <section class="scene anchor" id="gain">
-    <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.72));"></div>
-    <div class="scene-content" style="text-align:center;display:flex;flex-direction:column;align-items:center;">
-      <h2 class="display r d1" style="font-size:clamp(30px,4.8vw,76px)" data-i18n-html="gain.title"><span class="fill">O ganho certo,</span><br><span class="blue">antes de inserir.</span></h2>
-      <p class="lead r d2" style="text-align:center;margin-left:auto;margin-right:auto;" data-i18n-html="gain.lead">Whoosh sempre alto demais? Riser baixo? Escolha <strong>-12, 0 ou +6 dB</strong> e o som já entra na timeline no volume certo. Adeus, abrir o mixer pra cada clipe.</p>
-      <div class="gain-demo r d3" style="margin-top:44px;">
-        <div class="gain-pills-big">
-          <div class="gain-big on" id="g-12">-12 dB</div>
-          <div class="gain-big" id="g-0">0 dB</div>
-          <div class="gain-big" id="g-6">+6 dB</div>
-        </div>
-        <div class="gain-meter"><div class="gain-meter-fill" id="gainFill"></div></div>
+  <!-- ============ OFERTA ============ -->
+  <section class="ed-sec ed-price" id="comprar">
+    <div class="ed ed-price-grid">
+      <div class="ed-price-copy">
+        <h2 class="ed-h" data-i18n-html="pricing.title"><span class="fill">Pague uma vez.</span><br><span class="blue">Use pra sempre.</span></h2>
+        <p class="ed-lead" data-i18n="pricing.desc">Biblioteca completa de efeitos sonoros profissionais e o painel nativo pro Premiere, pra usar quantas vezes quiser.</p>
+        <dl class="ed-terms">
+          <div><dt data-i18n="pricing.pay">Pagamento</dt><dd data-i18n="pricing.payv">Único</dd></div>
+          <div><dt data-i18n="pricing.access">Acesso</dt><dd data-i18n="pricing.accessv">Vitalício</dd></div>
+          <div><dt data-i18n="pricing.warranty">Garantia</dt><dd data-i18n="pricing.warrantyv">7 dias</dd></div>
+        </dl>
+        <p class="ed-note" data-i18n="pricing.once">Sem mensalidade, sem renovação · condição atual na página de checkout</p>
       </div>
-    </div>
-  </section>
 
-  <!-- ============ PRICING ============ -->
-  <section class="scene tall" id="comprar">
-    <div class="scene-tint" style="background:linear-gradient(180deg,rgba(0,0,0,.6),rgba(0,0,0,.72));"></div>
-    <div class="scene-content" style="text-align:center;display:flex;flex-direction:column;align-items:center;">
-      <h2 class="display r d1" style="font-size:clamp(30px,4.6vw,68px)" data-i18n-html="pricing.title"><span class="fill">Pague uma vez.</span><br><span class="blue">Use pra sempre.</span></h2>
-      <div class="price-shell r d2">
-        <div class="price-ribbon"><span data-i18n="pricing.ribbon">▸ Oferta de lançamento</span><span class="shimmer-text" data-i18n="pricing.off">63% OFF</span></div>
-        <div class="price-body">
-          <img src="assets/logo.png" alt="dropSFX" class="pb-logo" />
-          <div class="price-desc" data-i18n="pricing.desc">Biblioteca completa de efeitos sonoros profissionais e o painel nativo pro Premiere, pra usar quantas vezes quiser.</div>
-          <div class="price-block">
-            <div class="price-pillars">
-              <div class="pp"><span class="pp-k" data-i18n="pricing.pay">Pagamento</span><span class="pp-v" data-i18n="pricing.payv">Único</span></div>
-              <div class="pp"><span class="pp-k" data-i18n="pricing.access">Acesso</span><span class="pp-v" data-i18n="pricing.accessv">Vitalício</span></div>
-              <div class="pp"><span class="pp-k" data-i18n="pricing.warranty">Garantia</span><span class="pp-v" data-i18n="pricing.warrantyv">7 dias</span></div>
-            </div>
-            <div class="price-once" data-i18n="pricing.once">Sem mensalidade, sem renovação · condição atual na página de checkout</div>
-          </div>
-          <ul class="price-feats">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n-html="pricing.f1"><strong>1.463 efeitos sonoros</strong> profissionais</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n-html="pricing.f2">Painel <strong>nativo</strong> pro Adobe Premiere Pro</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n-html="pricing.f3">Pré-escuta no hover, <strong>2 cliques</strong> e atalhos</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n-html="pricing.f4">Controle de <strong>ganho na inserção</strong></span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n-html="pricing.f5">Pastas próprias + importe seus áudios</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n-html="pricing.f6">Licença pra <strong>até 2 máquinas</strong></span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n-html="pricing.f7"><strong>Vitalício</strong> · 100% royalty-free</span></li>
-          </ul>
-          <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=pricing&utm_campaign=dropsfx"
-            class="price-cta js-buy-cta pop-btn" data-position="pricing"
-            target="_blank" rel="noopener"><span data-i18n="pricing.cta">Ver oferta e garantir acesso</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      <div class="ed-card">
+        <div class="ed-card-top">
+          <span data-i18n="pricing.ribbon">Oferta de lançamento</span>
+          <span class="shimmer-text" data-i18n="pricing.off">63% OFF</span>
+        </div>
+        <ul class="ed-feats">
+          <li data-i18n-html="pricing.f1"><strong>1.463 efeitos sonoros</strong> profissionais</li>
+          <li data-i18n-html="pricing.f2">Painel <strong>nativo</strong> pro Adobe Premiere Pro</li>
+          <li data-i18n-html="pricing.f3">Pré-escuta no hover, <strong>2 cliques</strong> e atalhos</li>
+          <li data-i18n-html="pricing.f4">Controle de <strong>ganho na inserção</strong></li>
+          <li data-i18n-html="pricing.f5">Pastas próprias + importe seus áudios</li>
+          <li data-i18n-html="pricing.f6">Licença pra <strong>até 2 máquinas</strong></li>
+          <li data-i18n-html="pricing.f7"><strong>Vitalício</strong> · 100% royalty-free</li>
+        </ul>
+        <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=pricing&utm_campaign=dropsfx"
+          class="ed-cta js-buy-cta pop-btn" data-position="pricing"
+          target="_blank" rel="noopener"><span data-i18n="pricing.cta">Ver oferta e garantir acesso</span></a>
           <div class="qr-card">
             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCAQAAAABUY/ToAAAEAElEQVR4nO2dT4rjOhCHv3oWzNKGHKCPotxgjtS8I/UNrKPMAR7IywaZmkVJlpxezbwJSYaqhUlsf0SGQvrVHzmi/J6lf34TBCeddNLJG3KTald2gS0gV0BEAqQFgF1IEmh3hseN1smnJCdVVVVgUtJbAbYAMYO8ZyBJ/UpUVdX8yNE6+WxkAEBgKrBdisQMCqUe0pIRAIlrAbYF4sejRuvk85O7tKUtINdNRK6Arkyq6xbu8ptOvjoZbk+kN0WYM5qWqZC+74GYLwhMf+g3nfy7SPOh2wA/fghEBYkZJS0TxI8LMCuw/b/fdPLvI3cLtoBJiT8C9oktYGHae263JxERWR45WiefjQx1agFgA2UDTW8F0oIolOHucb56red08n4kqnmqrhFVFebSLli8D0Qtt/fp+lrP6eT9SHMV1Qy6ntxHV2pIRjT3GQ/uQ04eZvNLzACzap9zumFpyNyifPV5yMkz2WefHyKwfavJ6iQict2CrWWmpKN+ymNH6+TTkXXOWZlGvRwz6Do3eRS12Fdb7mL2tczJwZoUUlXVUt1Hh0NTQfEoqbkecvJkVfvkSWFWHUV09ysdJyOPy5w8W/ehqq4PTb1CXbfqBdU2S/k85GS3APOnaLoi9qme30WZM8L8KcT1UzSJJR9bhe21ntPJ+5FN8cxNNWumLl52VauIhkN2u6Z28mRDGuhIEqlqoR9q4ii3JJHnh5w8WVfNJoCqv3BS0keO0X3Iya82lMWObGNteT0CMeaWrPa4zMmvVqMsSyDWA6Z9zKVa1LYexOr5ISdHa/XVaSyLmbC2oll1pKqk56ae3IecHMhd5N2yQruQlklF3lTtwpWWM/p3AWyX0PLI0Tr5bGSwrRpJjjNzRtkEmBWBPZCW/4IyZ4h5RyCUV3tOJ+9HtrVsLmOBrNc6jpzR2F3k+SEnR6tx2VGeH0sf54psPgvw13pOJ+9H0othNhmtQK+N1ZTjqT3E4zInz3ZTzRiWtlrBpxU3LD/k/UNO3lrdPW9tHxzZ6doV2yYoHfNDHts7ebImcQpNFNW0dW+gthtjzxS5Dzk52iCTa321rVa93DrMUtnnISdvbdjXMa5gpw1ltMifofTxWs/p5P3IofejR/QMbdNHGX+shLgPOTlYcxqGBpChqTq2cmsP03wtc/JkAXt9FSBsF+1fbec9FCTmBYn5Yudgu3itw8lu4+6fDD2pOKrr8yLn+SEnT3bjQz04OyUVYWy59rXMydG++FCmpq1rmNa7iwDPDzn5xU7vQZtLqB0fc3t/Z5KpmBRKV1C2RTQt+UGjdfIZyYC9yROoTvM9Hy6lSPxYbOOZvVoPJnt17Ks9p5P3I49Nib9q/l8LTjrp5B8ifwIShdyd/9dC5gAAAABJRU5ErkJggg==" alt="QR code para o checkout" loading="lazy">
             <div class="qr-card-text">
@@ -1973,17 +2423,15 @@
             </div>
           </div>
           <div class="guarantee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg><span data-i18n-html="pricing.guarantee"><strong>Garantia de 7 dias.</strong> Não gostou? Devolvemos 100%.</span></div>
-        </div>
       </div>
     </div>
   </section>
 
   <!-- ============ FAQ ============ -->
-  <section class="scene tall" id="faq" style="min-height:auto;">
-    <div class="scene-tint" style="background:#000;"></div>
-    <div class="scene-content" style="text-align:center;display:flex;flex-direction:column;align-items:center;padding-top:100px;padding-bottom:120px;">
-      <h2 class="display r d1" style="font-size:clamp(28px,4vw,56px)" data-i18n-html="faq.title"><span class="fill">Tudo que perguntam.</span></h2>
-      <div class="faq-wrap r d2">
+  <section class="ed-sec ed-faq" id="faq">
+    <div class="ed ed-faq-grid">
+      <h2 class="ed-h ed-faq-title" data-i18n-html="faq.title"><span class="fill">Tudo que perguntam.</span></h2>
+      <div class="faq-wrap">
         <div class="faq-item" onclick="this.classList.toggle('open')">
           <div class="faq-q"><span data-i18n="faq.q1">Funciona em qual versão do Premiere Pro?</span> <span class="plus">+</span></div>
           <div class="faq-a" data-i18n="faq.a1">Compatível com Adobe Premiere Pro CC 2020 em diante, no Mac (Intel e Apple Silicon) e no Windows 10/11.</div>
@@ -2025,11 +2473,14 @@
   </section>
 
   <!-- FOOTER -->
-  <footer>
-    <div class="foot">
-      <img src="assets/logo.png" alt="dropSFX" />
-      <div class="foot-links"><a href="#" data-i18n="foot.terms">Termos</a><a href="#" data-i18n="foot.privacy">Privacidade</a><a href="#" data-i18n="foot.license">Licença</a><a href="#" data-i18n="foot.support">Suporte</a></div>
-      <div class="foot-credit">© 2026 dropSFX</div>
+  <footer class="ed-foot">
+    <div class="ed">
+      <img class="ed-foot-logo" src="assets/logo.png" alt="dropSFX" />
+      <div class="ed-foot-row">
+        <p class="ed-foot-line" data-i18n="ed.colophon">Feito por um editor, para editores.</p>
+        <div class="foot-links"><a href="#" data-i18n="foot.terms">Termos</a><a href="#" data-i18n="foot.privacy">Privacidade</a><a href="#" data-i18n="foot.license">Licença</a><a href="#" data-i18n="foot.support">Suporte</a></div>
+        <div class="foot-credit">© 2026 dropSFX</div>
+      </div>
     </div>
   </footer>
 
@@ -2043,6 +2494,9 @@
       class="sc-btn js-buy-cta" data-position="sticky" data-i18n="sticky.btn"
       target="_blank" rel="noopener">Comprar</a>
   </div>
+
+  <!-- Rolagem suave (Lenis). Se o CDN falhar, a página rola normalmente. -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 
   <script>
   // =====================================================================
@@ -2090,11 +2544,11 @@
 
       "library.eyebrow": "№ 00 · A biblioteca",
       "library.title": "<span class='fill'>1.463 sons</span><br><span class='blue'>21 categorias</span>",
-      "library.lead": "Curados pra edição de verdade: de whooshes e impactos a glitches, risers e foley. Cada categoria com cor própria, pra você bater o olho e achar.",
+      "library.lead": "Selecionados pra edição de verdade: de whooshes e impactos a glitches, risers e foley. Cada categoria com cor própria, pra você bater o olho e achar.",
 
       "pricing.eyebrow": "Investimento",
       "pricing.title": "<span class='fill'>Pague uma vez.</span><br><span class='blue'>Use pra sempre.</span>",
-      "pricing.ribbon": "▸ Oferta de lançamento",
+      "pricing.ribbon": "Oferta de lançamento",
       "pricing.off": "63% OFF",
       "pricing.desc": "Biblioteca completa de efeitos sonoros profissionais e o painel nativo pro Premiere, pra usar quantas vezes quiser.",
       "pricing.pay": "Pagamento",
@@ -2218,11 +2672,11 @@
 
       "library.eyebrow": "№ 00 · The library",
       "library.title": "<span class='fill'>1,463 sounds</span><br><span class='blue'>21 categories</span>",
-      "library.lead": "Curated for real editing: from whooshes and impacts to glitches, risers and foley. Every category color-coded, so you spot it at a glance.",
+      "library.lead": "Hand-picked for real editing: from whooshes and impacts to glitches, risers and foley. Every category color-coded, so you spot it at a glance.",
 
       "pricing.eyebrow": "Investment",
       "pricing.title": "<span class='fill'>Pay once.</span><br><span class='blue'>Use forever.</span>",
-      "pricing.ribbon": "▸ Launch offer",
+      "pricing.ribbon": "Launch offer",
       "pricing.off": "63% OFF",
       "pricing.desc": "The complete professional sound effects library plus the native Premiere panel — use it as many times as you want.",
       "pricing.pay": "Payment",
@@ -2346,11 +2800,11 @@
 
       "library.eyebrow": "№ 00 · La biblioteca",
       "library.title": "<span class='fill'>1.463 sonidos</span><br><span class='blue'>21 categorías</span>",
-      "library.lead": "Curados para edición real: desde whooshes e impactos hasta glitches, risers y foley. Cada categoría con su propio color, para encontrarla de un vistazo.",
+      "library.lead": "Seleccionados para edición real: desde whooshes e impactos hasta glitches, risers y foley. Cada categoría con su propio color, para encontrarla de un vistazo.",
 
       "pricing.eyebrow": "Inversión",
       "pricing.title": "<span class='fill'>Paga una vez.</span><br><span class='blue'>Úsalo para siempre.</span>",
-      "pricing.ribbon": "▸ Oferta de lanzamiento",
+      "pricing.ribbon": "Oferta de lanzamiento",
       "pricing.off": "63% OFF",
       "pricing.desc": "Biblioteca completa de efectos de sonido profesionales y el panel nativo para Premiere, para usar cuantas veces quieras.",
       "pricing.pay": "Pago",
@@ -2478,7 +2932,7 @@
 
       "pricing.eyebrow": "निवेश",
       "pricing.title": "<span class='fill'>एक बार दीजिए।</span><br><span class='blue'>हमेशा इस्तेमाल कीजिए।</span>",
-      "pricing.ribbon": "▸ लॉन्च ऑफ़र",
+      "pricing.ribbon": "लॉन्च ऑफ़र",
       "pricing.off": "63% छूट",
       "pricing.desc": "प्रोफ़ेशनल साउंड इफ़ेक्ट्स की पूरी लाइब्रेरी और Premiere का नेटिव पैनल — जितनी बार चाहें इस्तेमाल कीजिए।",
       "pricing.pay": "भुगतान",
@@ -2564,6 +3018,75 @@
       "cat.tonal": "टोनैलिटी"
     }
   };
+
+  // Contagem do número da biblioteca: 0 → 1.463 quando aparece na tela
+  (function () {
+    var box = document.querySelector('.ed-knock');
+    var out = box && box.querySelector('.ed-knock-count');
+    if (!out) return;
+    var FINAL = 1463, DUR = 2200, done = false, current = 0;
+
+    function fmt(n) {
+      var lang = window.DropI18N ? DropI18N.get() : 'pt';
+      var sep = (lang === 'en' || lang === 'hi') ? ',' : '.';
+      return n >= 1000 ? Math.floor(n / 1000) + sep + String(n % 1000).padStart(3, '0') : String(n);
+    }
+    function show(n) { current = n; out.textContent = fmt(n); }
+
+    function run() {
+      var t0 = null;
+      function frame(ts) {
+        if (t0 === null) t0 = ts;
+        var k = Math.min(1, (ts - t0) / DUR);
+        var e = 1 - Math.pow(1 - k, 4);          // desacelera no final
+        show(Math.round(FINAL * e));
+        if (k < 1) requestAnimationFrame(frame); else done = true;
+      }
+      requestAnimationFrame(frame);
+    }
+
+    document.addEventListener('dropsfx:langchange', function () { show(current); });
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+      show(FINAL); done = true; return;
+    }
+    show(0);
+    var io = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting && !done) { io.disconnect(); run(); }
+    }, { threshold: .4 });
+    io.observe(box);
+  })();
+
+  // Textos da parte editorial (abaixo do hero)
+  (function () {
+    var add = {
+      pt: {
+        "ed.knocknum": "1.463",
+        "ed.knockcap": "sons prontos pra timeline, organizados em 21 categorias.",
+        "ed.libtitle": "Uma biblioteca<br><span class='blue'>feita para editar.</span>",
+        "ed.colophon": "Feito por um editor, para editores."
+      },
+      en: {
+        "ed.knocknum": "1,463",
+        "ed.knockcap": "sounds ready for the timeline, organized into 21 categories.",
+        "ed.libtitle": "A library<br><span class='blue'>built for editing.</span>",
+        "ed.colophon": "Made by an editor, for editors."
+      },
+      es: {
+        "ed.knocknum": "1.463",
+        "ed.knockcap": "sonidos listos para la timeline, organizados en 21 categorías.",
+        "ed.libtitle": "Una biblioteca<br><span class='blue'>hecha para editar.</span>",
+        "ed.colophon": "Hecho por un editor, para editores."
+      },
+      hi: {
+        "ed.knocknum": "1,463",
+        "ed.knockcap": "टाइमलाइन के लिए तैयार साउंड, 21 कैटेगरी में।",
+        "ed.libtitle": "एक लाइब्रेरी<br><span class='blue'>एडिटिंग के लिए चुनी गई।</span>",
+        "ed.colophon": "एक एडिटर द्वारा, एडिटर्स के लिए।"
+      }
+    };
+    for (var lang in add) for (var k in add[lang]) I18N[lang][k] = add[lang][k];
+  })();
 
   // =====================================================================
   // LINKS DE CHECKOUT POR IDIOMA
@@ -3111,6 +3634,7 @@
   // LIBRARY MARQUEE (re-renderiza a cada troca de idioma)
   // =====================================================================
   window.renderMarquee = (function () {
+    // Índice da biblioteca: categorias da maior pra menor
     var cats = [
       ['cat.whooshes',240,'#2dd4bf'],['cat.transitions',179,'#facc15'],['cat.drops',142,'#a78bfa'],
       ['cat.clicks',130,'#38bdf8'],['cat.foley',127,'#06b6d4'],['cat.risers',98,'#fb923c'],
@@ -3119,24 +3643,16 @@
       ['cat.retro',29,'#b45309'],['cat.hud',27,'#38bdf8'],['cat.ambient',26,'#4ade80'],
       ['cat.nature',24,'#4ade80'],['cat.emotion',18,'#f472b6'],['cat.camera',17,'#94a3b8'],
       ['cat.bells',16,'#b45309'],['cat.slowmo',13,'#a78bfa'],['cat.tonal',29,'#facc15']
-    ];
+    ].sort(function (a, b) { return b[1] - a[1]; });
 
     return function (lang) {
+      var el = document.getElementById('edIndex');
+      if (!el) return;
       var dict = I18N[lang] || I18N.pt;
-      function card(c) {
+      el.innerHTML = cats.map(function (c) {
         var name = dict[c[0]] || I18N.pt[c[0]] || c[0];
-        return '<div class="mq-cat"><span class="mq-ic" style="background:' + c[2] + '"></span>' +
-               '<span class="mq-name">' + name + '</span>' +
-               '<span class="mq-n" style="color:' + c[2] + '">' + c[1] + '</span></div>';
-      }
-
-      var h1 = cats.slice(0, 11), h2 = cats.slice(11);
-      var r1 = document.getElementById('mqRow1');
-      var r2 = document.getElementById('mqRow2');
-
-      if (r1) r1.innerHTML = h1.map(card).join('') + h1.map(card).join('');
-      if (r2) r2.innerHTML = (h2.map(card).join('') + h1.slice(0,4).map(card).join('')) +
-                             (h2.map(card).join('') + h1.slice(0,4).map(card).join(''));
+        return '<li style="--c:' + c[2] + '"><span class="nm">' + name + '</span><span class="ct">' + c[1] + '</span></li>';
+      }).join('');
     };
   })();
 
@@ -3291,6 +3807,32 @@
     } else {
       wireTilt();
     }
+  })();
+
+  // =====================================================================
+  // ROLAGEM SUAVE — inércia na roda do mouse/trackpad; toque continua nativo
+  // =====================================================================
+  (function () {
+    if (!window.Lenis) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var lenis = new Lenis({ lerp: 0.085, wheelMultiplier: 0.95, smoothWheel: true });
+    function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    // links internos (#comprar etc.) também deslizam
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      var id = a.getAttribute('href');
+      if (id.length < 2) return;
+      var el = document.querySelector(id);
+      if (!el) return;
+      e.preventDefault();
+      lenis.scrollTo(el, { offset: -72 });
+    });
+
+    window.dropLenis = lenis;
   })();
 
   // =====================================================================
