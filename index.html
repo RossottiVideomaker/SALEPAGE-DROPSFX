@@ -2017,8 +2017,13 @@
          descem da pasta formando a lista. A área cresce pra baixo, então a
          pasta e o texto não saem do lugar */
       .fold-stage { --k: .72; height: 340px; }
-      .fold-stage.tall { height: 1030px; }
+      .fold-stage.tall { height: var(--tallh, 1060px); }
       .fold { top: 132px; bottom: auto; transform-origin: 50% 0; }
+      /* ao abrir, só a pasta (fundo + vidro) desliza até o pé da área;
+         os arquivos ficam onde a pasta estava, como se tivessem caído dela */
+      .fold-back, .fold-front { transition: transform .9s cubic-bezier(.65, 0, .2, 1); }
+      .fold-stage.open .fold-back,
+      .fold-stage.open .fold-front { transform: translate3d(0, var(--drop, 988px), 0); }
       .fold-front {
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
@@ -4137,16 +4142,21 @@
           c0.style.width = colW + 'px';
           var mx, my, mr;
           if (open) {
-            mx = alone ? 0 : (col ? half : -half); my = 240 + 44 + 76 + line * 86; mr = 0;
+            mx = alone ? 0 : (col ? half : -half); my = 18 + 76 + line * 86; mr = 0;
           } else if (idx < MPEEK.length) {
             mx = MPEEK[idx][0]; my = MPEEK[idx][1]; mr = MPEEK[idx][2];
           } else {
             mx = 0; my = 200; mr = 0;
           }
           c0.style.setProperty('--t', 'translate(-50%, -100%) translate3d(' + mx.toFixed(1) + 'px,' + my + 'px,0) rotate(' + mr + 'deg)');
-          c0.style.setProperty('--d', (open ? line * .03 + col * .012 : (10 - line) * .012) + 's');
+          // abrindo: cada linha aparece quando a pasta passa por ela (de cima pra baixo)
+          c0.style.setProperty('--d', (open ? .08 + line * .055 + col * .015 : (10 - line) * .01) + 's');
           c0.style.zIndex = String(open ? 30 - idx : 2 + (total - idx));
         }
+        var lines = Math.ceil(total / 2);
+        var drop = 18 + 76 + (lines - 1) * 86 + 34;           // pasta para logo abaixo da última linha
+        stage.style.setProperty('--drop', drop + 'px');
+        stage.style.setProperty('--tallh', Math.round(132 + (drop + 240) * k + 40) + 'px');
         return;
       }
 
@@ -4194,7 +4204,7 @@
         }); });
       } else {
         stage.classList.remove('open'); layout();
-        shrinkTimer = setTimeout(function () { stage.classList.remove('tall'); }, 650);
+        shrinkTimer = setTimeout(function () { stage.classList.remove('tall'); }, 950);
       }
     }
 
