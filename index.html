@@ -4227,7 +4227,10 @@
     if (reduce) { set(true); }
     else if (touch) {
       // celular: abre e fecha só com toque na pasta
-      fold.addEventListener('click', function () { set(!open); });
+      fold.addEventListener('click', function (e) {
+        if (e.target.closest('.fc')) return;   // tocar num arquivo não fecha a pasta
+        set(!open);
+      });
     } else {
       fold.addEventListener('mouseenter', function () { clearTimeout(closeTimer); set(true); });
       stage.addEventListener('mouseleave', function () { closeTimer = setTimeout(function () { set(false); }, 280); });
