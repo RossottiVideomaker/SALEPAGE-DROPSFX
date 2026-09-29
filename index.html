@@ -2016,9 +2016,9 @@
       /* celular: frase no topo, pasta logo abaixo e, no toque, os arquivos
          descem da pasta formando a lista. A área cresce pra baixo, então a
          pasta e o texto não saem do lugar */
-      .fold-stage { --k: .72; height: 340px; }
+      .fold-stage { --k: .72; height: 362px; }
       .fold-stage.tall { height: var(--tallh, 1060px); }
-      .fold { top: 132px; bottom: auto; transform-origin: 50% 0; }
+      .fold { top: 154px; bottom: auto; transform-origin: 50% 0; }
       /* ao abrir, só a pasta (fundo + vidro) desliza até o pé da área;
          os arquivos ficam onde a pasta estava, como se tivessem caído dela */
       .fold-back, .fold-front { transition: transform .9s cubic-bezier(.65, 0, .2, 1); }
@@ -2031,9 +2031,20 @@
           linear-gradient(180deg, rgba(255, 255, 255, .14) 0%, rgba(255, 255, 255, 0) 16%),
           linear-gradient(180deg, #3b3d47 0%, #1d1e24 55%, #0e0f13 100%);
       }
-      .fold-intro { top: 0; font-size: 28px; line-height: 1.1; padding: 0 12px; }
-      .fold-stage.open .fold-intro { opacity: 1; transform: none; filter: none; }
-      .fold-hint { top: 322px; bottom: auto; }
+      /* frase em blocos equilibrados (sem palavra sozinha numa linha) */
+      .fold-intro {
+        top: 0;
+        left: 50%;
+        right: auto;
+        width: min(100%, 17em);
+        transform: translateX(-50%);
+        font-size: clamp(23px, 6.6vw, 28px);
+        line-height: 1.12;
+        text-wrap: balance;
+      }
+      .fold-intro br { display: none; }
+      .fold-stage.open .fold-intro { opacity: 1; transform: translateX(-50%); filter: none; }
+      .fold-hint { top: 344px; bottom: auto; }
       .hint-mouse { display: none; }
       .hint-touch { display: inline; }
       .fc {
@@ -2506,7 +2517,7 @@
   <section class="ed-sec ed-cover" id="library">
     <div class="ed">
       <div class="fold-stage" id="edFolder">
-        <p class="fold-intro" data-i18n-html="ed.foldintro">1.463 sons prontos pra timeline,<br>organizados em 21 categorias.</p>
+        <p class="fold-intro" data-i18n-html="ed.foldintro">1.463 sons prontos pra timeline, <br>organizados em 21 categorias.</p>
         <div class="fold" role="button" tabindex="0" aria-label="Abrir a pasta de categorias">
           <div class="fold-back"></div>
           <div class="fold-cards" id="edIndex"></div>
@@ -3483,7 +3494,7 @@
         "ed.colophon": "Feito por um editor, para editores.",
         "drag.title": "Arrastou, soltou.<br><span class='blue'>Já chega colorido.</span>",
         "drag.lead": "Prefere arrastar? <strong>Puxe o som do painel direto pra timeline</strong>. Ao soltar, o clipe já entra com a cor da categoria, e sua trilha de áudio fica organizada sem você mexer em nada.",
-        "ed.foldintro": "1.463 sons prontos pra timeline,<br>organizados em 21 categorias.",
+        "ed.foldintro": "1.463 sons prontos pra timeline, <br>organizados em 21 categorias.",
         "ed.hintmouse": "Passe o mouse na pasta",
         "ed.hinttouch": "Toque na pasta para abrir"
       },
@@ -3494,7 +3505,7 @@
         "ed.colophon": "Made by an editor, for editors.",
         "drag.title": "Drag it, drop it.<br><span class='blue'>It lands already colored.</span>",
         "drag.lead": "Prefer dragging? <strong>Pull the sound from the panel straight onto the timeline</strong>. When you drop it, the clip comes in with its category color, so your audio tracks stay organized with zero extra work.",
-        "ed.foldintro": "1,463 sounds ready for the timeline,<br>organized into 21 categories.",
+        "ed.foldintro": "1,463 sounds ready for the timeline, <br>organized into 21 categories.",
         "ed.hintmouse": "Hover over the folder",
         "ed.hinttouch": "Tap the folder to open"
       },
@@ -3505,7 +3516,7 @@
         "ed.colophon": "Hecho por un editor, para editores.",
         "drag.title": "Arrastra y suelta.<br><span class='blue'>Llega ya con color.</span>",
         "drag.lead": "¿Prefieres arrastrar? <strong>Lleva el sonido del panel directo a la timeline</strong>. Al soltarlo, el clip entra con el color de su categoría, y tus pistas de audio quedan organizadas sin esfuerzo.",
-        "ed.foldintro": "1.463 sonidos listos para la timeline,<br>organizados en 21 categorías.",
+        "ed.foldintro": "1.463 sonidos listos para la timeline, <br>organizados en 21 categorías.",
         "ed.hintmouse": "Pasa el mouse por la carpeta",
         "ed.hinttouch": "Toca la carpeta para abrirla"
       },
@@ -3516,7 +3527,7 @@
         "ed.colophon": "एक एडिटर द्वारा, एडिटर्स के लिए।",
         "drag.title": "खींचिए, छोड़िए।<br><span class='blue'>रंग के साथ पहुँचता है।</span>",
         "drag.lead": "खींचना पसंद है? <strong>साउंड को पैनल से सीधे टाइमलाइन पर खींचिए</strong>। छोड़ते ही क्लिप अपनी कैटेगरी के रंग में आता है, और आपके ऑडियो ट्रैक बिना मेहनत के व्यवस्थित रहते हैं।",
-        "ed.foldintro": "टाइमलाइन के लिए तैयार 1,463 साउंड,<br>21 कैटेगरी में।",
+        "ed.foldintro": "टाइमलाइन के लिए तैयार 1,463 साउंड, <br>21 कैटेगरी में।",
         "ed.hintmouse": "फ़ोल्डर पर माउस ले जाइए",
         "ed.hinttouch": "खोलने के लिए फ़ोल्डर पर टैप कीजिए"
       }
@@ -4156,7 +4167,7 @@
         var lines = Math.ceil(total / 2);
         var drop = 18 + 76 + (lines - 1) * 86 + 34;           // pasta para logo abaixo da última linha
         stage.style.setProperty('--drop', drop + 'px');
-        stage.style.setProperty('--tallh', Math.round(132 + (drop + 240) * k + 40) + 'px');
+        stage.style.setProperty('--tallh', Math.round(154 + (drop + 240) * k + 40) + 'px');
         return;
       }
 
