@@ -2018,7 +2018,8 @@
       .fold-stage { --k: .72; height: 440px; transition: height .9s cubic-bezier(.22, 1, .36, 1); }
       .fold-stage.open { height: 1000px; }
       .fold-intro { top: auto; bottom: calc(64px + 240px * .72 + 72px); font-size: 27px; padding: 0 12px; }
-      .fold-hint { display: none; }
+      .hint-mouse { display: none; }
+      .hint-touch { display: inline; }
       .fc {
         width: 220px;
         height: 76px;
@@ -2484,7 +2485,7 @@
             <span class="fold-count"><span class="fold-num">1.463</span> <span data-i18n="mock.sounds">sons</span></span>
           </div>
         </div>
-        <p class="fold-hint"><span class="hint-mouse" data-i18n="ed.hintmouse">Passe o mouse na pasta</span><span class="hint-touch" data-i18n="ed.hinttouch">Toque na pasta</span></p>
+        <p class="fold-hint"><span class="hint-mouse" data-i18n="ed.hintmouse">Passe o mouse na pasta</span><span class="hint-touch" data-i18n="ed.hinttouch">Toque na pasta para abrir</span></p>
       </div>
     </div>
 
@@ -3441,7 +3442,7 @@
         "drag.lead": "Prefere arrastar? <strong>Puxe o som do painel direto pra timeline</strong>. Ao soltar, o clipe já entra com a cor da categoria, e sua trilha de áudio fica organizada sem você mexer em nada.",
         "ed.foldintro": "1.463 sons prontos pra timeline,<br>organizados em 21 categorias.",
         "ed.hintmouse": "Passe o mouse na pasta",
-        "ed.hinttouch": "Toque na pasta"
+        "ed.hinttouch": "Toque na pasta para abrir"
       },
       en: {
         "ed.knocknum": "1,463",
@@ -3452,7 +3453,7 @@
         "drag.lead": "Prefer dragging? <strong>Pull the sound from the panel straight onto the timeline</strong>. When you drop it, the clip comes in with its category color, so your audio tracks stay organized with zero extra work.",
         "ed.foldintro": "1,463 sounds ready for the timeline,<br>organized into 21 categories.",
         "ed.hintmouse": "Hover over the folder",
-        "ed.hinttouch": "Tap the folder"
+        "ed.hinttouch": "Tap the folder to open"
       },
       es: {
         "ed.knocknum": "1.463",
@@ -3463,7 +3464,7 @@
         "drag.lead": "¿Prefieres arrastrar? <strong>Lleva el sonido del panel directo a la timeline</strong>. Al soltarlo, el clip entra con el color de su categoría, y tus pistas de audio quedan organizadas sin esfuerzo.",
         "ed.foldintro": "1.463 sonidos listos para la timeline,<br>organizados en 21 categorías.",
         "ed.hintmouse": "Pasa el mouse por la carpeta",
-        "ed.hinttouch": "Toca la carpeta"
+        "ed.hinttouch": "Toca la carpeta para abrirla"
       },
       hi: {
         "ed.knocknum": "1,463",
@@ -3474,7 +3475,7 @@
         "drag.lead": "खींचना पसंद है? <strong>साउंड को पैनल से सीधे टाइमलाइन पर खींचिए</strong>। छोड़ते ही क्लिप अपनी कैटेगरी के रंग में आता है, और आपके ऑडियो ट्रैक बिना मेहनत के व्यवस्थित रहते हैं।",
         "ed.foldintro": "टाइमलाइन के लिए तैयार 1,463 साउंड,<br>21 कैटेगरी में।",
         "ed.hintmouse": "फ़ोल्डर पर माउस ले जाइए",
-        "ed.hinttouch": "फ़ोल्डर पर टैप कीजिए"
+        "ed.hinttouch": "खोलने के लिए फ़ोल्डर पर टैप कीजिए"
       }
     };
     for (var lang in add) for (var k in add[lang]) I18N[lang][k] = add[lang][k];
@@ -4068,7 +4069,7 @@
     if (!stage) return;
     var fold = stage.querySelector('.fold');
     var open = false, closeTimer = null;
-    // no celular (ou janela estreita) a pasta abre sozinha ao aparecer; hover só faz sentido no desktop
+    // no celular (ou janela estreita) a pasta abre com toque; hover só faz sentido no desktop
     var touch = window.matchMedia('(hover: none)').matches || stage.clientWidth < 640;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -4148,13 +4149,8 @@
 
     if (reduce) { set(true); }
     else if (touch) {
+      // celular: abre e fecha só com toque na pasta
       fold.addEventListener('click', function () { set(!open); });
-      if ('IntersectionObserver' in window) {
-        var io = new IntersectionObserver(function (e) {
-          if (e[0].isIntersecting) { set(true); io.disconnect(); }
-        }, { threshold: .6 });
-        io.observe(stage);
-      }
     } else {
       fold.addEventListener('mouseenter', function () { clearTimeout(closeTimer); set(true); });
       stage.addEventListener('mouseleave', function () { closeTimer = setTimeout(function () { set(false); }, 280); });
