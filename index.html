@@ -848,7 +848,7 @@
     }
 
     @media (max-width: 720px) {
-      .hero-meta { bottom: 22px; justify-content: center; padding: 0 24px; gap: 10px 52px; font-size: 10px; letter-spacing: .05em; }
+      .hero-meta { bottom: 22px; justify-content: space-between; flex-wrap: nowrap; padding: 0 16px; gap: 8px; font-size: 9.5px; letter-spacing: .02em; white-space: nowrap; }
     }
 
     .hero-meta b {
@@ -2013,13 +2013,32 @@
 
     /* celular: as folhas viram etiquetas horizontais em duas colunas */
     @media (max-width: 640px) {
-      /* celular: a área começa compacta (frase + pasta) e cresce junto com a
-         saída dos arquivos, então nunca existe um vão vazio na tela */
-      .fold-stage { --k: .72; height: 440px; transition: height .9s cubic-bezier(.22, 1, .36, 1); }
-      .fold-stage.open { height: 1000px; }
-      .fold-intro { top: auto; bottom: calc(64px + 240px * .72 + 72px); font-size: 27px; padding: 0 12px; }
+      /* celular: frase no topo, pasta logo abaixo e, no toque, os arquivos
+         descem da pasta formando a lista. A área cresce pra baixo, então a
+         pasta e o texto não saem do lugar */
+      .fold-stage { --k: .72; height: 340px; }
+      .fold-stage.tall { height: 1030px; }
+      .fold { top: 132px; bottom: auto; transform-origin: 50% 0; }
+      .fold-front {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, .14) 0%, rgba(255, 255, 255, 0) 16%),
+          linear-gradient(180deg, #3b3d47 0%, #1d1e24 55%, #0e0f13 100%);
+      }
+      .fold-intro { top: 0; font-size: 28px; line-height: 1.1; padding: 0 12px; }
+      .fold-stage.open .fold-intro { opacity: 1; transform: none; filter: none; }
+      .fold-hint { top: 322px; bottom: auto; }
       .hint-mouse { display: none; }
       .hint-touch { display: inline; }
+      .fc {
+        transition-duration: .6s;
+        transition-timing-function: cubic-bezier(.2, .9, .25, 1.03);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, .9) inset, 0 6px 12px -6px rgba(0, 0, 0, .55);
+        backface-visibility: hidden;
+        contain: layout paint;
+      }
+      .fold-stage.open .fc:hover { box-shadow: 0 1px 0 rgba(255, 255, 255, .9) inset, 0 0 0 2px var(--c); }
       .fc {
         width: 220px;
         height: 76px;
@@ -2372,6 +2391,12 @@
     .lenis.lenis-smooth { scroll-behavior: auto !important; }
     .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
     .lenis.lenis-stopped { overflow: hidden; }
+
+    /* hero no celular: avatares em cima, frase embaixo, tudo centralizado */
+    @media (max-width: 520px) {
+      .hero-content .proof-bar { flex-direction: column; gap: 8px; }
+      .hero-content .proof-bar-text { white-space: nowrap; text-align: center; }
+    }
 
     /* ---------- sem glows ---------- */
     .nav img,
@@ -3392,6 +3417,19 @@
     }).observe(box);
   })();
 
+  // Vídeos só tocam quando estão na tela
+  (function () {
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        else v.pause();
+      });
+    }, { threshold: 0 });
+    document.querySelectorAll('video[autoplay]').forEach(function (v) { io.observe(v); });
+  })();
+
   // Contagem do número da biblioteca: 0 → 1.463 quando aparece na tela
   (function () {
     var box = document.getElementById('edFolder');
@@ -4089,21 +4127,24 @@
       var idx = 0, total = cards.length;
 
       if (mobile) {
-        // duas colunas alinhadas que cabem sempre na largura da tela
+        // duas colunas alinhadas que cabem na largura da tela; as maiores
+        // categorias ficam logo abaixo da pasta, e a última ímpar fica centralizada
         var gap = 10, colW = Math.floor((W - 6 - gap) / 2), half = colW / 2 + gap / 2;
+        var MPEEK = [[-46, 52, -6], [8, 38, 2], [52, 26, 7]];
         for (; idx < total; idx++) {
           var c0 = cards[idx], col = idx % 2, line = Math.floor(idx / 2);
+          var alone = idx === total - 1 && total % 2 === 1;
           c0.style.width = colW + 'px';
           var mx, my, mr;
           if (open) {
-            mx = col ? half : -half; my = -56 - line * 86; mr = 0;
-          } else if (idx < PEEK.length) {
-            mx = (idx - 1) * 34; my = -30 - idx * 38 + 150; mr = (idx - 1) * 5;
+            mx = alone ? 0 : (col ? half : -half); my = 240 + 44 + 76 + line * 86; mr = 0;
+          } else if (idx < MPEEK.length) {
+            mx = MPEEK[idx][0]; my = MPEEK[idx][1]; mr = MPEEK[idx][2];
           } else {
             mx = 0; my = 200; mr = 0;
           }
-          c0.style.setProperty('--t', 'translate(-50%, -100%) translate(' + mx.toFixed(1) + 'px,' + my + 'px) rotate(' + mr + 'deg)');
-          c0.style.setProperty('--d', (open ? line * .05 + col * .02 : (10 - line) * .02) + 's');
+          c0.style.setProperty('--t', 'translate(-50%, -100%) translate3d(' + mx.toFixed(1) + 'px,' + my + 'px,0) rotate(' + mr + 'deg)');
+          c0.style.setProperty('--d', (open ? line * .03 + col * .012 : (10 - line) * .012) + 's');
           c0.style.zIndex = String(open ? 30 - idx : 2 + (total - idx));
         }
         return;
@@ -4140,11 +4181,21 @@
     }
     window.edFolderLayout = layout;
 
+    var shrinkTimer = null;
     function set(v) {
       if (open === v) return;
       open = v;
-      stage.classList.toggle('open', open);
-      layout();
+      clearTimeout(shrinkTimer);
+      if (open) {
+        // primeiro o espaço (um único recálculo de layout), no quadro seguinte o movimento
+        stage.classList.add('tall');
+        requestAnimationFrame(function () { requestAnimationFrame(function () {
+          stage.classList.add('open'); layout();
+        }); });
+      } else {
+        stage.classList.remove('open'); layout();
+        shrinkTimer = setTimeout(function () { stage.classList.remove('tall'); }, 650);
+      }
     }
 
     if (reduce) { set(true); }
