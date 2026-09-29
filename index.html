@@ -2408,6 +2408,11 @@
     .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
     .lenis.lenis-stopped { overflow: hidden; }
 
+    /* seletor de idioma sempre no canto direito; o botão Comprar do menu
+       (que só aparece depois de rolar) entra à esquerda dele */
+    .nav-right .lang { order: 2; }
+    .nav-right .nav-cta { order: 1; }
+
     /* hero no celular: avatares em cima, frase embaixo, tudo centralizado */
     @media (max-width: 520px) {
       .hero-content .proof-bar { flex-direction: column; gap: 8px; }
