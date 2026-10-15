@@ -2397,9 +2397,115 @@
     footer.ed-foot .foot-links a { font-size: 14px; }
     footer.ed-foot .foot-credit { font-family: var(--font); font-size: 13px; }
 
+    /* ---------- na prática: gravação real dentro de um "monitor" ---------- */
+    .ed-demo { padding-top: clamp(48px, 6vw, 96px); }
+
+    .demo-head {
+      display: grid;
+      grid-template-columns: 7fr 5fr;
+      gap: clamp(28px, 5vw, 80px);
+      align-items: end;
+      margin-bottom: clamp(36px, 4.5vw, 64px);
+    }
+    .demo-head .ed-lead { margin-top: 0; }
+
+    .demo-frame {
+      margin: 0;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #07080a;
+      border: 1px solid rgba(255, 255, 255, .12);
+      box-shadow: 0 60px 120px -50px rgba(59, 110, 245, .35), 0 40px 80px -40px rgba(0, 0, 0, .9);
+    }
+
+    .demo-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--steel);
+    }
+    .demo-rec { display: inline-flex; align-items: center; gap: 10px; }
+    .demo-rec i {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #f04545;
+      box-shadow: 0 0 0 0 rgba(240, 69, 69, .6);
+      animation: demoRec 1.6s ease-out infinite;
+    }
+    @keyframes demoRec {
+      0% { box-shadow: 0 0 0 0 rgba(240, 69, 69, .55); }
+      100% { box-shadow: 0 0 0 9px rgba(240, 69, 69, 0); }
+    }
+    .demo-tc {
+      color: var(--accent-hi);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .04em;
+    }
+
+    .demo-screen { position: relative; aspect-ratio: 1600 / 1052; background: #000; }
+    .demo-screen video { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+    .demo-sound {
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 11px 16px 11px 13px;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 999px;
+      background: rgba(8, 9, 12, .78);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s, border-color .2s, transform .2s;
+    }
+    .demo-sound:hover { background: var(--accent); border-color: var(--accent); transform: translateY(-1px); }
+    .demo-sound:focus-visible { outline: 2px solid var(--accent-hi); outline-offset: 3px; }
+    .demo-sound svg { width: 18px; height: 18px; flex: none; }
+    .demo-sound .ic-on, .demo-sound .lbl-on { display: none; }
+    .demo-sound[aria-pressed="true"] .ic-on,
+    .demo-sound[aria-pressed="true"] .lbl-on { display: inline; }
+    .demo-sound[aria-pressed="true"] .ic-off,
+    .demo-sound[aria-pressed="true"] .lbl-off { display: none; }
+    .demo-sound[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); }
+
+    .demo-scrub {
+      position: relative;
+      height: 4px;
+      background: rgba(255, 255, 255, .08);
+      cursor: pointer;
+      transition: height .15s;
+    }
+    .demo-scrub:hover, .demo-scrub:focus-visible { height: 8px; outline: none; }
+    .demo-scrub-fill {
+      position: absolute; inset: 0 auto 0 0;
+      width: 0;
+      background: var(--accent);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .demo-rec i { animation: none; }
+    }
+
     /* ---------- responsivo ---------- */
     @media (max-width: 880px) {
       .ed { padding: 0 22px; }
+      .demo-head { grid-template-columns: 1fr; align-items: start; }
+      .demo-frame { margin: 0 -10px; border-radius: 14px; }
+      .demo-bar { padding: 10px 14px; font-size: 10.5px; }
+      .demo-sound { right: 10px; bottom: 10px; padding: 9px 13px 9px 11px; font-size: 13px; }
 
       .ed-lib,
       .ed-ch-grid,
@@ -2730,6 +2836,37 @@
           <div class="gain-meter"><div class="gain-meter-fill" id="gainFill"></div></div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ NA PRÁTICA (gravação real) ============ -->
+  <section class="ed-sec ed-demo" id="pratica">
+    <div class="ed">
+      <div class="demo-head">
+        <h2 class="ed-h" data-i18n-html="demo.title">Na prática.<br><span class="blue">Sem sair do Premiere.</span></h2>
+        <p class="ed-lead" data-i18n-html="demo.lead">Gravação de tela real, direto do Premiere: abrir a categoria, <strong>ouvir no hover</strong> e mandar o som pra timeline. Liga o som pra ouvir junto.</p>
+      </div>
+
+      <figure class="demo-frame">
+        <div class="demo-bar">
+          <span class="demo-rec"><i></i><span data-i18n="demo.rec">Tela real · Premiere Pro</span></span>
+          <span class="demo-tc" id="demoTc">00:00:00:00</span>
+        </div>
+        <div class="demo-screen">
+          <video id="demoVideo" muted loop playsinline preload="none" width="1600" height="1052"
+                 poster="assets/plugin-na-pratica.jpg" data-src="assets/plugin-na-pratica.mp4"
+                 aria-label="dropSFX sendo usado no Adobe Premiere Pro"></video>
+          <button class="demo-sound" id="demoSound" type="button" aria-pressed="false">
+            <svg class="ic-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="m23 9-6 6M17 9l6 6"/></svg>
+            <svg class="ic-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
+            <span class="lbl-off" data-i18n="demo.soundon">Ouvir com som</span>
+            <span class="lbl-on" data-i18n="demo.soundoff">Tirar o som</span>
+          </button>
+        </div>
+        <div class="demo-scrub" id="demoScrub" role="slider" aria-label="Posição do vídeo" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+          <div class="demo-scrub-fill" id="demoScrubFill"></div>
+        </div>
+      </figure>
     </div>
   </section>
 
@@ -3567,6 +3704,116 @@
       }
     };
     for (var lang in add) for (var k in add[lang]) I18N[lang][k] = add[lang][k];
+  })();
+
+  // Seção "Na prática": textos + player da gravação real
+  (function () {
+    var add = {
+      pt: {
+        "demo.title": "Na prática.<br><span class='blue'>Sem sair do Premiere.</span>",
+        "demo.lead": "Gravação de tela real, direto do Premiere: abrir a categoria, <strong>ouvir no hover</strong> e mandar o som pra timeline. Liga o som pra ouvir junto.",
+        "demo.rec": "Tela real · Premiere Pro",
+        "demo.soundon": "Ouvir com som",
+        "demo.soundoff": "Tirar o som"
+      },
+      en: {
+        "demo.title": "In practice.<br><span class='blue'>Without leaving Premiere.</span>",
+        "demo.lead": "A real screen recording, straight from Premiere: open a category, <strong>hear it on hover</strong> and send the sound to the timeline. Turn the sound on to listen along.",
+        "demo.rec": "Real screen · Premiere Pro",
+        "demo.soundon": "Play with sound",
+        "demo.soundoff": "Mute"
+      },
+      es: {
+        "demo.title": "En la práctica.<br><span class='blue'>Sin salir de Premiere.</span>",
+        "demo.lead": "Grabación de pantalla real, directo de Premiere: abrir la categoría, <strong>escuchar al pasar el mouse</strong> y mandar el sonido a la timeline. Activa el sonido para escuchar.",
+        "demo.rec": "Pantalla real · Premiere Pro",
+        "demo.soundon": "Escuchar con sonido",
+        "demo.soundoff": "Quitar sonido"
+      },
+      hi: {
+        "demo.title": "असल इस्तेमाल।<br><span class='blue'>Premiere छोड़े बिना।</span>",
+        "demo.lead": "Premiere से सीधी असली स्क्रीन रिकॉर्डिंग: कैटेगरी खोलिए, <strong>होवर पर सुनिए</strong> और साउंड टाइमलाइन पर भेजिए। साथ सुनने के लिए साउंड चालू कीजिए।",
+        "demo.rec": "असली स्क्रीन · Premiere Pro",
+        "demo.soundon": "साउंड के साथ चलाएँ",
+        "demo.soundoff": "म्यूट करें"
+      }
+    };
+    for (var lang in add) for (var k in add[lang]) I18N[lang][k] = add[lang][k];
+
+    var v = document.getElementById('demoVideo');
+    if (!v) return;
+    var btn = document.getElementById('demoSound');
+    var tc = document.getElementById('demoTc');
+    var scrub = document.getElementById('demoScrub');
+    var fill = document.getElementById('demoScrubFill');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var loaded = false, inView = false, soundTracked = false;
+
+    function load() {
+      if (loaded) return;
+      loaded = true;
+      v.src = v.getAttribute('data-src');
+      v.preload = 'auto';
+    }
+    function play() { load(); var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+
+    // carrega um pouco antes de aparecer; toca só quando está na tela
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        if (es[0].isIntersecting) load();
+      }, { rootMargin: '600px 0px' }).observe(v);
+      new IntersectionObserver(function (es) {
+        inView = es[0].isIntersecting;
+        if (inView) { if (!reduce || !v.muted) play(); }
+        else v.pause();
+      }, { threshold: .35 }).observe(v);
+    } else {
+      load();
+      if (!reduce) play();
+    }
+
+    btn.addEventListener('click', function () {
+      var on = v.muted;
+      v.muted = !on;
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      if (on) {
+        v.currentTime = 0;
+        play();
+        if (!soundTracked && typeof fbq === 'function') {
+          soundTracked = true;
+          fbq('trackCustom', 'DemoSound');
+        }
+      }
+    });
+
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    function tick() {
+      var t = v.currentTime || 0, d = v.duration || 0;
+      var s = Math.floor(t), f = Math.floor((t - s) * 30);
+      tc.textContent = '00:00:' + pad(s) + ':' + pad(f);
+      var pct = d ? (t / d) * 100 : 0;
+      fill.style.width = pct + '%';
+      scrub.setAttribute('aria-valuenow', Math.round(pct));
+      if (!v.paused) requestAnimationFrame(tick);
+    }
+    v.addEventListener('play', function () { requestAnimationFrame(tick); });
+    v.addEventListener('seeked', tick);
+
+    function seekTo(ratio) {
+      load();
+      if (!v.duration) return;
+      v.currentTime = Math.max(0, Math.min(1, ratio)) * v.duration;
+      if (v.paused) play();
+    }
+    scrub.addEventListener('click', function (e) {
+      var r = scrub.getBoundingClientRect();
+      seekTo((e.clientX - r.left) / r.width);
+    });
+    scrub.addEventListener('keydown', function (e) {
+      if (!v.duration) return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); seekTo((v.currentTime + 2) / v.duration); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); seekTo((v.currentTime - 2) / v.duration); }
+    });
   })();
 
   // =====================================================================
