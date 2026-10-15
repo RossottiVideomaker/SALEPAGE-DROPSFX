@@ -44,14 +44,16 @@
   <meta property="og:title" content="dropSFX · Sound effects no Premiere, After Effects e DaVinci" />
   <meta property="og:description"
     content="Painel com 1.463 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único." />
-  <meta property="og:image" content="https://www.dropsfx.com.br/assets/og-image.png" />
+  <meta property="og:image" content="https://www.dropsfx.com.br/assets/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:alt" content="dropSFX, painel de efeitos sonoros dentro do Premiere Pro" />
   <meta property="og:url" content="https://www.dropsfx.com.br/" />
   <meta property="og:locale" content="pt_BR" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="dropSFX · Sound effects no Premiere, After Effects e DaVinci" />
-  <meta name="twitter:image" content="https://www.dropsfx.com.br/assets/og-image.png" />
+  <meta name="twitter:image" content="https://www.dropsfx.com.br/assets/og-image.jpg" />
 
   <link rel="canonical" href="https://www.dropsfx.com.br/" />
   <link rel="alternate" hreflang="pt-BR" href="https://www.dropsfx.com.br/" />
@@ -83,6 +85,16 @@
         "operatingSystem": "Windows, macOS",
         "inLanguage": "pt-BR",
         "description": "Painel com 1.463 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único."
+      },
+      {
+        "@type": "VideoObject",
+        "name": "dropSFX na prática dentro do Premiere Pro",
+        "description": "Gravação de tela real do painel dropSFX no Adobe Premiere Pro: abrindo categorias, ouvindo os efeitos no hover e mandando o som pra timeline.",
+        "thumbnailUrl": "https://www.dropsfx.com.br/assets/plugin-na-pratica.jpg",
+        "contentUrl": "https://www.dropsfx.com.br/assets/plugin-na-pratica.mp4",
+        "uploadDate": "2026-10-15",
+        "duration": "PT32S",
+        "inLanguage": "pt-BR"
       }
     ]
   }
@@ -90,6 +102,12 @@
 
   <link rel="icon" type="image/svg+xml"
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23000000'/%3E%3Ctext x='32' y='44' font-family='Anton, sans-serif' font-size='26' font-weight='600' fill='%235b8aff' text-anchor='middle' letter-spacing='0.5'%3ESFX%3C/text%3E%3C/svg%3E">
+  <!-- O que pinta primeiro na tela: capa do vídeo do hero e logo -->
+  <link rel="preload" as="image" href="assets/hero-poster.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/logo.png" fetchpriority="high">
+  <link rel="preconnect" href="https://connect.facebook.net">
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
   <!-- Adobe Fonts (Degular) -->
   <link rel="preconnect" href="https://use.typekit.net" crossorigin>
   <link rel="stylesheet" href="https://use.typekit.net/czr1sny.css">
@@ -2495,6 +2513,23 @@
       background: var(--accent);
     }
 
+    .demo-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px 32px;
+      flex-wrap: wrap;
+      margin-top: clamp(24px, 3vw, 36px);
+    }
+    .demo-cta .ed-cta { width: auto; padding: 18px 34px; }
+    .demo-cta-note {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--steel);
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .demo-rec i { animation: none; }
     }
@@ -2506,6 +2541,8 @@
       .demo-frame { margin: 0 -10px; border-radius: 14px; }
       .demo-bar { padding: 10px 14px; font-size: 10.5px; }
       .demo-sound { right: 10px; bottom: 10px; padding: 9px 13px 9px 11px; font-size: 13px; }
+      .demo-cta { justify-content: center; text-align: center; }
+      .demo-cta .ed-cta { width: 100%; }
 
       .ed-lib,
       .ed-ch-grid,
@@ -2581,7 +2618,7 @@
 
   <!-- NAV -->
   <nav class="nav" id="nav">
-    <img src="assets/logo.png" alt="dropSFX" />
+    <img src="assets/logo.png" alt="dropSFX" width="1024" height="381" />
     <div class="nav-right">
       <!-- ===== SELETOR DE IDIOMA ===== -->
       <div class="lang" id="langSwitch">
@@ -2606,11 +2643,9 @@
   <!-- ============ HERO ============ -->
   <section class="scene" id="hero">
     <div class="hero-bg-video">
-      <div class="video-loader" id="videoLoader">
-        <div class="video-loader-spinner"></div>
-      </div>
-      <video id="heroVideo" autoplay loop muted playsinline preload="auto">
-        <source src="assets/hero-video-v2-otimizado.mp4" type="video/mp4">
+      <video id="heroVideo" autoplay loop muted playsinline preload="auto" poster="assets/hero-poster.jpg" aria-hidden="true">
+        <source src="assets/hero-desktop.mp4" type="video/mp4" media="(min-width: 721px)">
+        <source src="assets/hero-mobile.mp4" type="video/mp4">
       </video>
       <div class="hero-bg-overlay"></div>
     </div>
@@ -2621,7 +2656,7 @@
         <span class="app-ic ae" title="Adobe After Effects">Ae</span>
         <span class="app-ic dv" title="DaVinci Resolve"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#14161a"/><path fill="#e9ecf5" fill-rule="evenodd" d="M17.621 0 5.977.004c-1.37 0-2.756.345-3.762 1.11a4.925 4.925 0 0 0-1.61 2.003C.233 3.93 0 5.02 0 5.951l.012 12.2c.002 1.604.479 3.057 1.461 4.112.984 1.056 2.462 1.683 4.331 1.691L16.856 24c1.26.005 3.095-.036 4.303-.714 1.075-.605 2.025-1.556 2.497-2.984.278-.84.345-2.084.344-3.147l-.021-11.13c-.002-.888-.15-2.023-.547-2.934-.425-.976-1.181-1.815-2.322-2.425C20.353.26 19.123 0 17.622 0zM17.621 0.93c1.378 0 2.538.295 3.04.565.977.523 1.544 1.166 1.889 1.96.315.721.47 1.793.473 2.572l.018 11.13c.002 1.013-.097 2.257-.298 2.86-.396 1.202-1.146 1.946-2.063 2.462-.814.457-2.612.593-3.82.588l-11.05-.044c-1.657-.007-2.832-.534-3.626-1.386-.792-.851-1.212-2.06-1.212-3.485L.999 5.95c0-.829.196-1.827.474-2.437.345-.757.75-1.207 1.365-1.674C3.585 1.27 4.868.97 6.08.97z"/><path fill="#f2554a" d="M11.961 4.353c-1.976.089-3.204 1.658-3.214 3.29.019 1.443 1.635 3.481 2.884 4.53.12.099.154.109.33.18.062.025.198-.047.327-.135.36-.245.993-.947 1.648-1.738a7.67 7.67 0 0 0 1.031-1.683c.409-.89.261-1.599.235-1.888a3.983 3.983 0 0 0-.99-1.692 3.36 3.36 0 0 0-2.251-.864z"/><path fill="#4cc38a" d="M16.133 12.275a10.185 10.185 0 0 0-3.244.61c-.15.058-.26.1-.374.17-.057.036-.11.135-.105.292.017.433.29 1.278.624 2.27.384 1.135 1.066 2.27 1.844 2.74a3.23 3.23 0 0 0 2.53.342c.832-.243 1.595-.868 1.962-1.546.986-1.818.19-3.548-1.121-4.417-.447-.296-1.133-.445-1.89-.46-.074 0-.15-.002-.226-.001z"/><path fill="#3b9bf5" d="M7.701 12.313a6.201 6.201 0 0 0-.752.047c-.596.078-.932.273-1.29.51a3.177 3.177 0 0 0-1.365 1.979c-.075.552-.086 1.053.033 1.507.433 1.389 1.326 2.222 2.847 2.452.636.028 1.37-.063 1.99-.45 1.269-.782 2.08-3.17 2.412-4.742.053-.176.035-.357-.013-.42-.005-.067-.044-.113-.19-.183-.398-.192-1.32-.417-2.375-.6a7.68 7.68 0 0 0-1.297-.1z"/></svg></span>
       </div>
-      <img src="assets/logo.png" alt="dropSFX" class="hero-logo" />
+      <img src="assets/logo.png" alt="dropSFX" class="hero-logo" width="1024" height="381" fetchpriority="high" />
 
       <p class="hero-tagline" data-i18n="hero.tagline">O melhor plugin de SFX do mercado.</p>
       <div class="proof-bar">
@@ -2649,6 +2684,44 @@
     <div class="hero-meta" data-i18n-html="hero.meta"><span>Pagamento <b>único</b></span><span>Acesso vitalício</span><span>Garantia de 7 dias</span></div>
   </section>
 
+  <!-- ============ NA PRÁTICA (gravação real) ============ -->
+  <section class="ed-sec ed-demo" id="pratica">
+    <div class="ed">
+      <div class="demo-head">
+        <h2 class="ed-h" data-i18n-html="demo.title">Na prática.<br><span class="blue">Sem sair do Premiere.</span></h2>
+        <p class="ed-lead" data-i18n-html="demo.lead">Gravação de tela real, direto do Premiere: abrir a categoria, <strong>ouvir no hover</strong> e mandar o som pra timeline. Liga o som pra ouvir junto.</p>
+      </div>
+
+      <figure class="demo-frame">
+        <div class="demo-bar">
+          <span class="demo-rec"><i></i><span data-i18n="demo.rec">Tela real · Premiere Pro</span></span>
+          <span class="demo-tc" id="demoTc">00:00:00:00</span>
+        </div>
+        <div class="demo-screen">
+          <video id="demoVideo" muted loop playsinline preload="none" width="1600" height="1052"
+                 poster="assets/plugin-na-pratica.jpg" data-src="assets/plugin-na-pratica.mp4"
+                 aria-label="dropSFX sendo usado no Adobe Premiere Pro"></video>
+          <button class="demo-sound" id="demoSound" type="button" aria-pressed="false">
+            <svg class="ic-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="m23 9-6 6M17 9l6 6"/></svg>
+            <svg class="ic-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
+            <span class="lbl-off" data-i18n="demo.soundon">Ouvir com som</span>
+            <span class="lbl-on" data-i18n="demo.soundoff">Tirar o som</span>
+          </button>
+        </div>
+        <div class="demo-scrub" id="demoScrub" role="slider" aria-label="Posição do vídeo" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+          <div class="demo-scrub-fill" id="demoScrubFill"></div>
+        </div>
+      </figure>
+
+      <div class="demo-cta">
+        <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=demo&utm_campaign=dropsfx"
+          class="ed-cta js-buy-cta pop-btn" data-position="demo"
+          target="_blank" rel="noopener"><span data-i18n="demo.cta">Quero isso no meu Premiere</span>&nbsp;<span aria-hidden="true">→</span></a>
+        <p class="demo-cta-note" data-i18n="demo.note">1.463 sons · Premiere, After Effects e DaVinci</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ================================================================
        EDITORIAL — tudo abaixo do hero
        ================================================================ -->
@@ -2672,9 +2745,7 @@
 
     <div class="ed ed-lib">
       <figure class="ed-lib-media">
-        <video autoplay loop muted playsinline preload="metadata">
-          <source src="assets/library-proof.mp4" type="video/mp4">
-        </video>
+        <video loop muted playsinline preload="none" data-lazy-video data-src="assets/library-proof.mp4" width="520" height="830"></video>
       </figure>
       <div class="ed-lib-copy">
         <h2 class="ed-h" data-i18n-html="ed.libtitle">Uma biblioteca<br><span class="blue">feita para editar.</span></h2>
@@ -2839,37 +2910,6 @@
     </div>
   </section>
 
-  <!-- ============ NA PRÁTICA (gravação real) ============ -->
-  <section class="ed-sec ed-demo" id="pratica">
-    <div class="ed">
-      <div class="demo-head">
-        <h2 class="ed-h" data-i18n-html="demo.title">Na prática.<br><span class="blue">Sem sair do Premiere.</span></h2>
-        <p class="ed-lead" data-i18n-html="demo.lead">Gravação de tela real, direto do Premiere: abrir a categoria, <strong>ouvir no hover</strong> e mandar o som pra timeline. Liga o som pra ouvir junto.</p>
-      </div>
-
-      <figure class="demo-frame">
-        <div class="demo-bar">
-          <span class="demo-rec"><i></i><span data-i18n="demo.rec">Tela real · Premiere Pro</span></span>
-          <span class="demo-tc" id="demoTc">00:00:00:00</span>
-        </div>
-        <div class="demo-screen">
-          <video id="demoVideo" muted loop playsinline preload="none" width="1600" height="1052"
-                 poster="assets/plugin-na-pratica.jpg" data-src="assets/plugin-na-pratica.mp4"
-                 aria-label="dropSFX sendo usado no Adobe Premiere Pro"></video>
-          <button class="demo-sound" id="demoSound" type="button" aria-pressed="false">
-            <svg class="ic-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="m23 9-6 6M17 9l6 6"/></svg>
-            <svg class="ic-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
-            <span class="lbl-off" data-i18n="demo.soundon">Ouvir com som</span>
-            <span class="lbl-on" data-i18n="demo.soundoff">Tirar o som</span>
-          </button>
-        </div>
-        <div class="demo-scrub" id="demoScrub" role="slider" aria-label="Posição do vídeo" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
-          <div class="demo-scrub-fill" id="demoScrubFill"></div>
-        </div>
-      </figure>
-    </div>
-  </section>
-
   <!-- ============ OFERTA ============ -->
   <section class="ed-sec ed-price" id="comprar">
     <div class="ed ed-price-grid">
@@ -2961,7 +3001,7 @@
   <!-- FOOTER -->
   <footer class="ed-foot">
     <div class="ed">
-      <img class="ed-foot-logo" src="assets/logo.png" alt="dropSFX" />
+      <img class="ed-foot-logo" src="assets/logo.png" alt="dropSFX" width="1024" height="381" loading="lazy" decoding="async" />
       <div class="ed-foot-row">
         <p class="ed-foot-line" data-i18n="ed.colophon">Feito por um editor, para editores.</p>
         <div class="foot-links"><a href="#" data-i18n="foot.terms">Termos</a><a href="#" data-i18n="foot.privacy">Privacidade</a><a href="#" data-i18n="foot.license">Licença</a><a href="#" data-i18n="foot.support">Suporte</a></div>
@@ -3706,6 +3746,24 @@
     for (var lang in add) for (var k in add[lang]) I18N[lang][k] = add[lang][k];
   })();
 
+  // Vídeos secundários: só baixam perto da tela e só tocam quando visíveis
+  (function () {
+    var vids = document.querySelectorAll('video[data-lazy-video]');
+    if (!vids.length) return;
+    function start(v) {
+      if (!v.src) v.src = v.getAttribute('data-src');
+      var p = v.play(); if (p && p.catch) p.catch(function () {});
+    }
+    if (!('IntersectionObserver' in window)) { vids.forEach(start); return; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) start(e.target);
+        else if (e.target.src) e.target.pause();
+      });
+    }, { rootMargin: '200px 0px' });
+    vids.forEach(function (v) { io.observe(v); });
+  })();
+
   // Seção "Na prática": textos + player da gravação real
   (function () {
     var add = {
@@ -3714,28 +3772,36 @@
         "demo.lead": "Gravação de tela real, direto do Premiere: abrir a categoria, <strong>ouvir no hover</strong> e mandar o som pra timeline. Liga o som pra ouvir junto.",
         "demo.rec": "Tela real · Premiere Pro",
         "demo.soundon": "Ouvir com som",
-        "demo.soundoff": "Tirar o som"
+        "demo.soundoff": "Tirar o som",
+        "demo.cta": "Quero isso no meu Premiere",
+        "demo.note": "1.463 sons · Premiere, After Effects e DaVinci"
       },
       en: {
         "demo.title": "In practice.<br><span class='blue'>Without leaving Premiere.</span>",
         "demo.lead": "A real screen recording, straight from Premiere: open a category, <strong>hear it on hover</strong> and send the sound to the timeline. Turn the sound on to listen along.",
         "demo.rec": "Real screen · Premiere Pro",
         "demo.soundon": "Play with sound",
-        "demo.soundoff": "Mute"
+        "demo.soundoff": "Mute",
+        "demo.cta": "I want this in my Premiere",
+        "demo.note": "1,463 sounds · Premiere, After Effects & DaVinci"
       },
       es: {
         "demo.title": "En la práctica.<br><span class='blue'>Sin salir de Premiere.</span>",
         "demo.lead": "Grabación de pantalla real, directo de Premiere: abrir la categoría, <strong>escuchar al pasar el mouse</strong> y mandar el sonido a la timeline. Activa el sonido para escuchar.",
         "demo.rec": "Pantalla real · Premiere Pro",
         "demo.soundon": "Escuchar con sonido",
-        "demo.soundoff": "Quitar sonido"
+        "demo.soundoff": "Quitar sonido",
+        "demo.cta": "Lo quiero en mi Premiere",
+        "demo.note": "1.463 sonidos · Premiere, After Effects y DaVinci"
       },
       hi: {
         "demo.title": "असल इस्तेमाल।<br><span class='blue'>Premiere छोड़े बिना।</span>",
         "demo.lead": "Premiere से सीधी असली स्क्रीन रिकॉर्डिंग: कैटेगरी खोलिए, <strong>होवर पर सुनिए</strong> और साउंड टाइमलाइन पर भेजिए। साथ सुनने के लिए साउंड चालू कीजिए।",
         "demo.rec": "असली स्क्रीन · Premiere Pro",
         "demo.soundon": "साउंड के साथ चलाएँ",
-        "demo.soundoff": "म्यूट करें"
+        "demo.soundoff": "म्यूट करें",
+        "demo.cta": "मुझे यह मेरे Premiere में चाहिए",
+        "demo.note": "1,463 साउंड · Premiere, After Effects और DaVinci"
       }
     };
     for (var lang in add) for (var k in add[lang]) I18N[lang][k] = add[lang][k];
@@ -3761,7 +3827,7 @@
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) {
         if (es[0].isIntersecting) load();
-      }, { rootMargin: '600px 0px' }).observe(v);
+      }, { rootMargin: '250px 0px' }).observe(v);
       new IntersectionObserver(function (es) {
         inView = es[0].isIntersecting;
         if (inView) { if (!reduce || !v.muted) play(); }
