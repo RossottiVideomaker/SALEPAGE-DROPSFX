@@ -2534,6 +2534,244 @@
       .demo-rec i { animation: none; }
     }
 
+    /* ---------- A NOITE: a dor contada como uma noite de edição ----------
+       Relógio gigante preso na tela; cada linha do log acende e
+       empurra o relógio pra frente. Passou da meia-noite, ele fica vermelho. */
+    .ed-night { padding-bottom: clamp(80px, 9vw, 140px); }
+
+    .night-grid {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: clamp(40px, 6vw, 110px);
+      align-items: start;
+    }
+
+    .night-clock-col { position: sticky; top: 120px; }
+
+    .night-clock {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(88px, 12.5vw, 196px);
+      line-height: .82;
+      letter-spacing: -.045em;
+      font-variant-numeric: tabular-nums;
+      color: var(--ink);
+      transition: color .8s ease, text-shadow .8s ease;
+    }
+    .night-clock.late {
+      color: #ff5a5a;
+      text-shadow: 0 0 60px rgba(255, 70, 70, .35);
+    }
+
+    .night-day {
+      margin-top: 22px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--steel);
+    }
+
+    .night-list { list-style: none; margin: clamp(40px, 5vw, 64px) 0 0; padding: 0; }
+
+    .night-list li {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 18px;
+      align-items: baseline;
+      padding: 26px 0;
+      border-top: 1px solid rgba(255, 255, 255, .1);
+      opacity: .16;
+      transform: translateY(8px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .night-list li.on { opacity: 1; transform: none; }
+
+    .night-list time {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: .04em;
+      color: var(--steel);
+    }
+
+    .night-list p {
+      font-family: var(--font);
+      font-size: clamp(18px, 1.7vw, 23px);
+      line-height: 1.45;
+      color: var(--ink-2);
+    }
+    .night-list em { font-family: var(--font-serif); font-size: 1.12em; color: var(--ice); }
+    .night-list strong { color: #fff; font-weight: 700; }
+
+    .night-end time { color: #ff5a5a; }
+    .night-end p { color: var(--ink); }
+    .night-end strong { color: #ff7a7a; }
+
+    .night-verdict {
+      margin-top: clamp(72px, 9vw, 128px);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(32px, 4.2vw, 64px);
+      line-height: .98;
+      letter-spacing: -.025em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .night-verdict .blue {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: -.01em;
+      font-size: 1.14em;
+      color: var(--ice);
+    }
+
+    .night-after {
+      margin-top: 22px;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(20px, 1.9vw, 26px);
+      color: var(--steel);
+    }
+
+    /* ---------- A VIDA DEPOIS: amanhecer depois da noite ---------- */
+    .ed-after { overflow: hidden; isolation: isolate; }
+
+    .after-dawn {
+      position: absolute;
+      left: -10%;
+      right: -10%;
+      top: 0;
+      height: 80%;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 55% 38% at 50% 0%, rgba(255, 226, 190, .22) 0%, rgba(255, 226, 190, 0) 60%),
+        radial-gradient(ellipse 70% 60% at 50% 0%, rgba(110, 155, 255, .34) 0%, rgba(59, 110, 245, .12) 45%, transparent 75%);
+      opacity: 0;
+      transform: translateY(-60px);
+      transition: opacity 2.6s ease, transform 2.6s cubic-bezier(.2, .8, .3, 1);
+    }
+    .ed-after.lit .after-dawn { opacity: 1; transform: none; }
+    .after-dawn::after {
+      content: "";
+      position: absolute;
+      left: 15%;
+      right: 15%;
+      top: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(216, 250, 255, .7), transparent);
+    }
+
+    .after-kicker {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--steel);
+    }
+    .after-kicker-clock { color: var(--ice); font-weight: 700; letter-spacing: .04em; }
+
+    .after-beats { margin-top: clamp(40px, 5vw, 64px); }
+    .after-beats p {
+      font-family: var(--font);
+      font-size: clamp(22px, 2.6vw, 38px);
+      line-height: 1.25;
+      color: var(--steel);
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .after-beats p + p { margin-top: 10px; }
+    .after-beats p strong { color: var(--ink); font-weight: 700; }
+    .after-beats.on p { opacity: 1; transform: none; }
+    .after-beats.on p:nth-child(2) { transition-delay: .35s; }
+    .after-beats.on p:nth-child(3) { transition-delay: .7s; }
+
+    .after-life {
+      list-style: none;
+      margin: clamp(64px, 8vw, 112px) 0 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(36px, 4vw, 56px) clamp(32px, 5vw, 80px);
+    }
+    .after-life li { padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, .16); }
+    .al-n {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .08em;
+      color: var(--accent-hi);
+    }
+    .after-life h3 {
+      margin-top: 14px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(22px, 2vw, 30px);
+      line-height: 1.05;
+      letter-spacing: -.01em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .after-life p {
+      margin-top: 12px;
+      max-width: 40ch;
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--ink-2);
+    }
+
+    .after-cta {
+      display: flex;
+      align-items: center;
+      gap: 20px 32px;
+      flex-wrap: wrap;
+      margin-top: clamp(56px, 7vw, 96px);
+    }
+    .after-cta .ed-cta { width: auto; padding: 19px 36px; font-size: 16px; }
+    .after-cta-note {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--steel);
+    }
+
+    @media (max-width: 880px) {
+      .night-grid { grid-template-columns: 1fr; gap: 0; }
+      .night-clock-col {
+        top: 64px;
+        z-index: 3;
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        margin: 0 -22px;
+        padding: 14px 22px 18px;
+        background: linear-gradient(180deg, #000 72%, rgba(0, 0, 0, 0));
+      }
+      .night-clock { font-size: 64px; }
+      .night-day { margin-top: 0; text-align: right; }
+      .night-log { margin-top: 28px; }
+      .night-list li { grid-template-columns: 54px 1fr; gap: 12px; padding: 22px 0; }
+      .after-life { grid-template-columns: 1fr; }
+      .after-cta { justify-content: center; text-align: center; }
+      .after-cta .ed-cta { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .night-list li, .after-beats p { opacity: 1; transform: none; transition: none; }
+      .after-dawn { opacity: 1; transform: none; transition: none; }
+      .night-clock { transition: none; }
+    }
+
     /* ---------- responsivo ---------- */
     @media (max-width: 880px) {
       .ed { padding: 0 22px; }
@@ -2658,7 +2896,7 @@
       </div>
       <img src="assets/logo.png" alt="dropSFX" class="hero-logo" width="1024" height="381" fetchpriority="high" />
 
-      <p class="hero-tagline" data-i18n="hero.tagline">O melhor plugin de SFX do mercado.</p>
+      <p class="hero-tagline" data-i18n="hero.tagline">Pare de caçar efeito sonoro. Volte a editar.</p>
       <div class="proof-bar">
         <div class="proof-avatars">
           <span class="proof-av" style="--c:#3b6ef5">JP</span>
@@ -2725,6 +2963,29 @@
   <!-- ================================================================
        EDITORIAL — tudo abaixo do hero
        ================================================================ -->
+
+  <!-- ============ A NOITE (a dor, contada como uma noite de edição) ============ -->
+  <section class="ed-sec ed-night" id="noite">
+    <div class="ed night-grid">
+      <div class="night-clock-col" aria-hidden="true">
+        <div class="night-clock"><span id="nightClock">23:12</span></div>
+        <p class="night-day" data-i18n="night.day">Uma terça qualquer</p>
+      </div>
+      <div class="night-log">
+        <h2 class="ed-h" data-i18n-html="night.title">Falta só<br><span class="blue">o sound design.</span></h2>
+        <ol class="night-list">
+          <li data-t="23:14"><time>23:14</time><p data-i18n-html="night.l1">Você abre o navegador e digita <em>“whoosh grátis download”</em>.</p></li>
+          <li data-t="23:27"><time>23:27</time><p data-i18n-html="night.l2">Terceiro site. Pop-up, cadastro obrigatório, link quebrado.</p></li>
+          <li data-t="23:41"><time>23:41</time><p data-i18n-html="night.l3">Baixa um <strong>.zip de 400 MB</strong> pra usar um som de um segundo.</p></li>
+          <li data-t="23:58"><time>23:58</time><p data-i18n-html="night.l4">O impacto tem chiado. O riser é curto demais. Volta pro Google.</p></li>
+          <li data-t="00:21"><time>00:21</time><p data-i18n-html="night.l5">Na sua pasta Downloads tem um <strong>whoosh_final_2_REAL.wav</strong> e você nem lembra de onde ele veio.</p></li>
+          <li data-t="00:47" class="night-end"><time>00:47</time><p data-i18n-html="night.l6">O vídeo tá pronto. Mas você não sente orgulho. <strong>Sente cansaço.</strong></p></li>
+        </ol>
+        <p class="night-verdict" data-i18n-html="night.verdict">Você virou editor pra criar.<br><span class="blue">Não pra caçar arquivo.</span></p>
+        <p class="night-after" data-i18n="night.after">E amanhã, no próximo projeto, começa tudo de novo.</p>
+      </div>
+    </div>
+  </section>
 
   <!-- ============ BIBLIOTECA ============ -->
   <section class="ed-sec ed-cover" id="library">
@@ -2910,6 +3171,51 @@
     </div>
   </section>
 
+  <!-- ============ A VIDA DEPOIS (a transformação) ============ -->
+  <section class="ed-sec ed-after" id="depois">
+    <div class="after-dawn" aria-hidden="true"></div>
+    <div class="ed">
+      <p class="after-kicker"><span class="after-kicker-clock">23:12</span> <span data-i18n="after.kicker">A mesma terça, com dropSFX</span></p>
+      <h2 class="ed-h" data-i18n-html="after.title">Agora imagine<br><span class="blue">a sua próxima noite.</span></h2>
+
+      <div class="after-beats">
+        <p data-i18n-html="after.b1">Você passa o mouse. <strong>O som toca.</strong></p>
+        <p data-i18n-html="after.b2">Dois cliques. <strong>Tá na timeline.</strong></p>
+        <p data-i18n-html="after.b3">Nenhuma aba aberta. <strong>Você nem saiu do Premiere.</strong></p>
+      </div>
+
+      <ol class="after-life">
+        <li>
+          <span class="al-n">01</span>
+          <h3 data-i18n="after.h1">Você volta a criar</h3>
+          <p data-i18n="after.p1">Seu tempo vai pro corte, pro ritmo, pra história. Não pra aba do navegador.</p>
+        </li>
+        <li>
+          <span class="al-n">02</span>
+          <h3 data-i18n="after.h2">O som vira escolha</h3>
+          <p data-i18n="after.p2">O sound design deixa de ser “o que deu pra achar” e passa a ser exatamente o que você imaginou.</p>
+        </li>
+        <li>
+          <span class="al-n">03</span>
+          <h3 data-i18n="after.h3">A noite volta a ser sua</h3>
+          <p data-i18n="after.p3">Você fecha o projeto mais cedo. Sobra tempo pra descansar, pra quem você ama, pro próximo cliente.</p>
+        </li>
+        <li>
+          <span class="al-n">04</span>
+          <h3 data-i18n="after.h4">Seu trabalho sobe de nível</h3>
+          <p data-i18n="after.p4">Vídeo com som bem feito prende mais quem assiste. E o cliente sente a diferença, mesmo sem saber explicar.</p>
+        </li>
+      </ol>
+
+      <div class="after-cta">
+        <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=depois&utm_campaign=dropsfx"
+          class="ed-cta js-buy-cta pop-btn" data-position="depois"
+          target="_blank" rel="noopener"><span data-i18n="after.cta">Quero minhas noites de volta</span>&nbsp;<span aria-hidden="true">→</span></a>
+        <p class="after-cta-note" data-i18n="after.note">Pagamento único · Acesso vitalício · Garantia de 7 dias</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ OFERTA ============ -->
   <section class="ed-sec ed-price" id="comprar">
     <div class="ed ed-price-grid">
@@ -3040,7 +3346,7 @@
       "nav.cta": "Comprar agora",
 
       "hero.badge": "PREMIERE PRO + AFTER EFFECTS",
-      "hero.tagline": "O melhor plugin de SFX do mercado.",
+      "hero.tagline": "Pare de caçar efeito sonoro. Volte a editar.",
       "hero.cta": "Comprar",
       "hero.meta": "<span>Pagamento <b>único</b></span><span>Acesso vitalício</span><span>Garantia de 7 dias</span>",
 
@@ -3168,7 +3474,7 @@
       "nav.cta": "Get it now",
 
       "hero.badge": "PREMIERE PRO + AFTER EFFECTS",
-      "hero.tagline": "The best SFX plugin on the market.",
+      "hero.tagline": "Stop hunting for sound effects. Get back to editing.",
       "hero.cta": "Buy now",
       "hero.meta": "<span><b>One-time</b> payment</span><span>Lifetime access</span><span>7-day guarantee</span>",
 
@@ -3296,7 +3602,7 @@
       "nav.cta": "Comprar ahora",
 
       "hero.badge": "PREMIERE PRO + AFTER EFFECTS",
-      "hero.tagline": "El mejor plugin de SFX del mercado.",
+      "hero.tagline": "Deja de buscar efectos de sonido. Vuelve a editar.",
       "hero.cta": "Comprar",
       "hero.meta": "<span>Pago <b>único</b></span><span>Acceso de por vida</span><span>Garantía de 7 días</span>",
 
@@ -3424,7 +3730,7 @@
       "nav.cta": "अभी खरीदें",
 
       "hero.badge": "ADOBE PREMIERE PRO के लिए",
-      "hero.tagline": "बाज़ार का सबसे बेहतरीन SFX प्लगइन।",
+      "hero.tagline": "साउंड इफ़ेक्ट ढूँढना बंद कीजिए। फिर से एडिटिंग कीजिए।",
       "hero.cta": "खरीदें",
       "hero.meta": "<span><b>एक बार</b> भुगतान</span><span>लाइफ़टाइम एक्सेस</span><span>7 दिन की गारंटी</span>",
 
@@ -3744,6 +4050,172 @@
       }
     };
     for (var lang in add) for (var k in add[lang]) I18N[lang][k] = add[lang][k];
+  })();
+
+  // Narrativa emocional: "A noite" (a dor) e "A vida depois" (a transformação)
+  (function () {
+    var add = {
+      pt: {
+        "night.day": "Uma terça qualquer",
+        "night.title": "Falta só<br><span class='blue'>o sound design.</span>",
+        "night.l1": "Você abre o navegador e digita <em>“whoosh grátis download”</em>.",
+        "night.l2": "Terceiro site. Pop-up, cadastro obrigatório, link quebrado.",
+        "night.l3": "Baixa um <strong>.zip de 400 MB</strong> pra usar um som de um segundo.",
+        "night.l4": "O impacto tem chiado. O riser é curto demais. Volta pro Google.",
+        "night.l5": "Na sua pasta Downloads tem um <strong>whoosh_final_2_REAL.wav</strong> e você nem lembra de onde ele veio.",
+        "night.l6": "O vídeo tá pronto. Mas você não sente orgulho. <strong>Sente cansaço.</strong>",
+        "night.verdict": "Você virou editor pra criar.<br><span class='blue'>Não pra caçar arquivo.</span>",
+        "night.after": "E amanhã, no próximo projeto, começa tudo de novo.",
+        "after.kicker": "A mesma terça, com dropSFX",
+        "after.title": "Agora imagine<br><span class='blue'>a sua próxima noite.</span>",
+        "after.b1": "Você passa o mouse. <strong>O som toca.</strong>",
+        "after.b2": "Dois cliques. <strong>Tá na timeline.</strong>",
+        "after.b3": "Nenhuma aba aberta. <strong>Você nem saiu do Premiere.</strong>",
+        "after.h1": "Você volta a criar",
+        "after.p1": "Seu tempo vai pro corte, pro ritmo, pra história. Não pra aba do navegador.",
+        "after.h2": "O som vira escolha",
+        "after.p2": "O sound design deixa de ser “o que deu pra achar” e passa a ser exatamente o que você imaginou.",
+        "after.h3": "A noite volta a ser sua",
+        "after.p3": "Você fecha o projeto mais cedo. Sobra tempo pra descansar, pra quem você ama, pro próximo cliente.",
+        "after.h4": "Seu trabalho sobe de nível",
+        "after.p4": "Vídeo com som bem feito prende mais quem assiste. E o cliente sente a diferença, mesmo sem saber explicar.",
+        "after.cta": "Quero minhas noites de volta",
+        "after.note": "Pagamento único · Acesso vitalício · Garantia de 7 dias"
+      },
+      en: {
+        "night.day": "Just another Tuesday",
+        "night.title": "All that's left<br><span class='blue'>is the sound design.</span>",
+        "night.l1": "You open the browser and type <em>“free whoosh download”</em>.",
+        "night.l2": "Third website. Pop-ups, forced sign-up, broken link.",
+        "night.l3": "You download a <strong>400 MB .zip</strong> to use a one-second sound.",
+        "night.l4": "The impact has hiss. The riser is too short. Back to Google.",
+        "night.l5": "Your Downloads folder has a <strong>whoosh_final_2_REAL.wav</strong> and you have no idea where it came from.",
+        "night.l6": "The video is done. But you don't feel proud. <strong>You feel tired.</strong>",
+        "night.verdict": "You became an editor to create.<br><span class='blue'>Not to hunt for files.</span>",
+        "night.after": "And tomorrow, on the next project, it all starts again.",
+        "after.kicker": "Same Tuesday, with dropSFX",
+        "after.title": "Now picture<br><span class='blue'>your next night.</span>",
+        "after.b1": "You hover. <strong>The sound plays.</strong>",
+        "after.b2": "Two clicks. <strong>It's on the timeline.</strong>",
+        "after.b3": "No tabs open. <strong>You never even left Premiere.</strong>",
+        "after.h1": "You get back to creating",
+        "after.p1": "Your time goes into the cut, the rhythm, the story. Not into browser tabs.",
+        "after.h2": "Sound becomes a choice",
+        "after.p2": "Sound design stops being “whatever I could find” and becomes exactly what you imagined.",
+        "after.h3": "Your nights are yours again",
+        "after.p3": "You wrap the project earlier. There's time left to rest, for the people you love, for the next client.",
+        "after.h4": "Your work levels up",
+        "after.p4": "Videos with great sound hold viewers longer. And clients feel the difference, even if they can't explain it.",
+        "after.cta": "I want my nights back",
+        "after.note": "One-time payment · Lifetime access · 7-day guarantee"
+      },
+      es: {
+        "night.day": "Un martes cualquiera",
+        "night.title": "Solo falta<br><span class='blue'>el diseño sonoro.</span>",
+        "night.l1": "Abres el navegador y escribes <em>“whoosh gratis descargar”</em>.",
+        "night.l2": "Tercer sitio. Pop-ups, registro obligatorio, enlace roto.",
+        "night.l3": "Descargas un <strong>.zip de 400 MB</strong> para usar un sonido de un segundo.",
+        "night.l4": "El impacto tiene ruido. El riser es demasiado corto. De vuelta a Google.",
+        "night.l5": "Tu carpeta de Descargas tiene un <strong>whoosh_final_2_REAL.wav</strong> y ni recuerdas de dónde salió.",
+        "night.l6": "El video está listo. Pero no sientes orgullo. <strong>Sientes cansancio.</strong>",
+        "night.verdict": "Te hiciste editor para crear.<br><span class='blue'>No para cazar archivos.</span>",
+        "night.after": "Y mañana, en el próximo proyecto, todo vuelve a empezar.",
+        "after.kicker": "El mismo martes, con dropSFX",
+        "after.title": "Ahora imagina<br><span class='blue'>tu próxima noche.</span>",
+        "after.b1": "Pasas el mouse. <strong>El sonido suena.</strong>",
+        "after.b2": "Dos clics. <strong>Ya está en la timeline.</strong>",
+        "after.b3": "Ninguna pestaña abierta. <strong>Ni saliste de Premiere.</strong>",
+        "after.h1": "Vuelves a crear",
+        "after.p1": "Tu tiempo va al corte, al ritmo, a la historia. No a las pestañas del navegador.",
+        "after.h2": "El sonido se vuelve elección",
+        "after.p2": "El diseño sonoro deja de ser “lo que pude encontrar” y pasa a ser exactamente lo que imaginaste.",
+        "after.h3": "La noche vuelve a ser tuya",
+        "after.p3": "Cierras el proyecto antes. Te queda tiempo para descansar, para quien amas, para el próximo cliente.",
+        "after.h4": "Tu trabajo sube de nivel",
+        "after.p4": "Un video con buen sonido atrapa más a quien lo ve. Y el cliente nota la diferencia, aunque no sepa explicarla.",
+        "after.cta": "Quiero mis noches de vuelta",
+        "after.note": "Pago único · Acceso de por vida · Garantía de 7 días"
+      },
+      hi: {
+        "night.day": "कोई भी आम मंगलवार",
+        "night.title": "बस बाकी है<br><span class='blue'>साउंड डिज़ाइन।</span>",
+        "night.l1": "आप ब्राउज़र खोलते हैं और लिखते हैं <em>“free whoosh download”</em>।",
+        "night.l2": "तीसरी वेबसाइट। पॉप-अप, ज़बरदस्ती साइन-अप, टूटा लिंक।",
+        "night.l3": "एक सेकंड की आवाज़ के लिए <strong>400 MB की .zip</strong> डाउनलोड।",
+        "night.l4": "इम्पैक्ट में शोर है। राइज़र बहुत छोटा है। फिर से Google।",
+        "night.l5": "आपके Downloads में <strong>whoosh_final_2_REAL.wav</strong> पड़ा है और याद नहीं कि कहाँ से आया।",
+        "night.l6": "वीडियो तैयार है। पर गर्व नहीं होता। <strong>बस थकान होती है।</strong>",
+        "night.verdict": "आप एडिटर बने थे बनाने के लिए।<br><span class='blue'>फ़ाइलें ढूँढने के लिए नहीं।</span>",
+        "night.after": "और कल, अगले प्रोजेक्ट में, सब फिर से शुरू।",
+        "after.kicker": "वही मंगलवार, dropSFX के साथ",
+        "after.title": "अब सोचिए<br><span class='blue'>आपकी अगली रात।</span>",
+        "after.b1": "आप माउस ले जाते हैं। <strong>साउंड बजता है।</strong>",
+        "after.b2": "दो क्लिक। <strong>टाइमलाइन पर।</strong>",
+        "after.b3": "कोई टैब नहीं खुला। <strong>आप Premiere से बाहर ही नहीं गए।</strong>",
+        "after.h1": "आप फिर से बनाते हैं",
+        "after.p1": "आपका समय कट, रिदम और कहानी में जाता है। ब्राउज़र टैब में नहीं।",
+        "after.h2": "साउंड आपकी पसंद बनता है",
+        "after.p2": "साउंड डिज़ाइन “जो मिल गया” नहीं रहता, बल्कि ठीक वही बनता है जो आपने सोचा था।",
+        "after.h3": "रात फिर आपकी है",
+        "after.p3": "प्रोजेक्ट जल्दी पूरा होता है। आराम के लिए, अपनों के लिए, अगले क्लाइंट के लिए समय बचता है।",
+        "after.h4": "आपका काम अगले स्तर पर",
+        "after.p4": "अच्छे साउंड वाला वीडियो दर्शकों को ज़्यादा देर रोकता है। और क्लाइंट फ़र्क महसूस करता है, भले समझा न पाए।",
+        "after.cta": "मुझे मेरी रातें वापस चाहिए",
+        "after.note": "एक बार भुगतान · आजीवन एक्सेस · 7 दिन की गारंटी"
+      }
+    };
+    for (var lang in add) for (var k in add[lang]) I18N[lang][k] = add[lang][k];
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var hasIO = 'IntersectionObserver' in window;
+
+    // --- relógio da noite ---
+    var clock = document.getElementById('nightClock');
+    var items = [].slice.call(document.querySelectorAll('.night-list li'));
+    function setTime(t) {
+      if (!clock || clock.textContent === t) return;
+      clock.textContent = t;
+      clock.parentNode.classList.toggle('late', t.slice(0, 2) === '00');
+    }
+    if (clock && items.length) {
+      if (reduce || !hasIO) {
+        items.forEach(function (li) { li.classList.add('on'); });
+        setTime(items[items.length - 1].getAttribute('data-t'));
+      } else {
+        var io = new IntersectionObserver(function (es) {
+          es.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            var idx = items.indexOf(e.target);
+            items.forEach(function (li, i) { li.classList.toggle('on', i <= idx); });
+            setTime(e.target.getAttribute('data-t'));
+          });
+        }, { rootMargin: '-40% 0px -45% 0px' });
+        items.forEach(function (li) { io.observe(li); });
+        // voltando pra cima de tudo, o relógio volta pras 23:12
+        var head = document.querySelector('.night-log .ed-h');
+        new IntersectionObserver(function (es) {
+          if (es[0].isIntersecting && es[0].boundingClientRect.top > 0) {
+            items.forEach(function (li) { li.classList.remove('on'); });
+            setTime('23:12');
+          }
+        }, { rootMargin: '0px 0px -55% 0px' }).observe(head);
+      }
+    }
+
+    // --- amanhecer + frases da seção "depois" ---
+    var after = document.getElementById('depois');
+    var beats = document.querySelector('.after-beats');
+    if (after) {
+      if (reduce || !hasIO) { after.classList.add('lit'); beats && beats.classList.add('on'); }
+      else {
+        new IntersectionObserver(function (es, o) {
+          if (es[0].isIntersecting) { after.classList.add('lit'); o.disconnect(); }
+        }, { threshold: .12 }).observe(after);
+        if (beats) new IntersectionObserver(function (es, o) {
+          if (es[0].isIntersecting) { beats.classList.add('on'); o.disconnect(); }
+        }, { rootMargin: '0px 0px -20% 0px' }).observe(beats);
+      }
+    }
   })();
 
   // Vídeos secundários: só baixam perto da tela e só tocam quando visíveis
