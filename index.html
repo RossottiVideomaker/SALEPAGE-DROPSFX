@@ -2845,6 +2845,31 @@
       transition: color .3s, border-color .3s, background .3s;
     }
     .gate-steps li.on { color: #fff; border-color: var(--accent); background: var(--accent-soft); }
+
+    .gate-top-right { display: flex; align-items: center; gap: 14px; }
+    .gate-lang {
+      display: flex;
+      padding: 3px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .03);
+    }
+    .gate-lang button {
+      padding: 6px 10px;
+      border: 0;
+      border-radius: 999px;
+      background: none;
+      color: var(--steel);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+    .gate-lang button:hover { color: #fff; }
+    .gate-lang button:focus-visible { outline: 2px solid var(--accent-hi); outline-offset: 1px; }
+    .gate-lang button[aria-pressed="true"] { background: var(--ink); color: #000; }
     .gate-steps li.done { color: var(--steel); border-color: rgba(255, 255, 255, .16); }
 
     .gate-panel { display: none; width: 100%; max-width: 1080px; margin: auto 0; padding: 8px 0; }
@@ -3161,11 +3186,17 @@
       .gate-logo { height: 22px; }
       .gate-steps li { padding: 6px 10px; }
       .gate-steps li span + span { display: none; }
+      .gate-top-right { gap: 8px; }
+      .gate-lang button { padding: 6px 8px; }
       .gate-frame { max-width: 100%; }
       .gate-unmute { padding: 12px 18px; font-size: 14px; }
       .gate-cta { min-width: 0; width: 100%; }
       .quiz-opt { padding: 16px; }
       .diag-card { grid-template-columns: 1fr; }
+    }
+    /* celular estreito: o idioma importa mais que as etapas (o quiz tem barra própria) */
+    @media (max-width: 440px) {
+      .gate-steps { display: none; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -3258,11 +3289,19 @@
   <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle" data-lenis-prevent>
     <div class="gate-top">
       <img src="assets/logo.png" alt="dropSFX" width="1024" height="381" class="gate-logo">
-      <ol class="gate-steps">
-        <li class="on" data-step="1"><span>01</span><span data-i18n="funnel.s1">Vídeo</span></li>
-        <li data-step="2"><span>02</span><span data-i18n="funnel.s2">Diagnóstico</span></li>
-        <li data-step="3"><span>03</span><span data-i18n="funnel.s3">Oferta</span></li>
-      </ol>
+      <div class="gate-top-right">
+        <ol class="gate-steps">
+          <li class="on" data-step="1"><span>01</span><span data-i18n="funnel.s1">Vídeo</span></li>
+          <li data-step="2"><span>02</span><span data-i18n="funnel.s2">Diagnóstico</span></li>
+          <li data-step="3"><span>03</span><span data-i18n="funnel.s3">Oferta</span></li>
+        </ol>
+        <div class="gate-lang" role="group" aria-label="Idioma / Language / Idioma / भाषा">
+          <button type="button" data-lang="pt" title="Português" lang="pt-BR">PT</button>
+          <button type="button" data-lang="en" title="English" lang="en">EN</button>
+          <button type="button" data-lang="es" title="Español" lang="es">ES</button>
+          <button type="button" data-lang="hi" title="हिन्दी" lang="hi">HI</button>
+        </div>
+      </div>
     </div>
 
     <!-- 1 · vídeo -->
@@ -5112,8 +5151,20 @@
       }, 600);
     });
 
+    // seletor de idioma do funil
+    var langBtns = gate.querySelectorAll('.gate-lang button');
+    [].forEach.call(langBtns, function (b) {
+      b.addEventListener('click', function () {
+        var l = b.getAttribute('data-lang');
+        if (window.DropI18N) DropI18N.set(l);
+        track('FunnelLang', { lang: l });
+      });
+    });
+
     // troca de idioma com o funil aberto: redesenha o que estiver na tela
-    document.addEventListener('dropsfx:langchange', function () {
+    document.addEventListener('dropsfx:langchange', function (e) {
+      var cur = (e && e.detail && e.detail.lang) || (window.DropI18N && DropI18N.get());
+      [].forEach.call(langBtns, function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-lang') === cur ? 'true' : 'false'); });
       if (document.getElementById('gateQuiz').classList.contains('on')) renderQ();
       if (document.getElementById('gateResult').classList.contains('on')) document.getElementById('resBody').innerHTML = resultHTML(answers);
       renderDiag();
