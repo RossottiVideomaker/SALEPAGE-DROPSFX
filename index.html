@@ -4,6 +4,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <!-- Funil (vídeo → quiz → site): decide antes de pintar a tela, pra não piscar o site.
+       ?direto=1 pula o funil (bom pra testar as duas versões no anúncio)
+       ?funil=1 força o funil de novo (pra você testar) -->
+  <script>
+    (function () {
+      var h = document.documentElement, on = true;
+      try {
+        var q = new URLSearchParams(location.search);
+        if (q.has('funil')) { localStorage.removeItem('dropsfx_funnel'); localStorage.removeItem('dropsfx_quiz'); }
+        var done = localStorage.getItem('dropsfx_funnel') === 'done';
+        if (done) { on = false; h.classList.add('funnel-done'); }
+        if (q.has('direto')) on = false;
+        if (/^#(comprar|faq)$/.test(location.hash)) on = false;
+      } catch (e) {}
+      if (/bot|crawl|spider|slurp|googlebot|bingbot|yandex|duckduck|facebookexternalhit|facebot|lighthouse|pagespeed/i.test(navigator.userAgent)) on = false;
+      if (on) h.classList.add('gate-on');
+    })();
+  </script>
   <meta name="theme-color" content="#000000" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -2772,6 +2790,388 @@
       .night-clock { transition: none; }
     }
 
+    /* =================== FUNIL: vídeo de entrada → quiz → libera o site ===================
+       Só existe com JS: o <head> põe html.gate-on antes de pintar a tela.
+       Sem JS, robôs de busca e ?direto=1 veem o site normal. */
+    .gate { display: none; }
+    html.gate-on, html.gate-on body { overflow: hidden; }
+    html.gate-on .gate {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: 0 24px 24px;
+      background:
+        radial-gradient(ellipse 70% 45% at 50% 0%, rgba(59, 110, 245, .18), transparent 70%),
+        #000;
+    }
+    html.gate-on .nav, html.gate-on .sticky-cta { visibility: hidden; }
+    .gate.out { opacity: 0; transition: opacity .6s ease; pointer-events: none; }
+
+    .gate-top {
+      width: 100%;
+      max-width: 1080px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 20px 0;
+    }
+    .gate-logo { height: 26px; width: auto; filter: drop-shadow(0 0 10px var(--accent-glow)); }
+
+    .gate-steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .gate-steps li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 999px;
+      transition: color .3s, border-color .3s, background .3s;
+    }
+    .gate-steps li.on { color: #fff; border-color: var(--accent); background: var(--accent-soft); }
+    .gate-steps li.done { color: var(--steel); border-color: rgba(255, 255, 255, .16); }
+
+    .gate-panel { display: none; width: 100%; max-width: 1080px; margin: auto 0; padding: 8px 0; }
+    .gate-panel.on { display: block; animation: gateIn .5s cubic-bezier(.2, .8, .3, 1); }
+    @keyframes gateIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+    .gate-h {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(28px, 3.5vw, 52px);
+      line-height: .98;
+      letter-spacing: -.025em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .gate-h .blue {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: -.01em;
+      font-size: 1.14em;
+      color: var(--ice);
+    }
+
+    .gate-video .gate-h { text-align: center; margin-bottom: clamp(16px, 2.2vw, 26px); }
+    .gate-frame { width: 100%; max-width: min(900px, calc((100vh - 390px) * 1.52)); margin: 0 auto; }
+    .gate-screen { cursor: pointer; }
+    @media (min-width: 881px) {
+      .gate-video .gate-h { font-size: clamp(26px, 2.6vw, 42px); }
+      .gate-video .gate-h br { display: none; }
+    }
+    .gate-foot { flex: none; }
+
+    .gate-unmute {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: max-content;
+      height: max-content;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 24px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 16px;
+      font-weight: 700;
+      box-shadow: 0 16px 50px var(--accent-glow);
+      cursor: pointer;
+      animation: gatePulse 2s ease-in-out infinite;
+    }
+    .gate-unmute svg { width: 22px; height: 22px; flex: none; }
+    .gate-unmute[hidden] { display: none; }
+    @keyframes gatePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+    .gate-paused {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-items: center;
+      background: rgba(0, 0, 0, .45);
+      pointer-events: none;
+    }
+    .gate-paused svg { width: 64px; height: 64px; color: #fff; }
+    .gate-screen.paused .gate-paused { display: grid; }
+
+    .gate-prog { height: 4px; background: rgba(255, 255, 255, .08); }
+    .gate-prog-fill { height: 100%; width: 0; background: var(--accent); }
+
+    .gate-next {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-top: clamp(18px, 2.4vw, 26px);
+    }
+
+    .gate-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-width: 320px;
+      padding: 18px 34px;
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .04);
+      color: var(--steel);
+      font-family: var(--font);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: not-allowed;
+      transition: background .3s, color .3s, border-color .3s, transform .2s;
+    }
+    .gate-cta b { color: #fff; font-variant-numeric: tabular-nums; }
+    .gate-cta svg { width: 16px; height: 16px; flex: none; }
+    .gate-cta .gc-lock { display: inline-flex; align-items: center; gap: 8px; }
+    .gate-cta .gc-open { display: none; }
+    .gate-cta.on {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #000;
+      cursor: pointer;
+      animation: gateReady 1.8s ease-out 2;
+    }
+    .gate-cta.on:hover { background: var(--ice); transform: translateY(-2px); }
+    .gate-cta:focus-visible { outline: 2px solid var(--accent-hi); outline-offset: 3px; }
+    .gate-cta.on .gc-lock { display: none; }
+    .gate-cta.on .gc-open { display: inline; }
+    @keyframes gateReady {
+      0% { box-shadow: 0 0 0 0 rgba(216, 250, 255, .5); }
+      100% { box-shadow: 0 0 0 18px rgba(216, 250, 255, 0); }
+    }
+
+    .gate-note {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-align: center;
+    }
+
+    .gate-foot { margin-top: 20px; font-family: var(--font); font-size: 13px; }
+    .gate-foot a { color: var(--dim); text-underline-offset: 3px; }
+    .gate-foot a:hover { color: var(--ink); }
+
+    /* ---- quiz ---- */
+    .gate-quiz, .gate-result { max-width: 760px; }
+
+    .quiz-track { position: relative; height: 2px; margin-bottom: 36px; background: rgba(255, 255, 255, .1); }
+    .quiz-track-fill {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 0;
+      background: var(--accent);
+      transition: width .5s cubic-bezier(.2, .8, .3, 1);
+    }
+    /* playhead no fim da barra, igual ao da timeline */
+    .quiz-track-fill::after {
+      content: "";
+      position: absolute;
+      right: -1px;
+      top: -8px;
+      width: 2px;
+      height: 18px;
+      border-radius: 1px;
+      background: var(--accent-hi);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    .quiz-n {
+      margin-bottom: 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent-hi);
+    }
+    .quiz-q { margin-bottom: 28px; }
+    .quiz-opts { display: grid; gap: 10px; }
+
+    .quiz-opt {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      padding: 18px 20px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .03);
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: clamp(16px, 1.4vw, 18px);
+      font-weight: 500;
+      line-height: 1.35;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color .2s, background .2s, transform .15s;
+    }
+    .quiz-opt:hover, .quiz-opt:focus-visible { border-color: var(--accent); background: var(--accent-soft); outline: none; }
+    .quiz-opt.picked { border-color: var(--accent); background: var(--accent); color: #fff; transform: scale(.99); }
+
+    .quiz-key {
+      flex: none;
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 7px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--steel);
+    }
+    .quiz-opt.picked .quiz-key { border-color: rgba(255, 255, 255, .6); color: #fff; }
+
+    .quiz-back {
+      margin-top: 22px;
+      padding: 0;
+      border: 0;
+      background: none;
+      color: var(--dim);
+      font-family: var(--font);
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .quiz-back:hover { color: #fff; }
+    .quiz-back[hidden] { display: none; }
+
+    /* ---- resultado (usado no funil e no card do site) ---- */
+    .res-kicker {
+      margin-bottom: 18px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent-hi);
+    }
+    .res-big {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(72px, 11vw, 150px);
+      line-height: .85;
+      letter-spacing: -.045em;
+      font-variant-numeric: tabular-nums;
+      color: #ff5a5a;
+      text-shadow: 0 0 60px rgba(255, 70, 70, .3);
+    }
+    .res-unit {
+      display: block;
+      margin-top: 12px;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(24px, 2.8vw, 38px);
+      line-height: 1.1;
+      color: var(--ice);
+    }
+    .res-why {
+      margin-top: 16px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .04em;
+      color: var(--steel);
+    }
+    .res-days {
+      max-width: 46ch;
+      margin-top: 22px;
+      font-family: var(--font);
+      font-size: clamp(17px, 1.5vw, 20px);
+      line-height: 1.55;
+      color: var(--ink-2);
+    }
+    .res-days strong { color: #fff; }
+    .res-fix {
+      margin-top: 24px;
+      padding: 16px 20px;
+      border-left: 2px solid var(--accent);
+      border-radius: 0 12px 12px 0;
+      background: var(--accent-soft);
+      font-family: var(--font);
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+    .res-ok {
+      margin-top: 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--green);
+    }
+    .res-ok.warn { color: var(--yellow); }
+    .gate-result .gate-cta { margin-top: 30px; }
+
+    /* ---- card "seu diagnóstico" no site, logo depois do hero ---- */
+    .diag-sec { padding: clamp(40px, 5vw, 80px) 0 0; }
+    .diag-sec[hidden] { display: none; }
+    .diag-card {
+      display: grid;
+      grid-template-columns: 7fr 5fr;
+      gap: clamp(28px, 4vw, 64px);
+      align-items: center;
+      padding: clamp(26px, 4vw, 52px);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 22px;
+      background: linear-gradient(160deg, rgba(59, 110, 245, .14), rgba(255, 255, 255, .02) 60%);
+    }
+    .diag-main .res-big { font-size: clamp(56px, 7vw, 104px); }
+    .diag-buy { display: flex; flex-direction: column; gap: 14px; text-align: center; }
+    .diag-note {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--steel);
+    }
+    .diag-more { font-family: var(--font); font-size: 14px; color: var(--steel); text-decoration: none; }
+    .diag-more:hover { color: var(--ink); }
+
+    /* quem passou pelo funil já viu a gravação: não repete */
+    html.funnel-done #pratica { display: none; }
+
+    @media (max-width: 880px) {
+      html.gate-on .gate { padding: 0 16px 20px; }
+      .gate-top { padding: 14px 0; }
+      .gate-logo { height: 22px; }
+      .gate-steps li { padding: 6px 10px; }
+      .gate-steps li span + span { display: none; }
+      .gate-frame { max-width: 100%; }
+      .gate-unmute { padding: 12px 18px; font-size: 14px; }
+      .gate-cta { min-width: 0; width: 100%; }
+      .quiz-opt { padding: 16px; }
+      .diag-card { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .gate-unmute, .gate-cta.on, .gate-panel.on { animation: none; }
+    }
+
     /* ---------- responsivo ---------- */
     @media (max-width: 880px) {
       .ed { padding: 0 22px; }
@@ -2852,6 +3252,69 @@
 
 <body>
 
+  <!-- ================================================================
+       FUNIL — 1) vídeo de entrada  2) quiz de 4 perguntas  3) libera o site
+       ================================================================ -->
+  <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle" data-lenis-prevent>
+    <div class="gate-top">
+      <img src="assets/logo.png" alt="dropSFX" width="1024" height="381" class="gate-logo">
+      <ol class="gate-steps">
+        <li class="on" data-step="1"><span>01</span><span data-i18n="funnel.s1">Vídeo</span></li>
+        <li data-step="2"><span>02</span><span data-i18n="funnel.s2">Diagnóstico</span></li>
+        <li data-step="3"><span>03</span><span data-i18n="funnel.s3">Oferta</span></li>
+      </ol>
+    </div>
+
+    <!-- 1 · vídeo -->
+    <section class="gate-panel gate-video on" id="gateVideo">
+      <h2 class="gate-h" id="gateTitle" data-i18n-html="funnel.vtitle">Antes de tudo, <br><span class="blue">veja isso dentro do Premiere.</span></h2>
+      <figure class="demo-frame gate-frame">
+        <div class="demo-bar">
+          <span class="demo-rec"><i></i><span data-i18n="demo.rec">Tela real · Premiere Pro</span></span>
+          <span class="demo-tc" id="gateTc">00:00:00:00</span>
+        </div>
+        <div class="demo-screen gate-screen" id="gateScreen">
+          <video id="gateVid" muted playsinline preload="auto" width="1600" height="1052"
+                 poster="assets/plugin-na-pratica.jpg" aria-label="dropSFX sendo usado no Adobe Premiere Pro">
+            <source src="assets/plugin-na-pratica.mp4" type="video/mp4">
+          </video>
+          <div class="gate-paused" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></div>
+          <button class="gate-unmute" id="gateUnmute" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
+            <span data-i18n="funnel.unmute">Toque pra assistir com som</span>
+          </button>
+        </div>
+        <div class="gate-prog"><div class="gate-prog-fill" id="gateProg"></div></div>
+      </figure>
+      <div class="gate-next">
+        <button class="gate-cta" id="gateContinue" type="button" disabled>
+          <span class="gc-lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span data-i18n="funnel.locked">Próxima etapa em</span><span><b id="gateCount">22</b>s</span></span>
+          <span class="gc-open"><span data-i18n="funnel.continue">Continuar pro diagnóstico</span> →</span>
+        </button>
+        <p class="gate-note" data-i18n="funnel.vnote">Depois do vídeo: 4 perguntas rápidas sobre como você edita</p>
+      </div>
+    </section>
+
+    <!-- 2 · quiz -->
+    <section class="gate-panel gate-quiz" id="gateQuiz" aria-live="polite">
+      <div class="quiz-track" aria-hidden="true"><div class="quiz-track-fill" id="quizFill"></div></div>
+      <p class="quiz-n" id="quizN"></p>
+      <h2 class="gate-h quiz-q" id="quizQ"></h2>
+      <div class="quiz-opts" id="quizOpts" role="radiogroup" aria-labelledby="quizQ"></div>
+      <button class="quiz-back" id="quizBack" type="button">← <span data-i18n="funnel.back">Voltar</span></button>
+    </section>
+
+    <!-- 2b · resultado -->
+    <section class="gate-panel gate-result" id="gateResult" aria-live="polite">
+      <p class="res-kicker" data-i18n="funnel.rkicker">Seu diagnóstico</p>
+      <div id="resBody"></div>
+      <button class="gate-cta on" id="gateUnlock" type="button"><span data-i18n="funnel.unlock">Ver minha oferta</span> →</button>
+    </section>
+
+    <p class="gate-foot"><a href="/acess/" data-i18n="funnel.client">Já é cliente? Acesse sua área</a></p>
+  </div>
+
+
   <div class="progress" id="progress"></div>
 
   <!-- NAV -->
@@ -2920,6 +3383,22 @@
     </div>
 
     <div class="hero-meta" data-i18n-html="hero.meta"><span>Pagamento <b>único</b></span><span>Acesso vitalício</span><span>Garantia de 7 dias</span></div>
+  </section>
+
+  <!-- ============ SEU DIAGNÓSTICO (só pra quem passou pelo quiz) ============ -->
+  <section class="ed-sec diag-sec" id="diagnostico" hidden>
+    <div class="ed">
+      <div class="diag-card">
+        <div class="diag-main" id="diagMain"></div>
+        <div class="diag-buy">
+          <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=quiz&utm_campaign=dropsfx"
+            class="ed-cta js-buy-cta pop-btn" data-position="quiz"
+            target="_blank" rel="noopener"><span data-i18n="funnel.buy">Quero resolver isso agora</span>&nbsp;<span aria-hidden="true">→</span></a>
+          <p class="diag-note" data-i18n="after.note">Pagamento único · Acesso vitalício · Garantia de 7 dias</p>
+          <a class="diag-more" href="#noite" data-i18n="funnel.more">Ou role pra ver tudo que vem no dropSFX ↓</a>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ============ NA PRÁTICA (gravação real) ============ -->
@@ -4226,6 +4705,419 @@
         }, { rootMargin: '0px 0px -20% 0px' }).observe(beats);
       }
     }
+  })();
+
+  // =====================================================================
+  // FUNIL — vídeo de entrada → quiz → libera o site
+  // =====================================================================
+  (function () {
+    var FUNNEL = {
+      // segundo do vídeo em que o botão "Continuar" libera.
+      // Quando trocar por um VSL, coloque aqui o segundo em que você apresenta a oferta.
+      unlockAt: 22,
+      doneKey: 'dropsfx_funnel',
+      answersKey: 'dropsfx_quiz'
+    };
+
+    var add = {
+      pt: {
+        "funnel.s1": "Vídeo", "funnel.s2": "Diagnóstico", "funnel.s3": "Oferta",
+        "funnel.vtitle": "Antes de tudo, <br><span class='blue'>veja isso dentro do Premiere.</span>",
+        "funnel.unmute": "Toque pra assistir com som",
+        "funnel.locked": "Próxima etapa em",
+        "funnel.continue": "Continuar pro diagnóstico",
+        "funnel.vnote": "Depois do vídeo: 4 perguntas rápidas sobre como você edita",
+        "funnel.back": "Voltar",
+        "funnel.qn": "Pergunta {i} de {n}",
+        "funnel.q0.t": "Em qual programa você edita?",
+        "funnel.q0.o0": "Premiere Pro", "funnel.q0.o1": "After Effects", "funnel.q0.o2": "DaVinci Resolve",
+        "funnel.q0.o3": "Mais de um desses", "funnel.q0.o4": "Outro (CapCut, Final Cut…)",
+        "funnel.q1.t": "Quando precisa de um efeito sonoro, onde você procura?",
+        "funnel.q1.o0": "No YouTube, e depois num site pra baixar o áudio",
+        "funnel.q1.o1": "No Envato ou no Artlist",
+        "funnel.q1.o2": "Numa pasta bagunçada no meu PC",
+        "funnel.q1.o3": "Eu nem coloco: dá trabalho demais",
+        "funnel.q2.t": "Quanto tempo você perde procurando som em cada vídeo?",
+        "funnel.q2.talt": "Se fosse colocar som, quanto tempo isso levaria em cada vídeo?",
+        "funnel.q2.o0": "Menos de 10 min", "funnel.q2.o1": "10 a 30 min", "funnel.q2.o2": "30 min a 1 hora", "funnel.q2.o3": "Mais de 1 hora",
+        "funnel.q3.t": "Quantos vídeos você edita por semana?",
+        "funnel.q3.o0": "1 ou 2", "funnel.q3.o1": "3 a 5", "funnel.q3.o2": "6 a 10", "funnel.q3.o3": "Mais de 10",
+        "funnel.rkicker": "Seu diagnóstico",
+        "funnel.r.unit": "por mês caçando efeito sonoro.",
+        "funnel.r.unit3": "por mês: é o que colocar som te custaria hoje.",
+        "funnel.r.why": "Pelas suas respostas: {m} min por vídeo × {v} vídeos por semana × 4,3 semanas",
+        "funnel.r.days": "Isso é mais de <strong>{d} dias inteiros de trabalho</strong>, todo mês.",
+        "funnel.r.day1": "Isso é mais de <strong>1 dia inteiro de trabalho</strong>, todo mês.",
+        "funnel.r.small": "Parece pouco. Mas é tempo que se repete <strong>todo mês</strong>, em todo projeto.",
+        "funnel.r.fix0": "Com o dropSFX: sem YouTube, sem conversor, sem pop-up. O som toca no hover e entra na timeline com 2 cliques.",
+        "funnel.r.fix1": "Com o dropSFX: sem .zip, sem extrair, sem importar. E sem mensalidade: você paga uma vez e usa pra sempre.",
+        "funnel.r.fix2": "Com o dropSFX: 1.463 sons organizados em 21 categorias coloridas, dentro do painel. Acabou a caça na pasta.",
+        "funnel.r.fix3": "Com o dropSFX, colocar som leva 2 cliques. Aí você coloca em tudo, e é isso que muda o nível do vídeo.",
+        "funnel.r.app0": "Funciona no Premiere Pro", "funnel.r.app1": "Funciona no After Effects", "funnel.r.app2": "Funciona no DaVinci Resolve",
+        "funnel.r.app3": "Funciona nos três: Premiere, After Effects e DaVinci",
+        "funnel.r.app4": "O dropSFX roda no Premiere Pro, After Effects e DaVinci Resolve",
+        "funnel.unlock": "Ver minha oferta",
+        "funnel.buy": "Quero resolver isso agora",
+        "funnel.more": "Ou role pra ver tudo que vem no dropSFX ↓",
+        "funnel.client": "Já é cliente? Acesse sua área"
+      },
+      en: {
+        "funnel.s1": "Video", "funnel.s2": "Diagnosis", "funnel.s3": "Offer",
+        "funnel.vtitle": "First things first, <br><span class='blue'>watch this inside Premiere.</span>",
+        "funnel.unmute": "Tap to watch with sound",
+        "funnel.locked": "Next step in",
+        "funnel.continue": "Continue to the diagnosis",
+        "funnel.vnote": "After the video: 4 quick questions about how you edit",
+        "funnel.back": "Back",
+        "funnel.qn": "Question {i} of {n}",
+        "funnel.q0.t": "Which software do you edit in?",
+        "funnel.q0.o0": "Premiere Pro", "funnel.q0.o1": "After Effects", "funnel.q0.o2": "DaVinci Resolve",
+        "funnel.q0.o3": "More than one of these", "funnel.q0.o4": "Something else (CapCut, Final Cut…)",
+        "funnel.q1.t": "When you need a sound effect, where do you look?",
+        "funnel.q1.o0": "On YouTube, then an audio downloader site",
+        "funnel.q1.o1": "On Envato or Artlist",
+        "funnel.q1.o2": "In a messy folder on my computer",
+        "funnel.q1.o3": "I don't even add them: too much work",
+        "funnel.q2.t": "How much time do you lose looking for sounds in each video?",
+        "funnel.q2.talt": "If you did add sound, how long would it take per video?",
+        "funnel.q2.o0": "Under 10 min", "funnel.q2.o1": "10 to 30 min", "funnel.q2.o2": "30 min to 1 hour", "funnel.q2.o3": "Over 1 hour",
+        "funnel.q3.t": "How many videos do you edit per week?",
+        "funnel.q3.o0": "1 or 2", "funnel.q3.o1": "3 to 5", "funnel.q3.o2": "6 to 10", "funnel.q3.o3": "More than 10",
+        "funnel.rkicker": "Your diagnosis",
+        "funnel.r.unit": "a month hunting for sound effects.",
+        "funnel.r.unit3": "a month: what adding sound would cost you today.",
+        "funnel.r.why": "From your answers: {m} min per video × {v} videos a week × 4.3 weeks",
+        "funnel.r.days": "That's more than <strong>{d} full working days</strong>, every month.",
+        "funnel.r.day1": "That's more than <strong>1 full working day</strong>, every month.",
+        "funnel.r.small": "Looks small. But it repeats <strong>every month</strong>, on every project.",
+        "funnel.r.fix0": "With dropSFX: no YouTube, no converter, no pop-ups. The sound plays on hover and hits the timeline in 2 clicks.",
+        "funnel.r.fix1": "With dropSFX: no .zip, no extracting, no importing. And no subscription: pay once, use forever.",
+        "funnel.r.fix2": "With dropSFX: 1,463 sounds organized into 21 color-coded categories, right in the panel. No more folder hunting.",
+        "funnel.r.fix3": "With dropSFX, adding sound takes 2 clicks. So you add it everywhere, and that's what levels up a video.",
+        "funnel.r.app0": "Works in Premiere Pro", "funnel.r.app1": "Works in After Effects", "funnel.r.app2": "Works in DaVinci Resolve",
+        "funnel.r.app3": "Works in all three: Premiere, After Effects and DaVinci",
+        "funnel.r.app4": "dropSFX runs in Premiere Pro, After Effects and DaVinci Resolve",
+        "funnel.unlock": "See my offer",
+        "funnel.buy": "I want to fix this now",
+        "funnel.more": "Or scroll to see everything in dropSFX ↓",
+        "funnel.client": "Already a customer? Go to your area"
+      },
+      es: {
+        "funnel.s1": "Video", "funnel.s2": "Diagnóstico", "funnel.s3": "Oferta",
+        "funnel.vtitle": "Antes que nada, <br><span class='blue'>mira esto dentro de Premiere.</span>",
+        "funnel.unmute": "Toca para verlo con sonido",
+        "funnel.locked": "Siguiente paso en",
+        "funnel.continue": "Continuar al diagnóstico",
+        "funnel.vnote": "Después del video: 4 preguntas rápidas sobre cómo editas",
+        "funnel.back": "Volver",
+        "funnel.qn": "Pregunta {i} de {n}",
+        "funnel.q0.t": "¿En qué programa editas?",
+        "funnel.q0.o0": "Premiere Pro", "funnel.q0.o1": "After Effects", "funnel.q0.o2": "DaVinci Resolve",
+        "funnel.q0.o3": "Más de uno de estos", "funnel.q0.o4": "Otro (CapCut, Final Cut…)",
+        "funnel.q1.t": "Cuando necesitas un efecto de sonido, ¿dónde lo buscas?",
+        "funnel.q1.o0": "En YouTube, y luego en una web para bajar el audio",
+        "funnel.q1.o1": "En Envato o Artlist",
+        "funnel.q1.o2": "En una carpeta desordenada de mi PC",
+        "funnel.q1.o3": "Ni los pongo: da demasiado trabajo",
+        "funnel.q2.t": "¿Cuánto tiempo pierdes buscando sonidos en cada video?",
+        "funnel.q2.talt": "Si fueras a poner sonido, ¿cuánto te llevaría por video?",
+        "funnel.q2.o0": "Menos de 10 min", "funnel.q2.o1": "10 a 30 min", "funnel.q2.o2": "30 min a 1 hora", "funnel.q2.o3": "Más de 1 hora",
+        "funnel.q3.t": "¿Cuántos videos editas por semana?",
+        "funnel.q3.o0": "1 o 2", "funnel.q3.o1": "3 a 5", "funnel.q3.o2": "6 a 10", "funnel.q3.o3": "Más de 10",
+        "funnel.rkicker": "Tu diagnóstico",
+        "funnel.r.unit": "al mes buscando efectos de sonido.",
+        "funnel.r.unit3": "al mes: lo que poner sonido te costaría hoy.",
+        "funnel.r.why": "Según tus respuestas: {m} min por video × {v} videos por semana × 4,3 semanas",
+        "funnel.r.days": "Eso es más de <strong>{d} días enteros de trabajo</strong>, cada mes.",
+        "funnel.r.day1": "Eso es más de <strong>1 día entero de trabajo</strong>, cada mes.",
+        "funnel.r.small": "Parece poco. Pero se repite <strong>cada mes</strong>, en cada proyecto.",
+        "funnel.r.fix0": "Con dropSFX: sin YouTube, sin conversor, sin pop-ups. El sonido suena al pasar el mouse y entra en la timeline con 2 clics.",
+        "funnel.r.fix1": "Con dropSFX: sin .zip, sin extraer, sin importar. Y sin suscripción: pagas una vez y lo usas para siempre.",
+        "funnel.r.fix2": "Con dropSFX: 1.463 sonidos organizados en 21 categorías de colores, dentro del panel. Se acabó buscar en carpetas.",
+        "funnel.r.fix3": "Con dropSFX, poner sonido lleva 2 clics. Entonces lo pones en todo, y eso es lo que sube el nivel del video.",
+        "funnel.r.app0": "Funciona en Premiere Pro", "funnel.r.app1": "Funciona en After Effects", "funnel.r.app2": "Funciona en DaVinci Resolve",
+        "funnel.r.app3": "Funciona en los tres: Premiere, After Effects y DaVinci",
+        "funnel.r.app4": "dropSFX funciona en Premiere Pro, After Effects y DaVinci Resolve",
+        "funnel.unlock": "Ver mi oferta",
+        "funnel.buy": "Quiero resolverlo ahora",
+        "funnel.more": "O baja para ver todo lo que trae dropSFX ↓",
+        "funnel.client": "¿Ya eres cliente? Entra a tu área"
+      },
+      hi: {
+        "funnel.s1": "वीडियो", "funnel.s2": "डायग्नोसिस", "funnel.s3": "ऑफ़र",
+        "funnel.vtitle": "सबसे पहले, <br><span class='blue'>Premiere के अंदर ये देखिए।</span>",
+        "funnel.unmute": "साउंड के साथ देखने के लिए टैप करें",
+        "funnel.locked": "अगला कदम",
+        "funnel.continue": "डायग्नोसिस पर चलें",
+        "funnel.vnote": "वीडियो के बाद: आप कैसे एडिट करते हैं, इस पर 4 छोटे सवाल",
+        "funnel.back": "वापस",
+        "funnel.qn": "सवाल {i} / {n}",
+        "funnel.q0.t": "आप किस सॉफ़्टवेयर में एडिट करते हैं?",
+        "funnel.q0.o0": "Premiere Pro", "funnel.q0.o1": "After Effects", "funnel.q0.o2": "DaVinci Resolve",
+        "funnel.q0.o3": "इनमें से एक से ज़्यादा", "funnel.q0.o4": "कोई और (CapCut, Final Cut…)",
+        "funnel.q1.t": "साउंड इफ़ेक्ट चाहिए हो तो आप कहाँ ढूँढते हैं?",
+        "funnel.q1.o0": "YouTube पर, फिर ऑडियो डाउनलोड करने वाली साइट पर",
+        "funnel.q1.o1": "Envato या Artlist पर",
+        "funnel.q1.o2": "अपने PC के बिखरे फ़ोल्डर में",
+        "funnel.q1.o3": "मैं लगाता ही नहीं: बहुत मेहनत है",
+        "funnel.q2.t": "हर वीडियो में साउंड ढूँढने में कितना समय जाता है?",
+        "funnel.q2.talt": "अगर साउंड लगाएँ, तो हर वीडियो में कितना समय लगेगा?",
+        "funnel.q2.o0": "10 मिनट से कम", "funnel.q2.o1": "10 से 30 मिनट", "funnel.q2.o2": "30 मिनट से 1 घंटा", "funnel.q2.o3": "1 घंटे से ज़्यादा",
+        "funnel.q3.t": "आप हफ़्ते में कितने वीडियो एडिट करते हैं?",
+        "funnel.q3.o0": "1 या 2", "funnel.q3.o1": "3 से 5", "funnel.q3.o2": "6 से 10", "funnel.q3.o3": "10 से ज़्यादा",
+        "funnel.rkicker": "आपका डायग्नोसिस",
+        "funnel.r.unit": "हर महीने साउंड इफ़ेक्ट ढूँढने में।",
+        "funnel.r.unit3": "हर महीने: आज साउंड लगाने की कीमत।",
+        "funnel.r.why": "आपके जवाबों से: हर वीडियो {m} मिनट × हफ़्ते में {v} वीडियो × 4.3 हफ़्ते",
+        "funnel.r.days": "यानी हर महीने <strong>{d} पूरे कामकाजी दिन</strong> से ज़्यादा।",
+        "funnel.r.day1": "यानी हर महीने <strong>1 पूरे कामकाजी दिन</strong> से ज़्यादा।",
+        "funnel.r.small": "कम लगता है। पर ये <strong>हर महीने</strong>, हर प्रोजेक्ट में दोहराता है।",
+        "funnel.r.fix0": "dropSFX के साथ: न YouTube, न कन्वर्टर, न पॉप-अप। होवर पर साउंड बजता है और 2 क्लिक में टाइमलाइन पर।",
+        "funnel.r.fix1": "dropSFX के साथ: न .zip, न एक्सट्रैक्ट, न इम्पोर्ट। और कोई सब्सक्रिप्शन नहीं: एक बार दीजिए, हमेशा इस्तेमाल कीजिए।",
+        "funnel.r.fix2": "dropSFX के साथ: 21 रंगीन कैटेगरी में 1,463 साउंड, सीधे पैनल में। फ़ोल्डर में ढूँढना ख़त्म।",
+        "funnel.r.fix3": "dropSFX के साथ साउंड लगाने में 2 क्लिक लगते हैं। तो आप हर जगह लगाते हैं, और यही वीडियो का लेवल बढ़ाता है।",
+        "funnel.r.app0": "Premiere Pro में चलता है", "funnel.r.app1": "After Effects में चलता है", "funnel.r.app2": "DaVinci Resolve में चलता है",
+        "funnel.r.app3": "तीनों में चलता है: Premiere, After Effects और DaVinci",
+        "funnel.r.app4": "dropSFX Premiere Pro, After Effects और DaVinci Resolve में चलता है",
+        "funnel.unlock": "मेरा ऑफ़र देखें",
+        "funnel.buy": "मुझे अभी इसे ठीक करना है",
+        "funnel.more": "या dropSFX में सब कुछ देखने के लिए नीचे स्क्रॉल करें ↓",
+        "funnel.client": "पहले से ग्राहक हैं? अपने एरिया में जाएँ"
+      }
+    };
+    for (var lang in add) for (var k in add[lang]) I18N[lang][k] = add[lang][k];
+
+    var html = document.documentElement;
+    var gate = document.getElementById('gate');
+    if (!gate) return;
+
+    function T(k) { return (window.DropI18N && DropI18N.t) ? DropI18N.t(k) : (I18N.pt[k] || ''); }
+    function track(name, data) { try { if (typeof fbq === 'function') fbq('trackCustom', name, data || {}); } catch (e) {} }
+    function save(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    function load(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+
+    // ---------- conta: minutos por vídeo × vídeos por semana × 4,3 semanas ----------
+    var MIN = [7, 20, 45, 75], VID = [1.5, 4, 8, 12];
+    function hoursOf(a) { return MIN[a.min] * VID[a.vid] * 4.33 / 60; }
+    function num(n) { try { return n.toLocaleString(html.lang || 'pt-BR'); } catch (e) { return String(n); } }
+    function fmt(h) { return h < 1 ? Math.round(h * 60) + ' min' : Math.round(h) + 'h'; }
+
+    function resultHTML(a) {
+      var h = hoursOf(a), d = Math.floor(h / 8);
+      var out = '<div class="res-big">≈ ' + fmt(h) + '</div>';
+      out += '<span class="res-unit">' + T(a.src === 3 ? 'funnel.r.unit3' : 'funnel.r.unit') + '</span>';
+      out += '<p class="res-why">' + T('funnel.r.why').replace('{m}', num(MIN[a.min])).replace('{v}', num(VID[a.vid])) + '</p>';
+      out += '<p class="res-days">' + (d >= 2 ? T('funnel.r.days').replace('{d}', d) : d === 1 ? T('funnel.r.day1') : T('funnel.r.small')) + '</p>';
+      out += '<p class="res-fix">' + T('funnel.r.fix' + a.src) + '</p>';
+      out += '<p class="res-ok' + (a.app === 4 ? ' warn' : '') + '">' + (a.app === 4 ? '' : '✓ ') + T('funnel.r.app' + a.app) + '</p>';
+      return out;
+    }
+
+    // ---------- card "seu diagnóstico" no site ----------
+    function savedAnswers() {
+      try { var a = JSON.parse(load(FUNNEL.answersKey) || 'null'); return (a && a.min != null && a.vid != null) ? a : null; }
+      catch (e) { return null; }
+    }
+    function renderDiag() {
+      var a = savedAnswers(), sec = document.getElementById('diagnostico');
+      if (!a || !sec) return;
+      document.getElementById('diagMain').innerHTML = '<p class="res-kicker">' + T('funnel.rkicker') + '</p>' + resultHTML(a);
+      sec.hidden = false;
+    }
+
+    var gated = html.classList.contains('gate-on');
+    if (!gated) {
+      document.addEventListener('dropsfx:langchange', renderDiag);
+      return;
+    }
+
+    // ---------- trava o resto da página enquanto o funil está aberto ----------
+    var hero = document.getElementById('heroVideo');
+    if (hero) {
+      hero.pause();
+      hero.removeAttribute('autoplay');
+      [].forEach.call(hero.querySelectorAll('source'), function (s) { s.setAttribute('data-src', s.getAttribute('src')); s.removeAttribute('src'); });
+      hero.load();
+    }
+    setTimeout(function () { if (window.dropLenis && html.classList.contains('gate-on')) window.dropLenis.stop(); }, 0);
+
+    var steps = gate.querySelectorAll('.gate-steps li');
+    function setStep(n) {
+      [].forEach.call(steps, function (li, i) { li.classList.toggle('on', i === n - 1); li.classList.toggle('done', i < n - 1); });
+    }
+    var panels = gate.querySelectorAll('.gate-panel');
+    function show(id) {
+      [].forEach.call(panels, function (p) { p.classList.toggle('on', p.id === id); });
+      gate.scrollTop = 0;
+    }
+
+    // =========================== 1 · VÍDEO ===========================
+    var vid = document.getElementById('gateVid');
+    var screen = document.getElementById('gateScreen');
+    var unmute = document.getElementById('gateUnmute');
+    var cont = document.getElementById('gateContinue');
+    var count = document.getElementById('gateCount');
+    var prog = document.getElementById('gateProg');
+    var tc = document.getElementById('gateTc');
+    var watched = 0, unlocked = false, soundOn = false;
+
+    function play() { var p = vid.play(); if (p && p.catch) p.catch(function () {}); }
+    function unlockAt() { return vid.duration ? Math.min(FUNNEL.unlockAt, vid.duration - 1) : FUNNEL.unlockAt; }
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+    function tick() {
+      var t = vid.currentTime || 0, d = vid.duration || 0;
+      if (!vid.seeking && t > watched) watched = t;
+      prog.style.width = (d ? t / d * 100 : 0) + '%';
+      var s = Math.floor(t);
+      tc.textContent = '00:00:' + pad(s) + ':' + pad(Math.floor((t - s) * 30));
+      count.textContent = Math.max(0, Math.ceil(unlockAt() - watched));
+      if (!unlocked && watched >= unlockAt()) openNext();
+      if (!vid.paused) requestAnimationFrame(tick);
+    }
+    function openNext() {
+      unlocked = true;
+      cont.disabled = false;
+      cont.classList.add('on');
+      track('FunnelVideoUnlock');
+    }
+
+    vid.addEventListener('play', function () { screen.classList.remove('paused'); requestAnimationFrame(tick); });
+    vid.addEventListener('pause', function () { if (soundOn && !vid.ended) screen.classList.add('paused'); });
+    vid.addEventListener('timeupdate', tick);
+    // não deixa adiantar o vídeo
+    vid.addEventListener('seeking', function () { if (vid.currentTime > watched + 1) vid.currentTime = watched; });
+    vid.addEventListener('ended', function () {
+      if (!unlocked) openNext();
+      track('FunnelVideoComplete');
+    });
+
+    unmute.addEventListener('click', function (e) {
+      e.stopPropagation();
+      soundOn = true;
+      vid.muted = false;
+      vid.currentTime = 0;
+      unmute.hidden = true;
+      play();
+      track('FunnelVideoSound');
+    });
+    screen.addEventListener('click', function () {
+      if (!soundOn) { unmute.click(); return; }
+      if (vid.paused) play(); else vid.pause();
+    });
+
+    cont.addEventListener('click', function () {
+      if (!unlocked) return;
+      vid.pause();
+      setStep(2);
+      show('gateQuiz');
+      step = 0;
+      renderQ();
+      track('QuizStart');
+    });
+
+    track('FunnelVideoView');
+    play();
+
+    // =========================== 2 · QUIZ ===========================
+    var KEYS = ['app', 'src', 'min', 'vid'];
+    var COUNT = [5, 4, 4, 4];
+    var answers = {}, step = 0, busy = false;
+    var elN = document.getElementById('quizN');
+    var elQ = document.getElementById('quizQ');
+    var elOpts = document.getElementById('quizOpts');
+    var elFill = document.getElementById('quizFill');
+    var elBack = document.getElementById('quizBack');
+
+    function renderQ() {
+      elN.textContent = T('funnel.qn').replace('{i}', step + 1).replace('{n}', KEYS.length);
+      elQ.textContent = T(step === 2 && answers.src === 3 ? 'funnel.q2.talt' : 'funnel.q' + step + '.t');
+      elFill.style.width = (step / KEYS.length * 100) + '%';
+      elOpts.innerHTML = '';
+      for (var j = 0; j < COUNT[step]; j++) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'quiz-opt';
+        b.setAttribute('role', 'radio');
+        b.setAttribute('aria-checked', answers[KEYS[step]] === j ? 'true' : 'false');
+        b.innerHTML = '<span class="quiz-key">' + 'ABCDE'.charAt(j) + '</span><span></span>';
+        b.lastChild.textContent = T('funnel.q' + step + '.o' + j);
+        b.addEventListener('click', pick.bind(null, j, b));
+        elOpts.appendChild(b);
+      }
+      elBack.hidden = step === 0;
+    }
+
+    function pick(j, btn) {
+      if (busy) return;
+      busy = true;
+      answers[KEYS[step]] = j;
+      btn.classList.add('picked');
+      track('QuizAnswer', { question: KEYS[step], answer: j });
+      setTimeout(function () {
+        busy = false;
+        step++;
+        if (step < KEYS.length) renderQ(); else showResult();
+      }, 280);
+    }
+
+    elBack.addEventListener('click', function () {
+      if (step > 0) { step--; renderQ(); }
+    });
+
+    // atalhos: A–E ou 1–5, como atalho de editor
+    document.addEventListener('keydown', function (e) {
+      if (!html.classList.contains('gate-on') || !document.getElementById('gateQuiz').classList.contains('on')) return;
+      var k = e.key.toLowerCase(), i = 'abcde'.indexOf(k);
+      if (i < 0) i = '12345'.indexOf(k);
+      var opts = elOpts.querySelectorAll('.quiz-opt');
+      if (i >= 0 && opts[i]) { e.preventDefault(); opts[i].click(); }
+    });
+
+    function showResult() {
+      elFill.style.width = '100%';
+      document.getElementById('resBody').innerHTML = resultHTML(answers);
+      show('gateResult');
+      save(FUNNEL.answersKey, JSON.stringify(answers));
+      var h = Math.round(hoursOf(answers));
+      track('QuizComplete', { app: answers.app, source: answers.src, hours_month: h });
+      if (window.dropsfxEvent) window.dropsfxEvent('Lead', { content_name: 'dropSFX quiz', content_category: 'quiz' });
+    }
+
+    // =========================== 3 · LIBERA O SITE ===========================
+    document.getElementById('gateUnlock').addEventListener('click', function () {
+      save(FUNNEL.doneKey, 'done');
+      html.classList.add('funnel-done');
+      renderDiag();
+      setStep(3);
+      track('FunnelSiteOpen');
+      gate.classList.add('out');
+      setTimeout(function () {
+        html.classList.remove('gate-on');
+        gate.classList.remove('out');
+        gate.setAttribute('hidden', '');
+        vid.pause();
+        vid.removeAttribute('src');
+        if (hero) {
+          [].forEach.call(hero.querySelectorAll('source'), function (s) { s.setAttribute('src', s.getAttribute('data-src')); });
+          hero.load();
+          var p = hero.play(); if (p && p.catch) p.catch(function () {});
+        }
+        if (window.dropLenis) window.dropLenis.start();
+        var d = document.getElementById('diagnostico');
+        if (d && !d.hidden) {
+          var y = d.getBoundingClientRect().top + window.pageYOffset - 72;
+          if (window.dropLenis) window.dropLenis.scrollTo(y, { immediate: true }); else window.scrollTo(0, y);
+        }
+      }, 600);
+    });
+
+    // troca de idioma com o funil aberto: redesenha o que estiver na tela
+    document.addEventListener('dropsfx:langchange', function () {
+      if (document.getElementById('gateQuiz').classList.contains('on')) renderQ();
+      if (document.getElementById('gateResult').classList.contains('on')) document.getElementById('resBody').innerHTML = resultHTML(answers);
+      renderDiag();
+    });
   })();
 
   // Vídeos secundários: só baixam perto da tela e só tocam quando visíveis
