@@ -38,14 +38,23 @@
     transition:opacity 1s cubic-bezier(.7,0,.3,1),visibility 1s;
   }
   #intro.gone{opacity:0;visibility:hidden;pointer-events:none}
+  /* Sem filter animado na imagem: o Safari do iPhone desenha blur + drop-shadow
+     animados como um retângulo branco. O brilho é uma luz atrás da logo. */
+  .intro-mark{position:relative;display:grid;place-items:center}
+  .intro-mark::before{
+    content:"";position:absolute;left:50%;top:50%;width:150%;height:260%;
+    transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
+    background:radial-gradient(closest-side,rgba(214,236,242,.16),rgba(59,110,245,.08) 55%,transparent);
+    opacity:0;animation:introFade 1.6s ease .6s forwards;
+  }
   .intro-logo{
-    height:64px;width:auto;opacity:0;
-    filter:drop-shadow(0 0 30px rgba(214,236,242,.4));
+    position:relative;height:64px;width:auto;display:block;opacity:0;
     animation:introLogoIn 1.6s cubic-bezier(.2,.8,.2,1) .3s forwards;
+    will-change:opacity,transform;
   }
   @keyframes introLogoIn{
-    0%{opacity:0;transform:scale(.85) translateY(10px);filter:blur(8px) drop-shadow(0 0 0 rgba(214,236,242,0))}
-    100%{opacity:1;transform:scale(1) translateY(0);filter:blur(0) drop-shadow(0 0 30px rgba(214,236,242,.4))}
+    0%{opacity:0;transform:scale(.85) translateY(10px)}
+    100%{opacity:1;transform:scale(1) translateY(0)}
   }
   .intro-bar{
     width:160px;height:2px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;
@@ -455,7 +464,7 @@
 <body>
 
 <div id="intro">
-  <img class="intro-logo" src="logo.png" alt="dropSFX"/>
+  <div class="intro-mark"><img class="intro-logo" src="logo.png" alt="dropSFX" width="1024" height="381"/></div>
   <div class="intro-bar"><div class="intro-bar-fill"></div></div>
   <div class="intro-text" data-i18n="intro.text">Preparando sua experiência</div>
 </div>
