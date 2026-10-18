@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#000000" />
   <title>dropSFX · Monte seu kit de sound design</title>
-  <meta name="description" content="Responda 8 perguntas rápidas e veja quais dos 1.463 efeitos sonoros do dropSFX combinam com o seu tipo de vídeo. Premiere Pro, After Effects e DaVinci Resolve." />
+  <meta name="description" content="Responda 8 perguntas rápidas e veja quais dos 2.371 efeitos sonoros do dropSFX combinam com o seu tipo de vídeo. Premiere Pro, After Effects e DaVinci Resolve." />
   <link rel="canonical" href="https://www.dropsfx.com.br/" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="dropSFX · Monte seu kit de sound design" />
@@ -630,7 +630,7 @@
           <button type="button" class="lang-opt" data-lang="es"><span class="lang-code">ES</span><span class="lang-name">Español<span class="lang-note">Latinoamérica · España</span></span><span class="lang-arrow">→</span></button>
           <button type="button" class="lang-opt" data-lang="hi"><span class="lang-code">HI</span><span class="lang-name">हिन्दी<span class="lang-note">India</span></span><span class="lang-arrow">→</span></button>
         </div>
-        <p class="lang-foot">1,463 SFX · Premiere Pro · After Effects · DaVinci Resolve</p>
+        <p class="lang-foot">2,371 SFX · Premiere Pro · After Effects · DaVinci Resolve</p>
       </div>
     </section>
 
@@ -688,6 +688,13 @@
         <div class="cta-row">
           <a class="btn blue js-cta" data-pos="kit" href="#" target="_blank" rel="noopener"><span data-t="r.cta1"></span> →</a>
           <p class="cta-note" data-t="o.terms"></p>
+        </div>
+
+        <div class="sec" id="ouvir">
+          <p class="mono" data-t="sfx.kicker"></p>
+          <h2 class="h2" style="margin-top:12px" data-th="sfx.title"></h2>
+          <p class="lead" style="margin:12px 0 22px" data-t="sfx.sub"></p>
+          <div id="sfxPlayer"></div>
         </div>
 
         <div class="sec">
@@ -786,12 +793,13 @@
     </section>
   </main>
 
+  <script src="/assets/sfx/player.js"></script>
   <noscript><p style="padding:40px 20px;text-align:center"><a href="/?direto=1" style="color:#6e9bff">dropsfx.com.br</a></p></noscript>
   <script>
   // =====================================================================
   // TEXTOS — PT / EN / ES / HI
   // =====================================================================
-  var FAQ = {"pt": {"faq.q1": "Funciona em quais programas?", "faq.a1": "Premiere Pro (CC 2020 em diante), After Effects e DaVinci Resolve Studio, no Mac (Intel e Apple Silicon) e no Windows 10/11. No DaVinci, precisa ser a versão Studio.", "faq.q2": "Como insiro um som na timeline?", "faq.a2": "Do jeito que preferir: duplo-clique joga o som no playhead, ou use o botão Inserir. Pelo teclado, as setas navegam e o Enter insere; Shift+Enter coloca no seu in-point. E você ainda escolhe o ganho (-12 / 0 / +6 dB) antes de inserir.", "faq.q3": "Posso ouvir antes de inserir?", "faq.a3": "Sim. Basta passar o mouse sobre o som (sem clicar) que ele toca na hora, com forma de onda visual. É a forma mais rápida de varrer vários sons e achar o certo.", "faq.q4": "É pagamento único ou mensalidade?", "faq.a4": "100% pagamento único. Você compra uma vez e usa para sempre, sem mensalidade e sem renovação. O valor da condição atual aparece na página de checkout.", "faq.q5": "Posso usar em projetos comerciais?", "faq.a5": "Sim. Todos os sons são 100% royalty-free para qualquer uso comercial: YouTube monetizado, comerciais, filme, jingle, jogo.", "faq.q6": "Posso criar pastas e importar meus sons?", "faq.a6": "Sim. Além das 21 categorias prontas, você cria pastas próprias com cores, importa seus áudios e arrasta sons entre as pastas. O painel ainda monta uma aba \"Top\" com os sons que você mais usa.", "faq.q7": "Em quantas máquinas posso instalar?", "faq.a7": "Até 2 máquinas simultaneamente, Mac e/ou Windows. Pode desativar e mover quando quiser.", "faq.q8": "Como recebo o produto?", "faq.a8": "Acesso imediato. Após o pagamento, você recebe por e-mail o link de download e os dados pra criar sua conta. Faça login no painel e toda a biblioteca fica disponível.", "faq.q9": "E se eu não gostar?", "faq.a9": "7 dias para testar. Se não rolar, devolvemos 100%. Basta mandar e-mail, sem questionário."}, "en": {"faq.q1": "Which software does it work in?", "faq.a1": "Premiere Pro (CC 2020 and later), After Effects and DaVinci Resolve Studio, on Mac (Intel and Apple Silicon) and Windows 10/11. In DaVinci, it needs the Studio version.", "faq.q2": "How do I insert a sound on the timeline?", "faq.a2": "Whichever way you prefer: double-click drops the sound at the playhead, or use the Insert button. With the keyboard, arrows navigate and Enter inserts; Shift+Enter places it at your in-point. And you still pick the gain (-12 / 0 / +6 dB) before inserting.", "faq.q3": "Can I preview before inserting?", "faq.a3": "Yes. Just hover over the sound (no click needed) and it plays instantly, with a visual waveform. It's the fastest way to scan through sounds and find the right one.", "faq.q4": "Is it a one-time payment or a subscription?", "faq.a4": "100% one-time payment. Buy once, use forever — no subscription, no renewal. The current price is shown on the checkout page.", "faq.q5": "Can I use it in commercial projects?", "faq.a5": "Yes. Every sound is 100% royalty-free for any commercial use: monetized YouTube, commercials, film, jingles, games.", "faq.q6": "Can I create folders and import my own sounds?", "faq.a6": "Yes. Beyond the 21 built-in categories, you can create your own color-coded folders, import your audio and drag sounds between folders. The panel also builds a \"Top\" tab with the sounds you use most.", "faq.q7": "On how many machines can I install it?", "faq.a7": "Up to 2 machines at the same time, Mac and/or Windows. You can deactivate and move whenever you want.", "faq.q8": "How do I receive the product?", "faq.a8": "Instant access. After payment you get an email with the download link and your account details. Log into the panel and the whole library is available.", "faq.q9": "What if I don't like it?", "faq.a9": "7 days to try it. If it's not for you, we refund 100%. Just send an email — no questionnaire."}, "es": {"faq.q1": "¿En qué programas funciona?", "faq.a1": "Premiere Pro (CC 2020 en adelante), After Effects y DaVinci Resolve Studio, en Mac (Intel y Apple Silicon) y Windows 10/11. En DaVinci, necesita la versión Studio.", "faq.q2": "¿Cómo inserto un sonido en la línea de tiempo?", "faq.a2": "Como prefieras: doble clic coloca el sonido en el playhead, o usa el botón Insertar. Con el teclado, las flechas navegan y Enter inserta; Shift+Enter lo coloca en tu punto de entrada. Y además eliges la ganancia (-12 / 0 / +6 dB) antes de insertar.", "faq.q3": "¿Puedo escuchar antes de insertar?", "faq.a3": "Sí. Basta con pasar el mouse sobre el sonido (sin clic) y suena al instante, con forma de onda visual. Es la forma más rápida de recorrer varios sonidos y encontrar el correcto.", "faq.q4": "¿Es pago único o mensualidad?", "faq.a4": "100% pago único. Compras una vez y lo usas para siempre, sin mensualidad y sin renovación. El precio de la condición actual aparece en la página de checkout.", "faq.q5": "¿Puedo usarlo en proyectos comerciales?", "faq.a5": "Sí. Todos los sonidos son 100% libres de regalías para cualquier uso comercial: YouTube monetizado, comerciales, cine, jingles, videojuegos.", "faq.q6": "¿Puedo crear carpetas e importar mis sonidos?", "faq.a6": "Sí. Además de las 21 categorías listas, creas tus propias carpetas con colores, importas tus audios y arrastras sonidos entre carpetas. El panel también arma una pestaña \"Top\" con los sonidos que más usas.", "faq.q7": "¿En cuántos equipos puedo instalarlo?", "faq.a7": "Hasta 2 equipos simultáneamente, Mac y/o Windows. Puedes desactivar y mover cuando quieras.", "faq.q8": "¿Cómo recibo el producto?", "faq.a8": "Acceso inmediato. Tras el pago recibes por correo el enlace de descarga y los datos para crear tu cuenta. Inicia sesión en el panel y toda la biblioteca queda disponible.", "faq.q9": "¿Y si no me gusta?", "faq.a9": "7 días para probarlo. Si no funciona para ti, devolvemos el 100%. Solo envía un correo, sin cuestionarios."}, "hi": {"faq.q1": "यह किन सॉफ़्टवेयर में चलता है?", "faq.a1": "Premiere Pro (CC 2020 और बाद के), After Effects और DaVinci Resolve Studio में, Mac (Intel और Apple Silicon) और Windows 10/11 पर। DaVinci में Studio वर्ज़न चाहिए।", "faq.q2": "टाइमलाइन में साउंड कैसे डालें?", "faq.a2": "जैसे चाहें: डबल-क्लिक साउंड को प्लेहेड पर डाल देता है, या Insert बटन इस्तेमाल कीजिए। कीबोर्ड से ↑↓ नेविगेट करते हैं और Enter इन्सर्ट करता है; Shift+Enter उसे आपके इन-पॉइंट पर रखता है। और इन्सर्ट करने से पहले गेन (-12 / 0 / +6 dB) भी चुन सकते हैं।", "faq.q3": "इन्सर्ट करने से पहले सुन सकते हैं?", "faq.a3": "हाँ। बस माउस साउंड पर ले जाइए (क्लिक की ज़रूरत नहीं) और वह वेवफ़ॉर्म के साथ तुरंत बजता है। सही साउंड ढूँढ़ने का यह सबसे तेज़ तरीका है।", "faq.q4": "एक बार का भुगतान है या मासिक?", "faq.a4": "100% एक बार का भुगतान। एक बार खरीदिए और हमेशा इस्तेमाल कीजिए — न मासिक शुल्क, न रिन्यूअल। मौजूदा कीमत चेकआउट पेज पर दिखती है।", "faq.q5": "क्या कमर्शियल प्रोजेक्ट में इस्तेमाल कर सकते हैं?", "faq.a5": "हाँ। सभी साउंड किसी भी कमर्शियल इस्तेमाल के लिए 100% रॉयल्टी-फ़्री हैं: मॉनिटाइज़्ड YouTube, विज्ञापन, फ़िल्म, जिंगल, गेम।", "faq.q6": "क्या अपने फ़ोल्डर बनाकर अपने साउंड इम्पोर्ट कर सकते हैं?", "faq.a6": "हाँ। पहले से मौजूद 21 कैटेगरी के अलावा आप अपने रंगीन फ़ोल्डर बना सकते हैं, अपने ऑडियो इम्पोर्ट कर सकते हैं और साउंड को फ़ोल्डरों के बीच खींच सकते हैं। पैनल आपके सबसे ज़्यादा इस्तेमाल किए गए साउंड का \"Top\" टैब भी बनाता है।", "faq.q7": "कितनी मशीनों पर इंस्टॉल कर सकते हैं?", "faq.a7": "एक साथ 2 मशीनों तक, Mac और/या Windows। जब चाहें डीएक्टिवेट करके दूसरी मशीन पर ले जा सकते हैं।", "faq.q8": "प्रोडक्ट कैसे मिलेगा?", "faq.a8": "तुरंत एक्सेस। भुगतान के बाद ईमेल पर डाउनलोड लिंक और अकाउंट बनाने की जानकारी आती है। पैनल में लॉगिन कीजिए और पूरी लाइब्रेरी उपलब्ध।", "faq.q9": "अगर पसंद न आए तो?", "faq.a9": "आज़माने के लिए 7 दिन। पसंद न आए तो 100% रिफ़ंड। बस एक ईमेल भेजिए, कोई सवाल-जवाब नहीं।"}};
+  var FAQ = {"pt": {"faq.q1": "Funciona em quais programas?", "faq.a1": "Premiere Pro (CC 2020 em diante), After Effects e DaVinci Resolve Studio, no Mac (Intel e Apple Silicon) e no Windows 10/11. No DaVinci, precisa ser a versão Studio.", "faq.q2": "Como insiro um som na timeline?", "faq.a2": "Do jeito que preferir: duplo-clique joga o som no playhead, ou use o botão Inserir. Pelo teclado, as setas navegam e o Enter insere; Shift+Enter coloca no seu in-point. E você ainda escolhe o ganho (-12 / 0 / +6 dB) antes de inserir.", "faq.q3": "Posso ouvir antes de inserir?", "faq.a3": "Sim. Basta passar o mouse sobre o som (sem clicar) que ele toca na hora, com forma de onda visual. É a forma mais rápida de varrer vários sons e achar o certo.", "faq.q4": "É pagamento único ou mensalidade?", "faq.a4": "100% pagamento único. Você compra uma vez e usa para sempre, sem mensalidade e sem renovação. O valor da condição atual aparece na página de checkout.", "faq.q5": "Posso usar em projetos comerciais?", "faq.a5": "Sim. Todos os sons são 100% royalty-free para qualquer uso comercial: YouTube monetizado, comerciais, filme, jingle, jogo.", "faq.q6": "Posso criar pastas e importar meus sons?", "faq.a6": "Sim. Além das 18 categorias prontas, você cria pastas próprias com cores, importa seus áudios e arrasta sons entre as pastas. O painel ainda monta uma aba \"Top\" com os sons que você mais usa.", "faq.q7": "Em quantas máquinas posso instalar?", "faq.a7": "Até 2 máquinas simultaneamente, Mac e/ou Windows. Pode desativar e mover quando quiser.", "faq.q8": "Como recebo o produto?", "faq.a8": "Acesso imediato. Após o pagamento, você recebe por e-mail o link de download e os dados pra criar sua conta. Faça login no painel e toda a biblioteca fica disponível.", "faq.q9": "E se eu não gostar?", "faq.a9": "7 dias para testar. Se não rolar, devolvemos 100%. Basta mandar e-mail, sem questionário."}, "en": {"faq.q1": "Which software does it work in?", "faq.a1": "Premiere Pro (CC 2020 and later), After Effects and DaVinci Resolve Studio, on Mac (Intel and Apple Silicon) and Windows 10/11. In DaVinci, it needs the Studio version.", "faq.q2": "How do I insert a sound on the timeline?", "faq.a2": "Whichever way you prefer: double-click drops the sound at the playhead, or use the Insert button. With the keyboard, arrows navigate and Enter inserts; Shift+Enter places it at your in-point. And you still pick the gain (-12 / 0 / +6 dB) before inserting.", "faq.q3": "Can I preview before inserting?", "faq.a3": "Yes. Just hover over the sound (no click needed) and it plays instantly, with a visual waveform. It's the fastest way to scan through sounds and find the right one.", "faq.q4": "Is it a one-time payment or a subscription?", "faq.a4": "100% one-time payment. Buy once, use forever — no subscription, no renewal. The current price is shown on the checkout page.", "faq.q5": "Can I use it in commercial projects?", "faq.a5": "Yes. Every sound is 100% royalty-free for any commercial use: monetized YouTube, commercials, film, jingles, games.", "faq.q6": "Can I create folders and import my own sounds?", "faq.a6": "Yes. Beyond the 18 built-in categories, you can create your own color-coded folders, import your audio and drag sounds between folders. The panel also builds a \"Top\" tab with the sounds you use most.", "faq.q7": "On how many machines can I install it?", "faq.a7": "Up to 2 machines at the same time, Mac and/or Windows. You can deactivate and move whenever you want.", "faq.q8": "How do I receive the product?", "faq.a8": "Instant access. After payment you get an email with the download link and your account details. Log into the panel and the whole library is available.", "faq.q9": "What if I don't like it?", "faq.a9": "7 days to try it. If it's not for you, we refund 100%. Just send an email — no questionnaire."}, "es": {"faq.q1": "¿En qué programas funciona?", "faq.a1": "Premiere Pro (CC 2020 en adelante), After Effects y DaVinci Resolve Studio, en Mac (Intel y Apple Silicon) y Windows 10/11. En DaVinci, necesita la versión Studio.", "faq.q2": "¿Cómo inserto un sonido en la línea de tiempo?", "faq.a2": "Como prefieras: doble clic coloca el sonido en el playhead, o usa el botón Insertar. Con el teclado, las flechas navegan y Enter inserta; Shift+Enter lo coloca en tu punto de entrada. Y además eliges la ganancia (-12 / 0 / +6 dB) antes de insertar.", "faq.q3": "¿Puedo escuchar antes de insertar?", "faq.a3": "Sí. Basta con pasar el mouse sobre el sonido (sin clic) y suena al instante, con forma de onda visual. Es la forma más rápida de recorrer varios sonidos y encontrar el correcto.", "faq.q4": "¿Es pago único o mensualidad?", "faq.a4": "100% pago único. Compras una vez y lo usas para siempre, sin mensualidad y sin renovación. El precio de la condición actual aparece en la página de checkout.", "faq.q5": "¿Puedo usarlo en proyectos comerciales?", "faq.a5": "Sí. Todos los sonidos son 100% libres de regalías para cualquier uso comercial: YouTube monetizado, comerciales, cine, jingles, videojuegos.", "faq.q6": "¿Puedo crear carpetas e importar mis sonidos?", "faq.a6": "Sí. Además de las 18 categorías listas, creas tus propias carpetas con colores, importas tus audios y arrastras sonidos entre carpetas. El panel también arma una pestaña \"Top\" con los sonidos que más usas.", "faq.q7": "¿En cuántos equipos puedo instalarlo?", "faq.a7": "Hasta 2 equipos simultáneamente, Mac y/o Windows. Puedes desactivar y mover cuando quieras.", "faq.q8": "¿Cómo recibo el producto?", "faq.a8": "Acceso inmediato. Tras el pago recibes por correo el enlace de descarga y los datos para crear tu cuenta. Inicia sesión en el panel y toda la biblioteca queda disponible.", "faq.q9": "¿Y si no me gusta?", "faq.a9": "7 días para probarlo. Si no funciona para ti, devolvemos el 100%. Solo envía un correo, sin cuestionarios."}, "hi": {"faq.q1": "यह किन सॉफ़्टवेयर में चलता है?", "faq.a1": "Premiere Pro (CC 2020 और बाद के), After Effects और DaVinci Resolve Studio में, Mac (Intel और Apple Silicon) और Windows 10/11 पर। DaVinci में Studio वर्ज़न चाहिए।", "faq.q2": "टाइमलाइन में साउंड कैसे डालें?", "faq.a2": "जैसे चाहें: डबल-क्लिक साउंड को प्लेहेड पर डाल देता है, या Insert बटन इस्तेमाल कीजिए। कीबोर्ड से ↑↓ नेविगेट करते हैं और Enter इन्सर्ट करता है; Shift+Enter उसे आपके इन-पॉइंट पर रखता है। और इन्सर्ट करने से पहले गेन (-12 / 0 / +6 dB) भी चुन सकते हैं।", "faq.q3": "इन्सर्ट करने से पहले सुन सकते हैं?", "faq.a3": "हाँ। बस माउस साउंड पर ले जाइए (क्लिक की ज़रूरत नहीं) और वह वेवफ़ॉर्म के साथ तुरंत बजता है। सही साउंड ढूँढ़ने का यह सबसे तेज़ तरीका है।", "faq.q4": "एक बार का भुगतान है या मासिक?", "faq.a4": "100% एक बार का भुगतान। एक बार खरीदिए और हमेशा इस्तेमाल कीजिए — न मासिक शुल्क, न रिन्यूअल। मौजूदा कीमत चेकआउट पेज पर दिखती है।", "faq.q5": "क्या कमर्शियल प्रोजेक्ट में इस्तेमाल कर सकते हैं?", "faq.a5": "हाँ। सभी साउंड किसी भी कमर्शियल इस्तेमाल के लिए 100% रॉयल्टी-फ़्री हैं: मॉनिटाइज़्ड YouTube, विज्ञापन, फ़िल्म, जिंगल, गेम।", "faq.q6": "क्या अपने फ़ोल्डर बनाकर अपने साउंड इम्पोर्ट कर सकते हैं?", "faq.a6": "हाँ। पहले से मौजूद 18 कैटेगरी के अलावा आप अपने रंगीन फ़ोल्डर बना सकते हैं, अपने ऑडियो इम्पोर्ट कर सकते हैं और साउंड को फ़ोल्डरों के बीच खींच सकते हैं। पैनल आपके सबसे ज़्यादा इस्तेमाल किए गए साउंड का \"Top\" टैब भी बनाता है।", "faq.q7": "कितनी मशीनों पर इंस्टॉल कर सकते हैं?", "faq.a7": "एक साथ 2 मशीनों तक, Mac और/या Windows। जब चाहें डीएक्टिवेट करके दूसरी मशीन पर ले जा सकते हैं।", "faq.q8": "प्रोडक्ट कैसे मिलेगा?", "faq.a8": "तुरंत एक्सेस। भुगतान के बाद ईमेल पर डाउनलोड लिंक और अकाउंट बनाने की जानकारी आती है। पैनल में लॉगिन कीजिए और पूरी लाइब्रेरी उपलब्ध।", "faq.q9": "अगर पसंद न आए तो?", "faq.a9": "आज़माने के लिए 7 दिन। पसंद न आए तो 100% रिफ़ंड। बस एक ईमेल भेजिए, कोई सवाल-जवाब नहीं।"}};
   var CAT_NAMES = {"pt": {"whooshes": "Whooshes", "transitions": "Transições", "drops": "Cinematic Drops", "clicks": "Clicks & UI", "foley": "Foley & Diegese", "risers": "Risers", "elements": "Elements", "memes": "Memes & Cartoon", "hits": "Hits & Impacts", "glitches": "Glitches", "guns": "Guns", "reverb": "Reverb", "retro": "Retrô", "hud": "HUD & Digital", "ambient": "Ambientes", "nature": "Natureza", "emotion": "Emoção", "camera": "Câmera", "bells": "Bells & Buttons", "slowmo": "Slow Motion", "tonal": "Tonalidade"}, "en": {"whooshes": "Whooshes", "transitions": "Transitions", "drops": "Cinematic Drops", "clicks": "Clicks & UI", "foley": "Foley & Diegetic", "risers": "Risers", "elements": "Elements", "memes": "Memes & Cartoon", "hits": "Hits & Impacts", "glitches": "Glitches", "guns": "Guns", "reverb": "Reverb", "retro": "Retro", "hud": "HUD & Digital", "ambient": "Ambiences", "nature": "Nature", "emotion": "Emotion", "camera": "Camera", "bells": "Bells & Buttons", "slowmo": "Slow Motion", "tonal": "Tonal"}, "es": {"whooshes": "Whooshes", "transitions": "Transiciones", "drops": "Cinematic Drops", "clicks": "Clicks & UI", "foley": "Foley & Diégesis", "risers": "Risers", "elements": "Elements", "memes": "Memes & Cartoon", "hits": "Hits & Impacts", "glitches": "Glitches", "guns": "Guns", "reverb": "Reverb", "retro": "Retro", "hud": "HUD & Digital", "ambient": "Ambientes", "nature": "Naturaleza", "emotion": "Emoción", "camera": "Cámara", "bells": "Bells & Buttons", "slowmo": "Slow Motion", "tonal": "Tonalidad"}, "hi": {"whooshes": "व्हूश", "transitions": "ट्रांज़िशन", "drops": "सिनेमैटिक ड्रॉप्स", "clicks": "क्लिक्स & UI", "foley": "फ़ॉली & डाइजेटिक", "risers": "राइज़र", "elements": "एलिमेंट्स", "memes": "मीम्स & कार्टून", "hits": "हिट्स & इम्पैक्ट्स", "glitches": "ग्लिच", "guns": "गन्स", "reverb": "रिवर्ब", "retro": "रेट्रो", "hud": "HUD & डिजिटल", "ambient": "एम्बिएंस", "nature": "नेचर", "emotion": "इमोशन", "camera": "कैमरा", "bells": "बेल्स & बटन्स", "slowmo": "स्लो मोशन", "tonal": "टोनैलिटी"}};
 
   var L = {
@@ -822,13 +830,13 @@
       "ins.vibe.funny": "Anotado: memes, cartoon e sons de botão vão pro topo do seu kit.",
       "ins.vibe.clean": "Anotado: cliques, whooshes suaves e transições limpas vão pro topo.",
       "ins.vibe.hype": "Anotado: impactos, glitches e whooshes rápidos vão pro topo.",
-      "ins.vibe.emotional": "Anotado: emoção, ambientes e slow motion vão pro topo.",
+      "ins.vibe.emotional": "Anotado: tonalidades, ambientes e slow motion vão pro topo.",
 
       "q.fams.t": "Quais sons você mais usa, ou queria usar mais?",
       "q.fams.s": "Pode marcar vários.",
       "fam.whoosh": "Whooshes e transições", "fam.hits": "Impactos e drops", "fam.risers": "Risers e tensão",
       "fam.ui": "Cliques e interface", "fam.glitch": "Glitches e digital", "fam.memes": "Memes e cartoon",
-      "fam.foley": "Foley e ambientes", "fam.cine": "Slow motion e câmera", "fam.emotion": "Emoção e reverb",
+      "fam.foley": "Foley e ambientes", "fam.cine": "Slow motion e câmera", "fam.emotion": "Tonalidade e atmosfera",
       "fam.action": "Ação e armas", "fam.retro": "Retrô",
       "ins.fams": "Perfeito. {n} famílias de som anotadas pro seu kit.",
 
@@ -868,7 +876,7 @@
       "an.title": "Montando o seu kit…",
       "an.1": "Tipo de vídeo: {type}",
       "an.2": "Ajustando pra pegada {vibe}",
-      "an.3": "Escolhendo categorias entre 1.463 sons",
+      "an.3": "Escolhendo categorias entre 2.371 sons",
       "an.4": "Calculando o tempo que você recupera",
       "an.5": "Compatibilidade: {app}",
       "an.proof": "+1.000 editores já usam o dropSFX",
@@ -879,7 +887,7 @@
       "r.c.type": "Vídeo", "r.c.vibe": "Pegada", "r.c.app": "Programa",
       "r.kitTitle": "As 6 categorias que mais combinam com você",
       "r.kitCount": "{n} sons",
-      "r.kitMore": "E você leva <b>as 21 categorias</b>: <b>1.463 sons</b> no total, organizados por cor dentro do painel.",
+      "r.kitMore": "E você leva <b>as 18 categorias</b>: <b>2.371 sons</b> no total, organizados por cor dentro do painel.",
       "why.pick": "Você marcou {fam}", "why.type": "Essencial pra {type}", "why.vibe": "Combina com a pegada {vibe}",
       "r.cta1": "Quero meu kit",
 
@@ -892,7 +900,7 @@
       "d.small": "Parece pouco. Mas se repete <strong>todo mês</strong>, em todo projeto.",
       "d.fix.yt": "Com o seu kit: sem YouTube, sem conversor, sem pop-up. O som toca no hover e entra na timeline com 2 cliques.",
       "d.fix.envato": "Com o seu kit: sem .zip, sem extrair, sem importar. E sem mensalidade: paga uma vez e usa pra sempre.",
-      "d.fix.folder": "Com o seu kit: 1.463 sons organizados em 21 categorias coloridas, dentro do painel. Acabou a caça na pasta.",
+      "d.fix.folder": "Com o seu kit: 2.371 sons organizados em 18 categorias coloridas, dentro do painel. Acabou a caça na pasta.",
       "d.fix.none": "Com o seu kit, colocar som leva 2 cliques. Aí você coloca em tudo, e é isso que muda o nível do vídeo.",
       "d.ok.premiere": "✓ Funciona no Premiere Pro", "d.ok.ae": "✓ Funciona no After Effects",
       "d.ok.davinci": "✓ Funciona no DaVinci Resolve Studio", "d.ok.multi": "✓ Funciona no Premiere, After Effects e DaVinci",
@@ -903,7 +911,7 @@
       "v.on": "Ouvir com som", "v.off": "Tirar o som",
 
       "i.title": "O que vem no seu kit",
-      "i.1": "<strong>1.463 efeitos sonoros</strong> profissionais em 21 categorias",
+      "i.1": "<strong>2.371 efeitos sonoros</strong> profissionais em 18 categorias",
       "i.2": "Painel <strong>nativo</strong> no Premiere Pro, After Effects e DaVinci Resolve Studio",
       "i.3": "Ouve no <strong>hover</strong>, insere com <strong>2 cliques</strong> ou arrastando pra timeline",
       "i.4": "Ganho certo <strong>antes de inserir</strong>: -12, 0 ou +6 dB",
@@ -922,8 +930,8 @@
       "p.color.d": "O clipe entra com a cor da categoria. Sua trilha de áudio se organiza sozinha.",
       "p.gain.t": "Volume certo de primeira",
       "p.gain.d": "Escolhe -12, 0 ou +6 dB antes de inserir. Adeus mixer em cada clipe.",
-      "p.lib.t": "1.463 sons já escolhidos",
-      "p.lib.d": "Whooshes, impactos, risers, glitches, memes e foley em 21 categorias pensadas pra edição.",
+      "p.lib.t": "2.371 sons já escolhidos",
+      "p.lib.d": "Whooshes, impactos, risers, glitches, memes e foley em 18 categorias pensadas pra edição.",
       "p.folder.t": "Seus sons também",
       "p.folder.d": "Crie suas pastas, favorite e importe seus próprios áudios pro mesmo painel.",
       "p.community.t": "Comunidade de editores",
@@ -936,7 +944,7 @@
       "vs.today": "Hoje",
       "vs.find": "Achar o som",
       "vs.find.old": "YouTube, Envato, Artlist, pastas no PC",
-      "vs.find.new": "1.463 sons no painel, por categoria",
+      "vs.find.new": "2.371 sons no painel, por categoria",
       "vs.listen": "Ouvir",
       "vs.listen.old": "Baixar pra descobrir se serve",
       "vs.listen.new": "Passa o mouse e já toca",
@@ -949,6 +957,9 @@
       "vs.cost": "Custo",
       "vs.cost.old": "Mensalidade que nunca acaba",
       "vs.cost.new": "Pagamento único, vitalício",
+      "sfx.kicker": "Ouça antes de comprar",
+      "sfx.title": "Sons reais <span class='serif'>do seu kit.</span>",
+      "sfx.sub": "Direto da biblioteca do plugin, começando pelas categorias que combinam com você. Coloca o fone.",
       "o.ribbon": "Oferta de lançamento",
       "o.title": "Kit dropSFX completo",
       "o.who": "montado pra {type}",
@@ -991,13 +1002,13 @@
       "ins.vibe.funny": "Noted: memes, cartoon and button sounds go to the top of your kit.",
       "ins.vibe.clean": "Noted: clicks, soft whooshes and clean transitions go to the top.",
       "ins.vibe.hype": "Noted: impacts, glitches and fast whooshes go to the top.",
-      "ins.vibe.emotional": "Noted: emotion, ambiences and slow motion go to the top.",
+      "ins.vibe.emotional": "Noted: tonal hits, ambiences and slow motion go to the top.",
 
       "q.fams.t": "Which sounds do you use most, or wish you used more?",
       "q.fams.s": "Pick as many as you like.",
       "fam.whoosh": "Whooshes & transitions", "fam.hits": "Impacts & drops", "fam.risers": "Risers & tension",
       "fam.ui": "Clicks & UI", "fam.glitch": "Glitches & digital", "fam.memes": "Memes & cartoon",
-      "fam.foley": "Foley & ambiences", "fam.cine": "Slow motion & camera", "fam.emotion": "Emotion & reverb",
+      "fam.foley": "Foley & ambiences", "fam.cine": "Slow motion & camera", "fam.emotion": "Tonal & atmosphere",
       "fam.action": "Action & guns", "fam.retro": "Retro",
       "ins.fams": "Perfect. {n} sound families noted for your kit.",
 
@@ -1037,7 +1048,7 @@
       "an.title": "Building your kit…",
       "an.1": "Video type: {type}",
       "an.2": "Tuning for a {vibe} vibe",
-      "an.3": "Picking categories from 1,463 sounds",
+      "an.3": "Picking categories from 2,371 sounds",
       "an.4": "Calculating the time you get back",
       "an.5": "Compatibility: {app}",
       "an.proof": "1,000+ editors already use dropSFX",
@@ -1048,7 +1059,7 @@
       "r.c.type": "Video", "r.c.vibe": "Vibe", "r.c.app": "Software",
       "r.kitTitle": "The 6 categories that fit you best",
       "r.kitCount": "{n} sounds",
-      "r.kitMore": "And you get <b>all 21 categories</b>: <b>1,463 sounds</b> in total, color-coded inside the panel.",
+      "r.kitMore": "And you get <b>all 18 categories</b>: <b>2,371 sounds</b> in total, color-coded inside the panel.",
       "why.pick": "You picked {fam}", "why.type": "Essential for {type}", "why.vibe": "Fits a {vibe} vibe",
       "r.cta1": "I want my kit",
 
@@ -1061,7 +1072,7 @@
       "d.small": "Looks small. But it repeats <strong>every month</strong>, on every project.",
       "d.fix.yt": "With your kit: no YouTube, no converter, no pop-ups. The sound plays on hover and hits the timeline in 2 clicks.",
       "d.fix.envato": "With your kit: no .zip, no extracting, no importing. And no subscription: pay once, use forever.",
-      "d.fix.folder": "With your kit: 1,463 sounds in 21 color-coded categories, right inside the panel. No more folder hunting.",
+      "d.fix.folder": "With your kit: 2,371 sounds in 18 color-coded categories, right inside the panel. No more folder hunting.",
       "d.fix.none": "With your kit, adding sound takes 2 clicks. So you add it everywhere, and that's what levels up a video.",
       "d.ok.premiere": "✓ Works in Premiere Pro", "d.ok.ae": "✓ Works in After Effects",
       "d.ok.davinci": "✓ Works in DaVinci Resolve Studio", "d.ok.multi": "✓ Works in Premiere, After Effects and DaVinci",
@@ -1072,7 +1083,7 @@
       "v.on": "Play with sound", "v.off": "Mute",
 
       "i.title": "What's in your kit",
-      "i.1": "<strong>1,463 professional sound effects</strong> in 21 categories",
+      "i.1": "<strong>2,371 professional sound effects</strong> in 18 categories",
       "i.2": "<strong>Native</strong> panel for Premiere Pro, After Effects and DaVinci Resolve Studio",
       "i.3": "Preview on <strong>hover</strong>, insert in <strong>2 clicks</strong> or drag to the timeline",
       "i.4": "Right gain <strong>before inserting</strong>: -12, 0 or +6 dB",
@@ -1091,8 +1102,8 @@
       "p.color.d": "The clip comes in with its category color. Your audio tracks organize themselves.",
       "p.gain.t": "Right volume first time",
       "p.gain.d": "Pick -12, 0 or +6 dB before inserting. No more mixer on every clip.",
-      "p.lib.t": "1,463 hand-picked sounds",
-      "p.lib.d": "Whooshes, impacts, risers, glitches, memes and foley in 21 categories built for editing.",
+      "p.lib.t": "2,371 hand-picked sounds",
+      "p.lib.d": "Whooshes, impacts, risers, glitches, memes and foley in 18 categories built for editing.",
       "p.folder.t": "Your sounds too",
       "p.folder.d": "Create folders, favorite sounds and import your own audio into the same panel.",
       "p.community.t": "Editors' community",
@@ -1105,7 +1116,7 @@
       "vs.today": "Today",
       "vs.find": "Finding the sound",
       "vs.find.old": "YouTube, Envato, Artlist, random folders",
-      "vs.find.new": "1,463 sounds in the panel, by category",
+      "vs.find.new": "2,371 sounds in the panel, by category",
       "vs.listen": "Listening",
       "vs.listen.old": "Download it to find out if it works",
       "vs.listen.new": "Hover and it plays",
@@ -1118,6 +1129,9 @@
       "vs.cost": "Cost",
       "vs.cost.old": "A subscription that never ends",
       "vs.cost.new": "One-time payment, lifetime",
+      "sfx.kicker": "Listen before you buy",
+      "sfx.title": "Real sounds <span class='serif'>from your kit.</span>",
+      "sfx.sub": "Straight from the plugin library, starting with the categories that fit you. Put your headphones on.",
       "o.ribbon": "Launch offer",
       "o.title": "Full dropSFX kit",
       "o.who": "built for {type}",
@@ -1160,13 +1174,13 @@
       "ins.vibe.funny": "Anotado: memes, cartoon y sonidos de botón van arriba en tu kit.",
       "ins.vibe.clean": "Anotado: clics, whooshes suaves y transiciones limpias van arriba.",
       "ins.vibe.hype": "Anotado: impactos, glitches y whooshes rápidos van arriba.",
-      "ins.vibe.emotional": "Anotado: emoción, ambientes y slow motion van arriba.",
+      "ins.vibe.emotional": "Anotado: tonalidades, ambientes y slow motion van arriba.",
 
       "q.fams.t": "¿Qué sonidos usas más, o te gustaría usar más?",
       "q.fams.s": "Puedes marcar varios.",
       "fam.whoosh": "Whooshes y transiciones", "fam.hits": "Impactos y drops", "fam.risers": "Risers y tensión",
       "fam.ui": "Clics e interfaz", "fam.glitch": "Glitches y digital", "fam.memes": "Memes y cartoon",
-      "fam.foley": "Foley y ambientes", "fam.cine": "Slow motion y cámara", "fam.emotion": "Emoción y reverb",
+      "fam.foley": "Foley y ambientes", "fam.cine": "Slow motion y cámara", "fam.emotion": "Tonalidad y atmósfera",
       "fam.action": "Acción y armas", "fam.retro": "Retro",
       "ins.fams": "Perfecto. {n} familias de sonido anotadas para tu kit.",
 
@@ -1206,7 +1220,7 @@
       "an.title": "Armando tu kit…",
       "an.1": "Tipo de video: {type}",
       "an.2": "Ajustando al estilo {vibe}",
-      "an.3": "Eligiendo categorías entre 1.463 sonidos",
+      "an.3": "Eligiendo categorías entre 2.371 sonidos",
       "an.4": "Calculando el tiempo que recuperas",
       "an.5": "Compatibilidad: {app}",
       "an.proof": "+1.000 editores ya usan dropSFX",
@@ -1217,7 +1231,7 @@
       "r.c.type": "Video", "r.c.vibe": "Estilo", "r.c.app": "Programa",
       "r.kitTitle": "Las 6 categorías que más van contigo",
       "r.kitCount": "{n} sonidos",
-      "r.kitMore": "Y te llevas <b>las 21 categorías</b>: <b>1.463 sonidos</b> en total, organizados por color dentro del panel.",
+      "r.kitMore": "Y te llevas <b>las 18 categorías</b>: <b>2.371 sonidos</b> en total, organizados por color dentro del panel.",
       "why.pick": "Marcaste {fam}", "why.type": "Esencial para {type}", "why.vibe": "Va con el estilo {vibe}",
       "r.cta1": "Quiero mi kit",
 
@@ -1230,7 +1244,7 @@
       "d.small": "Parece poco. Pero se repite <strong>cada mes</strong>, en cada proyecto.",
       "d.fix.yt": "Con tu kit: sin YouTube, sin conversor, sin pop-ups. El sonido suena al pasar el mouse y entra en la timeline con 2 clics.",
       "d.fix.envato": "Con tu kit: sin .zip, sin extraer, sin importar. Y sin suscripción: pagas una vez y lo usas para siempre.",
-      "d.fix.folder": "Con tu kit: 1.463 sonidos en 21 categorías de colores, dentro del panel. Se acabó buscar en carpetas.",
+      "d.fix.folder": "Con tu kit: 2.371 sonidos en 18 categorías de colores, dentro del panel. Se acabó buscar en carpetas.",
       "d.fix.none": "Con tu kit, poner sonido lleva 2 clics. Entonces lo pones en todo, y eso sube el nivel del video.",
       "d.ok.premiere": "✓ Funciona en Premiere Pro", "d.ok.ae": "✓ Funciona en After Effects",
       "d.ok.davinci": "✓ Funciona en DaVinci Resolve Studio", "d.ok.multi": "✓ Funciona en Premiere, After Effects y DaVinci",
@@ -1241,7 +1255,7 @@
       "v.on": "Escuchar con sonido", "v.off": "Quitar sonido",
 
       "i.title": "Qué trae tu kit",
-      "i.1": "<strong>1.463 efectos de sonido</strong> profesionales en 21 categorías",
+      "i.1": "<strong>2.371 efectos de sonido</strong> profesionales en 18 categorías",
       "i.2": "Panel <strong>nativo</strong> en Premiere Pro, After Effects y DaVinci Resolve Studio",
       "i.3": "Escuchas al <strong>pasar el mouse</strong>, insertas con <strong>2 clics</strong> o arrastrando",
       "i.4": "Ganancia justa <strong>antes de insertar</strong>: -12, 0 o +6 dB",
@@ -1260,8 +1274,8 @@
       "p.color.d": "El clip entra con el color de su categoría. Tus pistas se ordenan solas.",
       "p.gain.t": "Volumen justo a la primera",
       "p.gain.d": "Elige -12, 0 o +6 dB antes de insertar. Adiós al mezclador en cada clip.",
-      "p.lib.t": "1.463 sonidos elegidos",
-      "p.lib.d": "Whooshes, impactos, risers, glitches, memes y foley en 21 categorías pensadas para editar.",
+      "p.lib.t": "2.371 sonidos elegidos",
+      "p.lib.d": "Whooshes, impactos, risers, glitches, memes y foley en 18 categorías pensadas para editar.",
       "p.folder.t": "Tus sonidos también",
       "p.folder.d": "Crea carpetas, marca favoritos e importa tus propios audios al mismo panel.",
       "p.community.t": "Comunidad de editores",
@@ -1274,7 +1288,7 @@
       "vs.today": "Hoy",
       "vs.find": "Encontrar el sonido",
       "vs.find.old": "YouTube, Envato, Artlist, carpetas sueltas",
-      "vs.find.new": "1.463 sonidos en el panel, por categoría",
+      "vs.find.new": "2.371 sonidos en el panel, por categoría",
       "vs.listen": "Escuchar",
       "vs.listen.old": "Descargar para saber si sirve",
       "vs.listen.new": "Pasas el mouse y suena",
@@ -1287,6 +1301,9 @@
       "vs.cost": "Costo",
       "vs.cost.old": "Una suscripción que nunca termina",
       "vs.cost.new": "Pago único, de por vida",
+      "sfx.kicker": "Escucha antes de comprar",
+      "sfx.title": "Sonidos reales <span class='serif'>de tu kit.</span>",
+      "sfx.sub": "Directo de la biblioteca del plugin, empezando por las categorías que van contigo. Ponte los auriculares.",
       "o.ribbon": "Oferta de lanzamiento",
       "o.title": "Kit dropSFX completo",
       "o.who": "armado para {type}",
@@ -1329,13 +1346,13 @@
       "ins.vibe.funny": "नोट किया: मीम्स, कार्टून और बटन साउंड आपके किट में सबसे ऊपर।",
       "ins.vibe.clean": "नोट किया: क्लिक, हल्के व्हूश और क्लीन ट्रांज़िशन सबसे ऊपर।",
       "ins.vibe.hype": "नोट किया: इम्पैक्ट, ग्लिच और तेज़ व्हूश सबसे ऊपर।",
-      "ins.vibe.emotional": "नोट किया: इमोशन, एम्बिएंस और स्लो मोशन सबसे ऊपर।",
+      "ins.vibe.emotional": "नोट किया: टोनल, एम्बिएंस और स्लो मोशन सबसे ऊपर।",
 
       "q.fams.t": "आप कौन से साउंड सबसे ज़्यादा इस्तेमाल करते हैं, या करना चाहते हैं?",
       "q.fams.s": "कई चुन सकते हैं।",
       "fam.whoosh": "व्हूश और ट्रांज़िशन", "fam.hits": "इम्पैक्ट और ड्रॉप्स", "fam.risers": "राइज़र और टेंशन",
       "fam.ui": "क्लिक और UI", "fam.glitch": "ग्लिच और डिजिटल", "fam.memes": "मीम्स और कार्टून",
-      "fam.foley": "फ़ॉली और एम्बिएंस", "fam.cine": "स्लो मोशन और कैमरा", "fam.emotion": "इमोशन और रिवर्ब",
+      "fam.foley": "फ़ॉली और एम्बिएंस", "fam.cine": "स्लो मोशन और कैमरा", "fam.emotion": "टोनल और एटमॉस्फ़ियर",
       "fam.action": "एक्शन और गन्स", "fam.retro": "रेट्रो",
       "ins.fams": "बढ़िया। आपके किट के लिए {n} साउंड फ़ैमिली नोट कीं।",
 
@@ -1375,7 +1392,7 @@
       "an.title": "आपका किट बन रहा है…",
       "an.1": "वीडियो का प्रकार: {type}",
       "an.2": "{vibe} वाइब के लिए ट्यून कर रहे हैं",
-      "an.3": "1,463 साउंड में से कैटेगरी चुन रहे हैं",
+      "an.3": "2,371 साउंड में से कैटेगरी चुन रहे हैं",
       "an.4": "आपको वापस मिलने वाला समय गिन रहे हैं",
       "an.5": "कम्पैटिबिलिटी: {app}",
       "an.proof": "1,000+ एडिटर dropSFX इस्तेमाल करते हैं",
@@ -1386,7 +1403,7 @@
       "r.c.type": "वीडियो", "r.c.vibe": "वाइब", "r.c.app": "सॉफ़्टवेयर",
       "r.kitTitle": "आपसे सबसे ज़्यादा मेल खाने वाली 6 कैटेगरी",
       "r.kitCount": "{n} साउंड",
-      "r.kitMore": "और आपको मिलती हैं <b>सभी 21 कैटेगरी</b>: कुल <b>1,463 साउंड</b>, पैनल में रंगों से व्यवस्थित।",
+      "r.kitMore": "और आपको मिलती हैं <b>सभी 18 कैटेगरी</b>: कुल <b>2,371 साउंड</b>, पैनल में रंगों से व्यवस्थित।",
       "why.pick": "आपने चुना: {fam}", "why.type": "{type} के लिए ज़रूरी", "why.vibe": "{vibe} वाइब से मेल",
       "r.cta1": "मुझे मेरा किट चाहिए",
 
@@ -1399,7 +1416,7 @@
       "d.small": "कम लगता है। पर ये <strong>हर महीने</strong>, हर प्रोजेक्ट में दोहराता है।",
       "d.fix.yt": "आपके किट के साथ: न YouTube, न कन्वर्टर, न पॉप-अप। होवर पर साउंड बजता है और 2 क्लिक में टाइमलाइन पर।",
       "d.fix.envato": "आपके किट के साथ: न .zip, न एक्सट्रैक्ट, न इम्पोर्ट। और कोई सब्सक्रिप्शन नहीं: एक बार दीजिए, हमेशा इस्तेमाल कीजिए।",
-      "d.fix.folder": "आपके किट के साथ: 21 रंगीन कैटेगरी में 1,463 साउंड, सीधे पैनल में। फ़ोल्डर में ढूँढना ख़त्म।",
+      "d.fix.folder": "आपके किट के साथ: 18 रंगीन कैटेगरी में 2,371 साउंड, सीधे पैनल में। फ़ोल्डर में ढूँढना ख़त्म।",
       "d.fix.none": "आपके किट के साथ साउंड लगाने में 2 क्लिक लगते हैं। तो आप हर जगह लगाते हैं, और यही वीडियो का लेवल बढ़ाता है।",
       "d.ok.premiere": "✓ Premiere Pro में चलता है", "d.ok.ae": "✓ After Effects में चलता है",
       "d.ok.davinci": "✓ DaVinci Resolve Studio में चलता है", "d.ok.multi": "✓ Premiere, After Effects और DaVinci में चलता है",
@@ -1410,7 +1427,7 @@
       "v.on": "साउंड के साथ चलाएँ", "v.off": "म्यूट करें",
 
       "i.title": "आपके किट में क्या है",
-      "i.1": "21 कैटेगरी में <strong>1,463 प्रोफ़ेशनल साउंड इफ़ेक्ट</strong>",
+      "i.1": "18 कैटेगरी में <strong>2,371 प्रोफ़ेशनल साउंड इफ़ेक्ट</strong>",
       "i.2": "Premiere Pro, After Effects और DaVinci Resolve Studio में <strong>नेटिव</strong> पैनल",
       "i.3": "<strong>होवर</strong> पर सुनें, <strong>2 क्लिक</strong> में या खींचकर टाइमलाइन पर डालें",
       "i.4": "<strong>डालने से पहले</strong> सही गेन: -12, 0 या +6 dB",
@@ -1429,8 +1446,8 @@
       "p.color.d": "क्लिप अपनी कैटेगरी के रंग में आता है। ऑडियो ट्रैक अपने-आप व्यवस्थित।",
       "p.gain.t": "पहली बार में सही वॉल्यूम",
       "p.gain.d": "डालने से पहले -12, 0 या +6 dB चुनिए। हर क्लिप पर मिक्सर नहीं।",
-      "p.lib.t": "1,463 चुने हुए साउंड",
-      "p.lib.d": "व्हूश, इम्पैक्ट, राइज़र, ग्लिच, मीम्स और फ़ॉली, एडिटिंग के लिए 21 कैटेगरी में।",
+      "p.lib.t": "2,371 चुने हुए साउंड",
+      "p.lib.d": "व्हूश, इम्पैक्ट, राइज़र, ग्लिच, मीम्स और फ़ॉली, एडिटिंग के लिए 18 कैटेगरी में।",
       "p.folder.t": "आपके साउंड भी",
       "p.folder.d": "फ़ोल्डर बनाइए, फ़ेवरेट कीजिए और अपने ऑडियो उसी पैनल में इम्पोर्ट कीजिए।",
       "p.community.t": "एडिटर्स की कम्युनिटी",
@@ -1443,7 +1460,7 @@
       "vs.today": "आज",
       "vs.find": "साउंड ढूँढना",
       "vs.find.old": "YouTube, Envato, Artlist, बिखरे फ़ोल्डर",
-      "vs.find.new": "पैनल में कैटेगरी के हिसाब से 1,463 साउंड",
+      "vs.find.new": "पैनल में कैटेगरी के हिसाब से 2,371 साउंड",
       "vs.listen": "सुनना",
       "vs.listen.old": "काम का है या नहीं, जानने के लिए डाउनलोड",
       "vs.listen.new": "माउस ले जाइए, बज जाता है",
@@ -1456,6 +1473,9 @@
       "vs.cost": "कीमत",
       "vs.cost.old": "कभी न ख़त्म होने वाला सब्सक्रिप्शन",
       "vs.cost.new": "एक बार भुगतान, आजीवन",
+      "sfx.kicker": "ख़रीदने से पहले सुनिए",
+      "sfx.title": "आपके किट की <span class='serif'>असली आवाज़ें।</span>",
+      "sfx.sub": "सीधे प्लगइन लाइब्रेरी से, आपसे मेल खाने वाली कैटेगरी से शुरू। हेडफ़ोन लगाइए।",
       "o.ribbon": "लॉन्च ऑफ़र",
       "o.title": "पूरा dropSFX किट",
       "o.who": "{type} के लिए बना",
@@ -1486,33 +1506,35 @@
 
     // categorias reais da biblioteca: [quantidade de sons, cor]
     var CATS = {
-      whooshes: [240, '#2dd4bf'], transitions: [179, '#facc15'], drops: [142, '#a78bfa'], clicks: [130, '#38bdf8'],
-      foley: [127, '#06b6d4'], risers: [98, '#fb923c'], elements: [85, '#4ade80'], memes: [71, '#f472b6'],
-      hits: [63, '#f87171'], glitches: [45, '#60a5fa'], guns: [45, '#ef4444'], reverb: [39, '#34d399'],
-      retro: [29, '#d97706'], hud: [27, '#22d3ee'], ambient: [26, '#86efac'], nature: [24, '#65a30d'],
-      emotion: [18, '#f9a8d4'], camera: [17, '#94a3b8'], bells: [16, '#eab308'], slowmo: [13, '#c4b5fd'], tonal: [29, '#fde047']
+      whooshes: [436, '#2dd4bf'], foley: [231, '#06b6d4'], hits: [196, '#f87171'], drops: [192, '#a78bfa'],
+      tonal: [185, '#fde047'], clicks: [169, '#38bdf8'], camera: [139, '#94a3b8'], ambient: [124, '#86efac'],
+      transitions: [110, '#facc15'], risers: [110, '#fb923c'], nature: [77, '#65a30d'], memes: [71, '#f472b6'],
+      elements: [69, '#d97706'], glitches: [65, '#60a5fa'], guns: [58, '#ef4444'], hud: [55, '#22d3ee'],
+      slowmo: [50, '#c4b5fd'], retro: [34, '#b45309']
     };
+    // id do kit → pasta dos previews (assets/sfx)
+    var SFX_CAT = { ambient: 'ambientes', nature: 'natureza', tonal: 'tonalidade' };
     // "famílias" que a pessoa escolhe no quiz → categorias da biblioteca
     var FAMS = {
-      whoosh: ['whooshes', 'transitions'], hits: ['hits', 'drops'], risers: ['risers', 'tonal'], ui: ['clicks', 'bells', 'hud'],
+      whoosh: ['whooshes', 'transitions'], hits: ['hits', 'drops'], risers: ['risers', 'tonal'], ui: ['clicks', 'hud'],
       glitch: ['glitches', 'hud'], memes: ['memes'], foley: ['foley', 'ambient', 'nature'], cine: ['slowmo', 'camera'],
-      emotion: ['emotion', 'reverb'], action: ['guns', 'elements'], retro: ['retro']
+      emotion: ['tonal', 'ambient'], action: ['guns', 'elements'], retro: ['retro']
     };
     // peso de cada categoria por tipo de vídeo e por pegada
     var W_TYPE = {
       reels: { whooshes: 3, transitions: 3, hits: 2, memes: 2, clicks: 2, glitches: 1 },
-      youtube: { whooshes: 2, transitions: 2, clicks: 2, memes: 2, hits: 1, bells: 1 },
-      wedding: { emotion: 3, ambient: 2, nature: 2, risers: 2, slowmo: 2, drops: 1, camera: 1 },
+      youtube: { whooshes: 2, transitions: 2, clicks: 2, memes: 2, hits: 1, hud: 1 },
+      wedding: { tonal: 3, ambient: 2, nature: 2, risers: 2, slowmo: 2, drops: 1, camera: 1 },
       ads: { whooshes: 2, risers: 2, hits: 2, clicks: 2, drops: 2, hud: 1 },
       games: { guns: 3, hud: 3, glitches: 2, hits: 2, elements: 2, memes: 1 },
-      podcast: { memes: 3, bells: 2, clicks: 2, whooshes: 2, transitions: 1, tonal: 1 }
+      podcast: { memes: 3, clicks: 2, whooshes: 2, transitions: 1, tonal: 1, hud: 1 }
     };
     var W_VIBE = {
-      cinematic: { drops: 3, risers: 3, hits: 2, reverb: 2, slowmo: 1 },
-      funny: { memes: 3, bells: 2, retro: 2, clicks: 1 },
+      cinematic: { drops: 3, risers: 3, hits: 2, tonal: 2, slowmo: 1 },
+      funny: { memes: 3, clicks: 2, retro: 2, foley: 1 },
       clean: { clicks: 3, whooshes: 2, transitions: 2, hud: 1, tonal: 1 },
       hype: { hits: 3, whooshes: 2, glitches: 2, drops: 2, risers: 1 },
-      emotional: { emotion: 3, reverb: 2, ambient: 2, nature: 2, slowmo: 2 }
+      emotional: { tonal: 3, ambient: 2, nature: 2, slowmo: 2, risers: 1 }
     };
 
     var Q = [
@@ -1920,10 +1942,26 @@
       });
 
       [].forEach.call(document.querySelectorAll('.js-cta'), function (el) { el.href = checkoutUrl(el.getAttribute('data-pos')); });
+
+      // pré-escuta com sons reais, começando pelas categorias do kit
+      var prio = picks.map(function (p) { return SFX_CAT[p.id] || p.id; }), prioKey = prio.join(',');
+      if (window.DropSFXPlayer) {
+        if (!sfxPlayer) {
+          sfxPlayer = DropSFXPlayer.mount($('sfxPlayer'), {
+            lang: lang, priority: prio, max: 8,
+            onPlay: function (id, cat) { TR.ev('sfx_play', id, { cat: cat }); },
+            onTab: function (tab) { TR.ev('sfx_tab', tab); }
+          });
+        } else {
+          sfxPlayer.setLang(lang);
+          if (prioKey !== sfxPrioKey) sfxPlayer.setPriority(prio);
+        }
+        sfxPrioKey = prioKey;
+      }
       $('vidSound').lastChild.textContent = t(vid.muted ? 'v.on' : 'v.off');
     }
 
-    var resultWired = false;
+    var resultWired = false, sfxPlayer = null, sfxPrioKey = '';
     function showResult(mode) {
       show('result');
       renderResult();

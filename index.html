@@ -62,12 +62,12 @@
 
   <title>dropSFX · Sound effects no Premiere, After Effects e DaVinci</title>
   <meta name="description"
-    content="Painel com 1.463 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único." />
+    content="Painel com 2.371 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="dropSFX" />
   <meta property="og:title" content="dropSFX · Sound effects no Premiere, After Effects e DaVinci" />
   <meta property="og:description"
-    content="Painel com 1.463 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único." />
+    content="Painel com 2.371 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único." />
   <meta property="og:image" content="https://www.dropsfx.com.br/assets/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -108,7 +108,7 @@
         "applicationCategory": "MultimediaApplication",
         "operatingSystem": "Windows, macOS",
         "inLanguage": "pt-BR",
-        "description": "Painel com 1.463 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único."
+        "description": "Painel com 2.371 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único."
       },
       {
         "@type": "VideoObject",
@@ -1928,7 +1928,7 @@
     .ed-lib-copy { padding-top: 6px; }
 
     /* ---------- pasta de vidro com os arquivos das categorias ----------
-       Fechada: três folhas espiam pela boca da pasta. No hover, as 21 folhas
+       Fechada: três folhas espiam pela boca da pasta. No hover, as 18 folhas
        saem em leque (duas fileiras em arco), com escalonamento e mola. */
     .fold-stage {
       --k: 1;
@@ -3209,6 +3209,17 @@
       .gate-unmute, .gate-cta.on, .gate-panel.on { animation: none; }
     }
 
+    /* ---------- ouça (player de sons reais) ---------- */
+    .ed-listen { padding-top: clamp(48px, 6vw, 96px); }
+    .listen-head { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(28px, 5vw, 80px); align-items: end; margin-bottom: clamp(28px, 3.5vw, 48px); }
+    .listen-head .ed-lead { margin-top: 0; }
+    .listen-box { max-width: 880px; }
+    .listen-box .sfxp-list { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 880px) {
+      .listen-head { grid-template-columns: 1fr; align-items: start; }
+      .listen-box .sfxp-list { grid-template-columns: 1fr; }
+    }
+
     /* ---------- responsivo ---------- */
     @media (max-width: 880px) {
       .ed { padding: 0 22px; }
@@ -3479,7 +3490,7 @@
         <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=demo&utm_campaign=dropsfx"
           class="ed-cta js-buy-cta pop-btn" data-position="demo"
           target="_blank" rel="noopener"><span data-i18n="demo.cta">Quero isso no meu Premiere</span>&nbsp;<span aria-hidden="true">→</span></a>
-        <p class="demo-cta-note" data-i18n="demo.note">1.463 sons · Premiere, After Effects e DaVinci</p>
+        <p class="demo-cta-note" data-i18n="demo.note">2.371 sons · Premiere, After Effects e DaVinci</p>
       </div>
     </div>
   </section>
@@ -3517,13 +3528,13 @@
   <section class="ed-sec ed-cover" id="library">
     <div class="ed">
       <div class="fold-stage" id="edFolder">
-        <p class="fold-intro" data-i18n-html="ed.foldintro">1.463 sons prontos pra timeline, <br>organizados em 21 categorias.</p>
+        <p class="fold-intro" data-i18n-html="ed.foldintro">2.371 sons prontos pra timeline, <br>organizados em 18 categorias.</p>
         <div class="fold" role="button" tabindex="0" aria-label="Abrir a pasta de categorias">
           <div class="fold-back"></div>
           <div class="fold-cards" id="edIndex"></div>
           <div class="fold-front">
             <span class="fold-label" data-i18n="mock.library">Biblioteca dropSFX</span>
-            <span class="fold-count"><span class="fold-num">1.463</span> <span data-i18n="mock.sounds">sons</span></span>
+            <span class="fold-count"><span class="fold-num">2.371</span> <span data-i18n="mock.sounds">sons</span></span>
           </div>
         </div>
         <p class="fold-hint"><span class="hint-mouse" data-i18n="ed.hintmouse">Passe o mouse na pasta</span><span class="hint-touch" data-i18n="ed.hinttouch">Toque na pasta para abrir</span></p>
@@ -3540,6 +3551,17 @@
       </div>
     </div>
 
+  </section>
+
+  <!-- ============ OUÇA (sons reais do plugin) ============ -->
+  <section class="ed-sec ed-listen" id="ouvir">
+    <div class="ed">
+      <div class="listen-head">
+        <h2 class="ed-h" data-i18n-html="listen.title">Ouça <span class="blue">a qualidade.</span></h2>
+        <p class="ed-lead" data-i18n="listen.lead">Sons reais da biblioteca do plugin, 3 de cada categoria. Coloca o fone e passa o mouse.</p>
+      </div>
+      <div id="sfxPlayerHome" class="listen-box"></div>
+    </div>
   </section>
 
   <!-- ============ I · PRÉ-ESCUTA ============ -->
@@ -3762,7 +3784,7 @@
           <span class="shimmer-text" data-i18n="pricing.off">63% OFF</span>
         </div>
         <ul class="ed-feats">
-          <li data-i18n-html="pricing.f1"><strong>1.463 efeitos sonoros</strong> profissionais</li>
+          <li data-i18n-html="pricing.f1"><strong>2.371 efeitos sonoros</strong> profissionais</li>
           <li data-i18n-html="pricing.f2">Painel <strong>nativo</strong> pro Adobe Premiere Pro</li>
           <li data-i18n-html="pricing.f3">Pré-escuta no hover, <strong>2 cliques</strong> e atalhos</li>
           <li data-i18n-html="pricing.f4">Controle de <strong>ganho na inserção</strong></li>
@@ -3812,7 +3834,7 @@
         </div>
         <div class="faq-item" onclick="this.classList.toggle('open')">
           <div class="faq-q"><span data-i18n="faq.q6">Posso criar pastas e importar meus sons?</span> <span class="plus">+</span></div>
-          <div class="faq-a" data-i18n="faq.a6">Sim. Além das 21 categorias prontas, você cria pastas próprias com cores, importa seus áudios e arrasta sons entre as pastas. O painel ainda monta uma aba "Top" com os sons que você mais usa.</div>
+          <div class="faq-a" data-i18n="faq.a6">Sim. Além das 18 categorias prontas, você cria pastas próprias com cores, importa seus áudios e arrasta sons entre as pastas. O painel ainda monta uma aba "Top" com os sons que você mais usa.</div>
         </div>
         <div class="faq-item" onclick="this.classList.toggle('open')">
           <div class="faq-q"><span data-i18n="faq.q7">Em quantas máquinas posso instalar?</span> <span class="plus">+</span></div>
@@ -3855,6 +3877,7 @@
 
   <!-- Rolagem suave (Lenis). Se o CDN falhar, a página rola normalmente. -->
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="assets/sfx/player.js"></script>
 
   <script>
   // =====================================================================
@@ -3867,7 +3890,7 @@
     /* ============================ PORTUGUÊS ============================ */
     pt: {
       "meta.title": "dropSFX · Sound effects no Premiere, After Effects e DaVinci",
-      "meta.desc": "Painel com 1.463 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único.",
+      "meta.desc": "Painel com 2.371 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único.",
 
       "nav.cta": "Comprar agora",
 
@@ -3901,7 +3924,7 @@
       "gain.lead": "Whoosh sempre alto demais? Riser baixo? Escolha <strong>-12, 0 ou +6 dB</strong> e o som já entra na timeline no volume certo. Adeus, abrir o mixer pra cada clipe.",
 
       "library.eyebrow": "№ 00 · A biblioteca",
-      "library.title": "<span class='fill'>1.463 sons</span><br><span class='blue'>21 categorias</span>",
+      "library.title": "<span class='fill'>2.371 sons</span><br><span class='blue'>18 categorias</span>",
       "library.lead": "Selecionados pra edição de verdade: de whooshes e impactos a glitches, risers e foley. Cada categoria com cor própria, pra você bater o olho e achar.",
 
       "pricing.eyebrow": "Investimento",
@@ -3916,7 +3939,7 @@
       "pricing.warranty": "Garantia",
       "pricing.warrantyv": "7 dias",
       "pricing.once": "Sem mensalidade, sem renovação · condição atual na página de checkout",
-      "pricing.f1": "<strong>1.463 efeitos sonoros</strong> profissionais",
+      "pricing.f1": "<strong>2.371 efeitos sonoros</strong> profissionais",
       "pricing.f2": "Painel <strong>nativo</strong> pro Adobe Premiere Pro",
       "pricing.f3": "Pré-escuta no hover, <strong>2 cliques</strong> e atalhos",
       "pricing.f4": "Controle de <strong>ganho na inserção</strong>",
@@ -3941,7 +3964,7 @@
       "faq.q5": "Posso usar em projetos comerciais?",
       "faq.a5": "Sim. Todos os sons são 100% royalty-free para qualquer uso comercial: YouTube monetizado, comerciais, filme, jingle, jogo.",
       "faq.q6": "Posso criar pastas e importar meus sons?",
-      "faq.a6": "Sim. Além das 21 categorias prontas, você cria pastas próprias com cores, importa seus áudios e arrasta sons entre as pastas. O painel ainda monta uma aba \"Top\" com os sons que você mais usa.",
+      "faq.a6": "Sim. Além das 18 categorias prontas, você cria pastas próprias com cores, importa seus áudios e arrasta sons entre as pastas. O painel ainda monta uma aba \"Top\" com os sons que você mais usa.",
       "faq.q7": "Em quantas máquinas posso instalar?",
       "faq.a7": "Até 2 máquinas simultaneamente, Mac e/ou Windows. Pode desativar e mover quando quiser.",
       "faq.q8": "Como recebo o produto?",
@@ -3995,7 +4018,7 @@
     /* ============================= ENGLISH ============================= */
     en: {
       "meta.title": "dropSFX · Sound effects inside Premiere, After Effects & DaVinci",
-      "meta.desc": "A panel with 1,463 professional sound effects inside Premiere Pro, After Effects and DaVinci Resolve. Hover to preview, drag to the timeline. One-time payment.",
+      "meta.desc": "A panel with 2,371 professional sound effects inside Premiere Pro, After Effects and DaVinci Resolve. Hover to preview, drag to the timeline. One-time payment.",
 
       "nav.cta": "Get it now",
 
@@ -4029,7 +4052,7 @@
       "gain.lead": "Whoosh always too loud? Riser too quiet? Pick <strong>-12, 0 or +6 dB</strong> and the sound lands on the timeline at the right level. No more opening the mixer for every clip.",
 
       "library.eyebrow": "№ 00 · The library",
-      "library.title": "<span class='fill'>1,463 sounds</span><br><span class='blue'>21 categories</span>",
+      "library.title": "<span class='fill'>2,371 sounds</span><br><span class='blue'>18 categories</span>",
       "library.lead": "Hand-picked for real editing: from whooshes and impacts to glitches, risers and foley. Every category color-coded, so you spot it at a glance.",
 
       "pricing.eyebrow": "Investment",
@@ -4044,7 +4067,7 @@
       "pricing.warranty": "Guarantee",
       "pricing.warrantyv": "7 days",
       "pricing.once": "No subscription, no renewal · current price shown at checkout",
-      "pricing.f1": "<strong>1,463 professional</strong> sound effects",
+      "pricing.f1": "<strong>2,371 professional</strong> sound effects",
       "pricing.f2": "<strong>Native</strong> panel for Adobe Premiere Pro",
       "pricing.f3": "Hover preview, <strong>2 clicks</strong> and shortcuts",
       "pricing.f4": "<strong>Gain control</strong> on insert",
@@ -4069,7 +4092,7 @@
       "faq.q5": "Can I use it in commercial projects?",
       "faq.a5": "Yes. Every sound is 100% royalty-free for any commercial use: monetized YouTube, commercials, film, jingles, games.",
       "faq.q6": "Can I create folders and import my own sounds?",
-      "faq.a6": "Yes. Beyond the 21 built-in categories, you can create your own color-coded folders, import your audio and drag sounds between folders. The panel also builds a \"Top\" tab with the sounds you use most.",
+      "faq.a6": "Yes. Beyond the 18 built-in categories, you can create your own color-coded folders, import your audio and drag sounds between folders. The panel also builds a \"Top\" tab with the sounds you use most.",
       "faq.q7": "On how many machines can I install it?",
       "faq.a7": "Up to 2 machines at the same time, Mac and/or Windows. You can deactivate and move whenever you want.",
       "faq.q8": "How do I receive the product?",
@@ -4123,7 +4146,7 @@
     /* ============================= ESPAÑOL ============================= */
     es: {
       "meta.title": "dropSFX · Efectos de sonido en Premiere, After Effects y DaVinci",
-      "meta.desc": "Panel con 1.463 efectos de sonido profesionales dentro de Premiere Pro, After Effects y DaVinci Resolve. Escucha al pasar el cursor, arrastra a la timeline. Pago único.",
+      "meta.desc": "Panel con 2.371 efectos de sonido profesionales dentro de Premiere Pro, After Effects y DaVinci Resolve. Escucha al pasar el cursor, arrastra a la timeline. Pago único.",
 
       "nav.cta": "Comprar ahora",
 
@@ -4157,7 +4180,7 @@
       "gain.lead": "¿El whoosh siempre demasiado alto? ¿El riser bajo? Elige <strong>-12, 0 o +6 dB</strong> y el sonido entra en la línea de tiempo al volumen correcto. Adiós a abrir el mixer en cada clip.",
 
       "library.eyebrow": "№ 00 · La biblioteca",
-      "library.title": "<span class='fill'>1.463 sonidos</span><br><span class='blue'>21 categorías</span>",
+      "library.title": "<span class='fill'>2.371 sonidos</span><br><span class='blue'>18 categorías</span>",
       "library.lead": "Seleccionados para edición real: desde whooshes e impactos hasta glitches, risers y foley. Cada categoría con su propio color, para encontrarla de un vistazo.",
 
       "pricing.eyebrow": "Inversión",
@@ -4172,7 +4195,7 @@
       "pricing.warranty": "Garantía",
       "pricing.warrantyv": "7 días",
       "pricing.once": "Sin mensualidad, sin renovación · el precio actual aparece en el checkout",
-      "pricing.f1": "<strong>1.463 efectos de sonido</strong> profesionales",
+      "pricing.f1": "<strong>2.371 efectos de sonido</strong> profesionales",
       "pricing.f2": "Panel <strong>nativo</strong> para Adobe Premiere Pro",
       "pricing.f3": "Pre-escucha al pasar el cursor, <strong>2 clics</strong> y atajos",
       "pricing.f4": "Control de <strong>ganancia al insertar</strong>",
@@ -4197,7 +4220,7 @@
       "faq.q5": "¿Puedo usarlo en proyectos comerciales?",
       "faq.a5": "Sí. Todos los sonidos son 100% libres de regalías para cualquier uso comercial: YouTube monetizado, comerciales, cine, jingles, videojuegos.",
       "faq.q6": "¿Puedo crear carpetas e importar mis sonidos?",
-      "faq.a6": "Sí. Además de las 21 categorías listas, creas tus propias carpetas con colores, importas tus audios y arrastras sonidos entre carpetas. El panel también arma una pestaña \"Top\" con los sonidos que más usas.",
+      "faq.a6": "Sí. Además de las 18 categorías listas, creas tus propias carpetas con colores, importas tus audios y arrastras sonidos entre carpetas. El panel también arma una pestaña \"Top\" con los sonidos que más usas.",
       "faq.q7": "¿En cuántos equipos puedo instalarlo?",
       "faq.a7": "Hasta 2 equipos simultáneamente, Mac y/o Windows. Puedes desactivar y mover cuando quieras.",
       "faq.q8": "¿Cómo recibo el producto?",
@@ -4251,7 +4274,7 @@
     /* ============================== हिन्दी ============================== */
     hi: {
       "meta.title": "dropSFX · Premiere, After Effects और DaVinci में साउंड इफ़ेक्ट्स",
-      "meta.desc": "Premiere Pro, After Effects और DaVinci Resolve के अंदर 1,463 प्रोफ़ेशनल साउंड इफ़ेक्ट्स वाला पैनल। हॉवर करके सुनें, टाइमलाइन पर खींचें। एक बार भुगतान।",
+      "meta.desc": "Premiere Pro, After Effects और DaVinci Resolve के अंदर 2,371 प्रोफ़ेशनल साउंड इफ़ेक्ट्स वाला पैनल। हॉवर करके सुनें, टाइमलाइन पर खींचें। एक बार भुगतान।",
 
       "nav.cta": "अभी खरीदें",
 
@@ -4285,7 +4308,7 @@
       "gain.lead": "व्हूश हमेशा बहुत तेज़? राइज़र धीमा? <strong>-12, 0 या +6 dB</strong> चुनिए और साउंड सही वॉल्यूम पर ही टाइमलाइन में आएगा। हर क्लिप के लिए मिक्सर खोलना बंद।",
 
       "library.eyebrow": "№ 00 · लाइब्रेरी",
-      "library.title": "<span class='fill'>1,463 साउंड</span><br><span class='blue'>21 कैटेगरी</span>",
+      "library.title": "<span class='fill'>2,371 साउंड</span><br><span class='blue'>18 कैटेगरी</span>",
       "library.lead": "असली एडिटिंग के लिए चुने गए: व्हूश और इम्पैक्ट से लेकर ग्लिच, राइज़र और फ़ॉली तक। हर कैटेगरी का अपना रंग, ताकि एक नज़र में मिल जाए।",
 
       "pricing.eyebrow": "निवेश",
@@ -4300,7 +4323,7 @@
       "pricing.warranty": "गारंटी",
       "pricing.warrantyv": "7 दिन",
       "pricing.once": "कोई मासिक शुल्क नहीं, कोई रिन्यूअल नहीं · मौजूदा कीमत चेकआउट पेज पर",
-      "pricing.f1": "<strong>1,463 प्रोफ़ेशनल</strong> साउंड इफ़ेक्ट्स",
+      "pricing.f1": "<strong>2,371 प्रोफ़ेशनल</strong> साउंड इफ़ेक्ट्स",
       "pricing.f2": "Adobe Premiere Pro के लिए <strong>नेटिव</strong> पैनल",
       "pricing.f3": "हॉवर प्री-लिसन, <strong>2 क्लिक</strong> और शॉर्टकट",
       "pricing.f4": "इन्सर्ट पर <strong>गेन कंट्रोल</strong>",
@@ -4325,7 +4348,7 @@
       "faq.q5": "क्या कमर्शियल प्रोजेक्ट में इस्तेमाल कर सकते हैं?",
       "faq.a5": "हाँ। सभी साउंड किसी भी कमर्शियल इस्तेमाल के लिए 100% रॉयल्टी-फ़्री हैं: मॉनिटाइज़्ड YouTube, विज्ञापन, फ़िल्म, जिंगल, गेम।",
       "faq.q6": "क्या अपने फ़ोल्डर बनाकर अपने साउंड इम्पोर्ट कर सकते हैं?",
-      "faq.a6": "हाँ। पहले से मौजूद 21 कैटेगरी के अलावा आप अपने रंगीन फ़ोल्डर बना सकते हैं, अपने ऑडियो इम्पोर्ट कर सकते हैं और साउंड को फ़ोल्डरों के बीच खींच सकते हैं। पैनल आपके सबसे ज़्यादा इस्तेमाल किए गए साउंड का \"Top\" टैब भी बनाता है।",
+      "faq.a6": "हाँ। पहले से मौजूद 18 कैटेगरी के अलावा आप अपने रंगीन फ़ोल्डर बना सकते हैं, अपने ऑडियो इम्पोर्ट कर सकते हैं और साउंड को फ़ोल्डरों के बीच खींच सकते हैं। पैनल आपके सबसे ज़्यादा इस्तेमाल किए गए साउंड का \"Top\" टैब भी बनाता है।",
       "faq.q7": "कितनी मशीनों पर इंस्टॉल कर सकते हैं?",
       "faq.a7": "एक साथ 2 मशीनों तक, Mac और/या Windows। जब चाहें डीएक्टिवेट करके दूसरी मशीन पर ले जा सकते हैं।",
       "faq.q8": "प्रोडक्ट कैसे मिलेगा?",
@@ -4489,12 +4512,12 @@
     document.querySelectorAll('video[autoplay]').forEach(function (v) { io.observe(v); });
   })();
 
-  // Contagem do número da biblioteca: 0 → 1.463 quando aparece na tela
+  // Contagem do número da biblioteca: 0 → 2.371 quando aparece na tela
   (function () {
     var box = document.getElementById('edFolder');
     var out = box && box.querySelector('.fold-num');
     if (!out) return;
-    var FINAL = 1463, DUR = 2200, done = false, current = 0;
+    var FINAL = 2371, DUR = 2200, done = false, current = 0;
 
     function fmt(n) {
       var lang = window.DropI18N ? DropI18N.get() : 'pt';
@@ -4531,46 +4554,46 @@
   (function () {
     var add = {
       pt: {
-        "ed.knocknum": "1.463",
-        "ed.knockcap": "sons prontos pra timeline, organizados em 21 categorias.",
+        "ed.knocknum": "2.371",
+        "ed.knockcap": "sons prontos pra timeline, organizados em 18 categorias.",
         "ed.libtitle": "Uma biblioteca<br><span class='blue'>feita para editar.</span>",
         "ed.colophon": "Feito por um editor, para editores.",
         "drag.title": "Arrastou, soltou.<br><span class='blue'>Já chega colorido.</span>",
         "drag.lead": "Prefere arrastar? <strong>Puxe o som do painel direto pra timeline</strong>. Ao soltar, o clipe já entra com a cor da categoria, e sua trilha de áudio fica organizada sem você mexer em nada.",
-        "ed.foldintro": "1.463 sons prontos pra timeline, <br>organizados em 21 categorias.",
+        "ed.foldintro": "2.371 sons prontos pra timeline, <br>organizados em 18 categorias.",
         "ed.hintmouse": "Passe o mouse na pasta",
         "ed.hinttouch": "Toque na pasta para abrir"
       },
       en: {
-        "ed.knocknum": "1,463",
-        "ed.knockcap": "sounds ready for the timeline, organized into 21 categories.",
+        "ed.knocknum": "2,371",
+        "ed.knockcap": "sounds ready for the timeline, organized into 18 categories.",
         "ed.libtitle": "A library<br><span class='blue'>built for editing.</span>",
         "ed.colophon": "Made by an editor, for editors.",
         "drag.title": "Drag it, drop it.<br><span class='blue'>It lands already colored.</span>",
         "drag.lead": "Prefer dragging? <strong>Pull the sound from the panel straight onto the timeline</strong>. When you drop it, the clip comes in with its category color, so your audio tracks stay organized with zero extra work.",
-        "ed.foldintro": "1,463 sounds ready for the timeline, <br>organized into 21 categories.",
+        "ed.foldintro": "2,371 sounds ready for the timeline, <br>organized into 18 categories.",
         "ed.hintmouse": "Hover over the folder",
         "ed.hinttouch": "Tap the folder to open"
       },
       es: {
-        "ed.knocknum": "1.463",
-        "ed.knockcap": "sonidos listos para la timeline, organizados en 21 categorías.",
+        "ed.knocknum": "2.371",
+        "ed.knockcap": "sonidos listos para la timeline, organizados en 18 categorías.",
         "ed.libtitle": "Una biblioteca<br><span class='blue'>hecha para editar.</span>",
         "ed.colophon": "Hecho por un editor, para editores.",
         "drag.title": "Arrastra y suelta.<br><span class='blue'>Llega ya con color.</span>",
         "drag.lead": "¿Prefieres arrastrar? <strong>Lleva el sonido del panel directo a la timeline</strong>. Al soltarlo, el clip entra con el color de su categoría, y tus pistas de audio quedan organizadas sin esfuerzo.",
-        "ed.foldintro": "1.463 sonidos listos para la timeline, <br>organizados en 21 categorías.",
+        "ed.foldintro": "2.371 sonidos listos para la timeline, <br>organizados en 18 categorías.",
         "ed.hintmouse": "Pasa el mouse por la carpeta",
         "ed.hinttouch": "Toca la carpeta para abrirla"
       },
       hi: {
-        "ed.knocknum": "1,463",
-        "ed.knockcap": "टाइमलाइन के लिए तैयार साउंड, 21 कैटेगरी में।",
+        "ed.knocknum": "2,371",
+        "ed.knockcap": "टाइमलाइन के लिए तैयार साउंड, 18 कैटेगरी में।",
         "ed.libtitle": "एक लाइब्रेरी<br><span class='blue'>एडिटिंग के लिए चुनी गई।</span>",
         "ed.colophon": "एक एडिटर द्वारा, एडिटर्स के लिए।",
         "drag.title": "खींचिए, छोड़िए।<br><span class='blue'>रंग के साथ पहुँचता है।</span>",
         "drag.lead": "खींचना पसंद है? <strong>साउंड को पैनल से सीधे टाइमलाइन पर खींचिए</strong>। छोड़ते ही क्लिप अपनी कैटेगरी के रंग में आता है, और आपके ऑडियो ट्रैक बिना मेहनत के व्यवस्थित रहते हैं।",
-        "ed.foldintro": "टाइमलाइन के लिए तैयार 1,463 साउंड, <br>21 कैटेगरी में।",
+        "ed.foldintro": "टाइमलाइन के लिए तैयार 2,371 साउंड, <br>18 कैटेगरी में।",
         "ed.hintmouse": "फ़ोल्डर पर माउस ले जाइए",
         "ed.hinttouch": "खोलने के लिए फ़ोल्डर पर टैप कीजिए"
       }
@@ -4796,7 +4819,7 @@
         "funnel.r.small": "Parece pouco. Mas é tempo que se repete <strong>todo mês</strong>, em todo projeto.",
         "funnel.r.fix0": "Com o dropSFX: sem YouTube, sem conversor, sem pop-up. O som toca no hover e entra na timeline com 2 cliques.",
         "funnel.r.fix1": "Com o dropSFX: sem .zip, sem extrair, sem importar. E sem mensalidade: você paga uma vez e usa pra sempre.",
-        "funnel.r.fix2": "Com o dropSFX: 1.463 sons organizados em 21 categorias coloridas, dentro do painel. Acabou a caça na pasta.",
+        "funnel.r.fix2": "Com o dropSFX: 2.371 sons organizados em 18 categorias coloridas, dentro do painel. Acabou a caça na pasta.",
         "funnel.r.fix3": "Com o dropSFX, colocar som leva 2 cliques. Aí você coloca em tudo, e é isso que muda o nível do vídeo.",
         "funnel.r.app0": "Funciona no Premiere Pro", "funnel.r.app1": "Funciona no After Effects", "funnel.r.app2": "Funciona no DaVinci Resolve",
         "funnel.r.app3": "Funciona nos três: Premiere, After Effects e DaVinci",
@@ -4837,7 +4860,7 @@
         "funnel.r.small": "Looks small. But it repeats <strong>every month</strong>, on every project.",
         "funnel.r.fix0": "With dropSFX: no YouTube, no converter, no pop-ups. The sound plays on hover and hits the timeline in 2 clicks.",
         "funnel.r.fix1": "With dropSFX: no .zip, no extracting, no importing. And no subscription: pay once, use forever.",
-        "funnel.r.fix2": "With dropSFX: 1,463 sounds organized into 21 color-coded categories, right in the panel. No more folder hunting.",
+        "funnel.r.fix2": "With dropSFX: 2,371 sounds organized into 18 color-coded categories, right in the panel. No more folder hunting.",
         "funnel.r.fix3": "With dropSFX, adding sound takes 2 clicks. So you add it everywhere, and that's what levels up a video.",
         "funnel.r.app0": "Works in Premiere Pro", "funnel.r.app1": "Works in After Effects", "funnel.r.app2": "Works in DaVinci Resolve",
         "funnel.r.app3": "Works in all three: Premiere, After Effects and DaVinci",
@@ -4878,7 +4901,7 @@
         "funnel.r.small": "Parece poco. Pero se repite <strong>cada mes</strong>, en cada proyecto.",
         "funnel.r.fix0": "Con dropSFX: sin YouTube, sin conversor, sin pop-ups. El sonido suena al pasar el mouse y entra en la timeline con 2 clics.",
         "funnel.r.fix1": "Con dropSFX: sin .zip, sin extraer, sin importar. Y sin suscripción: pagas una vez y lo usas para siempre.",
-        "funnel.r.fix2": "Con dropSFX: 1.463 sonidos organizados en 21 categorías de colores, dentro del panel. Se acabó buscar en carpetas.",
+        "funnel.r.fix2": "Con dropSFX: 2.371 sonidos organizados en 18 categorías de colores, dentro del panel. Se acabó buscar en carpetas.",
         "funnel.r.fix3": "Con dropSFX, poner sonido lleva 2 clics. Entonces lo pones en todo, y eso es lo que sube el nivel del video.",
         "funnel.r.app0": "Funciona en Premiere Pro", "funnel.r.app1": "Funciona en After Effects", "funnel.r.app2": "Funciona en DaVinci Resolve",
         "funnel.r.app3": "Funciona en los tres: Premiere, After Effects y DaVinci",
@@ -4919,7 +4942,7 @@
         "funnel.r.small": "कम लगता है। पर ये <strong>हर महीने</strong>, हर प्रोजेक्ट में दोहराता है।",
         "funnel.r.fix0": "dropSFX के साथ: न YouTube, न कन्वर्टर, न पॉप-अप। होवर पर साउंड बजता है और 2 क्लिक में टाइमलाइन पर।",
         "funnel.r.fix1": "dropSFX के साथ: न .zip, न एक्सट्रैक्ट, न इम्पोर्ट। और कोई सब्सक्रिप्शन नहीं: एक बार दीजिए, हमेशा इस्तेमाल कीजिए।",
-        "funnel.r.fix2": "dropSFX के साथ: 21 रंगीन कैटेगरी में 1,463 साउंड, सीधे पैनल में। फ़ोल्डर में ढूँढना ख़त्म।",
+        "funnel.r.fix2": "dropSFX के साथ: 18 रंगीन कैटेगरी में 2,371 साउंड, सीधे पैनल में। फ़ोल्डर में ढूँढना ख़त्म।",
         "funnel.r.fix3": "dropSFX के साथ साउंड लगाने में 2 क्लिक लगते हैं। तो आप हर जगह लगाते हैं, और यही वीडियो का लेवल बढ़ाता है।",
         "funnel.r.app0": "Premiere Pro में चलता है", "funnel.r.app1": "After Effects में चलता है", "funnel.r.app2": "DaVinci Resolve में चलता है",
         "funnel.r.app3": "तीनों में चलता है: Premiere, After Effects और DaVinci",
@@ -5199,40 +5222,48 @@
   (function () {
     var add = {
       pt: {
+        "listen.title": "Ouça <span class='blue'>a qualidade.</span>",
+        "listen.lead": "Sons reais da biblioteca do plugin, 3 de cada categoria. Coloca o fone e passa o mouse.",
         "demo.title": "Na prática.<br><span class='blue'>Sem sair do Premiere.</span>",
         "demo.lead": "Gravação de tela real, direto do Premiere: abrir a categoria, <strong>ouvir no hover</strong> e mandar o som pra timeline. Liga o som pra ouvir junto.",
         "demo.rec": "Tela real · Premiere Pro",
         "demo.soundon": "Ouvir com som",
         "demo.soundoff": "Tirar o som",
         "demo.cta": "Quero isso no meu Premiere",
-        "demo.note": "1.463 sons · Premiere, After Effects e DaVinci"
+        "demo.note": "2.371 sons · Premiere, After Effects e DaVinci"
       },
       en: {
+        "listen.title": "Hear <span class='blue'>the quality.</span>",
+        "listen.lead": "Real sounds from the plugin library, 3 from each category. Put your headphones on and hover.",
         "demo.title": "In practice.<br><span class='blue'>Without leaving Premiere.</span>",
         "demo.lead": "A real screen recording, straight from Premiere: open a category, <strong>hear it on hover</strong> and send the sound to the timeline. Turn the sound on to listen along.",
         "demo.rec": "Real screen · Premiere Pro",
         "demo.soundon": "Play with sound",
         "demo.soundoff": "Mute",
         "demo.cta": "I want this in my Premiere",
-        "demo.note": "1,463 sounds · Premiere, After Effects & DaVinci"
+        "demo.note": "2,371 sounds · Premiere, After Effects & DaVinci"
       },
       es: {
+        "listen.title": "Escucha <span class='blue'>la calidad.</span>",
+        "listen.lead": "Sonidos reales de la biblioteca del plugin, 3 de cada categoría. Ponte los auriculares y pasa el mouse.",
         "demo.title": "En la práctica.<br><span class='blue'>Sin salir de Premiere.</span>",
         "demo.lead": "Grabación de pantalla real, directo de Premiere: abrir la categoría, <strong>escuchar al pasar el mouse</strong> y mandar el sonido a la timeline. Activa el sonido para escuchar.",
         "demo.rec": "Pantalla real · Premiere Pro",
         "demo.soundon": "Escuchar con sonido",
         "demo.soundoff": "Quitar sonido",
         "demo.cta": "Lo quiero en mi Premiere",
-        "demo.note": "1.463 sonidos · Premiere, After Effects y DaVinci"
+        "demo.note": "2.371 sonidos · Premiere, After Effects y DaVinci"
       },
       hi: {
+        "listen.title": "क्वालिटी <span class='blue'>सुनिए।</span>",
+        "listen.lead": "प्लगइन लाइब्रेरी की असली आवाज़ें, हर कैटेगरी से 3। हेडफ़ोन लगाइए और माउस ले जाइए।",
         "demo.title": "असल इस्तेमाल।<br><span class='blue'>Premiere छोड़े बिना।</span>",
         "demo.lead": "Premiere से सीधी असली स्क्रीन रिकॉर्डिंग: कैटेगरी खोलिए, <strong>होवर पर सुनिए</strong> और साउंड टाइमलाइन पर भेजिए। साथ सुनने के लिए साउंड चालू कीजिए।",
         "demo.rec": "असली स्क्रीन · Premiere Pro",
         "demo.soundon": "साउंड के साथ चलाएँ",
         "demo.soundoff": "म्यूट करें",
         "demo.cta": "मुझे यह मेरे Premiere में चाहिए",
-        "demo.note": "1,463 साउंड · Premiere, After Effects और DaVinci"
+        "demo.note": "2,371 साउंड · Premiere, After Effects और DaVinci"
       }
     };
     for (var lang in add) for (var k in add[lang]) I18N[lang][k] = add[lang][k];
@@ -5864,15 +5895,14 @@
   // LIBRARY MARQUEE (re-renderiza a cada troca de idioma)
   // =====================================================================
   window.renderMarquee = (function () {
-    // Pasta da biblioteca: 21 folhas (uma por categoria) que saem em leque no hover
+    // Pasta da biblioteca: 18 folhas (uma por categoria) que saem em leque no hover
     var cats = [
-      ['cat.whooshes',240,'#2dd4bf'],['cat.transitions',179,'#facc15'],['cat.drops',142,'#a78bfa'],
-      ['cat.clicks',130,'#38bdf8'],['cat.foley',127,'#06b6d4'],['cat.risers',98,'#fb923c'],
-      ['cat.elements',85,'#4ade80'],['cat.memes',71,'#f472b6'],['cat.hits',63,'#f87171'],
-      ['cat.glitches',45,'#60a5fa'],['cat.guns',45,'#f87171'],['cat.reverb',39,'#4ade80'],
-      ['cat.retro',29,'#b45309'],['cat.hud',27,'#38bdf8'],['cat.ambient',26,'#4ade80'],
-      ['cat.nature',24,'#4ade80'],['cat.emotion',18,'#f472b6'],['cat.camera',17,'#94a3b8'],
-      ['cat.bells',16,'#b45309'],['cat.slowmo',13,'#a78bfa'],['cat.tonal',29,'#facc15']
+      ['cat.whooshes',436,'#2dd4bf'],['cat.foley',231,'#06b6d4'],['cat.hits',196,'#f87171'],
+      ['cat.drops',192,'#a78bfa'],['cat.tonal',185,'#facc15'],['cat.clicks',169,'#38bdf8'],
+      ['cat.camera',139,'#94a3b8'],['cat.ambient',124,'#4ade80'],['cat.transitions',110,'#fde047'],
+      ['cat.risers',110,'#fb923c'],['cat.nature',77,'#65a30d'],['cat.memes',71,'#f472b6'],
+      ['cat.elements',69,'#d97706'],['cat.glitches',65,'#60a5fa'],['cat.guns',58,'#ef4444'],
+      ['cat.hud',55,'#22d3ee'],['cat.slowmo',50,'#c4b5fd'],['cat.retro',34,'#b45309']
     ].sort(function (a, b) { return b[1] - a[1]; });
 
     function wave(seed) {
@@ -6239,6 +6269,7 @@
       clearTimeout(timer);
       if (now) flush(); else timer = setTimeout(flush, 1500);
     }
+    window.dropTrack = ev;
     ev('page_view', p.has('direto') ? 'direto' : 'normal');
     // compra ligada à sessão: o sck vai no link e volta no webhook da Kiwify
     document.addEventListener('click', function (e) {
@@ -6255,6 +6286,22 @@
     }, { passive: true });
     document.addEventListener('visibilitychange', function () {
       if (document.visibilityState === 'hidden') { ev('exit', null, { s: Math.round((Date.now() - t0) / 1000) }); flush(true); }
+    });
+  })();
+
+  // Player de sons reais (assets/sfx/player.js)
+  (function () {
+    var el = document.getElementById('sfxPlayerHome'), player = null;
+    if (!el) return;
+    document.addEventListener('dropsfx:langchange', function (e) {
+      var l = (e.detail && e.detail.lang) || 'pt';
+      if (!window.DropSFXPlayer) return;
+      if (!player) player = DropSFXPlayer.mount(el, {
+        lang: l, max: 8,
+        onPlay: function (id, cat) { if (window.dropTrack) window.dropTrack('sfx_play', id, { cat: cat }); },
+        onTab: function (t) { if (window.dropTrack) window.dropTrack('sfx_tab', t); }
+      });
+      else player.setLang(l);
     });
   })();
 
