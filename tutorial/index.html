@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>dropSFX — Bem-vindo</title>
 <meta name="theme-color" content="#000000"/>
-<meta name="description" content="Sua jornada com o dropSFX começa agora. Instale, ative e transforme sua edição no Premiere Pro."/>
+<meta name="description" content="Sua jornada com o dropSFX começa agora. Instale e ative no Premiere Pro, After Effects ou DaVinci Resolve Studio."/>
 <link rel="icon" type="image/x-icon" href="favicon.ico"/>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"/>
 <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png"/>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#000; --surface:#0a0a0d; --surface2:#111116; --surface3:#16161c;
@@ -403,6 +403,7 @@
     box-shadow:0 10px 30px rgba(37,211,102,.45)}
   .wa-btn svg{width:20px;height:20px;fill:#fff}
 
+  body.lang-hi :not(code):not(pre):not(.mono){font-family:'Outfit','Inter','Noto Sans Devanagari',sans-serif}
   footer{text-align:center;padding:40px 0;color:var(--txt3);font-size:12px;
     border-top:1px solid var(--line)}
   footer .logo-img{height:20px;margin:0 auto 12px;opacity:.6}
@@ -475,6 +476,7 @@
         <button type="button" data-lang="pt" onclick="setLang('pt')">PT</button>
         <button type="button" data-lang="en" onclick="setLang('en')">EN</button>
         <button type="button" data-lang="es" onclick="setLang('es')">ES</button>
+        <button type="button" data-lang="hi" onclick="setLang('hi')">HI</button>
       </div>
       <a class="nav-cta" href="https://wa.me/5527992625721" target="_blank" rel="noopener">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35z"/></svg>
@@ -510,7 +512,7 @@
     <img class="hero-logo" src="logo.png" alt="dropSFX"/>
     <span class="badge"><span class="badge-dot"></span><span data-i18n="hero.badge">Compra confirmada</span></span>
     <h1 data-i18n="hero.title">Bem-vindo ao<br><span class="ice">próximo nível.</span></h1>
-    <p data-i18n="hero.sub">Sua jornada começa agora. Em poucos minutos, o dropSFX vai estar rodando dentro do seu editor.</p>
+    <p data-i18n="hero.sub">Sua jornada começa agora. Em poucos minutos, seus 2.371 sons vão estar dentro do seu editor.</p>
   </div>
 </header>
 
@@ -585,7 +587,7 @@
         <div class="step-n">1</div>
         <div class="step-body">
           <strong data-i18n="mac1.t">Extraia o arquivo</strong>
-          <p data-i18n="mac1.p">Clique duas vezes no <b>DropSFX.2.0.zip</b> que você baixou. Vai criar uma pasta chamada <b>DropSFX</b>.</p>
+          <p data-i18n="mac1.p">Clique duas vezes no <b>dropSFX-oficial.zip</b> que você baixou. Vai criar uma pasta chamada <b>dropsfx-oficial</b>.</p>
         </div>
       </div>
       <div class="step reveal" data-stepid="mac2">
@@ -595,7 +597,7 @@
           <strong data-i18n="mac2.t">Abra a pasta de extensões</strong>
           <p data-i18n="mac2.p1">No Finder, aperte <b>⇧⌘G</b> e cole o caminho:</p>
           <div class="path"><span class="path-text">~/Library/Application Support/Adobe/CEP/extensions/</span><button class="copy-btn" onclick="copyTxt(this,'~/Library/Application Support/Adobe/CEP/extensions/')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg><span data-i18n="copy.label">copiar</span></button></div>
-          <p style="margin-top:8px" data-i18n="mac2.p2">Cole a pasta <b>DropSFX</b> aqui dentro. (Se a pasta <b>extensions</b> não existir, crie ela.)</p>
+          <p style="margin-top:8px" data-i18n="mac2.p2">Cole a pasta <b>dropsfx-oficial</b> aqui dentro. (Se a pasta <b>extensions</b> não existir, crie ela. Já tinha uma versão antiga? Apague a pasta antiga do dropSFX antes.)</p>
         </div>
       </div>
       <div class="step reveal" data-stepid="mac3">
@@ -624,7 +626,7 @@
         <div class="step-n">1</div>
         <div class="step-body">
           <strong data-i18n="win1.t">Extraia o arquivo</strong>
-          <p data-i18n="win1.p">Botão direito no <b>DropSFX.2.0.zip</b> → <b>Extrair tudo</b>. Vai criar uma pasta chamada <b>DropSFX</b>.</p>
+          <p data-i18n="win1.p">Botão direito no <b>dropSFX-oficial.zip</b> → <b>Extrair tudo</b>. Vai criar uma pasta chamada <b>dropsfx-oficial</b>.</p>
         </div>
       </div>
       <div class="step reveal" data-stepid="win2">
@@ -634,7 +636,7 @@
           <strong data-i18n="win2.t">Abra a pasta de extensões</strong>
           <p data-i18n="win2.p1">No <b>Explorador de Arquivos</b>, cole o caminho na barra de endereço:</p>
           <div class="path"><span class="path-text">C:\Program Files (x86)\Common Files\Adobe\CEP\extensions\</span><button class="copy-btn" onclick="copyTxt(this,'C:\\Program Files (x86)\\Common Files\\Adobe\\CEP\\extensions\\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg><span data-i18n="copy.label">copiar</span></button></div>
-          <p style="margin-top:8px" data-i18n="win2.p2">Cole a pasta <b>DropSFX</b> aqui. (Se <b>CEP\extensions</b> não existir, crie. Pode pedir permissão de admin — clique "Continuar".)</p>
+          <p style="margin-top:8px" data-i18n="win2.p2">Cole a pasta <b>dropsfx-oficial</b> aqui. (Se <b>CEP\extensions</b> não existir, crie. Pode pedir permissão de admin — clique "Continuar". Já tinha uma versão antiga? Apague a pasta antiga do dropSFX antes.)</p>
         </div>
       </div>
       <div class="step reveal" data-stepid="win3">
@@ -689,7 +691,7 @@
           <div class="dl-info">
             <h3>dropSFX-resolve.zip</h3>
             <div class="dl-meta">
-              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="dl.version" class="dl-version-tag">Versão 2.2.1</span></span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="dl.version.res" class="dl-version-tag">Versão 2.2.1</span></span>
               <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span data-i18n="dl.studio">Resolve Studio 18.5+</span></span>
               <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/></svg>~265 MB</span>
             </div>
@@ -808,8 +810,8 @@
       <div class="step-check" onclick="toggleStep(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
       <div class="step-n">3</div>
       <div class="step-body">
-        <strong data-i18n="acc3.t">Volte pro Premiere</strong>
-        <p data-i18n="acc3.p">A página vai dizer <b>"Tudo certo!"</b>. É só voltar pro Premiere — o plugin entra sozinho em alguns segundos.</p>
+        <strong data-i18n="acc3.t">Volte pro seu editor</strong>
+        <p data-i18n="acc3.p">A página vai dizer <b>"Tudo certo!"</b>. É só voltar pro Premiere, After Effects ou DaVinci — o plugin entra sozinho em alguns segundos.</p>
       </div>
     </div>
 
@@ -838,17 +840,17 @@
       <div class="ucard reveal d1">
         <div class="ucard-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
         <h3 data-i18n="uc2.t">2. Pré-escute</h3>
-        <p data-i18n="uc2.p">Clique no play pra ouvir com a forma de onda antes de inserir. Sinta o som.</p>
+        <p data-i18n="uc2.p">Passe o mouse ou clique no play pra ouvir com a forma de onda antes de inserir.</p>
       </div>
       <div class="ucard reveal d2">
         <div class="ucard-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
-        <h3 data-i18n="uc3.t">3. Escolha a trilha</h3>
-        <p data-i18n="uc3.p">Selecione a faixa de áudio (A1, A2…) no seletor, ou deixe no <b>Auto</b>.</p>
+        <h3 data-i18n="uc3.t">3. Trilha e volume</h3>
+        <p data-i18n="uc3.p">Escolha a faixa de áudio (A1, A2…) ou deixe no <b>Auto</b>, e o ganho (-12, 0 ou +6 dB) antes de inserir.</p>
       </div>
       <div class="ucard reveal d3">
         <div class="ucard-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg></div>
-        <h3 data-i18n="uc4.t">4. Clique em Inserir</h3>
-        <p data-i18n="uc4.p">O som entra exatamente no cursor de tempo, na trilha escolhida. Pronto.</p>
+        <h3 data-i18n="uc4.t">4. Insira ou arraste</h3>
+        <p data-i18n="uc4.p">Clique em <b>Inserir</b> e o som entra no cursor de tempo, na trilha escolhida, já com a cor da categoria. Ou arraste direto pra timeline.</p>
       </div>
     </div>
 
@@ -867,7 +869,11 @@
     <div class="reveal d2">
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq1.q">O painel não aparece no menu Extensões. E agora?</span><span class="faq-icon"></span></button>
-        <div class="faq-a"><p data-i18n="faq1.a">Confirme 3 coisas: (1) a pasta <b>DropSFX</b> está diretamente dentro de <b>extensions</b> (não dentro de outra pasta); (2) você rodou o comando de liberar extensões do passo 3; (3) reiniciou o Premiere por completo. Se ainda não aparecer, chame no suporte.</p></div>
+        <div class="faq-a"><p data-i18n="faq1.a">Confirme 3 coisas: (1) a pasta <b>dropsfx-oficial</b> está diretamente dentro de <b>extensions</b> (não dentro de outra pasta); (2) você rodou o comando de liberar extensões do passo 3; (3) fechou e abriu de novo o Premiere ou After Effects por completo. Se ainda não aparecer, chame no suporte.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq12.q">Já tenho uma versão antiga instalada. Como atualizo?</span><span class="faq-icon"></span></button>
+        <div class="faq-a"><p data-i18n="faq12.a">Feche o Premiere e o After Effects. Na pasta <b>extensions</b> (passo 2), apague a pasta antiga do dropSFX (<b>DropSFX</b> ou <b>dropsfx-oficial</b>) e cole a nova no lugar. Não deixe as duas juntas. Abra o app de novo: sua conta e sua licença continuam as mesmas.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq2.q">Preciso saber qual versão do CSXS eu tenho?</span><span class="faq-icon"></span></button>
@@ -894,8 +900,8 @@
         <div class="faq-a"><p data-i18n="faq8.a">Só na primeira vez, pra login e verificação. Depois os sons ficam no seu computador e você usa offline.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq9.q">Funciona em qual versão do Premiere?</span><span class="faq-icon"></span></button>
-        <div class="faq-a"><p data-i18n="faq9.a">Adobe Premiere Pro CC 2020 em diante, incluindo as versões mais recentes, no Mac (Intel e Apple Silicon) e Windows 10/11.</p></div>
+        <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq9.q">Funciona em quais versões?</span><span class="faq-icon"></span></button>
+        <div class="faq-a"><p data-i18n="faq9.a">Premiere Pro 2020 em diante e After Effects 2021 em diante, incluindo as versões mais recentes, no Mac (Intel e Apple Silicon) e Windows 10/11. Pro DaVinci, veja a pergunta abaixo.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq10.q">Funciona no DaVinci Resolve?</span><span class="faq-icon"></span></button>
@@ -924,7 +930,7 @@
 
 <footer>
   <img class="logo-img" src="logo.png" alt="dropSFX"/>
-  <div data-i18n="footer.txt">© 2026 dropSFX · Plugin para Adobe Premiere Pro</div>
+  <div data-i18n="footer.txt">© 2026 dropSFX · Plugin para Premiere Pro, After Effects e DaVinci Resolve Studio</div>
 </footer>
 
 <div id="celebrate">
@@ -933,7 +939,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
     </div>
     <h2 data-i18n="celebrate.h2">Tudo pronto! 🎉</h2>
-    <p data-i18n="celebrate.p">Você completou a instalação do dropSFX. Agora é só abrir o Premiere e deixar a criatividade fluir.</p>
+    <p data-i18n="celebrate.p">Você completou a instalação do dropSFX. Agora é só abrir seu editor e deixar a criatividade fluir.</p>
     <button class="celebrate-btn" onclick="closeCelebrate()">
       <span data-i18n="celebrate.btn">Bora editar</span>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
@@ -948,32 +954,34 @@
   /* ═══════════════ i18n (PT canônico no HTML · EN/ES no dicionário) ═══════════════ */
   const I18N={
     en:{
+      'faq12.a':'Close Premiere and After Effects. In the <b>extensions</b> folder (step 2), delete the old dropSFX folder (<b>DropSFX</b> or <b>dropsfx-oficial</b>) and paste the new one in its place. Don’t keep both. Open the app again: your account and license stay the same.',
+      'faq12.q':'I already have an older version installed. How do I update?',
       'page.title':'dropSFX — Welcome',
-      'page.desc':'Your dropSFX journey starts now. Install, activate and transform your editing in Premiere Pro.',
+      'page.desc':'Your dropSFX journey starts now. Install and activate it in Premiere Pro, After Effects or DaVinci Resolve Studio.',
       'intro.text':'Preparing your experience',
       'nav.support':'Support',
       'progress.install':'Install','progress.signin':'Sign in','progress.use':'Use',
       'hero.badge':'Purchase confirmed',
       'hero.title':'Welcome to the<br><span class="ice">next level.</span>',
-      'hero.sub':'Your journey starts now. In a few minutes, dropSFX will be running inside your editor.',
+      'hero.sub':'Your journey starts now. In a few minutes, your 2,371 sounds will be right inside your editor.',
       's1.num':'Installation','s1.h2':'Install the panel.',
       's1.sub':'Download the file and follow the steps for your system. Check off each step as you go.',
-      'dl.version':'Version 2.0','dl.platforms':'Mac & Windows','dl.btn':'Download now',
+      'dl.version':'Version 2.6.3','dl.version.res':'Version 2.2.1','dl.platforms':'Mac & Windows','dl.btn':'Download now',
       'mac1.t':'Extract the file',
-      'mac1.p':'Double-click the <b>DropSFX.2.0.zip</b> you downloaded. It will create a folder called <b>DropSFX</b>.',
+      'mac1.p':'Double-click the <b>dropSFX-oficial.zip</b> you downloaded. It will create a folder called <b>dropsfx-oficial</b>.',
       'mac2.t':'Open the extensions folder',
       'mac2.p1':'In Finder, press <b>⇧⌘G</b> and paste the path:',
-      'mac2.p2':'Paste the <b>DropSFX</b> folder in here. (If the <b>extensions</b> folder doesn\u2019t exist, create it.)',
+      'mac2.p2':'Paste the <b>dropsfx-oficial</b> folder in here. (If the <b>extensions</b> folder doesn’t exist, create it. Had an older version? Delete the old dropSFX folder first.)',
       'mac3.t':'Enable extensions (works on every version)',
       'mac3.p1':'Open <b>Terminal</b>, paste the command below and press Enter. It enables everything at once for any Premiere version.',
       'mac3.p2':'You don\u2019t need to know which version you have — the command covers everything from CS to the latest Premiere.',
       'mac4.t':'Restart Premiere or After Effects',
       'mac4.p':'Close and reopen the app. The panel is under <b>Window → Extensions → dropSFX</b> in both Premiere Pro and After Effects.',
       'win1.t':'Extract the file',
-      'win1.p':'Right-click <b>DropSFX.2.0.zip</b> → <b>Extract All</b>. It will create a folder called <b>DropSFX</b>.',
+      'win1.p':'Right-click <b>dropSFX-oficial.zip</b> → <b>Extract All</b>. It will create a folder called <b>dropsfx-oficial</b>.',
       'win2.t':'Open the extensions folder',
       'win2.p1':'In <b>File Explorer</b>, paste the path into the address bar:',
-      'win2.p2':'Paste the <b>DropSFX</b> folder here. (If <b>CEP\\extensions</b> doesn\u2019t exist, create it. It may ask for admin permission — click "Continue".)',
+      'win2.p2':'Paste the <b>dropsfx-oficial</b> folder here. (If <b>CEP\\extensions</b> doesn’t exist, create it. It may ask for admin permission — click "Continue". Had an older version? Delete the old dropSFX folder first.)',
       'win3.t':'Enable extensions (works on every version)',
       'win3.p1':'Press <b>Win + R</b>, type <b>cmd</b> and press Enter. Paste the command below and press Enter:',
       'win3.p2':'You don\u2019t need to know which version you have — the command covers everything from CS to the latest Premiere.',
@@ -986,23 +994,23 @@
       'gbtn.label':'Sign in with Google',
       'acc2.t':'Choose your account in the browser',
       'acc2.p':'A tab opens in your browser. <b>Select the Google account of the email you used for the purchase</b> and authorize access.',
-      'acc3.t':'Go back to Premiere',
-      'acc3.p':'The page will say <b>"All set!"</b>. Just go back to Premiere — the plugin signs in by itself within a few seconds.',
+      'acc3.t':'Go back to your editor',
+      'acc3.p':'The page will say <b>"All set!"</b>. Just go back to Premiere, After Effects or DaVinci — the plugin signs in by itself in a few seconds.',
       'note.access':'Use the same Google account as the email on your Kiwify receipt. If you sign in with a different account, access will be blocked.',
       's3.num':'How to use','s3.h2':'Sound on the timeline<br>in one click.',
       's3.sub':'The flow is simple: pick, listen, insert.',
       'uc1.t':'1. Find the sound',
       'uc1.p':'Use the search ("soft whoosh", "impact") or browse the color-coded categories.',
       'uc2.t':'2. Preview it',
-      'uc2.p':'Hit play to listen with the waveform before inserting. Feel the sound.',
-      'uc3.t':'3. Pick the track',
-      'uc3.p':'Select the audio track (A1, A2…) in the selector, or leave it on <b>Auto</b>.',
-      'uc4.t':'4. Click Insert',
-      'uc4.p':'The sound lands exactly at the playhead, on the chosen track. Done.',
+      'uc2.p':'Hover or click play to hear it with the waveform before inserting.',
+      'uc3.t':'3. Track and volume',
+      'uc3.p':'Pick the audio track (A1, A2…) or leave it on <b>Auto</b>, and the gain (-12, 0 or +6 dB) before inserting.',
+      'uc4.t':'4. Insert or drag',
+      'uc4.p':'Click <b>Insert</b> and the sound lands at the playhead on the chosen track, already in its category color. Or drag it straight to the timeline.',
       's4.num':'Questions','s4.h2':'Frequently asked questions.',
       's4.sub':'The most common questions from people getting started.',
       'faq1.q':'The panel doesn\u2019t show up in the Extensions menu. Now what?',
-      'faq1.a':'Check 3 things: (1) the <b>DropSFX</b> folder is directly inside <b>extensions</b> (not inside another folder); (2) you ran the enable-extensions command from step 3; (3) you fully restarted Premiere. If it still doesn\u2019t show up, message support.',
+      'faq1.a':'Check 3 things: (1) the <b>dropsfx-oficial</b> folder is directly inside <b>extensions</b> (not inside another folder); (2) you ran the enable-extensions command from step 3; (3) you fully closed and reopened Premiere or After Effects. If it still doesn’t show up, contact support.',
       'faq2.q':'Do I need to know which CSXS version I have?',
       'faq2.a':'No. The step-3 command enables every version at once (6 through 12), so it works on any Premiere. Just for reference: <b>CSXS.11</b> = Premiere 2022/2023 and <b>CSXS.12</b> = Premiere 2024/2025 onward. Running it for versions you don\u2019t have installed causes no problems.',
       'faq3.q':'Can I sign in with a Google account different from my purchase email?',
@@ -1015,8 +1023,8 @@
       'faq6.a':'Up to 2 machines (Mac and/or Windows). If you need to switch machines, just message support to free up a slot.',
       'faq8.q':'Do I need internet to use it?',
       'faq8.a':'Only the first time, for login and verification. After that the sounds live on your computer and you can use it offline.',
-      'faq9.q':'Which Premiere versions does it work with?',
-      'faq9.a':'Adobe Premiere Pro CC 2020 and later, including the latest versions, on Mac (Intel and Apple Silicon) and Windows 10/11.',
+      'faq9.q':'Which versions does it work with?',
+      'faq9.a':'Premiere Pro 2020 and later and After Effects 2021 and later, including the latest versions, on Mac (Intel and Apple Silicon) and Windows 10/11. For DaVinci, see the question below.',
       'app.adobe':'Premiere Pro & After Effects','app.adobe.sub':'Install as a CEP extension',
       'app.resolve':'DaVinci Resolve','app.resolve.sub':'Studio version only (paid)',
       'dl.studio':'Resolve Studio 18.5+',
@@ -1042,39 +1050,163 @@
       'support.p':'Send us a WhatsApp message. We\u2019ll help you get installed in minutes.',
       'support.btn':'Chat on WhatsApp',
       'wa.msg':'Hi! I need help installing dropSFX',
-      'footer.txt':'© 2026 dropSFX · Plugin for Adobe Premiere Pro',
+      'footer.txt':'© 2026 dropSFX · Plugin for Premiere Pro, After Effects and DaVinci Resolve Studio',
       'celebrate.h2':'All set! 🎉',
-      'celebrate.p':'You\u2019ve completed the dropSFX installation. Now just open Premiere and let the creativity flow.',
+      'celebrate.p':'You’ve completed the dropSFX installation. Now just open your editor and let the creativity flow.',
       'celebrate.btn':'Let\u2019s edit','celebrate.close':'Close',
       'copy.label':'copy','copy.done':'copied'
     },
+    hi:{
+      'page.title':'dropSFX — स्वागत है',
+      'page.desc':'dropSFX के साथ आपकी शुरुआत अभी। Premiere Pro, After Effects या DaVinci Resolve Studio में इंस्टॉल और एक्टिवेट करें।',
+      'intro.text':'आपका अनुभव तैयार हो रहा है',
+      'nav.support':'सपोर्ट',
+      'progress.install':'इंस्टॉल',
+      'progress.signin':'लॉगिन',
+      'progress.use':'इस्तेमाल',
+      'hero.badge':'ख़रीद कन्फ़र्म',
+      'hero.title':'अगले लेवल में<br><span class="ice">आपका स्वागत है।</span>',
+      'hero.sub':'आपकी शुरुआत अभी। कुछ ही मिनटों में आपके 2,371 साउंड आपके एडिटर के अंदर होंगे।',
+      's1.num':'इंस्टॉलेशन',
+      's1.h2':'पैनल इंस्टॉल करें।',
+      's1.sub':'फ़ाइल डाउनलोड करें और अपने सिस्टम के स्टेप फ़ॉलो करें। हर स्टेप पूरा होने पर उसे टिक करें।',
+      'dl.version':'वर्ज़न 2.6.3',
+      'dl.version.res':'वर्ज़न 2.2.1',
+      'dl.platforms':'Mac और Windows',
+      'dl.btn':'अभी डाउनलोड करें',
+      'mac1.t':'फ़ाइल एक्सट्रैक्ट करें',
+      'mac1.p':'डाउनलोड की गई <b>dropSFX-oficial.zip</b> पर डबल-क्लिक करें। <b>dropsfx-oficial</b> नाम का फ़ोल्डर बनेगा।',
+      'mac2.t':'एक्सटेंशन फ़ोल्डर खोलें',
+      'mac2.p1':'Finder में <b>⇧⌘G</b> दबाएँ और यह पाथ पेस्ट करें:',
+      'mac2.p2':'<b>dropsfx-oficial</b> फ़ोल्डर यहाँ पेस्ट करें। (अगर <b>extensions</b> फ़ोल्डर नहीं है, तो बना लें। पहले से पुराना वर्ज़न है? पहले पुराना dropSFX फ़ोल्डर डिलीट करें।)',
+      'mac3.t':'एक्सटेंशन चालू करें (हर वर्ज़न पर चलता है)',
+      'mac3.p1':'<b>Terminal</b> खोलें, नीचे दिया कमांड पेस्ट करें और Enter दबाएँ। यह Premiere के हर वर्ज़न के लिए एक साथ चालू कर देता है।',
+      'mac3.p2':'आपको अपना वर्ज़न जानने की ज़रूरत नहीं — कमांड CS से लेकर नए Premiere तक सब कवर करता है।',
+      'mac4.t':'Premiere या After Effects रीस्टार्ट करें',
+      'mac4.p':'ऐप बंद करके फिर खोलें। पैनल Premiere Pro और After Effects दोनों में <b>Window → Extensions → dropSFX</b> में मिलेगा।',
+      'win1.t':'फ़ाइल एक्सट्रैक्ट करें',
+      'win1.p':'<b>dropSFX-oficial.zip</b> पर राइट-क्लिक → <b>Extract All</b>। <b>dropsfx-oficial</b> नाम का फ़ोल्डर बनेगा।',
+      'win2.t':'एक्सटेंशन फ़ोल्डर खोलें',
+      'win2.p1':'<b>File Explorer</b> में, एड्रेस बार में यह पाथ पेस्ट करें:',
+      'win2.p2':'<b>dropsfx-oficial</b> फ़ोल्डर यहाँ पेस्ट करें। (अगर <b>CEP\\extensions</b> नहीं है, तो बना लें। एडमिन परमिशन माँग सकता है — "Continue" पर क्लिक करें। पहले से पुराना वर्ज़न है? पहले पुराना dropSFX फ़ोल्डर डिलीट करें।)',
+      'win3.t':'एक्सटेंशन चालू करें (हर वर्ज़न पर चलता है)',
+      'win3.p1':'<b>Win + R</b> दबाएँ, <b>cmd</b> लिखें और Enter दबाएँ। नीचे दिया कमांड पेस्ट करें और Enter दबाएँ:',
+      'win3.p2':'आपको अपना वर्ज़न जानने की ज़रूरत नहीं — कमांड CS से लेकर नए Premiere तक सब कवर करता है।',
+      'win4.t':'Premiere या After Effects रीस्टार्ट करें',
+      'win4.p':'ऐप बंद करके फिर खोलें। पैनल Premiere Pro और After Effects दोनों में <b>Window → Extensions → dropSFX</b> में मिलेगा।',
+      's2.num':'एक्सेस',
+      's2.h2':'Google से लॉगिन करें।',
+      's2.sub':'न पासवर्ड, न साइन-अप। आप उसी Google अकाउंट से लॉगिन करते हैं जिस ई-मेल से ख़रीदा था।',
+      'acc1.t':'dropSFX पैनल खोलें',
+      'acc1.p':'dropSFX पैनल खोलें: Premiere और After Effects में <b>Window → Extensions → dropSFX</b>; DaVinci Resolve में <b>Workspace → Workflow Integrations → dropSFX</b>। लॉगिन स्क्रीन पर <b>Google से लॉगिन</b> पर क्लिक करें।',
+      'gbtn.label':'Google से लॉगिन',
+      'acc2.t':'ब्राउज़र में अपना अकाउंट चुनें',
+      'acc2.p':'आपके ब्राउज़र में एक टैब खुलेगा। <b>उसी ई-मेल का Google अकाउंट चुनें जिससे ख़रीदा था</b> और एक्सेस दें।',
+      'acc3.t':'अपने एडिटर पर वापस जाएँ',
+      'acc3.p':'पेज पर <b>"सब तैयार!"</b> दिखेगा। बस Premiere, After Effects या DaVinci पर वापस जाएँ — प्लगइन कुछ सेकंड में अपने-आप लॉगिन हो जाएगा।',
+      'note.access':'उसी Google अकाउंट का इस्तेमाल करें जो आपकी Kiwify रसीद वाले ई-मेल का है। दूसरे अकाउंट से लॉगिन करने पर एक्सेस ब्लॉक हो जाएगा।',
+      's3.num':'इस्तेमाल कैसे करें',
+      's3.h2':'एक क्लिक में<br>टाइमलाइन पर साउंड।',
+      's3.sub':'तरीका आसान है: चुनिए, सुनिए, डालिए।',
+      'uc1.t':'1. साउंड ढूँढें',
+      'uc1.p':'सर्च करें ("soft whoosh", "impact") या रंगीन कैटेगरी में देखें।',
+      'uc2.t':'2. पहले सुनें',
+      'uc2.p':'डालने से पहले माउस ले जाएँ या play पर क्लिक करके वेवफ़ॉर्म के साथ सुनें।',
+      'uc3.t':'3. ट्रैक और वॉल्यूम',
+      'uc3.p':'ऑडियो ट्रैक (A1, A2…) चुनें या <b>Auto</b> पर छोड़ दें, और डालने से पहले गेन (-12, 0 या +6 dB) चुनें।',
+      'uc4.t':'4. डालें या खींचें',
+      'uc4.p':'<b>Insert</b> पर क्लिक करें और साउंड चुने हुए ट्रैक पर प्लेहेड पर, कैटेगरी के रंग में आ जाता है। या सीधे टाइमलाइन पर खींचें।',
+      's4.num':'सवाल',
+      's4.h2':'अक्सर पूछे जाने वाले सवाल।',
+      's4.sub':'शुरुआत करने वालों के सबसे आम सवाल।',
+      'faq1.q':'Extensions मेनू में पैनल नहीं दिख रहा। अब क्या करें?',
+      'faq1.a':'3 चीज़ें जाँचें: (1) <b>dropsfx-oficial</b> फ़ोल्डर सीधे <b>extensions</b> के अंदर है (किसी और फ़ोल्डर के अंदर नहीं); (2) आपने स्टेप 3 का एक्सटेंशन चालू करने वाला कमांड चलाया; (3) Premiere या After Effects पूरी तरह बंद करके फिर खोला। फिर भी न दिखे तो सपोर्ट से बात करें।',
+      'faq12.q':'मेरे पास पुराना वर्ज़न इंस्टॉल है। अपडेट कैसे करूँ?',
+      'faq12.a':'Premiere और After Effects बंद करें। <b>extensions</b> फ़ोल्डर (स्टेप 2) में पुराना dropSFX फ़ोल्डर (<b>DropSFX</b> या <b>dropsfx-oficial</b>) डिलीट करें और उसकी जगह नया पेस्ट करें। दोनों साथ न रखें। ऐप फिर खोलें: आपका अकाउंट और लाइसेंस वही रहेंगे।',
+      'faq2.q':'क्या मुझे अपना CSXS वर्ज़न जानना ज़रूरी है?',
+      'faq2.a':'नहीं। स्टेप 3 का कमांड सभी वर्ज़न (6 से 12) एक साथ चालू करता है, इसलिए हर Premiere पर चलता है। जानकारी के लिए: <b>CSXS.11</b> = Premiere 2022/2023 और <b>CSXS.12</b> = Premiere 2024/2025 और आगे। जो वर्ज़न इंस्टॉल नहीं हैं उनके लिए चलाने से कोई दिक्कत नहीं होती।',
+      'faq3.q':'क्या मैं ख़रीद वाले ई-मेल से अलग Google अकाउंट से लॉगिन कर सकता हूँ?',
+      'faq3.a':'नहीं। आपका लाइसेंस आपकी Kiwify रसीद वाले ई-मेल से जुड़ा है। दूसरे Google अकाउंट से लॉगिन करने पर प्लगइन बताएगा कि उस अकाउंट के पास एक्सेस नहीं है। जुड़ा हुआ ई-मेल बदलना है? सपोर्ट को मैसेज करें, हम ठीक कर देंगे।',
+      'faq4.q':'Google अकाउंट चुनने की स्क्रीन नहीं दिख रही।',
+      'faq4.a':'अगर ब्राउज़र में सिर्फ़ एक Google अकाउंट लॉगिन है, तो वह बिना पूछे सीधे लॉगिन कर सकता है। अकाउंट बदलना हो तो Google में ऊपर दाईं ओर अपने अवतार पर क्लिक करें और दोबारा कोशिश करने से पहले <b>दूसरा अकाउंट जोड़ें</b> चुनें।',
+      'faq5.q':'मैं ई-मेल और पासवर्ड से लॉगिन करना चाहता हूँ। क्या यह हो सकता है?',
+      'faq5.a':'हाँ। प्लगइन की लॉगिन स्क्रीन पर ई-मेल और पासवर्ड का विकल्प भी है। पासवर्ड बनाना हो तो वेलकम ई-मेल में आए <b>"पासवर्ड बनाएँ"</b> लिंक का इस्तेमाल करें, या सपोर्ट से नया लिंक माँगें।',
+      'faq6.q':'कितने कंप्यूटरों पर इस्तेमाल कर सकता हूँ?',
+      'faq6.a':'2 मशीनों तक (Mac और/या Windows)। मशीन बदलनी हो तो सपोर्ट को मैसेज करें, हम जगह खाली कर देंगे।',
+      'faq8.q':'क्या इस्तेमाल के लिए इंटरनेट चाहिए?',
+      'faq8.a':'सिर्फ़ पहली बार, लॉगिन और वेरिफ़िकेशन के लिए। उसके बाद साउंड आपके कंप्यूटर पर रहते हैं और आप ऑफ़लाइन इस्तेमाल कर सकते हैं।',
+      'faq9.q':'किन वर्ज़न पर चलता है?',
+      'faq9.a':'Premiere Pro 2020 और आगे, और After Effects 2021 और आगे, नए वर्ज़न समेत, Mac (Intel और Apple Silicon) और Windows 10/11 पर। DaVinci के लिए नीचे वाला सवाल देखें।',
+      'app.adobe':'Premiere Pro और After Effects',
+      'app.adobe.sub':'CEP एक्सटेंशन की तरह इंस्टॉल',
+      'app.resolve':'DaVinci Resolve',
+      'app.resolve.sub':'सिर्फ़ Studio वर्ज़न (पेड)',
+      'dl.studio':'Resolve Studio 18.5+',
+      'res.note':'<b>DaVinci Resolve Studio ज़रूरी है</b> — पेड वर्ज़न, 18.5 या नया। फ़्री Resolve में प्लगइन नहीं खुलेगा: फ़्री वर्ज़न थर्ड-पार्टी पैनल लोड नहीं करता, यह Blackmagic की सीमा है जो हर प्लगइन पर लागू होती है, सिर्फ़ dropSFX पर नहीं। इंस्टॉल करने से पहले <b>DaVinci Resolve → About</b> में देख लें कि नाम में <b>Studio</b> लिखा है।',
+      'rmac1.t':'फ़ाइल एक्सट्रैक्ट करें',
+      'rmac1.p':'डाउनलोड की गई <b>dropSFX-resolve.zip</b> पर डबल-क्लिक करें। <b>dropSFX</b> नाम का फ़ोल्डर बनेगा।',
+      'rmac2.t':'इंटीग्रेशन फ़ोल्डर में पेस्ट करें',
+      'rmac2.p1':'Finder में <b>⇧⌘G</b> दबाएँ और यह पाथ पेस्ट करें:',
+      'rmac2.p2':'<b>dropSFX</b> फ़ोल्डर यहाँ पेस्ट करें। (अगर <b>Workflow Integration Plugins</b> फ़ोल्डर नहीं है, तो बना लें। ध्यान दें: यह <b>डिस्क के रूट वाली /Library</b> है, आपके यूज़र फ़ोल्डर वाली नहीं। एडमिन पासवर्ड माँगेगा।)',
+      'rmac3.t':'Resolve में पैनल खोलें',
+      'rmac3.p':'DaVinci Resolve बंद करके फिर खोलें। पैनल <b>Workspace → Workflow Integrations → dropSFX</b> में मिलेगा।',
+      'rwin1.t':'फ़ाइल एक्सट्रैक्ट करें',
+      'rwin1.p':'<b>dropSFX-resolve.zip</b> पर राइट-क्लिक → <b>Extract All</b>। <b>dropSFX</b> नाम का फ़ोल्डर बनेगा।',
+      'rwin2.t':'इंटीग्रेशन फ़ोल्डर में पेस्ट करें',
+      'rwin2.p1':'<b>File Explorer</b> में, एड्रेस बार में यह पाथ पेस्ट करें:',
+      'rwin2.p2':'<b>dropSFX</b> फ़ोल्डर यहाँ पेस्ट करें। (<b>ProgramData</b> फ़ोल्डर छिपा होता है — इसलिए पाथ सीधे पेस्ट करें। अगर <b>Workflow Integration Plugins</b> फ़ोल्डर नहीं है, तो बना लें। इसे <b>Program Files</b> से न मिलाएँ।)',
+      'rwin3.t':'Resolve में पैनल खोलें',
+      'rwin3.p':'DaVinci Resolve बंद करके फिर खोलें। पैनल <b>Workspace → Workflow Integrations → dropSFX</b> में मिलेगा।',
+      'colr.t':'साउंड टाइमलाइन पर रंग के साथ आएँ',
+      'colr.p':'dropSFX हर साउंड पर उसकी कैटेगरी का रंग लगाता है — व्हूश टील, इम्पैक्ट लाल, वगैरह। Premiere टाइमलाइन क्लिप पर यह रंग दिखाए, इसके लिए उसका एक विकल्प चालू करना होता है (Insert बटन और ड्रैग-एंड-ड्रॉप दोनों के लिए)।',
+      'colr.s1':'<b>Timeline</b> पैनल में, टाइमकोड के ठीक नीचे ऊपर बाईं ओर <b>रिंच</b> 🔧 आइकन पर क्लिक करें।',
+      'colr.s2':'यह विकल्प चुनें:<br><span class="ct-opt">Show Source Clip Name and Label</span>',
+      'colr.s3':'बस। टाइमलाइन पर पहले से मौजूद साउंड तुरंत रंग बदल लेते हैं, और अगले रंग के साथ आते हैं।',
+      'faq11.q':'मेरी टाइमलाइन पर साउंड रंगीन नहीं दिख रहे। क्यों?',
+      'faq11.a':'Premiere टाइमलाइन क्लिप पर प्रोजेक्ट आइटम का लेबल रंग तभी दिखाता है जब <b>Show Source Clip Name and Label</b> चालू हो — Timeline पैनल में, रिंच 🔧 आइकन के अंदर। बंद होने पर हर क्लिप अपना लेबल इस्तेमाल करता है और कैटेगरी के रंग नहीं दिखते। यह Premiere की सेटिंग है, प्लगइन की कमी नहीं।',
+      'faq10.q':'क्या यह DaVinci Resolve पर चलता है?',
+      'faq10.a':'हाँ, <b>DaVinci Resolve Studio 18.5 या नए</b> पर। Resolve का फ़्री वर्ज़न थर्ड-पार्टी पैनल लोड नहीं करता, इसलिए प्लगइन वहाँ नहीं चल सकता — यह Blackmagic की पाबंदी है जो हर प्लगइन पर लागू होती है, सिर्फ़ dropSFX पर नहीं।',
+      'support.h2':'किसी स्टेप पर अटक गए?',
+      'support.p':'हमें WhatsApp पर मैसेज करें। हम कुछ ही मिनटों में इंस्टॉल करवा देंगे।',
+      'support.btn':'WhatsApp पर बात करें',
+      'wa.msg':'नमस्ते! मुझे dropSFX इंस्टॉल करने में मदद चाहिए',
+      'footer.txt':'© 2026 dropSFX · Premiere Pro, After Effects और DaVinci Resolve Studio के लिए प्लगइन',
+      'celebrate.h2':'सब तैयार! 🎉',
+      'celebrate.p':'आपने dropSFX इंस्टॉल कर लिया। अब बस अपना एडिटर खोलिए और क्रिएटिविटी को बहने दीजिए।',
+      'celebrate.btn':'चलो एडिट करें',
+      'celebrate.close':'बंद करें',
+      'copy.label':'कॉपी',
+      'copy.done':'कॉपी हो गया'
+    },
     es:{
+      'faq12.a':'Cierra Premiere y After Effects. En la carpeta <b>extensions</b> (paso 2), borra la carpeta vieja de dropSFX (<b>DropSFX</b> o <b>dropsfx-oficial</b>) y pega la nueva en su lugar. No dejes las dos. Abre la app de nuevo: tu cuenta y tu licencia siguen iguales.',
+      'faq12.q':'Ya tengo una versión anterior instalada. ¿Cómo actualizo?',
       'page.title':'dropSFX — Bienvenido',
-      'page.desc':'Tu experiencia con dropSFX empieza ahora. Instala, activa y transforma tu edición en Premiere Pro.',
+      'page.desc':'Tu experiencia con dropSFX empieza ahora. Instala y activa en Premiere Pro, After Effects o DaVinci Resolve Studio.',
       'intro.text':'Preparando tu experiencia',
       'nav.support':'Soporte',
       'progress.install':'Instalar','progress.signin':'Entrar','progress.use':'Usar',
       'hero.badge':'Compra confirmada',
       'hero.title':'Bienvenido al<br><span class="ice">siguiente nivel.</span>',
-      'hero.sub':'Tu experiencia empieza ahora. En pocos minutos, dropSFX estará funcionando dentro de tu editor.',
+      'hero.sub':'Tu experiencia empieza ahora. En pocos minutos, tus 2.371 sonidos estarán dentro de tu editor.',
       's1.num':'Instalación','s1.h2':'Instala el panel.',
       's1.sub':'Descarga el archivo y sigue el paso a paso de tu sistema. Marca cada etapa a medida que avanzas.',
-      'dl.version':'Versión 2.0','dl.platforms':'Mac y Windows','dl.btn':'Descargar ahora',
+      'dl.version':'Versión 2.6.3','dl.version.res':'Versión 2.2.1','dl.platforms':'Mac y Windows','dl.btn':'Descargar ahora',
       'mac1.t':'Extrae el archivo',
-      'mac1.p':'Haz doble clic en el <b>DropSFX.2.0.zip</b> que descargaste. Se creará una carpeta llamada <b>DropSFX</b>.',
+      'mac1.p':'Haz doble clic en el <b>dropSFX-oficial.zip</b> que descargaste. Se creará una carpeta llamada <b>dropsfx-oficial</b>.',
       'mac2.t':'Abre la carpeta de extensiones',
       'mac2.p1':'En el Finder, pulsa <b>⇧⌘G</b> y pega la ruta:',
-      'mac2.p2':'Pega la carpeta <b>DropSFX</b> aquí dentro. (Si la carpeta <b>extensions</b> no existe, créala.)',
+      'mac2.p2':'Pega la carpeta <b>dropsfx-oficial</b> aquí dentro. (Si la carpeta <b>extensions</b> no existe, créala. ¿Tenías una versión anterior? Borra antes la carpeta vieja de dropSFX.)',
       'mac3.t':'Habilita las extensiones (funciona en todas las versiones)',
       'mac3.p1':'Abre la <b>Terminal</b>, pega el comando de abajo y pulsa Enter. Habilita todo de una vez para cualquier versión de Premiere.',
       'mac3.p2':'No necesitas saber qué versión tienes — el comando cubre desde CS hasta el Premiere más reciente.',
       'mac4.t':'Reinicia Premiere o After Effects',
       'mac4.p':'Cierra y abre la app. El panel está en <b>Ventana → Extensiones → dropSFX</b> tanto en Premiere Pro como en After Effects.',
       'win1.t':'Extrae el archivo',
-      'win1.p':'Clic derecho en <b>DropSFX.2.0.zip</b> → <b>Extraer todo</b>. Se creará una carpeta llamada <b>DropSFX</b>.',
+      'win1.p':'Clic derecho en <b>dropSFX-oficial.zip</b> → <b>Extraer todo</b>. Se creará una carpeta llamada <b>dropsfx-oficial</b>.',
       'win2.t':'Abre la carpeta de extensiones',
       'win2.p1':'En el <b>Explorador de archivos</b>, pega la ruta en la barra de direcciones:',
-      'win2.p2':'Pega la carpeta <b>DropSFX</b> aquí. (Si <b>CEP\\extensions</b> no existe, créala. Puede pedir permiso de administrador — haz clic en "Continuar".)',
+      'win2.p2':'Pega la carpeta <b>dropsfx-oficial</b> aquí. (Si <b>CEP\\extensions</b> no existe, créala. Puede pedir permiso de administrador — haz clic en "Continuar". ¿Tenías una versión anterior? Borra antes la carpeta vieja de dropSFX.)',
       'win3.t':'Habilita las extensiones (funciona en todas las versiones)',
       'win3.p1':'Pulsa <b>Win + R</b>, escribe <b>cmd</b> y pulsa Enter. Pega el comando de abajo y pulsa Enter:',
       'win3.p2':'No necesitas saber qué versión tienes — el comando cubre desde CS hasta el Premiere más reciente.',
@@ -1087,23 +1219,23 @@
       'gbtn.label':'Entrar con Google',
       'acc2.t':'Elige tu cuenta en el navegador',
       'acc2.p':'Se abre una pestaña en tu navegador. <b>Selecciona la cuenta de Google del email que usaste en la compra</b> y autoriza el acceso.',
-      'acc3.t':'Vuelve a Premiere',
-      'acc3.p':'La página dirá <b>"¡Todo listo!"</b>. Solo vuelve a Premiere — el plugin inicia sesión solo en unos segundos.',
+      'acc3.t':'Vuelve a tu editor',
+      'acc3.p':'La página dirá <b>"¡Todo listo!"</b>. Solo vuelve a Premiere, After Effects o DaVinci — el plugin entra solo en unos segundos.',
       'note.access':'Usa la misma cuenta de Google del email que aparece en tu comprobante de Kiwify. Si entras con otra cuenta, el acceso será bloqueado.',
       's3.num':'Cómo usar','s3.h2':'Sonido en la línea de tiempo<br>en un clic.',
       's3.sub':'El flujo es simple: elige, escucha, inserta.',
       'uc1.t':'1. Encuentra el sonido',
       'uc1.p':'Usa el buscador ("whoosh suave", "impacto") o navega por las categorías de colores.',
       'uc2.t':'2. Escúchalo antes',
-      'uc2.p':'Dale al play para escucharlo con la forma de onda antes de insertar. Siente el sonido.',
-      'uc3.t':'3. Elige la pista',
-      'uc3.p':'Selecciona la pista de audio (A1, A2…) en el selector, o déjalo en <b>Auto</b>.',
-      'uc4.t':'4. Haz clic en Insertar',
-      'uc4.p':'El sonido entra exactamente en el cursor de tiempo, en la pista elegida. Listo.',
+      'uc2.p':'Pasa el mouse o haz clic en play para escucharlo con la forma de onda antes de insertar.',
+      'uc3.t':'3. Pista y volumen',
+      'uc3.p':'Elige la pista de audio (A1, A2…) o déjala en <b>Auto</b>, y la ganancia (-12, 0 o +6 dB) antes de insertar.',
+      'uc4.t':'4. Inserta o arrastra',
+      'uc4.p':'Haz clic en <b>Insertar</b> y el sonido entra en el cursor de tiempo, en la pista elegida, ya con el color de su categoría. O arrástralo directo a la timeline.',
       's4.num':'Dudas','s4.h2':'Preguntas frecuentes.',
       's4.sub':'Las dudas más comunes de quienes están empezando.',
       'faq1.q':'El panel no aparece en el menú Extensiones. ¿Y ahora?',
-      'faq1.a':'Confirma 3 cosas: (1) la carpeta <b>DropSFX</b> está directamente dentro de <b>extensions</b> (no dentro de otra carpeta); (2) ejecutaste el comando de habilitar extensiones del paso 3; (3) reiniciaste Premiere por completo. Si aún no aparece, escribe al soporte.',
+      'faq1.a':'Confirma 3 cosas: (1) la carpeta <b>dropsfx-oficial</b> está directamente dentro de <b>extensions</b> (no dentro de otra carpeta); (2) ejecutaste el comando de habilitar extensiones del paso 3; (3) cerraste y abriste de nuevo Premiere o After Effects por completo. Si aún no aparece, habla con soporte.',
       'faq2.q':'¿Necesito saber qué versión de CSXS tengo?',
       'faq2.a':'No. El comando del paso 3 habilita todas las versiones de una vez (de la 6 a la 12), así que funciona en cualquier Premiere. Solo como referencia: <b>CSXS.11</b> = Premiere 2022/2023 y <b>CSXS.12</b> = Premiere 2024/2025 en adelante. Ejecutarlo para versiones que no tienes instaladas no causa ningún problema.',
       'faq3.q':'¿Puedo entrar con una cuenta de Google distinta del email de compra?',
@@ -1116,8 +1248,8 @@
       'faq6.a':'Hasta 2 equipos (Mac y/o Windows). Si necesitas cambiar de equipo, solo escribe al soporte para liberarlo.',
       'faq8.q':'¿Necesito internet para usarlo?',
       'faq8.a':'Solo la primera vez, para el inicio de sesión y la verificación. Después los sonidos quedan en tu computadora y puedes usarlo sin conexión.',
-      'faq9.q':'¿Con qué versión de Premiere funciona?',
-      'faq9.a':'Adobe Premiere Pro CC 2020 en adelante, incluidas las versiones más recientes, en Mac (Intel y Apple Silicon) y Windows 10/11.',
+      'faq9.q':'¿En qué versiones funciona?',
+      'faq9.a':'Premiere Pro 2020 en adelante y After Effects 2021 en adelante, incluidas las versiones más recientes, en Mac (Intel y Apple Silicon) y Windows 10/11. Para DaVinci, mira la pregunta de abajo.',
       'app.adobe':'Premiere Pro & After Effects','app.adobe.sub':'Instalaci\u00f3n como extensi\u00f3n CEP',
       'app.resolve':'DaVinci Resolve','app.resolve.sub':'Solo en la versi\u00f3n Studio (de pago)',
       'dl.studio':'Resolve Studio 18.5+',
@@ -1143,9 +1275,9 @@
       'support.p':'Envíanos un mensaje por WhatsApp. Te ayudamos a instalarlo en minutos.',
       'support.btn':'Hablar por WhatsApp',
       'wa.msg':'¡Hola! Necesito ayuda con la instalación de dropSFX',
-      'footer.txt':'© 2026 dropSFX · Plugin para Adobe Premiere Pro',
+      'footer.txt':'© 2026 dropSFX · Plugin para Premiere Pro, After Effects y DaVinci Resolve Studio',
       'celebrate.h2':'¡Todo listo! 🎉',
-      'celebrate.p':'Completaste la instalación de dropSFX. Ahora solo abre Premiere y deja fluir la creatividad.',
+      'celebrate.p':'Completaste la instalación de dropSFX. Ahora solo abre tu editor y deja fluir la creatividad.',
       'celebrate.btn':'A editar','celebrate.close':'Cerrar',
       'copy.label':'copiar','copy.done':'copiado'
     }
@@ -1164,17 +1296,18 @@
   }
 
   function setLang(l,persist=true){
-    if(l!=='pt'&&l!=='en'&&l!=='es')l='en';
+    if(l!=='pt'&&l!=='en'&&l!=='es'&&l!=='hi')l='en';
     currentLang=l;
     if(persist){try{localStorage.setItem('dropsfx_lang',l)}catch(e){}}
     document.documentElement.setAttribute('lang',l==='pt'?'pt-BR':l);
+    document.body.classList.toggle('lang-hi',l==='hi');
     document.querySelectorAll('[data-i18n]').forEach(el=>{
       const k=el.dataset.i18n;
       el.innerHTML=(l==='pt')?PT_STORE[k]:((I18N[l]&&I18N[l][k])||PT_STORE[k]);
     });
     document.title=t('page.title','dropSFX — Bem-vindo');
     const md=document.querySelector('meta[name="description"]');
-    if(md)md.setAttribute('content',t('page.desc','Sua jornada com o dropSFX começa agora. Instale, ative e transforme sua edição no Premiere Pro.'));
+    if(md)md.setAttribute('content',t('page.desc','Sua jornada com o dropSFX começa agora. Instale e ative no Premiere Pro, After Effects ou DaVinci Resolve Studio.'));
     const wa=document.getElementById('waSupportBtn');
     if(wa)wa.href='https://wa.me/5527992625721?text='+encodeURIComponent(t('wa.msg','Olá! Preciso de ajuda com a instalação do dropSFX'));
     document.querySelectorAll('.lang-seg button').forEach(b=>b.classList.toggle('active',b.dataset.lang===l));
@@ -1185,7 +1318,7 @@
     let l=saved;
     if(!l){
       const nav=((navigator.language||navigator.userLanguage||'pt')+'').toLowerCase();
-      l=nav.startsWith('pt')?'pt':(nav.startsWith('es')?'es':'en');
+      l=nav.startsWith('pt')?'pt':(nav.startsWith('es')?'es':(nav.startsWith('hi')?'hi':'en'));
     }
     setLang(l,false);
   })();
