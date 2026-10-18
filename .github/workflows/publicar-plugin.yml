@@ -1,0 +1,38 @@
+# Publica o zip do plugin (Premiere + After Effects) como release no GitHub.
+# Roda sozinho quando este arquivo muda, ou pelo botão "Run workflow" na aba Actions.
+name: Publicar plugin (release v5.0)
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/publicar-plugin.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o zip enviado pelo TransferNow
+        run: |
+          URL=$(curl -sS "https://www.transfernow.net/api/transfer/downloads/link?transferId=20261018grcFkZMM&fileId=oCaDvh" -H 'Content-Type: application/json' | jq -r .url)
+          curl -sSL --fail -o dropSFX-oficial.zip "$URL"
+          ls -la dropSFX-oficial.zip
+          echo "72830543fb1ca91a70b5a7d407a59baea9317765f4c9accd90e331f09f56eaf1  dropSFX-oficial.zip" | sha256sum -c -
+
+      - name: Criar o release v5.0 (vira o "latest")
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view v5.0 --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload v5.0 dropSFX-oficial.zip --clobber --repo "$GITHUB_REPOSITORY"
+          else
+            gh release create v5.0 dropSFX-oficial.zip \
+              --repo "$GITHUB_REPOSITORY" \
+              --target main \
+              --title "DropSFX 5.0 · Premiere Pro + After Effects (2.371 sons)" \
+              --notes "Versão 2.6.3 para Premiere Pro e After Effects, com 2.371 efeitos sonoros em 18 categorias. A versão do DaVinci Resolve Studio continua no release 3.0." \
+              --latest
+          fi
