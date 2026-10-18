@@ -372,7 +372,7 @@
     .an-proof { margin-top: 38px; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--steel); }
 
     /* ---------- 3 · resultado / oferta ---------- */
-    #sResult { padding-bottom: 120px; }
+    #sResult { padding-bottom: calc(110px + env(safe-area-inset-bottom)); }
     .r-hero { padding: 24px 0 8px; }
     .r-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
     .r-chip { padding: 7px 13px; border: 1px solid var(--line-2); border-radius: 999px; font-size: 13px; color: var(--ink-2); }
@@ -544,28 +544,46 @@
 
     .sticky {
       position: fixed;
-      left: 12px;
-      right: 12px;
-      bottom: 12px;
+      left: 0;
+      right: 0;
+      bottom: 0;
       z-index: 60;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 8px 8px 8px 18px;
-      border: 1px solid var(--line-2);
-      border-radius: 999px;
-      background: rgba(8, 8, 10, .96);
-      box-shadow: 0 14px 40px rgba(0, 0, 0, .6);
-      transform: translateY(150%);
+      padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+      border-top: 1px solid var(--line-2);
+      border-radius: 20px 20px 0 0;
+      background: rgba(9, 10, 14, .97);
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 -18px 40px rgba(0, 0, 0, .55);
+      transform: translateY(110%);
       transition: transform .45s cubic-bezier(.2, .8, .3, 1);
     }
     .sticky.show { transform: none; }
-    .sticky-t { font-family: var(--font-display); font-size: 15px; font-weight: 700; line-height: 1.1; text-transform: uppercase; }
-    .sticky-s { display: block; font-family: var(--font-mono); font-size: 10px; letter-spacing: .04em; color: var(--steel); text-transform: none; font-weight: 400; }
-    .sticky .btn { width: auto; padding: 13px 22px; font-size: 14px; }
+    .sticky-in { display: flex; align-items: center; gap: 12px; max-width: 720px; margin: 0 auto; }
+    .sticky-off {
+      flex: none;
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(110, 155, 255, .35);
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1;
+      color: #fff;
+      letter-spacing: -.02em;
+    }
+    .sticky-txt { flex: 1; min-width: 0; }
+    .sticky-t { display: block; font-family: var(--font-display); font-size: 16px; font-weight: 700; line-height: 1.15; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sticky-s { display: block; margin-top: 3px; font-size: 12.5px; color: var(--steel); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sticky .btn { flex: none; width: auto; padding: 15px 22px; font-size: 15px; white-space: nowrap; box-shadow: 0 8px 24px var(--accent-glow); }
+    @media (min-width: 760px) {
+      .sticky { left: 50%; right: auto; bottom: 16px; width: min(720px, calc(100% - 32px)); padding: 10px 10px 10px 12px; border: 1px solid var(--line-2); border-radius: 22px; transform: translate(-50%, 140%); }
+      .sticky.show { transform: translate(-50%, 0); }
+    }
 
     @media (min-width: 760px) {
       .kit-grid { grid-template-columns: repeat(3, 1fr); }
@@ -759,8 +777,11 @@
       </div>
 
       <div class="sticky" id="sticky">
-        <span class="sticky-t" id="stickyT"></span>
-        <a class="btn blue js-cta" data-pos="sticky" href="#" target="_blank" rel="noopener" data-t="s.btn"></a>
+        <div class="sticky-in">
+          <span class="sticky-off">-63%</span>
+          <span class="sticky-txt"><span class="sticky-t" id="stickyT"></span><span class="sticky-s" data-t="s.sub"></span></span>
+          <a class="btn blue js-cta" data-pos="sticky" href="#" target="_blank" rel="noopener"><span data-t="s.btn"></span> →</a>
+        </div>
       </div>
     </section>
   </main>
@@ -940,7 +961,7 @@
       "g.text": "Instala e usa nos seus projetos. Se não fizer sentido pra você, devolvemos 100%. É só mandar um e-mail.",
       "f.title": "Perguntas frequentes",
       "ft.redo": "Refazer o quiz", "ft.site": "Ver o site completo",
-      "s.title": "Seu kit · 63% OFF", "s.btn": "Garantir"
+      "s.title": "Seu kit dropSFX", "s.titleName": "Kit do {name}", "s.sub": "Vitalício · Garantia de 7 dias", "s.btn": "Garantir"
     },
 
     en: {
@@ -1109,7 +1130,7 @@
       "g.text": "Install it and use it on your projects. If it doesn't work for you, we refund 100%. Just send an email.",
       "f.title": "FAQ",
       "ft.redo": "Retake the quiz", "ft.site": "See the full website",
-      "s.title": "Your kit · 63% OFF", "s.btn": "Get it"
+      "s.title": "Your dropSFX kit", "s.titleName": "{name}'s kit", "s.sub": "Lifetime · 7-day guarantee", "s.btn": "Get it"
     },
 
     es: {
@@ -1278,7 +1299,7 @@
       "g.text": "Instálalo y úsalo en tus proyectos. Si no te sirve, te devolvemos el 100%. Solo envía un e-mail.",
       "f.title": "Preguntas frecuentes",
       "ft.redo": "Repetir el quiz", "ft.site": "Ver el sitio completo",
-      "s.title": "Tu kit · 63% OFF", "s.btn": "Asegurar"
+      "s.title": "Tu kit dropSFX", "s.titleName": "Kit de {name}", "s.sub": "De por vida · Garantía de 7 días", "s.btn": "Lo quiero"
     },
 
     hi: {
@@ -1447,7 +1468,7 @@
       "g.text": "इंस्टॉल करें और अपने प्रोजेक्ट में इस्तेमाल करें। पसंद न आए तो 100% पैसे वापस। बस एक ई-मेल भेजें।",
       "f.title": "अक्सर पूछे जाने वाले सवाल",
       "ft.redo": "क्विज़ दोबारा करें", "ft.site": "पूरी वेबसाइट देखें",
-      "s.title": "आपका किट · 63% OFF", "s.btn": "अभी लें"
+      "s.title": "आपका dropSFX किट", "s.titleName": "{name} का किट", "s.sub": "आजीवन · 7 दिन की गारंटी", "s.btn": "अभी लें"
     }
   };
   </script>
@@ -1883,7 +1904,7 @@
       var insideT = document.querySelector('[data-t="p.inside.t"]');
       if (insideT) insideT.textContent = t('p.inside.t').replace('{app}', t('appname.' + (a.app || 'premiere')));
       $('oWho').textContent = name ? name + ' · ' + t('o.who').replace('{type}', t('short.' + a.type)) : t('o.who').replace('{type}', t('short.' + a.type));
-      $('stickyT').innerHTML = esc(t('s.title')) + '<span class="sticky-s">' + esc(t('o.terms')) + '</span>';
+      $('stickyT').textContent = (a.name ? t('s.titleName').replace('{name}', a.name) : t('s.title'));
 
       // FAQ (mesmas respostas do site)
       var fq = FAQ[lang] || FAQ.pt, order = [4, 9, 7, 8, 5, 1];
