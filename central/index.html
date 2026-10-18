@@ -630,7 +630,7 @@
     name: { 'preencheu':'Deu o nome', 'pulou':'Pulou' }
   };
   var LANG_LABEL = { pt:'Português', en:'English', es:'Español', hi:'हिन्दी' };
-  var POS_LABEL = { kit:'Botão do kit (topo)', offer:'Card da oferta', final:'Botão final', sticky:'Barra fixa', hero:'Hero (site)', nav:'Menu (site)', pricing:'Preço (site)', sticky_site:'Barra (site)', demo:'Demo (site)', depois:'Vida depois (site)', quiz:'Card do quiz antigo' };
+  var POS_LABEL = { kit:'Botão do kit (topo)', sounds:'Depois dos sons', offer:'Card da oferta', final:'Botão final', sticky:'Barra fixa', hero:'Hero (site)', nav:'Menu (site)', pricing:'Preço (site)', sticky_site:'Barra (site)', demo:'Demo (site)', depois:'Vida depois (site)', quiz:'Card do quiz antigo' };
 
   // fuso horário → país (o servidor não manda país)
   var TZ_COUNTRY = {
@@ -701,7 +701,9 @@
       Q_ORDER.forEach(function(q){ steps.push([Q_LABEL[q], Qs[q] || 0, 'q']); });
       steps.push(['Terminaram o quiz', T.quiz_completes], ['Tela "montando kit"', T.analysis_views], ['Viram o kit e a oferta', T.result_views], ['Ouviram os sons', (d.sfx_totals||{}).sessions || 0], ['Viram o vídeo', T.video_plays]);
     }
-    steps.push(['Clicaram em comprar', T.cta_sessions], ['Compraram', T.purchases_attributed, 'buy']);
+    steps.push(['Clicaram em comprar', T.cta_sessions]);
+    if (T.checkout_help) steps.push(['Gringos: viram a ajuda do checkout', T.checkout_help], ['Gringos: seguiram pro checkout', T.checkout_go || 0]);
+    steps.push(['Compraram', T.purchases_attributed, 'buy']);
     var worst = -1, worstDrop = 0;
     steps.forEach(function(s, i){ if (i > 0 && steps[i-1][1] > 0) { var dr = 1 - (s[1]||0) / steps[i-1][1]; if (dr > worstDrop && s[2] === 'q') { worstDrop = dr; worst = i; } } });
     var maxv = Math.max(1, steps[0][1] || 0);

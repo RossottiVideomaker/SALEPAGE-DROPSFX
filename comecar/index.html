@@ -504,6 +504,24 @@
     .o-ribbon { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--steel); }
     .o-off { padding: 6px 12px; border-radius: 999px; background: var(--accent); font-family: var(--font-display); font-size: 18px; font-weight: 700; }
     .o-title { margin-top: 20px; font-family: var(--font-display); font-size: clamp(26px, 4vw, 34px); font-weight: 700; line-height: 1.05; text-transform: uppercase; }
+    .o-price { margin-top: 14px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
+    .o-price b { font-family: var(--font-display); font-size: clamp(34px, 6vw, 44px); font-weight: 700; line-height: 1; }
+    .o-price s { color: var(--steel); font-size: 16px; }
+    .o-price span { flex-basis: 100%; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--ice); }
+    .ck { position: fixed; inset: 0; z-index: 80; display: grid; align-items: end; justify-items: center; }
+    .ck[hidden] { display: none; }
+    .ck-bg { position: absolute; inset: 0; background: rgba(0, 0, 0, .72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+    .ck-card { position: relative; width: min(520px, 100%); max-height: 92vh; overflow: auto; padding: 26px 22px calc(22px + env(safe-area-inset-bottom)); border: 1px solid var(--line-2); border-bottom: 0; border-radius: 24px 24px 0 0; background: #0a0b0f; animation: ckUp .32s cubic-bezier(.2, .9, .3, 1); }
+    @keyframes ckUp { from { transform: translateY(40px); opacity: 0; } }
+    @media (min-width: 721px) { .ck { align-items: center; } .ck-card { border-bottom: 1px solid var(--line-2); border-radius: 24px; padding: 30px; } }
+    .ck-x { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border: 0; border-radius: 50%; background: var(--card); color: var(--steel); font-size: 22px; line-height: 1; cursor: pointer; }
+    .ck-t { margin-top: 10px; font-family: var(--font-display); font-size: 26px; font-weight: 700; line-height: 1.1; text-transform: uppercase; }
+    .ck-steps { margin: 18px 0 20px; padding: 0; list-style: none; counter-reset: ck; display: grid; gap: 12px; }
+    .ck-steps li { counter-increment: ck; position: relative; min-height: 28px; padding: 3px 0 0 40px; color: var(--ink-2); font-size: 15px; line-height: 1.45; }
+    .ck-steps li::before { content: counter(ck); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-hi); font-family: var(--font-mono); font-size: 13px; font-weight: 700; }
+    .ck-steps b { color: #fff; }
+    .ck-card .btn { width: 100%; }
+    .ck-note { margin-top: 12px; text-align: center; font-size: 12.5px; color: var(--steel); }
     .o-who { margin-top: 6px; font-family: var(--font-serif); font-style: italic; font-size: 22px; color: var(--ice); }
     .o-terms { margin-top: 14px; color: var(--ink-2); }
     .offer .btn { margin-top: 22px; font-size: 17px; padding: 20px 28px; }
@@ -695,6 +713,10 @@
           <h2 class="h2" style="margin-top:12px" data-th="sfx.title"></h2>
           <p class="lead" style="margin:12px 0 22px" data-t="sfx.sub"></p>
           <div id="sfxPlayer"></div>
+          <div class="cta-row">
+            <a class="btn blue js-cta" data-pos="sounds" href="#" target="_blank" rel="noopener"><span data-t="sfx.cta"></span> →</a>
+            <p class="cta-note" data-t="sfx.cta.note"></p>
+          </div>
         </div>
 
         <div class="sec">
@@ -702,19 +724,6 @@
           <div class="diag" id="diag"></div>
         </div>
 
-        <div class="sec">
-          <h2 class="h2" data-t="v.title"></h2>
-          <figure class="vid">
-            <div class="vid-bar"><span class="rec" data-t="v.rec"></span><span id="vidTc">00:00:00</span></div>
-            <div class="vid-screen">
-              <video id="vid" muted loop playsinline preload="none" poster="/assets/plugin-na-pratica.jpg" width="1600" height="1052" aria-label="dropSFX no Premiere Pro">
-                <source data-src="/assets/plugin-na-pratica.mp4" type="video/mp4">
-              </video>
-              <button type="button" class="vid-sound" id="vidSound" aria-pressed="false">🔊 <span data-t="v.on"></span></button>
-            </div>
-            <div class="vid-prog"><i id="vidProg"></i></div>
-          </figure>
-        </div>
 
         <div class="sec">
           <p class="mono" data-t="p.kicker"></p>
@@ -745,10 +754,25 @@
           </div>
         </div>
 
+        <div class="sec">
+          <h2 class="h2" data-t="v.title"></h2>
+          <figure class="vid">
+            <div class="vid-bar"><span class="rec" data-t="v.rec"></span><span id="vidTc">00:00:00</span></div>
+            <div class="vid-screen">
+              <video id="vid" muted loop playsinline preload="none" poster="/assets/plugin-na-pratica.jpg" width="1600" height="1052" aria-label="dropSFX no Premiere Pro">
+                <source data-src="/assets/plugin-na-pratica.mp4" type="video/mp4">
+              </video>
+              <button type="button" class="vid-sound" id="vidSound" aria-pressed="false">🔊 <span data-t="v.on"></span></button>
+            </div>
+            <div class="vid-prog"><i id="vidProg"></i></div>
+          </figure>
+        </div>
+
         <div class="sec" id="oferta">
           <div class="offer">
             <div class="o-top"><span class="o-ribbon" data-t="o.ribbon"></span><span class="o-off">63% OFF</span></div>
             <p class="o-title" data-t="o.title"></p>
+            <p class="o-price" id="oPrice"></p>
             <p class="o-who" id="oWho"></p>
             <p class="o-terms" data-t="o.terms"></p>
             <a class="btn blue js-cta" data-pos="offer" href="#" target="_blank" rel="noopener"><span data-t="o.cta"></span> →</a>
@@ -791,6 +815,22 @@
         </div>
       </div>
     </section>
+    <div class="ck" id="ck" hidden role="dialog" aria-modal="true" aria-labelledby="ckT">
+      <div class="ck-bg" data-close></div>
+      <div class="ck-card">
+        <button type="button" class="ck-x" data-close aria-label="Close">×</button>
+        <p class="mono" data-t="ck.kicker"></p>
+        <h3 class="ck-t" id="ckT" data-t="ck.title"></h3>
+        <ol class="ck-steps">
+          <li data-th="ck.1"></li>
+          <li data-th="ck.2"></li>
+          <li id="ck3"></li>
+          <li data-th="ck.4"></li>
+        </ol>
+        <a class="btn blue" id="ckGo" href="#" target="_blank" rel="noopener"><span data-t="ck.go"></span> →</a>
+        <p class="ck-note" data-t="ck.note"></p>
+      </div>
+    </div>
   </main>
 
   <script src="/assets/sfx/player.js"></script>
@@ -904,7 +944,8 @@
       "d.fix.none": "Com o seu kit, colocar som leva 2 cliques. Aí você coloca em tudo, e é isso que muda o nível do vídeo.",
       "d.ok.premiere": "✓ Funciona no Premiere Pro", "d.ok.ae": "✓ Funciona no After Effects",
       "d.ok.davinci": "✓ Funciona no DaVinci Resolve Studio", "d.ok.multi": "✓ Funciona no Premiere, After Effects e DaVinci",
-      "d.ok.other": "O dropSFX roda no Premiere Pro, After Effects e DaVinci Resolve Studio",
+      "d.ok.other": "Atenção: o dropSFX roda dentro do Premiere Pro, After Effects e DaVinci Resolve Studio. No CapCut e no Final Cut ele não abre.",
+      "sfx.cta": "Quero esses sons no meu editor", "sfx.cta.note": "São 2.371 sons como esses · pagamento único",
 
       "v.title": "Veja por dentro",
       "v.rec": "Tela real · sem cortes",
@@ -1076,7 +1117,8 @@
       "d.fix.none": "With your kit, adding sound takes 2 clicks. So you add it everywhere, and that's what levels up a video.",
       "d.ok.premiere": "✓ Works in Premiere Pro", "d.ok.ae": "✓ Works in After Effects",
       "d.ok.davinci": "✓ Works in DaVinci Resolve Studio", "d.ok.multi": "✓ Works in Premiere, After Effects and DaVinci",
-      "d.ok.other": "dropSFX runs in Premiere Pro, After Effects and DaVinci Resolve Studio",
+      "d.ok.other": "Heads up: dropSFX runs inside Premiere Pro, After Effects and DaVinci Resolve Studio. It doesn't open in CapCut or Final Cut.",
+      "sfx.cta": "I want these sounds in my editor", "sfx.cta.note": "2,371 sounds like these · one-time payment", "o.usd": "≈ {usd} · charged in your own currency", "ck.kicker": "Before you pay · 20 seconds", "ck.title": "How to pay from outside Brazil", "ck.1": "The checkout is <b>Kiwify</b>, a Brazilian payment platform. It may open in Portuguese — that's normal and it's secure.", "ck.2": "Tap <b>“Change country”</b> (Alterar país) and pick your country. You <b>don't need a CPF</b> — that's only for Brazilians.", "ck.3": "Pay by <b>credit or debit card</b>. Your bank converts it to your currency (about <b>{usd}</b>).", "ck.4": "Access arrives <b>instantly by email</b>, with the install guide in English.", "ck.go": "Continue to secure checkout", "ck.note": "🔒 One-time payment · 7-day money-back guarantee",
 
       "v.title": "See it from the inside",
       "v.rec": "Real screen · no cuts",
@@ -1248,7 +1290,8 @@
       "d.fix.none": "Con tu kit, poner sonido lleva 2 clics. Entonces lo pones en todo, y eso sube el nivel del video.",
       "d.ok.premiere": "✓ Funciona en Premiere Pro", "d.ok.ae": "✓ Funciona en After Effects",
       "d.ok.davinci": "✓ Funciona en DaVinci Resolve Studio", "d.ok.multi": "✓ Funciona en Premiere, After Effects y DaVinci",
-      "d.ok.other": "dropSFX funciona en Premiere Pro, After Effects y DaVinci Resolve Studio",
+      "d.ok.other": "Ojo: dropSFX funciona dentro de Premiere Pro, After Effects y DaVinci Resolve Studio. No abre en CapCut ni en Final Cut.",
+      "sfx.cta": "Quiero estos sonidos en mi editor", "sfx.cta.note": "2.371 sonidos como estos · pago único", "o.usd": "≈ {usd} · se cobra en tu moneda", "ck.kicker": "Antes de pagar · 20 segundos", "ck.title": "Cómo pagar desde fuera de Brasil", "ck.1": "El pago es por <b>Kiwify</b>, una plataforma brasileña. Puede abrir en portugués: es normal y es seguro.", "ck.2": "Toca <b>“Change country”</b> (Alterar país) y elige tu país. <b>No necesitas CPF</b>, eso es solo para brasileños.", "ck.3": "Paga con <b>tarjeta de crédito o débito</b>. Tu banco lo convierte a tu moneda (unos <b>{usd}</b>).", "ck.4": "El acceso llega <b>al instante por e-mail</b>, con la guía de instalación en español.", "ck.go": "Continuar al pago seguro", "ck.note": "🔒 Pago único · Garantía de 7 días",
 
       "v.title": "Míralo por dentro",
       "v.rec": "Pantalla real · sin cortes",
@@ -1420,7 +1463,8 @@
       "d.fix.none": "आपके किट के साथ साउंड लगाने में 2 क्लिक लगते हैं। तो आप हर जगह लगाते हैं, और यही वीडियो का लेवल बढ़ाता है।",
       "d.ok.premiere": "✓ Premiere Pro में चलता है", "d.ok.ae": "✓ After Effects में चलता है",
       "d.ok.davinci": "✓ DaVinci Resolve Studio में चलता है", "d.ok.multi": "✓ Premiere, After Effects और DaVinci में चलता है",
-      "d.ok.other": "dropSFX Premiere Pro, After Effects और DaVinci Resolve Studio में चलता है",
+      "d.ok.other": "ध्यान दें: dropSFX Premiere Pro, After Effects और DaVinci Resolve Studio के अंदर चलता है। यह CapCut या Final Cut में नहीं खुलता।",
+      "sfx.cta": "मुझे ये साउंड अपने एडिटर में चाहिए", "sfx.cta.note": "ऐसे 2,371 साउंड · एक बार भुगतान", "o.usd": "≈ {usd} · आपकी अपनी करेंसी में", "ck.kicker": "भुगतान से पहले · 20 सेकंड", "ck.title": "ब्राज़ील के बाहर से भुगतान कैसे करें", "ck.1": "चेकआउट <b>Kiwify</b> का है, जो ब्राज़ील का पेमेंट प्लेटफ़ॉर्म है। यह पुर्तगाली में खुल सकता है — यह सामान्य और सुरक्षित है।", "ck.2": "<b>“Change country”</b> (Alterar país) पर टैप करें और अपना देश चुनें। <b>CPF की ज़रूरत नहीं</b> — वह सिर्फ़ ब्राज़ील वालों के लिए है।", "ck.3": "<b>क्रेडिट या डेबिट कार्ड</b> से भुगतान करें। आपका बैंक इसे आपकी करेंसी में बदल देगा (लगभग <b>{usd}</b>)।", "ck.4": "एक्सेस <b>तुरंत ई-मेल पर</b> आता है, इंस्टॉल गाइड के साथ।", "ck.go": "सुरक्षित चेकआउट पर जाएँ", "ck.note": "🔒 एक बार भुगतान · 7 दिन की मनी-बैक गारंटी",
 
       "v.title": "अंदर से देखिए",
       "v.rec": "असली स्क्रीन · बिना कट",
@@ -1500,7 +1544,8 @@
     var CONFIG = {
       checkout: 'https://pay.kiwify.com.br/uzVAstc',
       trackUrl: 'https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/funnel-track',
-      pixelValue: 109.79,
+      pixelValue: 127.70,
+      price: 'R$ 127,70', priceUsd: 'US$ 23',
       currency: 'BRL'
     };
 
@@ -1607,7 +1652,7 @@
           var body = JSON.stringify({
             sid: sid, vid: vid, page: 'comecar',
             ctx: { lang: lang, utm_source: ctx.utm_source, utm_medium: ctx.utm_medium, utm_campaign: ctx.utm_campaign,
-                   utm_content: ctx.utm_content, utm_term: ctx.utm_term, ref: ctx.ref, tz: tz, sw: screen.width },
+                   utm_content: ctx.utm_content, utm_term: ctx.utm_term, ref: ctx.ref, tz: tz, sw: window.screen.width },
             events: queue.splice(0, 40)
           });
           var sent = false;
@@ -1638,7 +1683,7 @@
       });
       window.addEventListener('pagehide', function () { flush(true); });
 
-      return { ev: ev, flush: flush, sid: sid, ctx: ctx };
+      return { ev: ev, flush: flush, sid: sid, ctx: ctx, tz: tz };
     })();
 
     function pixel(name, data) { try { if (typeof fbq === 'function') fbq('trackCustom', name, data || {}); } catch (e) {} }
@@ -1926,6 +1971,8 @@
       var insideT = document.querySelector('[data-t="p.inside.t"]');
       if (insideT) insideT.textContent = t('p.inside.t').replace('{app}', t('appname.' + (a.app || 'premiere')));
       $('oWho').textContent = name ? name + ' · ' + t('o.who').replace('{type}', t('short.' + a.type)) : t('o.who').replace('{type}', t('short.' + a.type));
+      $('oPrice').innerHTML = '<b>' + CONFIG.price + '</b>' + (lang === 'pt' ? '' : '<span>' + esc(t('o.usd').replace('{usd}', CONFIG.priceUsd)) + '</span>');
+      $('ck3').innerHTML = t('ck.3').replace('{usd}', CONFIG.priceUsd);
       $('stickyT').textContent = (a.name ? t('s.titleName').replace('{name}', a.name) : t('s.title'));
 
       // FAQ (mesmas respostas do site)
@@ -1975,12 +2022,40 @@
     function wireResult() {
       // CTA
       [].forEach.call(document.querySelectorAll('.js-cta'), function (el) {
-        el.addEventListener('click', function () {
-          el.href = checkoutUrl(el.getAttribute('data-pos'));
-          TR.ev('cta_click', el.getAttribute('data-pos'), null, true);
-          if (window.dropsfxEvent) window.dropsfxEvent('InitiateCheckout', { content_name: 'dropSFX Full', content_ids: ['dropsfx-full'], content_type: 'product', value: CONFIG.pixelValue, currency: CONFIG.currency, num_items: 1 });
+        el.addEventListener('click', function (e) {
+          var pos = el.getAttribute('data-pos');
+          el.href = checkoutUrl(pos);
+          TR.ev('cta_click', pos, null, true);
+          // quem é de fora vê antes como passar pelo checkout brasileiro (país, sem CPF, cartão)
+          if (needHelp()) { e.preventDefault(); openHelp(pos); return; }
+          initCheckout();
         });
       });
+      var ck = $('ck'), ckGo = $('ckGo'), ckSeen = false, ckPos = '';
+      function needHelp() {
+        if (ckSeen) return false;
+        var br = /^America\/(Sao_Paulo|Fortaleza|Recife|Bahia|Belem|Maceio|Manaus|Cuiaba|Campo_Grande|Porto_Velho|Boa_Vista|Rio_Branco|Araguaina|Santarem|Noronha|Eirunepe)$/.test(TR.tz || '');
+        return lang !== 'pt' || (TR.tz && !br);
+      }
+      function openHelp(pos) {
+        ckPos = pos; ckGo.href = checkoutUrl(pos);
+        ck.hidden = false; document.documentElement.style.overflow = 'hidden';
+        TR.ev('checkout_help', pos, null, true);
+      }
+      function closeHelp() { ck.hidden = true; document.documentElement.style.overflow = ''; }
+      ckGo.addEventListener('click', function () {
+        ckSeen = true; ckGo.href = checkoutUrl(ckPos);
+        TR.ev('checkout_go', ckPos, null, true);
+        initCheckout();
+        setTimeout(closeHelp, 300);
+      });
+      [].forEach.call(ck.querySelectorAll('[data-close]'), function (b) {
+        b.addEventListener('click', function () { TR.ev('checkout_help_close', ckPos); closeHelp(); });
+      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !ck.hidden) closeHelp(); });
+      function initCheckout() {
+        if (window.dropsfxEvent) window.dropsfxEvent('InitiateCheckout', { content_name: 'dropSFX Full', content_ids: ['dropsfx-full'], content_type: 'product', value: CONFIG.pixelValue, currency: CONFIG.currency, num_items: 1 });
+      }
 
       // sticky aparece depois que o primeiro botão sai da tela
       var first = document.querySelector('.cta-row .js-cta'), sticky = $('sticky');
