@@ -139,6 +139,65 @@
   #toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);}
   #toast.ok{border-color:rgba(74,222,128,.4);color:var(--green);}
   #toast.err{border-color:rgba(248,113,113,.4);color:var(--red);}
+  /* ===== abas ===== */
+  .tabs{display:flex;gap:4px;padding:4px;background:var(--card);border:1px solid var(--line);border-radius:11px;}
+  .tab{background:none;border:0;color:var(--muted);font-family:var(--font);font-size:13px;font-weight:700;padding:8px 16px;border-radius:8px;cursor:pointer;}
+  .tab:hover{color:var(--ink);}
+  .tab.on{background:var(--accent);color:#fff;}
+
+  /* ===== funil ===== */
+  .fbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:18px;}
+  .fbar .sep{width:1px;height:22px;background:var(--line-2);margin:0 4px;}
+  .fbar .hint{font-size:11.5px;color:var(--dim);margin-left:auto;font-family:var(--mono);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px;}
+  @media(max-width:1000px){.grid2,.grid3{grid-template-columns:1fr;}}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px;min-width:0;}
+  .grid2 .panel,.grid3 .panel{margin-bottom:0;}
+  .panel h3{font-size:13px;font-weight:700;margin-bottom:4px;}
+  .panel .ph{font-size:11.5px;color:var(--muted);margin-bottom:14px;}
+  .fstep{display:grid;grid-template-columns:190px 1fr 120px;gap:12px;align-items:center;padding:6px 0;}
+  .fstep .lbl{font-size:12.5px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .fstep .lbl small{display:block;color:var(--dim);font-size:10.5px;}
+  .fstep .track{height:22px;background:rgba(255,255,255,.04);border-radius:6px;overflow:hidden;position:relative;}
+  .fstep .fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-hi));border-radius:6px;min-width:2px;}
+  .fstep.buy .fill{background:linear-gradient(90deg,#16a34a,var(--green));}
+  .fstep .track b{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:11.5px;font-family:var(--mono);color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6);}
+  .fstep .pct{font-family:var(--mono);font-size:11px;text-align:right;color:var(--ink-2);}
+  .fstep .pct .drop{display:block;color:var(--red);font-size:10px;}
+  .fstep.worst .lbl{color:var(--red);}
+  .fstep.worst .track{outline:1px solid rgba(248,113,113,.5);}
+  @media(max-width:700px){.fstep{grid-template-columns:110px 1fr 70px;}}
+  .ans h4{font-size:12px;font-weight:700;margin:14px 0 8px;color:var(--ink);}
+  .ans h4:first-child{margin-top:0;}
+  .arow{display:grid;grid-template-columns:150px 1fr 70px;gap:10px;align-items:center;font-size:11.5px;color:var(--ink-2);padding:3px 0;}
+  .arow .t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .arow .b{height:10px;border-radius:5px;background:rgba(255,255,255,.05);overflow:hidden;}
+  .arow .b i{display:block;height:100%;background:var(--purple);border-radius:5px;}
+  .arow .n{font-family:var(--mono);text-align:right;}
+  .mini{width:100%;border-collapse:collapse;min-width:0;}
+  .mini th{position:static;background:none;padding:6px 6px;font-size:9.5px;cursor:default;border-bottom:1px solid var(--line);}
+  .mini td{padding:6px 6px;font-size:11.5px;border-bottom:1px solid var(--line);white-space:nowrap;}
+  .mini td.k{max-width:160px;overflow:hidden;text-overflow:ellipsis;color:var(--ink);}
+  .mini td.num{font-family:var(--mono);text-align:right;}
+  .mini th.num{text-align:right;}
+  .chart{width:100%;height:200px;display:block;}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;font-size:11px;color:var(--muted);}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px;}
+  .kv{display:grid;grid-template-columns:1fr auto;gap:6px 12px;font-size:12px;}
+  .kv span:nth-child(odd){color:var(--muted);}
+  .kv span:nth-child(even){font-family:var(--mono);color:var(--ink);text-align:right;}
+  .sess-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;background:rgba(255,255,255,.06);color:var(--muted);}
+  .sess-tag.buy{background:var(--green-soft);color:var(--green);}
+  .sess-tag.cta{background:var(--orange-soft);color:var(--orange);}
+  .sess-tag.res{background:var(--accent-soft);color:var(--accent-hi);}
+  .sess-tag.qz{background:var(--purple-soft);color:var(--purple);}
+  .ans-cell{font-size:10.5px;color:var(--muted);white-space:normal;min-width:240px;line-height:1.45;}
+  .cmp{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+  .cmp div{background:rgba(255,255,255,.03);border-radius:10px;padding:10px 12px;}
+  .cmp b{display:block;font-size:20px;font-weight:800;}
+  .cmp span{font-size:10.5px;color:var(--muted);}
+  .empty-note{padding:30px;text-align:center;color:var(--dim);font-size:12.5px;}
 </style>
 </head>
 <body>
@@ -160,6 +219,10 @@
 <div id="app">
   <div class="topbar">
     <h1>drop<span>SFX</span> · Central de controle</h1>
+    <div class="tabs" role="tablist">
+      <button class="tab on" data-tab="clientes" role="tab">Clientes</button>
+      <button class="tab" data-tab="funil" role="tab">Funil e métricas</button>
+    </div>
     <div class="actions">
       <button class="btn" id="btn-refresh">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
@@ -192,7 +255,8 @@
     sem_atividade:    'Sem atividade'
   };
 
-  var state = { users: [], summary: {}, filter: 'all', search: '', sortKey: 'last_sign_in', sortDir: -1, token: '' };
+  var state = { users: [], summary: {}, filter: 'all', search: '', sortKey: 'last_sign_in', sortDir: -1, token: '', tab: 'clientes' };
+  try { if (localStorage.getItem('dropsfx_central_tab') === 'funil') state.tab = 'funil'; } catch(e){}
 
   var gate = document.getElementById('gate');
   var gateErr = document.getElementById('gate-err');
@@ -205,13 +269,16 @@
   var savedPass = localStorage.getItem('dropsfx_admin_saved_pass');
   var savedSession = sessionStorage.getItem('dropsfx_admin_token');
 
-  if (savedSession) {
-    state.token = savedSession;
-    enterApp();
-  } else if (savedPass) {
-    gatePass.value = savedPass;
-    tryLogin();
-  }
+  // espera o script inteiro carregar (a aba Funil é definida mais abaixo)
+  setTimeout(function(){
+    if (savedSession) {
+      state.token = savedSession;
+      enterApp();
+    } else if (savedPass) {
+      gatePass.value = savedPass;
+      tryLogin();
+    }
+  }, 0);
 
   function tryLogin(){
     var pass = gatePass.value.trim();
@@ -235,9 +302,19 @@
     });
   }
 
+  function setTab(tab){
+    state.tab = tab;
+    try { localStorage.setItem('dropsfx_central_tab', tab); } catch(e){}
+    document.querySelectorAll('.tab').forEach(function(b){ b.classList.toggle('on', b.dataset.tab === tab); });
+    if (tab === 'funil') loadFunnel();
+    else if (state.users.length) render(); else load();
+  }
+  document.querySelectorAll('.tab').forEach(function(b){ b.addEventListener('click', function(){ setTab(b.dataset.tab); }); });
+
   function enterApp(){
     gate.classList.add('hide');
     document.getElementById('app').classList.add('show');
+    if (state.tab === 'funil') { setTab('funil'); return; }
     if (state.users.length) {
       render();
     } else {
@@ -249,8 +326,8 @@
     sessionStorage.removeItem('dropsfx_admin_token');
     location.reload();
   });
-  document.getElementById('btn-refresh').addEventListener('click', function(){ load(); });
-  document.getElementById('btn-export').addEventListener('click', exportCSV);
+  document.getElementById('btn-refresh').addEventListener('click', function(){ if (state.tab === 'funil') loadFunnel(); else load(); });
+  document.getElementById('btn-export').addEventListener('click', function(){ if (state.tab === 'funil') exportFunnelCSV(); else exportCSV(); });
 
   function apiCall(payload, cb){
     fetch(ADMIN_ENDPOINT, {
@@ -277,7 +354,7 @@
       }
       state.users = data.users || [];
       state.summary = data.summary || {};
-      render();
+      if (state.tab !== 'funil') render();
     });
   }
 
@@ -532,6 +609,275 @@
     a.click(); URL.revokeObjectURL(url);
   }
   function csvCell(v){ v = (v==null?'':''+v); if(/[",\n]/.test(v)) v = '"'+v.replace(/"/g,'""')+'"'; return v; }
+
+
+  // =====================================================================
+  // ABA FUNIL — métricas do /comecar/ (e do site, pra comparar)
+  // =====================================================================
+  var FUNNEL_ENDPOINT = 'https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/funnel-stats';
+  var fstate = { days: 7, page: 'comecar', data: null };
+
+  var Q_ORDER = ['type','vibe','fams','app','source','time','volume','name'];
+  var Q_LABEL = { type:'1 · Tipo de vídeo', vibe:'2 · Pegada', fams:'3 · Sons que usa', app:'4 · Programa', source:'5 · Onde procura som', time:'6 · Tempo por vídeo', volume:'7 · Vídeos por semana', name:'8 · Nome' };
+  var A_LABEL = {
+    type: { reels:'Reels/TikTok/Shorts', youtube:'YouTube', wedding:'Casamentos e eventos', ads:'Publicidade', games:'Games e streams', podcast:'Podcasts e cortes' },
+    vibe: { cinematic:'Cinematográfica', funny:'Engraçada/memes', clean:'Clean/corporativa', hype:'Energética', emotional:'Emocional' },
+    fams: { whoosh:'Whooshes e transições', hits:'Impactos e drops', risers:'Risers e tensão', ui:'Cliques e interface', glitch:'Glitches', memes:'Memes e cartoon', foley:'Foley e ambientes', cine:'Slow motion e câmera', emotion:'Emoção e reverb', action:'Ação e armas', retro:'Retrô' },
+    app: { premiere:'Premiere Pro', ae:'After Effects', davinci:'DaVinci Resolve', multi:'Mais de um', other:'Outro (CapCut etc.)' },
+    source: { yt:'YouTube + conversor', envato:'Envato/Artlist', folder:'Pasta no PC', none:'Nem coloca som' },
+    time: { '0':'< 10 min', '1':'10–30 min', '2':'30 min–1 h', '3':'> 1 hora' },
+    volume: { '0':'1–2 por semana', '1':'3–5', '2':'6–10', '3':'> 10' },
+    name: { 'preencheu':'Deu o nome', 'pulou':'Pulou' }
+  };
+  var LANG_LABEL = { pt:'Português', en:'English', es:'Español', hi:'हिन्दी' };
+  var POS_LABEL = { kit:'Botão do kit (topo)', offer:'Card da oferta', final:'Botão final', sticky:'Barra fixa', hero:'Hero (site)', nav:'Menu (site)', pricing:'Preço (site)', sticky_site:'Barra (site)', demo:'Demo (site)', depois:'Vida depois (site)', quiz:'Card do quiz antigo' };
+
+  // fuso horário → país (o servidor não manda país)
+  var TZ_COUNTRY = {
+    'America/Sao_Paulo':'Brasil','America/Bahia':'Brasil','America/Fortaleza':'Brasil','America/Recife':'Brasil','America/Belem':'Brasil','America/Manaus':'Brasil','America/Cuiaba':'Brasil','America/Campo_Grande':'Brasil','America/Porto_Velho':'Brasil','America/Boa_Vista':'Brasil','America/Rio_Branco':'Brasil','America/Maceio':'Brasil','America/Araguaina':'Brasil','America/Santarem':'Brasil','America/Noronha':'Brasil','America/Eirunepe':'Brasil',
+    'America/New_York':'EUA','America/Chicago':'EUA','America/Denver':'EUA','America/Los_Angeles':'EUA','America/Phoenix':'EUA','America/Anchorage':'EUA','America/Detroit':'EUA','Pacific/Honolulu':'EUA',
+    'America/Toronto':'Canadá','America/Vancouver':'Canadá','America/Mexico_City':'México','America/Monterrey':'México','America/Tijuana':'México','America/Cancun':'México',
+    'America/Bogota':'Colômbia','America/Lima':'Peru','America/Santiago':'Chile','America/Caracas':'Venezuela','America/Montevideo':'Uruguai','America/Asuncion':'Paraguai','America/La_Paz':'Bolívia','America/Guayaquil':'Equador',
+    'America/Argentina/Buenos_Aires':'Argentina','America/Buenos_Aires':'Argentina','America/Argentina/Cordoba':'Argentina','America/Guatemala':'Guatemala','America/Costa_Rica':'Costa Rica','America/Panama':'Panamá','America/Santo_Domingo':'Rep. Dominicana','America/El_Salvador':'El Salvador','America/Tegucigalpa':'Honduras','America/Managua':'Nicarágua','America/Havana':'Cuba','America/Puerto_Rico':'Porto Rico',
+    'Asia/Kolkata':'Índia','Asia/Calcutta':'Índia','Asia/Karachi':'Paquistão','Asia/Dhaka':'Bangladesh','Asia/Kathmandu':'Nepal','Asia/Dubai':'Emirados','Asia/Manila':'Filipinas','Asia/Jakarta':'Indonésia',
+    'Europe/Lisbon':'Portugal','Europe/Madrid':'Espanha','Europe/London':'Reino Unido','Europe/Paris':'França','Europe/Berlin':'Alemanha','Europe/Rome':'Itália','Atlantic/Azores':'Portugal','Atlantic/Madeira':'Portugal','Africa/Luanda':'Angola','Africa/Maputo':'Moçambique','Africa/Lagos':'Nigéria'
+  };
+  function countryOf(k){ return TZ_COUNTRY[k] || (k && k.length <= 3 ? k : (k || '?').split('/').pop().replace(/_/g,' ')); }
+
+  function funnelCall(cb){
+    var to = new Date(Date.now() + 60000);
+    var from;
+    if (fstate.days === 0) { from = new Date(); from.setHours(0,0,0,0); }
+    else from = new Date(to.getTime() - fstate.days * 86400000);
+    fetch(FUNNEL_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization':'Bearer ' + SUPABASE_ANON_KEY, 'x-admin-token': state.token },
+      body: JSON.stringify({ from: from.toISOString(), to: to.toISOString(), page: fstate.page })
+    }).then(function(r){ return r.json().then(function(d){ cb(r.ok, d); }); }).catch(function(){ cb(false, {}); });
+  }
+
+  function loadFunnel(){
+    var content = document.getElementById('content');
+    content.innerHTML = '<div class="loading"><div class="spinner"></div>Carregando métricas do funil…</div>';
+    funnelCall(function(ok, d){
+      if (!ok) { content.innerHTML = '<div class="loading">Erro ao carregar o funil. ' + escapeHtml(d && d.error || '') + '</div>'; return; }
+      fstate.data = d;
+      renderFunnel();
+    });
+  }
+
+  function pct(a, b){ return b ? Math.round(a / b * 1000) / 10 : 0; }
+  function fmtSecs(s){ if (s == null) return '—'; s = Math.round(s); if (s < 60) return s + 's'; var m = Math.floor(s / 60); return m + 'min ' + (s % 60 ? (s % 60) + 's' : ''); }
+
+  function renderFunnel(){
+    var d = fstate.data || {}, T = d.totals || {}, Qs = d.questions || {}, isQuiz = fstate.page === 'comecar';
+    var base = T.sessions || 0;
+
+    var bar =
+      '<div class="fbar">' +
+        [[0,'Hoje'],[1,'24h'],[7,'7 dias'],[30,'30 dias'],[90,'90 dias']].map(function(o){ return '<div class="fchip ' + (fstate.days===o[0]?'on':'') + '" data-days="' + o[0] + '">' + o[1] + '</div>'; }).join('') +
+        '<span class="sep"></span>' +
+        [['comecar','Funil novo (/comecar)'],['home','Site antigo (home)'],['all','Tudo']].map(function(o){ return '<div class="fchip ' + (fstate.page===o[0]?'on':'') + '" data-page="' + o[0] + '">' + o[1] + '</div>'; }).join('') +
+        '<span class="hint">atualizado ' + new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}) + '</span>' +
+      '</div>';
+
+    var cards = '<div class="cards">' +
+      card('Visitas', T.page_views || 0, 'var(--muted)', (T.visitors||0) + ' visitantes únicos') +
+      card('Sessões', base, 'var(--accent)', (T.returning_visitors||0) + ' voltaram mais de 1x') +
+      (isQuiz ? card('Começaram o quiz', T.quiz_starts || 0, 'var(--purple)', pct(T.quiz_starts, base) + '% das sessões') : '') +
+      (isQuiz ? card('Terminaram o quiz', T.quiz_completes || 0, 'var(--purple)', pct(T.quiz_completes, base) + '% das sessões · ' + pct(T.quiz_completes, T.quiz_starts) + '% de quem começou') : '') +
+      (isQuiz ? card('Viram a oferta', T.result_views || 0, 'var(--accent-hi)', pct(T.result_views, base) + '% das sessões') : '') +
+      card('Clicaram em comprar', T.cta_sessions || 0, 'var(--orange)', pct(T.cta_sessions, base) + '% das sessões · ' + (T.cta_clicks||0) + ' cliques') +
+      card('Compras rastreadas', T.purchases_attributed || 0, 'var(--green)', pct(T.purchases_attributed, base) + '% das sessões') +
+      card('Compras no período', T.purchases_total || 0, 'var(--green)', 'todas as origens (Kiwify)') +
+      (isQuiz ? card('Tempo do quiz', fmtSecs(T.avg_quiz_seconds), 'var(--muted)', 'média até terminar') : '') +
+      card('Tempo na página', fmtSecs(T.median_seconds_on_page), 'var(--muted)', 'mediana') +
+    '</div>';
+
+    // ---- funil passo a passo ----
+    var steps = [['Visitaram', T.sessions]];
+    if (isQuiz) {
+      steps.push(['Escolheram idioma', T.lang_selected], ['Começaram o quiz', T.quiz_starts]);
+      Q_ORDER.forEach(function(q){ steps.push([Q_LABEL[q], Qs[q] || 0, 'q']); });
+      steps.push(['Terminaram o quiz', T.quiz_completes], ['Tela "montando kit"', T.analysis_views], ['Viram o kit e a oferta', T.result_views], ['Viram o vídeo', T.video_plays]);
+    }
+    steps.push(['Clicaram em comprar', T.cta_sessions], ['Compraram', T.purchases_attributed, 'buy']);
+    var worst = -1, worstDrop = 0;
+    steps.forEach(function(s, i){ if (i > 0 && steps[i-1][1] > 0) { var dr = 1 - (s[1]||0) / steps[i-1][1]; if (dr > worstDrop && s[2] === 'q') { worstDrop = dr; worst = i; } } });
+    var maxv = Math.max(1, steps[0][1] || 0);
+    var funnelHtml = steps.map(function(s, i){
+      var v = s[1] || 0, prev = i ? (steps[i-1][1] || 0) : v;
+      var drop = i && prev ? Math.round((1 - v / prev) * 100) : 0;
+      return '<div class="fstep' + (s[2]==='buy' ? ' buy' : '') + (i === worst && worstDrop > 0 ? ' worst' : '') + '">' +
+        '<div class="lbl">' + s[0] + (i === worst && worstDrop > 0 ? '<small>maior abandono</small>' : '') + '</div>' +
+        '<div class="track"><div class="fill" style="width:' + Math.max(0.5, v / maxv * 100) + '%"></div><b>' + v + '</b></div>' +
+        '<div class="pct">' + pct(v, steps[0][1]) + '%' + (i && drop > 0 ? '<span class="drop">−' + drop + '% vs anterior</span>' : '') + '</div>' +
+      '</div>';
+    }).join('');
+
+    // ---- respostas ----
+    var ansHtml = '';
+    if (isQuiz) {
+      Q_ORDER.forEach(function(q){
+        var arr = (d.answers || {})[q] || [];
+        if (!arr.length) return;
+        var tot = Qs[q] || arr.reduce(function(s,x){ return s + x.n; }, 0);
+        ansHtml += '<h4>' + Q_LABEL[q] + ' <span style="color:var(--dim);font-weight:400">· ' + tot + ' respostas' + (q==='fams' ? ' (vários por pessoa)' : '') + '</span></h4>' +
+          arr.map(function(x){
+            var lbl = (A_LABEL[q] && A_LABEL[q][x.k]) || x.k;
+            return '<div class="arow"><span class="t" title="' + escapeAttr(lbl) + '">' + escapeHtml(lbl) + '</span><span class="b"><i style="width:' + pct(x.n, tot) + '%"></i></span><span class="n">' + x.n + ' · ' + Math.round(pct(x.n, tot)) + '%</span></div>';
+          }).join('');
+      });
+    }
+
+    // ---- dimensões ----
+    function dimTable(title, key, mapK){
+      var rows = ((d.dims || {})[key] || []).slice();
+      if (mapK) {
+        var m = {};
+        rows.forEach(function(r){ var k = mapK(r.k); if (!m[k]) m[k] = { k:k, sessions:0, completes:0, clicks:0, purchases:0 }; ['sessions','completes','clicks','purchases'].forEach(function(f){ m[k][f] += r[f]; }); });
+        rows = Object.keys(m).map(function(k){ return m[k]; }).sort(function(a,b){ return b.sessions - a.sessions; });
+      }
+      if (!rows.length) return '<div class="panel"><h3>' + title + '</h3><div class="empty-note">Sem dados ainda</div></div>';
+      return '<div class="panel"><h3>' + title + '</h3><div class="ph">sessões · ' + (isQuiz ? 'terminaram o quiz · ' : '') + 'clicaram · compraram</div>' +
+        '<table class="mini"><thead><tr><th></th><th class="num">Sessões</th>' + (isQuiz ? '<th class="num">Quiz ✓</th>' : '') + '<th class="num">Clique</th><th class="num">Compra</th></tr></thead><tbody>' +
+        rows.slice(0, 12).map(function(r){
+          return '<tr><td class="k" title="' + escapeAttr(r.k) + '">' + escapeHtml(r.k) + '</td><td class="num">' + r.sessions + '</td>' +
+            (isQuiz ? '<td class="num">' + r.completes + ' <span style="color:var(--dim)">' + Math.round(pct(r.completes, r.sessions)) + '%</span></td>' : '') +
+            '<td class="num">' + r.clicks + ' <span style="color:var(--dim)">' + Math.round(pct(r.clicks, r.sessions)) + '%</span></td>' +
+            '<td class="num" style="color:' + (r.purchases ? 'var(--green)' : 'inherit') + '">' + r.purchases + '</td></tr>';
+        }).join('') + '</tbody></table></div>';
+    }
+
+    // ---- gráfico por dia ----
+    function dailyChart(){
+      var rows = d.daily || [];
+      if (!rows.length) return '<div class="empty-note">Sem dados no período</div>';
+      var W = 900, H = 200, P = 26, n = rows.length;
+      var maxY = Math.max(1, Math.max.apply(null, rows.map(function(r){ return r.sessions; })));
+      var bw = (W - P * 2) / n;
+      var x = function(i){ return P + i * bw + bw / 2; }, y = function(v){ return H - P - (v / maxY) * (H - P * 2); };
+      var line = function(key){ return rows.map(function(r,i){ return (i ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(r[key]).toFixed(1); }).join(' '); };
+      var svg = '<svg class="chart" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none">';
+      [0, .5, 1].forEach(function(g){ var yy = y(maxY * g); svg += '<line x1="' + P + '" x2="' + (W - P) + '" y1="' + yy + '" y2="' + yy + '" stroke="rgba(255,255,255,.06)"/><text x="2" y="' + (yy + 4) + '" fill="#6a6f7d" font-size="10" font-family="JetBrains Mono">' + Math.round(maxY * g) + '</text>'; });
+      rows.forEach(function(r,i){ svg += '<rect x="' + (x(i) - bw * .32) + '" y="' + y(r.sessions) + '" width="' + (bw * .64) + '" height="' + (H - P - y(r.sessions)) + '" rx="3" fill="rgba(59,110,245,.35)"><title>' + r.d + ': ' + r.sessions + ' sessões</title></rect>'; });
+      if (isQuiz) svg += '<path d="' + line('completes') + '" fill="none" stroke="#a78bfa" stroke-width="2"/>';
+      svg += '<path d="' + line('clicks') + '" fill="none" stroke="#ffc46b" stroke-width="2"/>';
+      rows.forEach(function(r,i){ if (r.purchases_all) svg += '<circle cx="' + x(i) + '" cy="' + y(r.purchases_all) + '" r="5" fill="#4ade80"><title>' + r.d + ': ' + r.purchases_all + ' compras (' + r.purchases + ' rastreadas)</title></circle>'; });
+      var step = Math.max(1, Math.ceil(n / 10));
+      rows.forEach(function(r,i){ if (i % step === 0) svg += '<text x="' + x(i) + '" y="' + (H - 6) + '" fill="#6a6f7d" font-size="10" text-anchor="middle" font-family="JetBrains Mono">' + r.d.slice(5).split('-').reverse().join('/') + '</text>'; });
+      svg += '</svg>';
+      return svg + '<div class="legend"><span><i style="background:rgba(59,110,245,.6)"></i>Sessões</span>' + (isQuiz ? '<span><i style="background:#a78bfa"></i>Terminaram quiz</span>' : '') + '<span><i style="background:#ffc46b"></i>Clicaram em comprar</span><span><i style="background:#4ade80;border-radius:50%"></i>Compras (todas)</span></div>';
+    }
+
+    function kv(obj, labels, total, keepOrder){
+      var keys = Object.keys(obj || {});
+      if (!keys.length) return '<div class="empty-note">Sem dados ainda</div>';
+      if (!keepOrder) keys.sort(function(a,b){ return (obj[b]) - (obj[a]); });
+      return '<div class="kv">' + keys.map(function(k){
+        return '<span>' + escapeHtml((labels && labels[k]) || k) + '</span><span>' + obj[k] + (total ? ' · ' + Math.round(pct(obj[k], total)) + '%' : '') + '</span>';
+      }).join('') + '</div>';
+    }
+    var vid = d.video || {}, sc = d.scroll || {};
+    var vidObj = {}; if (vid.play != null) vidObj['Deu play'] = vid.play; ['25','50','75','100'].forEach(function(k){ if (vid[k] != null) vidObj['Viu ' + k + '%'] = vid[k]; });
+    var scObj = {}; ['25','50','75','100'].forEach(function(k){ if (sc[k] != null) scObj['Rolou ' + k + '%'] = sc[k]; });
+
+    // ---- comparação com o site antigo ----
+    var cmp = '';
+    if (isQuiz && d.home) {
+      var H = d.home;
+      cmp = '<div class="panel"><h3>Funil novo × site antigo (mesmo período)</h3><div class="ph">o site antigo é quem entra por dropsfx.com.br/?direto=1 ou quem já tinha feito o funil anterior</div><div class="cmp">' +
+        '<div><b>' + base + ' / ' + (H.sessions||0) + '</b><span>sessões (funil / site)</span></div>' +
+        '<div><b>' + pct(T.cta_sessions, base) + '% / ' + pct(H.cta_sessions, H.sessions) + '%</b><span>clicaram em comprar</span></div>' +
+        '<div><b>' + (T.purchases_attributed||0) + ' / ' + (H.purchases_attributed||0) + '</b><span>compras rastreadas</span></div>' +
+        '<div><b>' + pct(T.purchases_attributed, base) + '% / ' + pct(H.purchases_attributed, H.sessions) + '%</b><span>conversão</span></div>' +
+      '</div></div>';
+    }
+
+    // ---- sessões recentes ----
+    var recent = d.recent || [];
+    function stageOf(r){
+      if (r.bought) return '<span class="sess-tag buy">Comprou</span>';
+      if (r.cta) return '<span class="sess-tag cta">Clicou em comprar</span>';
+      if (r.rv) return '<span class="sess-tag res">Viu a oferta</span>';
+      if (r.qc) return '<span class="sess-tag res">Terminou o quiz</span>';
+      if (r.qs) { var n = r.answers ? Object.keys(r.answers).length : 0; return '<span class="sess-tag qz">Parou na pergunta ' + (n + 1) + '</span>'; }
+      return '<span class="sess-tag">Só visitou</span>';
+    }
+    function ansSummary(a){
+      if (!a) return '<span style="color:var(--dim)">—</span>';
+      return Q_ORDER.filter(function(q){ return a[q] != null; }).map(function(q){
+        var v = a[q], L = A_LABEL[q] || {};
+        var txt = Array.isArray(v) ? v.map(function(x){ return L[x] || x; }).join(', ') : (L[v] || v);
+        return '<b style="color:var(--ink-2)">' + Q_LABEL[q].split(' · ')[1] + ':</b> ' + escapeHtml(String(txt));
+      }).join(' · ');
+    }
+    var recentHtml = '<div class="table-wrap"><div class="table-scroll"><table><thead><tr>' +
+      '<th>Quando</th><th>Até onde foi</th><th>Idioma</th><th>Aparelho</th><th>País</th><th>Origem</th><th>Tempo</th><th>Respostas</th>' +
+      '</tr></thead><tbody>' +
+      (recent.length ? recent.map(function(r){
+        return '<tr><td><span class="date-cell">' + fmtDate(r.started) + '<span class="rel">' + relTime(r.started) + '</span></span></td>' +
+          '<td>' + stageOf(r) + '</td>' +
+          '<td>' + escapeHtml(LANG_LABEL[r.lang] || r.lang || '—') + '</td>' +
+          '<td>' + escapeHtml((r.device || '') + ' · ' + (r.os || '')) + '</td>' +
+          '<td>' + escapeHtml(countryOf(r.geo)) + '</td>' +
+          '<td>' + escapeHtml(r.source || '') + (r.campaign && r.campaign !== '(sem campanha)' ? '<br><span style="color:var(--dim);font-size:10.5px">' + escapeHtml(r.campaign) + '</span>' : '') + '</td>' +
+          '<td>' + fmtSecs(r.secs) + '</td>' +
+          '<td class="ans-cell">' + ansSummary(r.answers) + '</td></tr>';
+      }).join('') : '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--dim)">Nenhuma sessão no período</td></tr>') +
+      '</tbody></table></div></div>';
+
+    var html = bar + cards + cmp +
+      '<div class="panel"><h3>Por dia</h3><div class="ph">sessões, quiz, cliques e compras</div>' + dailyChart() + '</div>' +
+      '<div class="grid2">' +
+        '<div class="panel"><h3>Funil passo a passo</h3><div class="ph">% sobre quem visitou · em vermelho, a pergunta que mais perde gente</div>' + funnelHtml + '</div>' +
+        (isQuiz ? '<div class="panel ans"><h3 style="margin-bottom:14px">O que as pessoas responderam</h3>' + (ansHtml || '<div class="empty-note">Sem respostas ainda</div>') + '</div>'
+                : '<div class="panel"><h3>Onde clicaram em comprar</h3><div class="ph">cliques por botão</div>' + kv(d.cta_positions, POS_LABEL) + '</div>') +
+      '</div>' +
+      '<div class="grid3">' +
+        dimTable('Idioma', 'lang', function(k){ return LANG_LABEL[k] || k; }) +
+        dimTable('Aparelho', 'device') +
+        dimTable('Navegador / app', 'browser') +
+      '</div>' +
+      '<div class="grid3">' +
+        dimTable('País (pelo fuso horário)', 'geo', countryOf) +
+        dimTable('Origem (utm_source)', 'source') +
+        dimTable('Sistema', 'os') +
+      '</div>' +
+      '<div class="grid3">' +
+        dimTable('Campanha (utm_campaign)', 'campaign') +
+        dimTable('Anúncio (utm_content)', 'content') +
+        dimTable('Site de origem', 'referrer') +
+      '</div>' +
+      '<div class="grid3">' +
+        '<div class="panel"><h3>Botões de compra</h3><div class="ph">cliques por posição</div>' + kv(d.cta_positions, POS_LABEL, T.cta_clicks) + '</div>' +
+        '<div class="panel"><h3>Vídeo e rolagem</h3><div class="ph">sessões</div>' + kv(Object.assign({}, vidObj, scObj), null, null, true) + '</div>' +
+        '<div class="panel"><h3>Compras por origem (Kiwify)</h3><div class="ph">utm_source / utm_medium de cada venda</div>' + kv(d.purchases_by_medium) + '</div>' +
+      '</div>' +
+      '<div class="panel" style="padding-bottom:6px"><h3>Últimas sessões</h3><div class="ph">as 80 mais recentes no período · o nome digitado no quiz não é salvo</div></div>' +
+      recentHtml;
+
+    document.getElementById('content').innerHTML = html;
+    document.querySelectorAll('.fchip[data-days]').forEach(function(c){ c.addEventListener('click', function(){ fstate.days = +c.dataset.days; saveF(); loadFunnel(); }); });
+    document.querySelectorAll('.fchip[data-page]').forEach(function(c){ c.addEventListener('click', function(){ fstate.page = c.dataset.page; saveF(); loadFunnel(); }); });
+  }
+
+  function saveF(){ try { localStorage.setItem('dropsfx_central_funnel', JSON.stringify({ days: fstate.days, page: fstate.page })); } catch(e){} }
+  try { var sf = JSON.parse(localStorage.getItem('dropsfx_central_funnel') || 'null'); if (sf) { fstate.days = sf.days; fstate.page = sf.page; } } catch(e){}
+
+  function exportFunnelCSV(){
+    var rows = (fstate.data && fstate.data.recent) || [];
+    var head = ['inicio','idioma','aparelho','sistema','pais','origem','campanha','comecou_quiz','terminou_quiz','viu_oferta','clicou_comprar','comprou','segundos'].concat(Q_ORDER);
+    var lines = [head.join(',')];
+    rows.forEach(function(r){
+      var a = r.answers || {};
+      lines.push([r.started, r.lang, r.device, r.os, countryOf(r.geo), r.source, r.campaign, r.qs, r.qc, r.rv, r.cta, r.bought, r.secs]
+        .concat(Q_ORDER.map(function(q){ var v = a[q]; return v == null ? '' : (Array.isArray(v) ? v.join('|') : v); })).map(csvCell).join(','));
+    });
+    var blob = new Blob([lines.join('\n')], { type:'text/csv;charset=utf-8;' });
+    var u = URL.createObjectURL(blob), el = document.createElement('a');
+    el.href = u; el.download = 'dropsfx-funil-' + new Date().toISOString().slice(0,10) + '.csv'; el.click(); URL.revokeObjectURL(u);
+  }
 
   function escapeHtml(s){ return (s||'').replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); }
   function escapeAttr(s){ return (s||'').replace(/"/g,'&quot;'); }

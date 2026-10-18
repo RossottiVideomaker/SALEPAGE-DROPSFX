@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+  <title>dropSFX · Monte seu kit de sound design</title>
+  <meta name="description" content="Responda 8 perguntas rápidas e veja quais dos 1.463 efeitos sonoros do dropSFX combinam com o seu tipo de vídeo. Premiere Pro, After Effects e DaVinci Resolve." />
+  <link rel="canonical" href="https://www.dropsfx.com.br/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="dropSFX · Monte seu kit de sound design" />
+  <meta property="og:description" content="8 perguntas, 1 minuto: descubra o kit de efeitos sonoros que combina com os seus vídeos." />
+  <meta property="og:image" content="https://www.dropsfx.com.br/assets/og-image.jpg" />
+  <meta property="og:url" content="https://www.dropsfx.com.br/comecar/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+  <!-- Meta Pixel (mesmo pixel do site) -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    window.dropsfxEvent = function (name, data) {
+      if (typeof fbq !== 'function') return;
+      fbq('track', name, data || {}, { eventID: name + '.' + Date.now() + '.' + Math.random().toString(36).slice(2, 10) });
+    };
+    fbq('init', '1668719247772250');
+    fbq('track', 'PageView');
+  </script>
+
+  <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+  <link rel="stylesheet" href="https://use.typekit.net/czr1sny.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://bwgrxdjdvrdawarbnqjv.supabase.co" crossorigin>
+
+  <style>
+    :root {
+      --bg: #000;
+      --ink: #fff;
+      --ink-2: #c4c8d4;
+      --steel: #8a8f9c;
+      --dim: #4a4d57;
+      --line: rgba(255, 255, 255, .1);
+      --line-2: rgba(255, 255, 255, .16);
+      --card: rgba(255, 255, 255, .035);
+      --accent: #3b6ef5;
+      --accent-hi: #6e9bff;
+      --accent-soft: rgba(59, 110, 245, .14);
+      --accent-glow: rgba(59, 110, 245, .5);
+      --ice: #d8faff;
+      --red: #ff5a5a;
+      --green: #4ade80;
+      --yellow: #facc15;
+      --font-display: 'degular-display', 'degular', 'Sora', 'Noto Sans Devanagari', sans-serif;
+      --font: 'degular', 'Sora', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-serif: 'Instrument Serif', 'Noto Sans Devanagari', Georgia, serif;
+      --font-mono: 'JetBrains Mono', 'Noto Sans Devanagari', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      min-height: 100vh;
+      min-height: 100svh;
+      background:
+        radial-gradient(ellipse 70% 40% at 50% 0%, rgba(59, 110, 245, .16), transparent 70%),
+        var(--bg);
+      background-attachment: fixed;
+      color: var(--ink);
+      font-family: var(--font);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    button { font: inherit; color: inherit; }
+    img, video { display: block; max-width: 100%; }
+    .wrap { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 20px; }
+    .wide { max-width: 1080px; }
+
+    /* ---------- topo ---------- */
+    .top {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: linear-gradient(180deg, rgba(0, 0, 0, .92) 60%, rgba(0, 0, 0, 0));
+    }
+    .top-in { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
+    .logo { height: 24px; width: auto; filter: drop-shadow(0 0 10px var(--accent-glow)); }
+    .lang-mini { display: flex; padding: 3px; border: 1px solid var(--line); border-radius: 999px; }
+    .lang-mini button {
+      padding: 5px 9px;
+      border: 0;
+      border-radius: 999px;
+      background: none;
+      color: var(--steel);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      cursor: pointer;
+    }
+    .lang-mini button[aria-pressed="true"] { background: var(--ink); color: #000; }
+    .lang-mini[hidden] { display: none; }
+
+    /* ---------- telas ---------- */
+    .screen { display: none; }
+    .screen.on { display: block; animation: in .45s cubic-bezier(.2, .8, .3, 1); }
+    @keyframes in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+    .h1 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(32px, 6vw, 60px);
+      line-height: .96;
+      letter-spacing: -.025em;
+      text-transform: uppercase;
+    }
+    .h1 .serif, .h2 .serif {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: -.01em;
+      font-size: 1.12em;
+      color: var(--ice);
+    }
+    .h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(26px, 4vw, 42px);
+      line-height: 1;
+      letter-spacing: -.02em;
+      text-transform: uppercase;
+    }
+    .mono {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent-hi);
+    }
+    .lead { font-size: clamp(16px, 1.6vw, 19px); color: var(--ink-2); line-height: 1.6; }
+
+    /* ---------- 0 · idioma ---------- */
+    #sLang { padding: 6vh 0 48px; }
+    .lang-eq { display: flex; align-items: flex-end; gap: 4px; height: 38px; margin-bottom: 28px; }
+    .lang-eq i { flex: 1; max-width: 6px; border-radius: 3px; background: var(--accent); animation: eq 1.1s ease-in-out infinite alternate; }
+    @keyframes eq { from { height: 18%; opacity: .5; } to { height: 100%; opacity: 1; } }
+    .lang-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(30px, 5.4vw, 54px);
+      line-height: 1.02;
+      letter-spacing: -.02em;
+    }
+    .lang-title span { display: block; color: var(--dim); }
+    .lang-title span:first-child { color: var(--ink); }
+    .lang-list { margin-top: 36px; display: grid; gap: 10px; }
+    .lang-opt {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      width: 100%;
+      padding: 20px 22px;
+      border: 1px solid var(--line-2);
+      border-radius: 16px;
+      background: var(--card);
+      text-align: left;
+      cursor: pointer;
+      transition: border-color .2s, background .2s, transform .15s;
+    }
+    .lang-opt:hover, .lang-opt:focus-visible { border-color: var(--accent); background: var(--accent-soft); outline: none; }
+    .lang-opt:active { transform: scale(.99); }
+    .lang-opt.suggested { border-color: var(--accent); }
+    .lang-code {
+      flex: none;
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .06);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+    .lang-opt.suggested .lang-code { background: var(--accent); }
+    .lang-name { font-family: var(--font-display); font-size: 22px; font-weight: 600; line-height: 1.1; }
+    .lang-note { display: block; margin-top: 2px; font-family: var(--font); font-size: 13px; font-weight: 400; color: var(--steel); }
+    .lang-arrow { margin-left: auto; color: var(--steel); font-size: 20px; }
+    .lang-foot { margin-top: 26px; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .06em; color: var(--dim); text-transform: uppercase; }
+
+    /* ---------- 1 · quiz ---------- */
+    #sQuiz { padding: 8px 0 120px; }
+    .q-intro { margin-bottom: 18px; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--steel); }
+    .q-intro[hidden] { display: none; }
+    .q-track { position: relative; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .1); }
+    .q-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 2px; background: var(--accent); transition: width .5s cubic-bezier(.2, .8, .3, 1); }
+    .q-fill::after {
+      content: "";
+      position: absolute;
+      right: -1px;
+      top: -7px;
+      width: 2px;
+      height: 17px;
+      border-radius: 1px;
+      background: var(--accent-hi);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+    .q-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
+    .q-back { padding: 0; border: 0; background: none; color: var(--steel); font-size: 14px; cursor: pointer; }
+    .q-back:hover { color: #fff; }
+    .q-back[hidden] { visibility: hidden; display: inline; }
+
+    .insight {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-top: 26px;
+      padding: 14px 16px;
+      border: 1px solid rgba(110, 155, 255, .3);
+      border-radius: 14px;
+      background: var(--accent-soft);
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--ink);
+      animation: in .5s cubic-bezier(.2, .8, .3, 1);
+    }
+    .insight::before { content: "✓"; flex: none; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); font-size: 12px; font-weight: 700; }
+    .insight[hidden] { display: none; }
+
+    .q-title { margin-top: 30px; }
+    .q-sub { margin-top: 10px; color: var(--steel); font-size: 15px; }
+    .q-opts { margin-top: 26px; display: grid; gap: 10px; }
+    .q-opts.grid { grid-template-columns: repeat(2, 1fr); }
+    .q-opt {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      padding: 17px 18px;
+      border: 1px solid var(--line-2);
+      border-radius: 14px;
+      background: var(--card);
+      font-size: clamp(15px, 1.4vw, 17px);
+      font-weight: 500;
+      line-height: 1.3;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color .2s, background .2s, transform .15s;
+    }
+    .q-opts.grid .q-opt { flex-direction: column; align-items: flex-start; gap: 12px; padding: 18px; min-height: 118px; }
+    .q-opt:hover, .q-opt:focus-visible { border-color: var(--accent); background: var(--accent-soft); outline: none; }
+    .q-opt.picked { border-color: var(--accent); background: var(--accent); color: #fff; }
+    .q-emoji { font-size: 26px; line-height: 1; }
+    .q-key {
+      flex: none;
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--line-2);
+      border-radius: 7px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--steel);
+    }
+    .q-opt.picked .q-key { color: #fff; border-color: rgba(255, 255, 255, .6); }
+
+    .chips { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 16px;
+      border: 1px solid var(--line-2);
+      border-radius: 999px;
+      background: var(--card);
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+    .chip i { width: 9px; height: 9px; border-radius: 50%; background: var(--c, var(--accent)); box-shadow: 0 0 10px var(--c, var(--accent)); }
+    .chip:hover { border-color: var(--c, var(--accent)); }
+    .chip[aria-pressed="true"] { border-color: var(--c, var(--accent)); background: color-mix(in srgb, var(--c, var(--accent)) 22%, transparent); }
+    .chip[aria-pressed="true"]::after { content: "✓"; font-size: 12px; font-weight: 700; }
+
+    .name-in {
+      width: 100%;
+      margin-top: 26px;
+      padding: 18px 20px;
+      border: 1px solid var(--line-2);
+      border-radius: 14px;
+      background: var(--card);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 20px;
+    }
+    .name-in:focus { outline: none; border-color: var(--accent); }
+
+    .q-actions { display: flex; flex-direction: column; gap: 12px; margin-top: 22px; }
+    .q-actions[hidden] { display: none; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 18px 28px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--ink);
+      color: #000;
+      font-family: var(--font);
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background .2s, transform .2s, opacity .2s;
+    }
+    .btn:hover { background: var(--ice); transform: translateY(-2px); }
+    .btn:focus-visible { outline: 2px solid var(--accent-hi); outline-offset: 3px; }
+    .btn:disabled { opacity: .35; cursor: not-allowed; transform: none; background: var(--ink); }
+    .btn.blue { background: var(--accent); color: #fff; box-shadow: 0 14px 40px var(--accent-glow); }
+    .btn.blue:hover { background: #2554d6; }
+    .btn-ghost { padding: 6px; border: 0; background: none; color: var(--steel); font-size: 14px; cursor: pointer; }
+    .btn-ghost:hover { color: #fff; }
+
+    /* ---------- 2 · análise ---------- */
+    #sAnalysis { padding: 10vh 0 60px; text-align: center; }
+    .ring { position: relative; width: 168px; height: 168px; margin: 0 auto 34px; }
+    .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .ring circle { fill: none; stroke-width: 6; }
+    .ring .bg { stroke: rgba(255, 255, 255, .08); }
+    .ring .fg { stroke: var(--accent); stroke-linecap: round; stroke-dasharray: 465; stroke-dashoffset: 465; transition: stroke-dashoffset .3s linear; filter: drop-shadow(0 0 10px var(--accent-glow)); }
+    .ring b {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-display);
+      font-size: 44px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+    .steps { max-width: 440px; margin: 30px auto 0; display: grid; gap: 12px; text-align: left; }
+    .steps li { list-style: none; display: flex; gap: 12px; align-items: center; color: var(--dim); font-size: 15px; transition: color .3s; }
+    .steps li::before {
+      content: "";
+      flex: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--dim);
+      transition: background .3s, border-color .3s;
+    }
+    .steps li.run { color: var(--ink-2); }
+    .steps li.run::before { border-color: var(--accent); border-top-color: transparent; animation: spin .8s linear infinite; }
+    .steps li.ok { color: var(--ink); }
+    .steps li.ok::before { border-color: var(--accent); background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E") center/12px no-repeat; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .an-proof { margin-top: 38px; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--steel); }
+
+    /* ---------- 3 · resultado / oferta ---------- */
+    #sResult { padding-bottom: 120px; }
+    .r-hero { padding: 24px 0 8px; }
+    .r-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .r-chip { padding: 7px 13px; border: 1px solid var(--line-2); border-radius: 999px; font-size: 13px; color: var(--ink-2); }
+    .r-chip b { color: var(--steel); font-weight: 500; margin-right: 6px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; }
+
+    .kit { margin-top: 34px; padding: 22px; border: 1px solid var(--line-2); border-radius: 22px; background: linear-gradient(160deg, rgba(59, 110, 245, .14), rgba(255, 255, 255, .02) 60%); }
+    .kit-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+    .kit-head .mono { color: var(--ice); }
+    .kit-count { font-family: var(--font-mono); font-size: 12px; color: var(--steel); }
+    .kit-grid { margin-top: 18px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .kc {
+      position: relative;
+      overflow: hidden;
+      padding: 16px;
+      border: 1px solid color-mix(in srgb, var(--c) 38%, transparent);
+      border-radius: 14px;
+      background: color-mix(in srgb, var(--c) 9%, #050506);
+      animation: pop .5s cubic-bezier(.2, .8, .3, 1) both;
+    }
+    @keyframes pop { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: none; } }
+    .kc-top { display: flex; justify-content: space-between; align-items: center; }
+    .kc-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c); box-shadow: 0 0 12px var(--c); }
+    .kc-n { font-family: var(--font-mono); font-size: 11px; color: var(--steel); }
+    .kc-n b { color: #fff; font-size: 14px; }
+    .kc-name { margin-top: 12px; font-family: var(--font-display); font-size: 19px; font-weight: 700; line-height: 1.1; }
+    .kc-why { margin-top: 6px; font-size: 12.5px; color: var(--steel); line-height: 1.4; }
+    .kc-wave { display: flex; align-items: center; gap: 2px; height: 22px; margin-top: 12px; opacity: .8; }
+    .kc-wave i { flex: 1; border-radius: 1px; background: var(--c); }
+    .kit-more { margin-top: 14px; font-size: 14px; color: var(--ink-2); }
+    .kit-more b { color: #fff; }
+
+    .cta-row { margin-top: 22px; display: grid; gap: 10px; text-align: center; }
+    .cta-note { font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--steel); }
+
+    .sec { padding-top: clamp(64px, 9vw, 104px); }
+    .sec .h2 { margin-bottom: 22px; }
+
+    .diag { padding: 24px; border: 1px solid var(--line-2); border-radius: 20px; background: var(--card); }
+    .d-big { font-family: var(--font-display); font-weight: 700; font-size: clamp(64px, 12vw, 120px); line-height: .85; letter-spacing: -.045em; color: var(--red); text-shadow: 0 0 60px rgba(255, 70, 70, .28); }
+    .d-unit { display: block; margin-top: 10px; font-family: var(--font-serif); font-style: italic; font-size: clamp(22px, 3vw, 32px); line-height: 1.15; color: var(--ice); }
+    .d-why { margin-top: 14px; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .03em; color: var(--steel); }
+    .d-days { margin-top: 18px; font-size: 17px; color: var(--ink-2); }
+    .d-days strong { color: #fff; }
+    .d-fix { margin-top: 20px; padding: 14px 18px; border-left: 2px solid var(--accent); border-radius: 0 12px 12px 0; background: var(--accent-soft); font-size: 16px; font-weight: 500; }
+    .d-ok { margin-top: 12px; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--green); }
+    .d-ok.warn { color: var(--yellow); }
+
+    .vid { border: 1px solid var(--line-2); border-radius: 18px; overflow: hidden; background: #07080a; }
+    .vid-bar { display: flex; justify-content: space-between; align-items: center; padding: 11px 16px; border-bottom: 1px solid rgba(255, 255, 255, .08); font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--steel); }
+    .vid-bar .rec { display: inline-flex; align-items: center; gap: 8px; }
+    .vid-bar .rec::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #f04545; }
+    .vid-screen { position: relative; aspect-ratio: 1600 / 1052; background: #000; }
+    .vid-screen video { width: 100%; height: 100%; object-fit: cover; }
+    .vid-sound {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 15px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 999px;
+      background: rgba(8, 9, 12, .8);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .vid-sound[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); }
+    .vid-prog { height: 3px; background: rgba(255, 255, 255, .08); }
+    .vid-prog i { display: block; height: 100%; width: 0; background: var(--accent); }
+
+    .inc { display: grid; gap: 0; }
+    .inc li { list-style: none; display: flex; gap: 14px; align-items: flex-start; padding: 16px 0; border-top: 1px solid var(--line); font-size: 16.5px; color: var(--ink-2); }
+    .inc li::before { content: ""; flex: none; width: 20px; height: 20px; margin-top: 2px; border-radius: 50%; background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E") center/11px no-repeat; }
+    .inc strong { color: #fff; }
+
+    .offer { padding: 26px; border: 1px solid var(--line-2); border-radius: 24px; background: #08090c; box-shadow: 0 40px 100px -40px rgba(59, 110, 245, .5); }
+    .o-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .o-ribbon { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--steel); }
+    .o-off { padding: 6px 12px; border-radius: 999px; background: var(--accent); font-family: var(--font-display); font-size: 18px; font-weight: 700; }
+    .o-title { margin-top: 20px; font-family: var(--font-display); font-size: clamp(26px, 4vw, 34px); font-weight: 700; line-height: 1.05; text-transform: uppercase; }
+    .o-who { margin-top: 6px; font-family: var(--font-serif); font-style: italic; font-size: 22px; color: var(--ice); }
+    .o-terms { margin-top: 14px; color: var(--ink-2); }
+    .offer .btn { margin-top: 22px; font-size: 17px; padding: 20px 28px; }
+    .o-secure { margin-top: 14px; text-align: center; font-size: 13px; color: var(--steel); }
+    .o-proof { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 14px; color: var(--ink-2); }
+    .o-proof b { color: #fff; }
+
+    .guar { display: flex; gap: 18px; align-items: flex-start; padding: 22px; border: 1px solid rgba(74, 222, 128, .3); border-radius: 18px; background: rgba(74, 222, 128, .06); }
+    .guar-seal {
+      flex: none;
+      display: grid;
+      place-items: center;
+      width: 64px;
+      height: 64px;
+      border: 2px solid var(--green);
+      border-radius: 50%;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1;
+      text-align: center;
+      color: var(--green);
+    }
+    .guar-seal b { display: block; font-size: 26px; }
+    .guar h3 { font-family: var(--font-display); font-size: 22px; text-transform: uppercase; }
+    .guar p { margin-top: 6px; color: var(--ink-2); }
+
+    .faq-item { border-top: 1px solid var(--line); }
+    .faq-q { display: flex; justify-content: space-between; gap: 16px; width: 100%; padding: 18px 0; border: 0; background: none; text-align: left; font-size: 17px; font-weight: 600; cursor: pointer; }
+    .faq-q span:last-child { color: var(--accent-hi); transition: transform .25s; }
+    .faq-item.open .faq-q span:last-child { transform: rotate(45deg); }
+    .faq-a { display: none; padding: 0 0 18px; color: var(--ink-2); }
+    .faq-item.open .faq-a { display: block; }
+
+    .foot { padding: 56px 0 30px; display: flex; flex-wrap: wrap; gap: 10px 22px; justify-content: center; font-size: 13.5px; }
+    .foot a, .foot button { border: 0; background: none; color: var(--steel); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+    .foot a:hover, .foot button:hover { color: #fff; }
+
+    .sticky {
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 8px 8px 8px 18px;
+      border: 1px solid var(--line-2);
+      border-radius: 999px;
+      background: rgba(8, 8, 10, .96);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, .6);
+      transform: translateY(150%);
+      transition: transform .45s cubic-bezier(.2, .8, .3, 1);
+    }
+    .sticky.show { transform: none; }
+    .sticky-t { font-family: var(--font-display); font-size: 15px; font-weight: 700; line-height: 1.1; text-transform: uppercase; }
+    .sticky-s { display: block; font-family: var(--font-mono); font-size: 10px; letter-spacing: .04em; color: var(--steel); text-transform: none; font-weight: 400; }
+    .sticky .btn { width: auto; padding: 13px 22px; font-size: 14px; }
+
+    @media (min-width: 760px) {
+      .kit-grid { grid-template-columns: repeat(3, 1fr); }
+      .q-opts.grid { grid-template-columns: repeat(3, 1fr); }
+      .cta-row .btn { width: auto; justify-self: center; min-width: 360px; }
+    }
+    @media (max-width: 420px) {
+      .q-opts.grid .q-opt { min-height: 104px; padding: 14px; }
+      .lang-opt { padding: 16px; }
+      .lang-name { font-size: 19px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-in">
+      <img src="/assets/logo.png" alt="dropSFX" class="logo" width="1024" height="381">
+      <div class="lang-mini" id="langMini" role="group" aria-label="Idioma / Language" hidden>
+        <button type="button" data-lang="pt">PT</button>
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="es">ES</button>
+        <button type="button" data-lang="hi">HI</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 0 · IDIOMA -->
+    <section class="screen" id="sLang" aria-labelledby="langTitle">
+      <div class="wrap">
+        <div class="lang-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <h1 class="lang-title" id="langTitle">
+          <span>Escolha seu idioma</span>
+          <span>Choose your language</span>
+          <span>Elige tu idioma</span>
+          <span>अपनी भाषा चुनें</span>
+        </h1>
+        <div class="lang-list">
+          <button type="button" class="lang-opt" data-lang="pt"><span class="lang-code">PT</span><span class="lang-name">Português<span class="lang-note">Brasil</span></span><span class="lang-arrow">→</span></button>
+          <button type="button" class="lang-opt" data-lang="en"><span class="lang-code">EN</span><span class="lang-name">English<span class="lang-note">International</span></span><span class="lang-arrow">→</span></button>
+          <button type="button" class="lang-opt" data-lang="es"><span class="lang-code">ES</span><span class="lang-name">Español<span class="lang-note">Latinoamérica · España</span></span><span class="lang-arrow">→</span></button>
+          <button type="button" class="lang-opt" data-lang="hi"><span class="lang-code">HI</span><span class="lang-name">हिन्दी<span class="lang-note">India</span></span><span class="lang-arrow">→</span></button>
+        </div>
+        <p class="lang-foot">1,463 SFX · Premiere Pro · After Effects · DaVinci Resolve</p>
+      </div>
+    </section>
+
+    <!-- 1 · QUIZ -->
+    <section class="screen" id="sQuiz" aria-live="polite">
+      <div class="wrap">
+        <p class="q-intro" id="qIntro" data-t="q.intro"></p>
+        <div class="q-track" aria-hidden="true"><div class="q-fill" id="qFill"></div></div>
+        <div class="q-meta">
+          <button type="button" class="q-back" id="qBack">← <span data-t="ui.back"></span></button>
+          <span class="mono" id="qN"></span>
+        </div>
+        <p class="insight" id="qInsight" hidden></p>
+        <h2 class="h2 q-title" id="qTitle"></h2>
+        <p class="q-sub" id="qSub"></p>
+        <div id="qBody"></div>
+        <div class="q-actions" id="qActions" hidden>
+          <button type="button" class="btn blue" id="qNext"></button>
+          <button type="button" class="btn-ghost" id="qSkip" data-t="ui.skip"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · ANÁLISE -->
+    <section class="screen" id="sAnalysis" aria-live="polite">
+      <div class="wrap">
+        <div class="ring" aria-hidden="true">
+          <svg viewBox="0 0 160 160"><circle class="bg" cx="80" cy="80" r="74"/><circle class="fg" id="ringFg" cx="80" cy="80" r="74"/></svg>
+          <b id="ringN">0%</b>
+        </div>
+        <h2 class="h2" data-t="an.title"></h2>
+        <ul class="steps" id="anSteps"></ul>
+        <p class="an-proof" data-t="an.proof"></p>
+      </div>
+    </section>
+
+    <!-- 3 · RESULTADO + OFERTA -->
+    <section class="screen" id="sResult">
+      <div class="wrap">
+        <div class="r-hero">
+          <p class="mono" data-t="r.kicker"></p>
+          <h1 class="h1" id="rHello" style="margin-top:14px"></h1>
+          <div class="r-chips" id="rChips"></div>
+        </div>
+
+        <div class="kit">
+          <div class="kit-head">
+            <p class="mono" id="kitTitle"></p>
+            <span class="kit-count" id="kitCount"></span>
+          </div>
+          <div class="kit-grid" id="kitGrid"></div>
+          <p class="kit-more" id="kitMore"></p>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn blue js-cta" data-pos="kit" href="#" target="_blank" rel="noopener"><span data-t="r.cta1"></span> →</a>
+          <p class="cta-note" data-t="o.terms"></p>
+        </div>
+
+        <div class="sec">
+          <h2 class="h2" data-t="d.title"></h2>
+          <div class="diag" id="diag"></div>
+        </div>
+
+        <div class="sec">
+          <h2 class="h2" data-t="v.title"></h2>
+          <figure class="vid">
+            <div class="vid-bar"><span class="rec" data-t="v.rec"></span><span id="vidTc">00:00:00</span></div>
+            <div class="vid-screen">
+              <video id="vid" muted loop playsinline preload="none" poster="/assets/plugin-na-pratica.jpg" width="1600" height="1052" aria-label="dropSFX no Premiere Pro">
+                <source data-src="/assets/plugin-na-pratica.mp4" type="video/mp4">
+              </video>
+              <button type="button" class="vid-sound" id="vidSound" aria-pressed="false">🔊 <span data-t="v.on"></span></button>
+            </div>
+            <div class="vid-prog"><i id="vidProg"></i></div>
+          </figure>
+        </div>
+
+        <div class="sec">
+          <h2 class="h2" data-t="i.title"></h2>
+          <ul class="inc">
+            <li data-th="i.1"></li>
+            <li data-th="i.2"></li>
+            <li data-th="i.3"></li>
+            <li data-th="i.4"></li>
+            <li data-th="i.5"></li>
+            <li data-th="i.6"></li>
+          </ul>
+        </div>
+
+        <div class="sec" id="oferta">
+          <div class="offer">
+            <div class="o-top"><span class="o-ribbon" data-t="o.ribbon"></span><span class="o-off">63% OFF</span></div>
+            <p class="o-title" data-t="o.title"></p>
+            <p class="o-who" id="oWho"></p>
+            <p class="o-terms" data-t="o.terms"></p>
+            <a class="btn blue js-cta" data-pos="offer" href="#" target="_blank" rel="noopener"><span data-t="o.cta"></span> →</a>
+            <p class="o-secure" data-t="o.secure"></p>
+            <p class="o-proof" data-th="o.proof"></p>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="guar">
+            <div class="guar-seal"><span><b>7</b><span data-t="g.days"></span></span></div>
+            <div>
+              <h3 data-t="g.title"></h3>
+              <p data-t="g.text"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h2 class="h2" data-t="f.title"></h2>
+          <div id="faq"></div>
+        </div>
+
+        <div class="cta-row sec">
+          <a class="btn blue js-cta" data-pos="final" href="#" target="_blank" rel="noopener"><span data-t="o.cta"></span> →</a>
+          <p class="cta-note" data-t="o.terms"></p>
+        </div>
+
+        <nav class="foot">
+          <button type="button" id="redo" data-t="ft.redo"></button>
+          <a href="/?direto=1" id="siteLink" data-t="ft.site"></a>
+        </nav>
+      </div>
+
+      <div class="sticky" id="sticky">
+        <span class="sticky-t" id="stickyT"></span>
+        <a class="btn blue js-cta" data-pos="sticky" href="#" target="_blank" rel="noopener" data-t="s.btn"></a>
+      </div>
+    </section>
+  </main>
+
+  <noscript><p style="padding:40px 20px;text-align:center"><a href="/?direto=1" style="color:#6e9bff">dropsfx.com.br</a></p></noscript>
+  <script>
+  // =====================================================================
+  // TEXTOS — PT / EN / ES / HI
+  // =====================================================================
+  var FAQ = {"pt": {"faq.q1": "Funciona em qual versão do Premiere Pro?", "faq.a1": "Compatível com Adobe Premiere Pro CC 2020 em diante, no Mac (Intel e Apple Silicon) e no Windows 10/11.", "faq.q2": "Como insiro um som na timeline?", "faq.a2": "Do jeito que preferir: duplo-clique joga o som no playhead, ou use o botão Inserir. Pelo teclado, as setas navegam e o Enter insere; Shift+Enter coloca no seu in-point. E você ainda escolhe o ganho (-12 / 0 / +6 dB) antes de inserir.", "faq.q3": "Posso ouvir antes de inserir?", "faq.a3": "Sim. Basta passar o mouse sobre o som (sem clicar) que ele toca na hora, com forma de onda visual. É a forma mais rápida de varrer vários sons e achar o certo.", "faq.q4": "É pagamento único ou mensalidade?", "faq.a4": "100% pagamento único. Você compra uma vez e usa para sempre, sem mensalidade e sem renovação. O valor da condição atual aparece na página de checkout.", "faq.q5": "Posso usar em projetos comerciais?", "faq.a5": "Sim. Todos os sons são 100% royalty-free para qualquer uso comercial: YouTube monetizado, comerciais, filme, jingle, jogo.", "faq.q6": "Posso criar pastas e importar meus sons?", "faq.a6": "Sim. Além das 21 categorias prontas, você cria pastas próprias com cores, importa seus áudios e arrasta sons entre as pastas. O painel ainda monta uma aba \"Top\" com os sons que você mais usa.", "faq.q7": "Em quantas máquinas posso instalar?", "faq.a7": "Até 2 máquinas simultaneamente, Mac e/ou Windows. Pode desativar e mover quando quiser.", "faq.q8": "Como recebo o produto?", "faq.a8": "Acesso imediato. Após o pagamento, você recebe por e-mail o link de download e os dados pra criar sua conta. Faça login no painel e toda a biblioteca fica disponível.", "faq.q9": "E se eu não gostar?", "faq.a9": "7 dias para testar. Se não rolar, devolvemos 100%. Basta mandar e-mail, sem questionário."}, "en": {"faq.q1": "Which Premiere Pro versions does it support?", "faq.a1": "Compatible with Adobe Premiere Pro CC 2020 and newer, on Mac (Intel and Apple Silicon) and Windows 10/11.", "faq.q2": "How do I insert a sound on the timeline?", "faq.a2": "Whichever way you prefer: double-click drops the sound at the playhead, or use the Insert button. With the keyboard, arrows navigate and Enter inserts; Shift+Enter places it at your in-point. And you still pick the gain (-12 / 0 / +6 dB) before inserting.", "faq.q3": "Can I preview before inserting?", "faq.a3": "Yes. Just hover over the sound (no click needed) and it plays instantly, with a visual waveform. It's the fastest way to scan through sounds and find the right one.", "faq.q4": "Is it a one-time payment or a subscription?", "faq.a4": "100% one-time payment. Buy once, use forever — no subscription, no renewal. The current price is shown on the checkout page.", "faq.q5": "Can I use it in commercial projects?", "faq.a5": "Yes. Every sound is 100% royalty-free for any commercial use: monetized YouTube, commercials, film, jingles, games.", "faq.q6": "Can I create folders and import my own sounds?", "faq.a6": "Yes. Beyond the 21 built-in categories, you can create your own color-coded folders, import your audio and drag sounds between folders. The panel also builds a \"Top\" tab with the sounds you use most.", "faq.q7": "On how many machines can I install it?", "faq.a7": "Up to 2 machines at the same time, Mac and/or Windows. You can deactivate and move whenever you want.", "faq.q8": "How do I receive the product?", "faq.a8": "Instant access. After payment you get an email with the download link and your account details. Log into the panel and the whole library is available.", "faq.q9": "What if I don't like it?", "faq.a9": "7 days to try it. If it's not for you, we refund 100%. Just send an email — no questionnaire."}, "es": {"faq.q1": "¿En qué versiones de Premiere Pro funciona?", "faq.a1": "Compatible con Adobe Premiere Pro CC 2020 en adelante, en Mac (Intel y Apple Silicon) y en Windows 10/11.", "faq.q2": "¿Cómo inserto un sonido en la línea de tiempo?", "faq.a2": "Como prefieras: doble clic coloca el sonido en el playhead, o usa el botón Insertar. Con el teclado, las flechas navegan y Enter inserta; Shift+Enter lo coloca en tu punto de entrada. Y además eliges la ganancia (-12 / 0 / +6 dB) antes de insertar.", "faq.q3": "¿Puedo escuchar antes de insertar?", "faq.a3": "Sí. Basta con pasar el mouse sobre el sonido (sin clic) y suena al instante, con forma de onda visual. Es la forma más rápida de recorrer varios sonidos y encontrar el correcto.", "faq.q4": "¿Es pago único o mensualidad?", "faq.a4": "100% pago único. Compras una vez y lo usas para siempre, sin mensualidad y sin renovación. El precio de la condición actual aparece en la página de checkout.", "faq.q5": "¿Puedo usarlo en proyectos comerciales?", "faq.a5": "Sí. Todos los sonidos son 100% libres de regalías para cualquier uso comercial: YouTube monetizado, comerciales, cine, jingles, videojuegos.", "faq.q6": "¿Puedo crear carpetas e importar mis sonidos?", "faq.a6": "Sí. Además de las 21 categorías listas, creas tus propias carpetas con colores, importas tus audios y arrastras sonidos entre carpetas. El panel también arma una pestaña \"Top\" con los sonidos que más usas.", "faq.q7": "¿En cuántos equipos puedo instalarlo?", "faq.a7": "Hasta 2 equipos simultáneamente, Mac y/o Windows. Puedes desactivar y mover cuando quieras.", "faq.q8": "¿Cómo recibo el producto?", "faq.a8": "Acceso inmediato. Tras el pago recibes por correo el enlace de descarga y los datos para crear tu cuenta. Inicia sesión en el panel y toda la biblioteca queda disponible.", "faq.q9": "¿Y si no me gusta?", "faq.a9": "7 días para probarlo. Si no funciona para ti, devolvemos el 100%. Solo envía un correo, sin cuestionarios."}, "hi": {"faq.q1": "Premiere Pro के किस वर्ज़न में चलता है?", "faq.a1": "Adobe Premiere Pro CC 2020 और उसके बाद के वर्ज़न में — Mac (Intel और Apple Silicon) तथा Windows 10/11 पर।", "faq.q2": "टाइमलाइन में साउंड कैसे डालें?", "faq.a2": "जैसे चाहें: डबल-क्लिक साउंड को प्लेहेड पर डाल देता है, या Insert बटन इस्तेमाल कीजिए। कीबोर्ड से ↑↓ नेविगेट करते हैं और Enter इन्सर्ट करता है; Shift+Enter उसे आपके इन-पॉइंट पर रखता है। और इन्सर्ट करने से पहले गेन (-12 / 0 / +6 dB) भी चुन सकते हैं।", "faq.q3": "इन्सर्ट करने से पहले सुन सकते हैं?", "faq.a3": "हाँ। बस माउस साउंड पर ले जाइए (क्लिक की ज़रूरत नहीं) और वह वेवफ़ॉर्म के साथ तुरंत बजता है। सही साउंड ढूँढ़ने का यह सबसे तेज़ तरीका है।", "faq.q4": "एक बार का भुगतान है या मासिक?", "faq.a4": "100% एक बार का भुगतान। एक बार खरीदिए और हमेशा इस्तेमाल कीजिए — न मासिक शुल्क, न रिन्यूअल। मौजूदा कीमत चेकआउट पेज पर दिखती है।", "faq.q5": "क्या कमर्शियल प्रोजेक्ट में इस्तेमाल कर सकते हैं?", "faq.a5": "हाँ। सभी साउंड किसी भी कमर्शियल इस्तेमाल के लिए 100% रॉयल्टी-फ़्री हैं: मॉनिटाइज़्ड YouTube, विज्ञापन, फ़िल्म, जिंगल, गेम।", "faq.q6": "क्या अपने फ़ोल्डर बनाकर अपने साउंड इम्पोर्ट कर सकते हैं?", "faq.a6": "हाँ। पहले से मौजूद 21 कैटेगरी के अलावा आप अपने रंगीन फ़ोल्डर बना सकते हैं, अपने ऑडियो इम्पोर्ट कर सकते हैं और साउंड को फ़ोल्डरों के बीच खींच सकते हैं। पैनल आपके सबसे ज़्यादा इस्तेमाल किए गए साउंड का \"Top\" टैब भी बनाता है।", "faq.q7": "कितनी मशीनों पर इंस्टॉल कर सकते हैं?", "faq.a7": "एक साथ 2 मशीनों तक, Mac और/या Windows। जब चाहें डीएक्टिवेट करके दूसरी मशीन पर ले जा सकते हैं।", "faq.q8": "प्रोडक्ट कैसे मिलेगा?", "faq.a8": "तुरंत एक्सेस। भुगतान के बाद ईमेल पर डाउनलोड लिंक और अकाउंट बनाने की जानकारी आती है। पैनल में लॉगिन कीजिए और पूरी लाइब्रेरी उपलब्ध।", "faq.q9": "अगर पसंद न आए तो?", "faq.a9": "आज़माने के लिए 7 दिन। पसंद न आए तो 100% रिफ़ंड। बस एक ईमेल भेजिए, कोई सवाल-जवाब नहीं।"}};
+  var CAT_NAMES = {"pt": {"whooshes": "Whooshes", "transitions": "Transições", "drops": "Cinematic Drops", "clicks": "Clicks & UI", "foley": "Foley & Diegese", "risers": "Risers", "elements": "Elements", "memes": "Memes & Cartoon", "hits": "Hits & Impacts", "glitches": "Glitches", "guns": "Guns", "reverb": "Reverb", "retro": "Retrô", "hud": "HUD & Digital", "ambient": "Ambientes", "nature": "Natureza", "emotion": "Emoção", "camera": "Câmera", "bells": "Bells & Buttons", "slowmo": "Slow Motion", "tonal": "Tonalidade"}, "en": {"whooshes": "Whooshes", "transitions": "Transitions", "drops": "Cinematic Drops", "clicks": "Clicks & UI", "foley": "Foley & Diegetic", "risers": "Risers", "elements": "Elements", "memes": "Memes & Cartoon", "hits": "Hits & Impacts", "glitches": "Glitches", "guns": "Guns", "reverb": "Reverb", "retro": "Retro", "hud": "HUD & Digital", "ambient": "Ambiences", "nature": "Nature", "emotion": "Emotion", "camera": "Camera", "bells": "Bells & Buttons", "slowmo": "Slow Motion", "tonal": "Tonal"}, "es": {"whooshes": "Whooshes", "transitions": "Transiciones", "drops": "Cinematic Drops", "clicks": "Clicks & UI", "foley": "Foley & Diégesis", "risers": "Risers", "elements": "Elements", "memes": "Memes & Cartoon", "hits": "Hits & Impacts", "glitches": "Glitches", "guns": "Guns", "reverb": "Reverb", "retro": "Retro", "hud": "HUD & Digital", "ambient": "Ambientes", "nature": "Naturaleza", "emotion": "Emoción", "camera": "Cámara", "bells": "Bells & Buttons", "slowmo": "Slow Motion", "tonal": "Tonalidad"}, "hi": {"whooshes": "व्हूश", "transitions": "ट्रांज़िशन", "drops": "सिनेमैटिक ड्रॉप्स", "clicks": "क्लिक्स & UI", "foley": "फ़ॉली & डाइजेटिक", "risers": "राइज़र", "elements": "एलिमेंट्स", "memes": "मीम्स & कार्टून", "hits": "हिट्स & इम्पैक्ट्स", "glitches": "ग्लिच", "guns": "गन्स", "reverb": "रिवर्ब", "retro": "रेट्रो", "hud": "HUD & डिजिटल", "ambient": "एम्बिएंस", "nature": "नेचर", "emotion": "इमोशन", "camera": "कैमरा", "bells": "बेल्स & बटन्स", "slowmo": "स्लो मोशन", "tonal": "टोनैलिटी"}};
+
+  var L = {
+    pt: {
+      "ui.back": "Voltar", "ui.next": "Continuar", "ui.skip": "Pular", "ui.qn": "{i} / {n}",
+      "q.intro": "Vamos montar o seu kit de sound design · 8 perguntas · 1 min",
+
+      "q.type.t": "Que tipo de vídeo você mais edita?",
+      "q.type.s": "Seu kit começa pelo tipo de vídeo.",
+      "type.reels": "Reels, TikTok e Shorts", "type.youtube": "YouTube", "type.wedding": "Casamentos e eventos",
+      "type.ads": "Publicidade e institucional", "type.games": "Games e streams", "type.podcast": "Podcasts e cortes",
+      "short.reels": "Reels e Shorts", "short.youtube": "YouTube", "short.wedding": "casamentos",
+      "short.ads": "publicidade", "short.games": "games", "short.podcast": "cortes de podcast",
+      "ins.type.reels": "Boa. Em vídeo curto, um som a cada corte segura a atenção até o fim.",
+      "ins.type.youtube": "Boa. No YouTube, efeito sonoro bem colocado dá ritmo e segura a retenção.",
+      "ins.type.wedding": "Que lindo. Em casamento, o som certo é o que faz a família se emocionar de novo.",
+      "ins.type.ads": "Boa. Em publicidade, o som é o que faz a marca parecer cara.",
+      "ins.type.games": "Boa. Em gameplay, impacto e HUD transformam um corte comum em highlight.",
+      "ins.type.podcast": "Boa. Em corte de podcast, um meme sonoro na hora certa vira comentário.",
+
+      "q.vibe.t": "Qual é a pegada do seu conteúdo?",
+      "q.vibe.s": "Isso define que tipo de som vai pro topo do seu kit.",
+      "vibe.cinematic": "Cinematográfica e épica", "vibe.funny": "Engraçada, com memes", "vibe.clean": "Clean e corporativa",
+      "vibe.hype": "Energética, ritmo rápido", "vibe.emotional": "Emocional e sensível",
+      "vshort.cinematic": "cinematográfica", "vshort.funny": "engraçada", "vshort.clean": "clean",
+      "vshort.hype": "energética", "vshort.emotional": "emocional",
+      "ins.vibe.cinematic": "Anotado: risers, drops e impactos graves vão pro topo do seu kit.",
+      "ins.vibe.funny": "Anotado: memes, cartoon e sons de botão vão pro topo do seu kit.",
+      "ins.vibe.clean": "Anotado: cliques, whooshes suaves e transições limpas vão pro topo.",
+      "ins.vibe.hype": "Anotado: impactos, glitches e whooshes rápidos vão pro topo.",
+      "ins.vibe.emotional": "Anotado: emoção, ambientes e slow motion vão pro topo.",
+
+      "q.fams.t": "Quais sons você mais usa, ou queria usar mais?",
+      "q.fams.s": "Pode marcar vários.",
+      "fam.whoosh": "Whooshes e transições", "fam.hits": "Impactos e drops", "fam.risers": "Risers e tensão",
+      "fam.ui": "Cliques e interface", "fam.glitch": "Glitches e digital", "fam.memes": "Memes e cartoon",
+      "fam.foley": "Foley e ambientes", "fam.cine": "Slow motion e câmera", "fam.emotion": "Emoção e reverb",
+      "fam.action": "Ação e armas", "fam.retro": "Retrô",
+      "ins.fams": "Perfeito. {n} famílias de som anotadas pro seu kit.",
+
+      "q.app.t": "Em qual programa você edita?",
+      "q.app.s": "Pra conferir a compatibilidade.",
+      "app.premiere": "Premiere Pro", "app.ae": "After Effects", "app.davinci": "DaVinci Resolve",
+      "app.multi": "Mais de um desses", "app.other": "Outro (CapCut, Final Cut…)",
+      "ins.app.premiere": "Compatível: o dropSFX abre como painel dentro do Premiere Pro.",
+      "ins.app.ae": "Compatível: o dropSFX abre como painel dentro do After Effects.",
+      "ins.app.davinci": "Compatível: o dropSFX tem versão pro DaVinci Resolve Studio.",
+      "ins.app.multi": "Compatível: o dropSFX funciona no Premiere, After Effects e DaVinci.",
+      "ins.app.other": "Anotado. Hoje o dropSFX roda no Premiere Pro, After Effects e DaVinci Resolve Studio.",
+
+      "q.source.t": "Quando precisa de um efeito sonoro, onde você procura?",
+      "q.source.s": "Sem julgamento: todo editor já passou por isso.",
+      "source.yt": "No YouTube, e depois num site pra baixar o áudio", "source.envato": "No Envato ou no Artlist",
+      "source.folder": "Numa pasta bagunçada no meu PC", "source.none": "Eu nem coloco: dá trabalho demais",
+      "ins.source.yt": "Esse caminho (YouTube → conversor → baixar → importar) é o que mais rouba tempo.",
+      "ins.source.envato": "Envato e Artlist são ótimos, mas cada som vira um .zip pra baixar, extrair e importar.",
+      "ins.source.folder": "É o mais comum. O problema é achar o som certo na hora, no meio da edição.",
+      "ins.source.none": "Muita gente pula o som porque dá trabalho. É exatamente isso que o seu kit resolve.",
+
+      "q.time.t": "Quanto tempo você perde procurando som em cada vídeo?",
+      "q.time.talt": "Se fosse colocar som, quanto tempo isso levaria em cada vídeo?",
+      "q.time.s": "Um chute serve.",
+      "time.0": "Menos de 10 min", "time.1": "10 a 30 min", "time.2": "30 min a 1 hora", "time.3": "Mais de 1 hora",
+
+      "q.volume.t": "Quantos vídeos você edita por semana?",
+      "q.volume.s": "Pra calcular quanto tempo o kit te devolve.",
+      "volume.0": "1 ou 2", "volume.1": "3 a 5", "volume.2": "6 a 10", "volume.3": "Mais de 10",
+
+      "q.name.t": "Por último: como a gente te chama?",
+      "q.name.s": "Pra deixar o kit com o seu nome.",
+      "q.name.ph": "Seu primeiro nome",
+      "q.name.go": "Ver meu kit",
+
+      "an.title": "Montando o seu kit…",
+      "an.1": "Tipo de vídeo: {type}",
+      "an.2": "Ajustando pra pegada {vibe}",
+      "an.3": "Escolhendo categorias entre 1.463 sons",
+      "an.4": "Calculando o tempo que você recupera",
+      "an.5": "Compatibilidade: {app}",
+      "an.proof": "+1.000 editores já usam o dropSFX",
+
+      "r.kicker": "Kit dropSFX personalizado",
+      "r.hello": "{name}, seu kit <span class='serif'>está pronto.</span>",
+      "r.hello0": "Seu kit <span class='serif'>está pronto.</span>",
+      "r.c.type": "Vídeo", "r.c.vibe": "Pegada", "r.c.app": "Programa",
+      "r.kitTitle": "As 6 categorias que mais combinam com você",
+      "r.kitCount": "{n} sons",
+      "r.kitMore": "E você leva <b>as 21 categorias</b>: <b>1.463 sons</b> no total, organizados por cor dentro do painel.",
+      "why.pick": "Você marcou {fam}", "why.type": "Essencial pra {type}", "why.vibe": "Combina com a pegada {vibe}",
+      "r.cta1": "Quero meu kit",
+
+      "d.title": "O que muda no seu dia",
+      "d.unit": "por mês caçando efeito sonoro, hoje.",
+      "d.unit3": "por mês: é o que colocar som te custaria hoje.",
+      "d.why": "Pelas suas respostas: {m} min por vídeo × {v} vídeos por semana × 4,3 semanas",
+      "d.days": "Isso é mais de <strong>{d} dias inteiros de trabalho</strong>, todo mês.",
+      "d.day1": "Isso é mais de <strong>1 dia inteiro de trabalho</strong>, todo mês.",
+      "d.small": "Parece pouco. Mas se repete <strong>todo mês</strong>, em todo projeto.",
+      "d.fix.yt": "Com o seu kit: sem YouTube, sem conversor, sem pop-up. O som toca no hover e entra na timeline com 2 cliques.",
+      "d.fix.envato": "Com o seu kit: sem .zip, sem extrair, sem importar. E sem mensalidade: paga uma vez e usa pra sempre.",
+      "d.fix.folder": "Com o seu kit: 1.463 sons organizados em 21 categorias coloridas, dentro do painel. Acabou a caça na pasta.",
+      "d.fix.none": "Com o seu kit, colocar som leva 2 cliques. Aí você coloca em tudo, e é isso que muda o nível do vídeo.",
+      "d.ok.premiere": "✓ Funciona no Premiere Pro", "d.ok.ae": "✓ Funciona no After Effects",
+      "d.ok.davinci": "✓ Funciona no DaVinci Resolve Studio", "d.ok.multi": "✓ Funciona no Premiere, After Effects e DaVinci",
+      "d.ok.other": "O dropSFX roda no Premiere Pro, After Effects e DaVinci Resolve Studio",
+
+      "v.title": "Veja por dentro",
+      "v.rec": "Tela real · sem cortes",
+      "v.on": "Ouvir com som", "v.off": "Tirar o som",
+
+      "i.title": "O que vem no seu kit",
+      "i.1": "<strong>1.463 efeitos sonoros</strong> profissionais em 21 categorias",
+      "i.2": "Painel <strong>nativo</strong> no Premiere Pro, After Effects e DaVinci Resolve Studio",
+      "i.3": "Ouve no <strong>hover</strong>, insere com <strong>2 cliques</strong> ou arrastando pra timeline",
+      "i.4": "Ganho certo <strong>antes de inserir</strong>: -12, 0 ou +6 dB",
+      "i.5": "Suas pastas e <strong>seus próprios sons</strong> dentro do painel",
+      "i.6": "Licença pra <strong>2 máquinas</strong>, uso comercial, royalty-free",
+
+      "o.ribbon": "Oferta de lançamento",
+      "o.title": "Kit dropSFX completo",
+      "o.who": "montado pra {type}",
+      "o.terms": "Pagamento único · Acesso vitalício · Garantia de 7 dias",
+      "o.cta": "Garantir meu kit agora",
+      "o.secure": "🔒 Compra segura pela Kiwify · acesso imediato por e-mail",
+      "o.proof": "<b>+1.000 editores</b> já usam o dropSFX",
+
+      "g.days": "dias", "g.title": "Garantia de 7 dias",
+      "g.text": "Instala e usa nos seus projetos. Se não fizer sentido pra você, devolvemos 100%. É só mandar um e-mail.",
+      "f.title": "Perguntas frequentes",
+      "ft.redo": "Refazer o quiz", "ft.site": "Ver o site completo",
+      "s.title": "Seu kit · 63% OFF", "s.btn": "Garantir"
+    },
+
+    en: {
+      "ui.back": "Back", "ui.next": "Continue", "ui.skip": "Skip", "ui.qn": "{i} / {n}",
+      "q.intro": "Let's build your sound design kit · 8 questions · 1 min",
+
+      "q.type.t": "What kind of video do you edit the most?",
+      "q.type.s": "Your kit starts with the type of video.",
+      "type.reels": "Reels, TikTok & Shorts", "type.youtube": "YouTube", "type.wedding": "Weddings & events",
+      "type.ads": "Ads & corporate", "type.games": "Gaming & streams", "type.podcast": "Podcasts & clips",
+      "short.reels": "Reels & Shorts", "short.youtube": "YouTube", "short.wedding": "weddings",
+      "short.ads": "ads", "short.games": "gaming", "short.podcast": "podcast clips",
+      "ins.type.reels": "Nice. In short-form, a sound on every cut keeps people watching to the end.",
+      "ins.type.youtube": "Nice. On YouTube, well-placed sound effects add rhythm and hold retention.",
+      "ins.type.wedding": "Beautiful. In weddings, the right sound is what makes the family cry all over again.",
+      "ins.type.ads": "Nice. In ads, sound is what makes a brand feel premium.",
+      "ins.type.games": "Nice. In gameplay, impacts and HUD sounds turn a regular clip into a highlight.",
+      "ins.type.podcast": "Nice. In podcast clips, a meme sound at the right moment becomes the comment.",
+
+      "q.vibe.t": "What's the vibe of your content?",
+      "q.vibe.s": "This decides which sounds go to the top of your kit.",
+      "vibe.cinematic": "Cinematic & epic", "vibe.funny": "Funny, with memes", "vibe.clean": "Clean & corporate",
+      "vibe.hype": "High energy, fast pace", "vibe.emotional": "Emotional & heartfelt",
+      "vshort.cinematic": "cinematic", "vshort.funny": "funny", "vshort.clean": "clean",
+      "vshort.hype": "high-energy", "vshort.emotional": "emotional",
+      "ins.vibe.cinematic": "Noted: risers, drops and deep impacts go to the top of your kit.",
+      "ins.vibe.funny": "Noted: memes, cartoon and button sounds go to the top of your kit.",
+      "ins.vibe.clean": "Noted: clicks, soft whooshes and clean transitions go to the top.",
+      "ins.vibe.hype": "Noted: impacts, glitches and fast whooshes go to the top.",
+      "ins.vibe.emotional": "Noted: emotion, ambiences and slow motion go to the top.",
+
+      "q.fams.t": "Which sounds do you use most, or wish you used more?",
+      "q.fams.s": "Pick as many as you like.",
+      "fam.whoosh": "Whooshes & transitions", "fam.hits": "Impacts & drops", "fam.risers": "Risers & tension",
+      "fam.ui": "Clicks & UI", "fam.glitch": "Glitches & digital", "fam.memes": "Memes & cartoon",
+      "fam.foley": "Foley & ambiences", "fam.cine": "Slow motion & camera", "fam.emotion": "Emotion & reverb",
+      "fam.action": "Action & guns", "fam.retro": "Retro",
+      "ins.fams": "Perfect. {n} sound families noted for your kit.",
+
+      "q.app.t": "Which software do you edit in?",
+      "q.app.s": "To check compatibility.",
+      "app.premiere": "Premiere Pro", "app.ae": "After Effects", "app.davinci": "DaVinci Resolve",
+      "app.multi": "More than one of these", "app.other": "Something else (CapCut, Final Cut…)",
+      "ins.app.premiere": "Compatible: dropSFX opens as a panel right inside Premiere Pro.",
+      "ins.app.ae": "Compatible: dropSFX opens as a panel right inside After Effects.",
+      "ins.app.davinci": "Compatible: dropSFX has a version for DaVinci Resolve Studio.",
+      "ins.app.multi": "Compatible: dropSFX works in Premiere, After Effects and DaVinci.",
+      "ins.app.other": "Noted. Right now dropSFX runs in Premiere Pro, After Effects and DaVinci Resolve Studio.",
+
+      "q.source.t": "When you need a sound effect, where do you look?",
+      "q.source.s": "No judgment: every editor has been there.",
+      "source.yt": "YouTube, then an audio downloader site", "source.envato": "Envato or Artlist",
+      "source.folder": "A messy folder on my computer", "source.none": "I don't even add them: too much work",
+      "ins.source.yt": "That path (YouTube → converter → download → import) is the biggest time thief.",
+      "ins.source.envato": "Envato and Artlist are great, but every sound becomes a .zip to download, extract and import.",
+      "ins.source.folder": "Most common one. The problem is finding the right sound mid-edit.",
+      "ins.source.none": "Lots of editors skip sound because it's a hassle. That's exactly what your kit fixes.",
+
+      "q.time.t": "How much time do you lose looking for sounds in each video?",
+      "q.time.talt": "If you did add sound, how long would it take per video?",
+      "q.time.s": "A rough guess is fine.",
+      "time.0": "Under 10 min", "time.1": "10 to 30 min", "time.2": "30 min to 1 hour", "time.3": "Over 1 hour",
+
+      "q.volume.t": "How many videos do you edit per week?",
+      "q.volume.s": "To calculate how much time your kit gives back.",
+      "volume.0": "1 or 2", "volume.1": "3 to 5", "volume.2": "6 to 10", "volume.3": "More than 10",
+
+      "q.name.t": "Last one: what should we call you?",
+      "q.name.s": "So your kit has your name on it.",
+      "q.name.ph": "Your first name",
+      "q.name.go": "See my kit",
+
+      "an.title": "Building your kit…",
+      "an.1": "Video type: {type}",
+      "an.2": "Tuning for a {vibe} vibe",
+      "an.3": "Picking categories from 1,463 sounds",
+      "an.4": "Calculating the time you get back",
+      "an.5": "Compatibility: {app}",
+      "an.proof": "1,000+ editors already use dropSFX",
+
+      "r.kicker": "Personalized dropSFX kit",
+      "r.hello": "{name}, your kit <span class='serif'>is ready.</span>",
+      "r.hello0": "Your kit <span class='serif'>is ready.</span>",
+      "r.c.type": "Video", "r.c.vibe": "Vibe", "r.c.app": "Software",
+      "r.kitTitle": "The 6 categories that fit you best",
+      "r.kitCount": "{n} sounds",
+      "r.kitMore": "And you get <b>all 21 categories</b>: <b>1,463 sounds</b> in total, color-coded inside the panel.",
+      "why.pick": "You picked {fam}", "why.type": "Essential for {type}", "why.vibe": "Fits a {vibe} vibe",
+      "r.cta1": "I want my kit",
+
+      "d.title": "What changes in your day",
+      "d.unit": "a month hunting for sound effects, today.",
+      "d.unit3": "a month: what adding sound would cost you today.",
+      "d.why": "From your answers: {m} min per video × {v} videos a week × 4.3 weeks",
+      "d.days": "That's more than <strong>{d} full working days</strong>, every month.",
+      "d.day1": "That's more than <strong>1 full working day</strong>, every month.",
+      "d.small": "Looks small. But it repeats <strong>every month</strong>, on every project.",
+      "d.fix.yt": "With your kit: no YouTube, no converter, no pop-ups. The sound plays on hover and hits the timeline in 2 clicks.",
+      "d.fix.envato": "With your kit: no .zip, no extracting, no importing. And no subscription: pay once, use forever.",
+      "d.fix.folder": "With your kit: 1,463 sounds in 21 color-coded categories, right inside the panel. No more folder hunting.",
+      "d.fix.none": "With your kit, adding sound takes 2 clicks. So you add it everywhere, and that's what levels up a video.",
+      "d.ok.premiere": "✓ Works in Premiere Pro", "d.ok.ae": "✓ Works in After Effects",
+      "d.ok.davinci": "✓ Works in DaVinci Resolve Studio", "d.ok.multi": "✓ Works in Premiere, After Effects and DaVinci",
+      "d.ok.other": "dropSFX runs in Premiere Pro, After Effects and DaVinci Resolve Studio",
+
+      "v.title": "See it from the inside",
+      "v.rec": "Real screen · no cuts",
+      "v.on": "Play with sound", "v.off": "Mute",
+
+      "i.title": "What's in your kit",
+      "i.1": "<strong>1,463 professional sound effects</strong> in 21 categories",
+      "i.2": "<strong>Native</strong> panel for Premiere Pro, After Effects and DaVinci Resolve Studio",
+      "i.3": "Preview on <strong>hover</strong>, insert in <strong>2 clicks</strong> or drag to the timeline",
+      "i.4": "Right gain <strong>before inserting</strong>: -12, 0 or +6 dB",
+      "i.5": "Your folders and <strong>your own sounds</strong> inside the panel",
+      "i.6": "License for <strong>2 machines</strong>, commercial use, royalty-free",
+
+      "o.ribbon": "Launch offer",
+      "o.title": "Full dropSFX kit",
+      "o.who": "built for {type}",
+      "o.terms": "One-time payment · Lifetime access · 7-day guarantee",
+      "o.cta": "Get my kit now",
+      "o.secure": "🔒 Secure checkout by Kiwify · instant access by email",
+      "o.proof": "<b>1,000+ editors</b> already use dropSFX",
+
+      "g.days": "days", "g.title": "7-day guarantee",
+      "g.text": "Install it and use it on your projects. If it doesn't work for you, we refund 100%. Just send an email.",
+      "f.title": "FAQ",
+      "ft.redo": "Retake the quiz", "ft.site": "See the full website",
+      "s.title": "Your kit · 63% OFF", "s.btn": "Get it"
+    },
+
+    es: {
+      "ui.back": "Volver", "ui.next": "Continuar", "ui.skip": "Omitir", "ui.qn": "{i} / {n}",
+      "q.intro": "Armemos tu kit de diseño sonoro · 8 preguntas · 1 min",
+
+      "q.type.t": "¿Qué tipo de video editas más?",
+      "q.type.s": "Tu kit empieza por el tipo de video.",
+      "type.reels": "Reels, TikTok y Shorts", "type.youtube": "YouTube", "type.wedding": "Bodas y eventos",
+      "type.ads": "Publicidad e institucional", "type.games": "Gaming y streams", "type.podcast": "Podcasts y clips",
+      "short.reels": "Reels y Shorts", "short.youtube": "YouTube", "short.wedding": "bodas",
+      "short.ads": "publicidad", "short.games": "gaming", "short.podcast": "clips de podcast",
+      "ins.type.reels": "Bien. En video corto, un sonido en cada corte retiene la atención hasta el final.",
+      "ins.type.youtube": "Bien. En YouTube, un buen efecto de sonido da ritmo y sostiene la retención.",
+      "ins.type.wedding": "Qué lindo. En bodas, el sonido correcto es lo que hace que la familia se emocione de nuevo.",
+      "ins.type.ads": "Bien. En publicidad, el sonido es lo que hace que una marca se sienta premium.",
+      "ins.type.games": "Bien. En gameplay, impactos y sonidos de HUD convierten un clip común en highlight.",
+      "ins.type.podcast": "Bien. En clips de podcast, un meme sonoro en el momento justo se vuelve el comentario.",
+
+      "q.vibe.t": "¿Cuál es el estilo de tu contenido?",
+      "q.vibe.s": "Esto define qué sonidos van arriba en tu kit.",
+      "vibe.cinematic": "Cinematográfico y épico", "vibe.funny": "Gracioso, con memes", "vibe.clean": "Limpio y corporativo",
+      "vibe.hype": "Enérgico, ritmo rápido", "vibe.emotional": "Emotivo y sensible",
+      "vshort.cinematic": "cinematográfico", "vshort.funny": "gracioso", "vshort.clean": "limpio",
+      "vshort.hype": "enérgico", "vshort.emotional": "emotivo",
+      "ins.vibe.cinematic": "Anotado: risers, drops e impactos graves van arriba en tu kit.",
+      "ins.vibe.funny": "Anotado: memes, cartoon y sonidos de botón van arriba en tu kit.",
+      "ins.vibe.clean": "Anotado: clics, whooshes suaves y transiciones limpias van arriba.",
+      "ins.vibe.hype": "Anotado: impactos, glitches y whooshes rápidos van arriba.",
+      "ins.vibe.emotional": "Anotado: emoción, ambientes y slow motion van arriba.",
+
+      "q.fams.t": "¿Qué sonidos usas más, o te gustaría usar más?",
+      "q.fams.s": "Puedes marcar varios.",
+      "fam.whoosh": "Whooshes y transiciones", "fam.hits": "Impactos y drops", "fam.risers": "Risers y tensión",
+      "fam.ui": "Clics e interfaz", "fam.glitch": "Glitches y digital", "fam.memes": "Memes y cartoon",
+      "fam.foley": "Foley y ambientes", "fam.cine": "Slow motion y cámara", "fam.emotion": "Emoción y reverb",
+      "fam.action": "Acción y armas", "fam.retro": "Retro",
+      "ins.fams": "Perfecto. {n} familias de sonido anotadas para tu kit.",
+
+      "q.app.t": "¿En qué programa editas?",
+      "q.app.s": "Para revisar la compatibilidad.",
+      "app.premiere": "Premiere Pro", "app.ae": "After Effects", "app.davinci": "DaVinci Resolve",
+      "app.multi": "Más de uno de estos", "app.other": "Otro (CapCut, Final Cut…)",
+      "ins.app.premiere": "Compatible: dropSFX se abre como panel dentro de Premiere Pro.",
+      "ins.app.ae": "Compatible: dropSFX se abre como panel dentro de After Effects.",
+      "ins.app.davinci": "Compatible: dropSFX tiene versión para DaVinci Resolve Studio.",
+      "ins.app.multi": "Compatible: dropSFX funciona en Premiere, After Effects y DaVinci.",
+      "ins.app.other": "Anotado. Hoy dropSFX funciona en Premiere Pro, After Effects y DaVinci Resolve Studio.",
+
+      "q.source.t": "Cuando necesitas un efecto de sonido, ¿dónde lo buscas?",
+      "q.source.s": "Sin juicios: a todo editor le pasó.",
+      "source.yt": "En YouTube, y luego en una web para bajar el audio", "source.envato": "En Envato o Artlist",
+      "source.folder": "En una carpeta desordenada de mi PC", "source.none": "Ni los pongo: da demasiado trabajo",
+      "ins.source.yt": "Ese camino (YouTube → conversor → descargar → importar) es el que más tiempo roba.",
+      "ins.source.envato": "Envato y Artlist son geniales, pero cada sonido es un .zip para bajar, extraer e importar.",
+      "ins.source.folder": "Es lo más común. El problema es encontrar el sonido justo en plena edición.",
+      "ins.source.none": "Mucha gente se salta el sonido porque cuesta. Justo eso es lo que resuelve tu kit.",
+
+      "q.time.t": "¿Cuánto tiempo pierdes buscando sonidos en cada video?",
+      "q.time.talt": "Si fueras a poner sonido, ¿cuánto te llevaría por video?",
+      "q.time.s": "Un cálculo aproximado sirve.",
+      "time.0": "Menos de 10 min", "time.1": "10 a 30 min", "time.2": "30 min a 1 hora", "time.3": "Más de 1 hora",
+
+      "q.volume.t": "¿Cuántos videos editas por semana?",
+      "q.volume.s": "Para calcular cuánto tiempo te devuelve el kit.",
+      "volume.0": "1 o 2", "volume.1": "3 a 5", "volume.2": "6 a 10", "volume.3": "Más de 10",
+
+      "q.name.t": "Por último: ¿cómo te llamamos?",
+      "q.name.s": "Para que tu kit lleve tu nombre.",
+      "q.name.ph": "Tu nombre",
+      "q.name.go": "Ver mi kit",
+
+      "an.title": "Armando tu kit…",
+      "an.1": "Tipo de video: {type}",
+      "an.2": "Ajustando al estilo {vibe}",
+      "an.3": "Eligiendo categorías entre 1.463 sonidos",
+      "an.4": "Calculando el tiempo que recuperas",
+      "an.5": "Compatibilidad: {app}",
+      "an.proof": "+1.000 editores ya usan dropSFX",
+
+      "r.kicker": "Kit dropSFX personalizado",
+      "r.hello": "{name}, tu kit <span class='serif'>está listo.</span>",
+      "r.hello0": "Tu kit <span class='serif'>está listo.</span>",
+      "r.c.type": "Video", "r.c.vibe": "Estilo", "r.c.app": "Programa",
+      "r.kitTitle": "Las 6 categorías que más van contigo",
+      "r.kitCount": "{n} sonidos",
+      "r.kitMore": "Y te llevas <b>las 21 categorías</b>: <b>1.463 sonidos</b> en total, organizados por color dentro del panel.",
+      "why.pick": "Marcaste {fam}", "why.type": "Esencial para {type}", "why.vibe": "Va con el estilo {vibe}",
+      "r.cta1": "Quiero mi kit",
+
+      "d.title": "Lo que cambia en tu día",
+      "d.unit": "al mes buscando efectos de sonido, hoy.",
+      "d.unit3": "al mes: lo que poner sonido te costaría hoy.",
+      "d.why": "Según tus respuestas: {m} min por video × {v} videos por semana × 4,3 semanas",
+      "d.days": "Eso es más de <strong>{d} días enteros de trabajo</strong>, cada mes.",
+      "d.day1": "Eso es más de <strong>1 día entero de trabajo</strong>, cada mes.",
+      "d.small": "Parece poco. Pero se repite <strong>cada mes</strong>, en cada proyecto.",
+      "d.fix.yt": "Con tu kit: sin YouTube, sin conversor, sin pop-ups. El sonido suena al pasar el mouse y entra en la timeline con 2 clics.",
+      "d.fix.envato": "Con tu kit: sin .zip, sin extraer, sin importar. Y sin suscripción: pagas una vez y lo usas para siempre.",
+      "d.fix.folder": "Con tu kit: 1.463 sonidos en 21 categorías de colores, dentro del panel. Se acabó buscar en carpetas.",
+      "d.fix.none": "Con tu kit, poner sonido lleva 2 clics. Entonces lo pones en todo, y eso sube el nivel del video.",
+      "d.ok.premiere": "✓ Funciona en Premiere Pro", "d.ok.ae": "✓ Funciona en After Effects",
+      "d.ok.davinci": "✓ Funciona en DaVinci Resolve Studio", "d.ok.multi": "✓ Funciona en Premiere, After Effects y DaVinci",
+      "d.ok.other": "dropSFX funciona en Premiere Pro, After Effects y DaVinci Resolve Studio",
+
+      "v.title": "Míralo por dentro",
+      "v.rec": "Pantalla real · sin cortes",
+      "v.on": "Escuchar con sonido", "v.off": "Quitar sonido",
+
+      "i.title": "Qué trae tu kit",
+      "i.1": "<strong>1.463 efectos de sonido</strong> profesionales en 21 categorías",
+      "i.2": "Panel <strong>nativo</strong> en Premiere Pro, After Effects y DaVinci Resolve Studio",
+      "i.3": "Escuchas al <strong>pasar el mouse</strong>, insertas con <strong>2 clics</strong> o arrastrando",
+      "i.4": "Ganancia justa <strong>antes de insertar</strong>: -12, 0 o +6 dB",
+      "i.5": "Tus carpetas y <strong>tus propios sonidos</strong> dentro del panel",
+      "i.6": "Licencia para <strong>2 equipos</strong>, uso comercial, royalty-free",
+
+      "o.ribbon": "Oferta de lanzamiento",
+      "o.title": "Kit dropSFX completo",
+      "o.who": "armado para {type}",
+      "o.terms": "Pago único · Acceso de por vida · Garantía de 7 días",
+      "o.cta": "Asegurar mi kit ahora",
+      "o.secure": "🔒 Compra segura con Kiwify · acceso inmediato por e-mail",
+      "o.proof": "<b>+1.000 editores</b> ya usan dropSFX",
+
+      "g.days": "días", "g.title": "Garantía de 7 días",
+      "g.text": "Instálalo y úsalo en tus proyectos. Si no te sirve, te devolvemos el 100%. Solo envía un e-mail.",
+      "f.title": "Preguntas frecuentes",
+      "ft.redo": "Repetir el quiz", "ft.site": "Ver el sitio completo",
+      "s.title": "Tu kit · 63% OFF", "s.btn": "Asegurar"
+    },
+
+    hi: {
+      "ui.back": "वापस", "ui.next": "आगे बढ़ें", "ui.skip": "छोड़ें", "ui.qn": "{i} / {n}",
+      "q.intro": "आइए आपका साउंड डिज़ाइन किट बनाएँ · 8 सवाल · 1 मिनट",
+
+      "q.type.t": "आप सबसे ज़्यादा किस तरह के वीडियो एडिट करते हैं?",
+      "q.type.s": "आपका किट वीडियो के प्रकार से शुरू होता है।",
+      "type.reels": "Reels, TikTok और Shorts", "type.youtube": "YouTube", "type.wedding": "शादी और इवेंट",
+      "type.ads": "विज्ञापन और कॉर्पोरेट", "type.games": "गेमिंग और स्ट्रीम", "type.podcast": "पॉडकास्ट और क्लिप",
+      "short.reels": "Reels और Shorts", "short.youtube": "YouTube", "short.wedding": "शादी",
+      "short.ads": "विज्ञापन", "short.games": "गेमिंग", "short.podcast": "पॉडकास्ट क्लिप",
+      "ins.type.reels": "बढ़िया। छोटे वीडियो में हर कट पर एक साउंड दर्शक को अंत तक रोकता है।",
+      "ins.type.youtube": "बढ़िया। YouTube पर सही जगह पर साउंड इफ़ेक्ट रिदम देता है और रिटेंशन बढ़ाता है।",
+      "ins.type.wedding": "बहुत सुंदर। शादी के वीडियो में सही साउंड परिवार को फिर से भावुक कर देता है।",
+      "ins.type.ads": "बढ़िया। विज्ञापन में साउंड ही ब्रांड को प्रीमियम महसूस कराता है।",
+      "ins.type.games": "बढ़िया। गेमप्ले में इम्पैक्ट और HUD साउंड एक आम क्लिप को हाइलाइट बना देते हैं।",
+      "ins.type.podcast": "बढ़िया। पॉडकास्ट क्लिप में सही समय पर मीम साउंड ही कमेंट बन जाता है।",
+
+      "q.vibe.t": "आपके कंटेंट का वाइब क्या है?",
+      "q.vibe.s": "इससे तय होता है कि कौन से साउंड आपके किट में सबसे ऊपर होंगे।",
+      "vibe.cinematic": "सिनेमैटिक और एपिक", "vibe.funny": "मज़ेदार, मीम्स के साथ", "vibe.clean": "क्लीन और कॉर्पोरेट",
+      "vibe.hype": "एनर्जेटिक, तेज़ रफ़्तार", "vibe.emotional": "भावुक और संवेदनशील",
+      "vshort.cinematic": "सिनेमैटिक", "vshort.funny": "मज़ेदार", "vshort.clean": "क्लीन",
+      "vshort.hype": "एनर्जेटिक", "vshort.emotional": "भावुक",
+      "ins.vibe.cinematic": "नोट किया: राइज़र, ड्रॉप्स और भारी इम्पैक्ट आपके किट में सबसे ऊपर।",
+      "ins.vibe.funny": "नोट किया: मीम्स, कार्टून और बटन साउंड आपके किट में सबसे ऊपर।",
+      "ins.vibe.clean": "नोट किया: क्लिक, हल्के व्हूश और क्लीन ट्रांज़िशन सबसे ऊपर।",
+      "ins.vibe.hype": "नोट किया: इम्पैक्ट, ग्लिच और तेज़ व्हूश सबसे ऊपर।",
+      "ins.vibe.emotional": "नोट किया: इमोशन, एम्बिएंस और स्लो मोशन सबसे ऊपर।",
+
+      "q.fams.t": "आप कौन से साउंड सबसे ज़्यादा इस्तेमाल करते हैं, या करना चाहते हैं?",
+      "q.fams.s": "कई चुन सकते हैं।",
+      "fam.whoosh": "व्हूश और ट्रांज़िशन", "fam.hits": "इम्पैक्ट और ड्रॉप्स", "fam.risers": "राइज़र और टेंशन",
+      "fam.ui": "क्लिक और UI", "fam.glitch": "ग्लिच और डिजिटल", "fam.memes": "मीम्स और कार्टून",
+      "fam.foley": "फ़ॉली और एम्बिएंस", "fam.cine": "स्लो मोशन और कैमरा", "fam.emotion": "इमोशन और रिवर्ब",
+      "fam.action": "एक्शन और गन्स", "fam.retro": "रेट्रो",
+      "ins.fams": "बढ़िया। आपके किट के लिए {n} साउंड फ़ैमिली नोट कीं।",
+
+      "q.app.t": "आप किस सॉफ़्टवेयर में एडिट करते हैं?",
+      "q.app.s": "कम्पैटिबिलिटी जाँचने के लिए।",
+      "app.premiere": "Premiere Pro", "app.ae": "After Effects", "app.davinci": "DaVinci Resolve",
+      "app.multi": "इनमें से एक से ज़्यादा", "app.other": "कोई और (CapCut, Final Cut…)",
+      "ins.app.premiere": "कम्पैटिबल: dropSFX सीधे Premiere Pro के अंदर पैनल की तरह खुलता है।",
+      "ins.app.ae": "कम्पैटिबल: dropSFX सीधे After Effects के अंदर पैनल की तरह खुलता है।",
+      "ins.app.davinci": "कम्पैटिबल: dropSFX का DaVinci Resolve Studio वर्ज़न है।",
+      "ins.app.multi": "कम्पैटिबल: dropSFX Premiere, After Effects और DaVinci में चलता है।",
+      "ins.app.other": "नोट किया। अभी dropSFX Premiere Pro, After Effects और DaVinci Resolve Studio में चलता है।",
+
+      "q.source.t": "साउंड इफ़ेक्ट चाहिए हो तो आप कहाँ ढूँढते हैं?",
+      "q.source.s": "कोई जजमेंट नहीं: हर एडिटर ने ये किया है।",
+      "source.yt": "YouTube पर, फिर ऑडियो डाउनलोड साइट पर", "source.envato": "Envato या Artlist पर",
+      "source.folder": "अपने PC के बिखरे फ़ोल्डर में", "source.none": "मैं लगाता ही नहीं: बहुत मेहनत है",
+      "ins.source.yt": "ये रास्ता (YouTube → कन्वर्टर → डाउनलोड → इम्पोर्ट) सबसे ज़्यादा समय खाता है।",
+      "ins.source.envato": "Envato और Artlist अच्छे हैं, पर हर साउंड एक .zip बन जाता है: डाउनलोड, एक्सट्रैक्ट, इम्पोर्ट।",
+      "ins.source.folder": "सबसे आम तरीका। मुश्किल है एडिट के बीच सही साउंड ढूँढना।",
+      "ins.source.none": "बहुत लोग मेहनत की वजह से साउंड छोड़ देते हैं। आपका किट ठीक यही हल करता है।",
+
+      "q.time.t": "हर वीडियो में साउंड ढूँढने में कितना समय जाता है?",
+      "q.time.talt": "अगर साउंड लगाएँ, तो हर वीडियो में कितना समय लगेगा?",
+      "q.time.s": "अंदाज़ा काफ़ी है।",
+      "time.0": "10 मिनट से कम", "time.1": "10 से 30 मिनट", "time.2": "30 मिनट से 1 घंटा", "time.3": "1 घंटे से ज़्यादा",
+
+      "q.volume.t": "आप हफ़्ते में कितने वीडियो एडिट करते हैं?",
+      "q.volume.s": "ये जानने के लिए कि किट आपको कितना समय लौटाता है।",
+      "volume.0": "1 या 2", "volume.1": "3 से 5", "volume.2": "6 से 10", "volume.3": "10 से ज़्यादा",
+
+      "q.name.t": "आख़िरी सवाल: आपको क्या कहें?",
+      "q.name.s": "ताकि किट पर आपका नाम हो।",
+      "q.name.ph": "आपका नाम",
+      "q.name.go": "मेरा किट देखें",
+
+      "an.title": "आपका किट बन रहा है…",
+      "an.1": "वीडियो का प्रकार: {type}",
+      "an.2": "{vibe} वाइब के लिए ट्यून कर रहे हैं",
+      "an.3": "1,463 साउंड में से कैटेगरी चुन रहे हैं",
+      "an.4": "आपको वापस मिलने वाला समय गिन रहे हैं",
+      "an.5": "कम्पैटिबिलिटी: {app}",
+      "an.proof": "1,000+ एडिटर dropSFX इस्तेमाल करते हैं",
+
+      "r.kicker": "पर्सनलाइज़्ड dropSFX किट",
+      "r.hello": "{name}, आपका किट <span class='serif'>तैयार है।</span>",
+      "r.hello0": "आपका किट <span class='serif'>तैयार है।</span>",
+      "r.c.type": "वीडियो", "r.c.vibe": "वाइब", "r.c.app": "सॉफ़्टवेयर",
+      "r.kitTitle": "आपसे सबसे ज़्यादा मेल खाने वाली 6 कैटेगरी",
+      "r.kitCount": "{n} साउंड",
+      "r.kitMore": "और आपको मिलती हैं <b>सभी 21 कैटेगरी</b>: कुल <b>1,463 साउंड</b>, पैनल में रंगों से व्यवस्थित।",
+      "why.pick": "आपने चुना: {fam}", "why.type": "{type} के लिए ज़रूरी", "why.vibe": "{vibe} वाइब से मेल",
+      "r.cta1": "मुझे मेरा किट चाहिए",
+
+      "d.title": "आपके दिन में क्या बदलता है",
+      "d.unit": "हर महीने साउंड इफ़ेक्ट ढूँढने में, आज।",
+      "d.unit3": "हर महीने: आज साउंड लगाने की कीमत।",
+      "d.why": "आपके जवाबों से: हर वीडियो {m} मिनट × हफ़्ते में {v} वीडियो × 4.3 हफ़्ते",
+      "d.days": "यानी हर महीने <strong>{d} पूरे कामकाजी दिन</strong> से ज़्यादा।",
+      "d.day1": "यानी हर महीने <strong>1 पूरे कामकाजी दिन</strong> से ज़्यादा।",
+      "d.small": "कम लगता है। पर ये <strong>हर महीने</strong>, हर प्रोजेक्ट में दोहराता है।",
+      "d.fix.yt": "आपके किट के साथ: न YouTube, न कन्वर्टर, न पॉप-अप। होवर पर साउंड बजता है और 2 क्लिक में टाइमलाइन पर।",
+      "d.fix.envato": "आपके किट के साथ: न .zip, न एक्सट्रैक्ट, न इम्पोर्ट। और कोई सब्सक्रिप्शन नहीं: एक बार दीजिए, हमेशा इस्तेमाल कीजिए।",
+      "d.fix.folder": "आपके किट के साथ: 21 रंगीन कैटेगरी में 1,463 साउंड, सीधे पैनल में। फ़ोल्डर में ढूँढना ख़त्म।",
+      "d.fix.none": "आपके किट के साथ साउंड लगाने में 2 क्लिक लगते हैं। तो आप हर जगह लगाते हैं, और यही वीडियो का लेवल बढ़ाता है।",
+      "d.ok.premiere": "✓ Premiere Pro में चलता है", "d.ok.ae": "✓ After Effects में चलता है",
+      "d.ok.davinci": "✓ DaVinci Resolve Studio में चलता है", "d.ok.multi": "✓ Premiere, After Effects और DaVinci में चलता है",
+      "d.ok.other": "dropSFX Premiere Pro, After Effects और DaVinci Resolve Studio में चलता है",
+
+      "v.title": "अंदर से देखिए",
+      "v.rec": "असली स्क्रीन · बिना कट",
+      "v.on": "साउंड के साथ चलाएँ", "v.off": "म्यूट करें",
+
+      "i.title": "आपके किट में क्या है",
+      "i.1": "21 कैटेगरी में <strong>1,463 प्रोफ़ेशनल साउंड इफ़ेक्ट</strong>",
+      "i.2": "Premiere Pro, After Effects और DaVinci Resolve Studio में <strong>नेटिव</strong> पैनल",
+      "i.3": "<strong>होवर</strong> पर सुनें, <strong>2 क्लिक</strong> में या खींचकर टाइमलाइन पर डालें",
+      "i.4": "<strong>डालने से पहले</strong> सही गेन: -12, 0 या +6 dB",
+      "i.5": "पैनल में आपके फ़ोल्डर और <strong>आपके अपने साउंड</strong>",
+      "i.6": "<strong>2 मशीनों</strong> के लिए लाइसेंस, कमर्शियल इस्तेमाल, रॉयल्टी-फ़्री",
+
+      "o.ribbon": "लॉन्च ऑफ़र",
+      "o.title": "पूरा dropSFX किट",
+      "o.who": "{type} के लिए बना",
+      "o.terms": "एक बार भुगतान · आजीवन एक्सेस · 7 दिन की गारंटी",
+      "o.cta": "अभी मेरा किट लें",
+      "o.secure": "🔒 Kiwify से सुरक्षित भुगतान · ई-मेल से तुरंत एक्सेस",
+      "o.proof": "<b>1,000+ एडिटर</b> dropSFX इस्तेमाल करते हैं",
+
+      "g.days": "दिन", "g.title": "7 दिन की गारंटी",
+      "g.text": "इंस्टॉल करें और अपने प्रोजेक्ट में इस्तेमाल करें। पसंद न आए तो 100% पैसे वापस। बस एक ई-मेल भेजें।",
+      "f.title": "अक्सर पूछे जाने वाले सवाल",
+      "ft.redo": "क्विज़ दोबारा करें", "ft.site": "पूरी वेबसाइट देखें",
+      "s.title": "आपका किट · 63% OFF", "s.btn": "अभी लें"
+    }
+  };
+  </script>
+  <script>
+  (function () {
+    // =====================================================================
+    // CONFIG — o que você pode mudar sem mexer no resto
+    // =====================================================================
+    var CONFIG = {
+      checkout: 'https://pay.kiwify.com.br/uzVAstc',
+      trackUrl: 'https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/funnel-track',
+      pixelValue: 109.79,
+      currency: 'BRL'
+    };
+
+    // categorias reais da biblioteca: [quantidade de sons, cor]
+    var CATS = {
+      whooshes: [240, '#2dd4bf'], transitions: [179, '#facc15'], drops: [142, '#a78bfa'], clicks: [130, '#38bdf8'],
+      foley: [127, '#06b6d4'], risers: [98, '#fb923c'], elements: [85, '#4ade80'], memes: [71, '#f472b6'],
+      hits: [63, '#f87171'], glitches: [45, '#60a5fa'], guns: [45, '#ef4444'], reverb: [39, '#34d399'],
+      retro: [29, '#d97706'], hud: [27, '#22d3ee'], ambient: [26, '#86efac'], nature: [24, '#65a30d'],
+      emotion: [18, '#f9a8d4'], camera: [17, '#94a3b8'], bells: [16, '#eab308'], slowmo: [13, '#c4b5fd'], tonal: [29, '#fde047']
+    };
+    // "famílias" que a pessoa escolhe no quiz → categorias da biblioteca
+    var FAMS = {
+      whoosh: ['whooshes', 'transitions'], hits: ['hits', 'drops'], risers: ['risers', 'tonal'], ui: ['clicks', 'bells', 'hud'],
+      glitch: ['glitches', 'hud'], memes: ['memes'], foley: ['foley', 'ambient', 'nature'], cine: ['slowmo', 'camera'],
+      emotion: ['emotion', 'reverb'], action: ['guns', 'elements'], retro: ['retro']
+    };
+    // peso de cada categoria por tipo de vídeo e por pegada
+    var W_TYPE = {
+      reels: { whooshes: 3, transitions: 3, hits: 2, memes: 2, clicks: 2, glitches: 1 },
+      youtube: { whooshes: 2, transitions: 2, clicks: 2, memes: 2, hits: 1, bells: 1 },
+      wedding: { emotion: 3, ambient: 2, nature: 2, risers: 2, slowmo: 2, drops: 1, camera: 1 },
+      ads: { whooshes: 2, risers: 2, hits: 2, clicks: 2, drops: 2, hud: 1 },
+      games: { guns: 3, hud: 3, glitches: 2, hits: 2, elements: 2, memes: 1 },
+      podcast: { memes: 3, bells: 2, clicks: 2, whooshes: 2, transitions: 1, tonal: 1 }
+    };
+    var W_VIBE = {
+      cinematic: { drops: 3, risers: 3, hits: 2, reverb: 2, slowmo: 1 },
+      funny: { memes: 3, bells: 2, retro: 2, clicks: 1 },
+      clean: { clicks: 3, whooshes: 2, transitions: 2, hud: 1, tonal: 1 },
+      hype: { hits: 3, whooshes: 2, glitches: 2, drops: 2, risers: 1 },
+      emotional: { emotion: 3, reverb: 2, ambient: 2, nature: 2, slowmo: 2 }
+    };
+
+    var Q = [
+      { id: 'type', kind: 'grid', opts: [['reels', '📱'], ['youtube', '▶️'], ['wedding', '💍'], ['ads', '📣'], ['games', '🎮'], ['podcast', '🎙️']] },
+      { id: 'vibe', kind: 'list', opts: [['cinematic', '🎬'], ['funny', '😂'], ['clean', '✨'], ['hype', '⚡'], ['emotional', '💙']] },
+      { id: 'fams', kind: 'multi' },
+      { id: 'app', kind: 'list', opts: [['premiere'], ['ae'], ['davinci'], ['multi'], ['other']] },
+      { id: 'source', kind: 'list', opts: [['yt'], ['envato'], ['folder'], ['none']] },
+      { id: 'time', kind: 'list', opts: [['0'], ['1'], ['2'], ['3']] },
+      { id: 'volume', kind: 'list', opts: [['0'], ['1'], ['2'], ['3']] },
+      { id: 'name', kind: 'text' }
+    ];
+    var LABEL = { type: 'type.', vibe: 'vibe.', app: 'app.', source: 'source.', time: 'time.', volume: 'volume.' };
+    var MIN = [7, 20, 45, 75], VID = [1.5, 4, 8, 12];
+    var LANGS = ['pt', 'en', 'es', 'hi'];
+    var HTML_LANG = { pt: 'pt-BR', en: 'en', es: 'es', hi: 'hi' };
+
+    var lang = 'pt';
+    var A = {};          // respostas
+    var step = 0;
+    var screen = 'lang';
+    var kit = null;
+
+    function $(id) { return document.getElementById(id); }
+    function t(k) { var d = L[lang] || L.pt; return d[k] != null ? d[k] : (L.pt[k] != null ? L.pt[k] : ''); }
+    function esc(s) { return String(s || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function num(n) { try { return n.toLocaleString(HTML_LANG[lang]); } catch (e) { return String(n); } }
+
+    // =====================================================================
+    // RASTREAMENTO — cada passo vai pro Supabase (Central → Funil)
+    // ?notrack=1 desliga neste navegador (use nos seus testes) · ?track=1 religa
+    // =====================================================================
+    var TR = (function () {
+      var off = false, p = new URLSearchParams(location.search);
+      try {
+        if (p.has('notrack')) localStorage.setItem('dropsfx_notrack', '1');
+        if (p.has('track')) localStorage.removeItem('dropsfx_notrack');
+        off = localStorage.getItem('dropsfx_notrack') === '1';
+      } catch (e) {}
+      if (/bot|crawl|spider|slurp|lighthouse|pagespeed|headless/i.test(navigator.userAgent)) off = true;
+
+      function uid() {
+        if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+        return Date.now().toString(36) + Math.random().toString(36).slice(2, 12);
+      }
+      var vid, sid, ctx = null;
+      try { vid = localStorage.getItem('dropsfx_vid') || uid(); localStorage.setItem('dropsfx_vid', vid); } catch (e) { vid = uid(); }
+      try { sid = sessionStorage.getItem('dropsfx_sid') || uid(); sessionStorage.setItem('dropsfx_sid', sid); } catch (e) { sid = uid(); }
+
+      // origem da visita (fica fixa na sessão, mesmo trocando de tela)
+      try { ctx = JSON.parse(sessionStorage.getItem('dropsfx_ctx') || 'null'); } catch (e) {}
+      if (!ctx) {
+        ctx = {};
+        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (k) { var v = p.get(k); if (v) ctx[k] = v.slice(0, 120); });
+        if (!ctx.utm_source && p.get('fbclid')) ctx.utm_source = 'facebook';
+        if (!ctx.utm_source && p.get('gclid')) ctx.utm_source = 'google';
+        var r = p.get('ref') || document.referrer;
+        if (r && r.indexOf(location.host) === -1) ctx.ref = r.slice(0, 300);
+        try { sessionStorage.setItem('dropsfx_ctx', JSON.stringify(ctx)); } catch (e) {}
+      }
+      var tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (e) {}
+
+      var queue = [], timer = null, t0 = Date.now(), hiddenAt = 0, hiddenMs = 0;
+
+      function flush(beacon) {
+        if (off || !queue.length) { queue = []; return; }
+        while (queue.length) {
+          var body = JSON.stringify({
+            sid: sid, vid: vid, page: 'comecar',
+            ctx: { lang: lang, utm_source: ctx.utm_source, utm_medium: ctx.utm_medium, utm_campaign: ctx.utm_campaign,
+                   utm_content: ctx.utm_content, utm_term: ctx.utm_term, ref: ctx.ref, tz: tz, sw: screen.width },
+            events: queue.splice(0, 40)
+          });
+          var sent = false;
+          if (beacon && navigator.sendBeacon) {
+            try { sent = navigator.sendBeacon(CONFIG.trackUrl, new Blob([body], { type: 'text/plain' })); } catch (e) {}
+          }
+          if (!sent) {
+            try { fetch(CONFIG.trackUrl, { method: 'POST', body: body, headers: { 'Content-Type': 'text/plain' }, keepalive: true }).catch(function () {}); } catch (e) {}
+          }
+        }
+      }
+      function ev(e, s, v, now) {
+        queue.push({ e: e, s: s == null ? null : String(s), v: v == null ? null : v, t: Date.now(), l: lang });
+        clearTimeout(timer);
+        if (now) flush(false); else timer = setTimeout(function () { flush(false); }, 1200);
+      }
+      function activeSeconds() { return Math.round((Date.now() - t0 - hiddenMs) / 1000); }
+
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'hidden') {
+          hiddenAt = Date.now();
+          ev('exit', screen, { s: activeSeconds() });
+          flush(true);
+        } else if (hiddenAt) {
+          hiddenMs += Date.now() - hiddenAt;
+          hiddenAt = 0;
+        }
+      });
+      window.addEventListener('pagehide', function () { flush(true); });
+
+      return { ev: ev, flush: flush, sid: sid, ctx: ctx };
+    })();
+
+    function pixel(name, data) { try { if (typeof fbq === 'function') fbq('trackCustom', name, data || {}); } catch (e) {} }
+
+    // =====================================================================
+    // IDIOMA
+    // =====================================================================
+    function detectLang() {
+      var navs = navigator.languages || [navigator.language || 'pt'];
+      for (var i = 0; i < navs.length; i++) {
+        var c = String(navs[i]).toLowerCase().slice(0, 2);
+        if (LANGS.indexOf(c) >= 0) return c;
+      }
+      return 'en';
+    }
+
+    function setLang(l) {
+      if (LANGS.indexOf(l) < 0) l = 'pt';
+      lang = l;
+      document.documentElement.lang = HTML_LANG[l];
+      store('dropsfx_lang', l);
+      [].forEach.call(document.querySelectorAll('[data-t]'), function (el) { el.textContent = t(el.getAttribute('data-t')); });
+      [].forEach.call(document.querySelectorAll('[data-th]'), function (el) { el.innerHTML = t(el.getAttribute('data-th')); });
+      [].forEach.call(document.querySelectorAll('#langMini button'), function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-lang') === l ? 'true' : 'false'); });
+      if (screen === 'quiz') renderQ();
+      if (screen === 'result' && kit) renderResult();
+    }
+
+    function show(id) {
+      screen = id;
+      ['lang', 'quiz', 'analysis', 'result'].forEach(function (s) {
+        $('s' + s.charAt(0).toUpperCase() + s.slice(1)).classList.toggle('on', s === id);
+      });
+      $('langMini').hidden = id === 'lang' || id === 'analysis';
+      window.scrollTo(0, 0);
+    }
+
+    // =====================================================================
+    // QUIZ
+    // =====================================================================
+    function startQuiz() {
+      A = {};
+      step = 0;
+      show('quiz');
+      renderQ();
+      TR.ev('quiz_start');
+      pixel('QuizStart');
+    }
+
+    function insightFor(i) {
+      if (i <= 0) return '';
+      var prev = Q[i - 1].id, a = A[prev];
+      if (a == null) return '';
+      if (prev === 'type') return t('ins.type.' + a);
+      if (prev === 'vibe') return t('ins.vibe.' + a);
+      if (prev === 'fams') return t('ins.fams').replace('{n}', a.length);
+      if (prev === 'app') return t('ins.app.' + a);
+      if (prev === 'source') return t('ins.source.' + a);
+      return '';
+    }
+
+    function renderQ() {
+      var q = Q[step];
+      $('qFill').style.width = (step / Q.length * 100) + '%';
+      $('qN').textContent = t('ui.qn').replace('{i}', step + 1).replace('{n}', Q.length);
+      $('qIntro').hidden = step !== 0;
+      var ins = insightFor(step);
+      $('qInsight').hidden = !ins;
+      $('qInsight').textContent = ins;
+      $('qTitle').textContent = t(q.id === 'time' && A.source === 'none' ? 'q.time.talt' : 'q.' + q.id + '.t');
+      $('qSub').textContent = t('q.' + q.id + '.s');
+
+      var body = $('qBody'), html = '';
+      $('qActions').hidden = true;
+      $('qSkip').hidden = true;
+
+      if (q.kind === 'grid' || q.kind === 'list') {
+        html = '<div class="q-opts' + (q.kind === 'grid' ? ' grid' : '') + '" role="radiogroup">';
+        q.opts.forEach(function (o, j) {
+          var on = A[q.id] === o[0];
+          var lead = o[1] ? '<span class="q-emoji" aria-hidden="true">' + o[1] + '</span>' : '<span class="q-key">' + 'ABCDEF'.charAt(j) + '</span>';
+          html += '<button type="button" class="q-opt' + (on ? ' picked' : '') + '" role="radio" aria-checked="' + on + '" data-v="' + o[0] + '">' + lead + '<span>' + esc(t(LABEL[q.id] + o[0])) + '</span></button>';
+        });
+        html += '</div>';
+        body.innerHTML = html;
+        [].forEach.call(body.querySelectorAll('.q-opt'), function (b) {
+          b.addEventListener('click', function () { pick(b.getAttribute('data-v'), b); });
+        });
+      } else if (q.kind === 'multi') {
+        var sel = A.fams || [];
+        html = '<div class="chips">';
+        Object.keys(FAMS).forEach(function (f) {
+          html += '<button type="button" class="chip" style="--c:' + CATS[FAMS[f][0]][1] + '" aria-pressed="' + (sel.indexOf(f) >= 0) + '" data-f="' + f + '"><i></i>' + esc(t('fam.' + f)) + '</button>';
+        });
+        body.innerHTML = html + '</div>';
+        $('qActions').hidden = false;
+        $('qNext').textContent = t('ui.next') + ' →';
+        var upd = function () { $('qNext').disabled = !body.querySelector('.chip[aria-pressed="true"]'); };
+        [].forEach.call(body.querySelectorAll('.chip'), function (c) {
+          c.addEventListener('click', function () { c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true'); upd(); });
+        });
+        upd();
+      } else if (q.kind === 'text') {
+        body.innerHTML = '<input class="name-in" id="nameIn" type="text" maxlength="24" autocomplete="given-name" autocapitalize="words" placeholder="' + esc(t('q.name.ph')) + '" value="' + esc(A.name || '') + '">';
+        $('qActions').hidden = false;
+        $('qSkip').hidden = false;
+        $('qNext').disabled = false;
+        $('qNext').textContent = t('q.name.go') + ' →';
+        var inp = $('nameIn');
+        inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') $('qNext').click(); });
+        if (window.matchMedia('(hover: hover)').matches) setTimeout(function () { inp.focus(); }, 300);
+      }
+    }
+
+    var busy = false;
+    function pick(v, btn) {
+      if (busy) return;
+      busy = true;
+      A[Q[step].id] = v;
+      btn.classList.add('picked');
+      TR.ev('quiz_answer', Q[step].id, { a: v, i: step + 1 });
+      setTimeout(function () { busy = false; next(); }, 260);
+    }
+
+    function next() {
+      step++;
+      if (step < Q.length) { renderQ(); window.scrollTo(0, 0); }
+      else complete();
+    }
+
+    $('qNext').addEventListener('click', function () {
+      var q = Q[step];
+      if (q.kind === 'multi') {
+        var sel = [].map.call(document.querySelectorAll('#qBody .chip[aria-pressed="true"]'), function (c) { return c.getAttribute('data-f'); });
+        if (!sel.length) return;
+        A.fams = sel;
+        TR.ev('quiz_answer', 'fams', { a: sel, i: step + 1 });
+      } else if (q.kind === 'text') {
+        var n = ($('nameIn').value || '').trim().replace(/\s+/g, ' ').slice(0, 24);
+        A.name = n;
+        // o nome em si não vai pro servidor: só se a pessoa preencheu ou pulou
+        TR.ev('quiz_answer', 'name', { a: n ? 'preencheu' : 'pulou', i: step + 1 });
+      }
+      next();
+    });
+    $('qSkip').addEventListener('click', function () {
+      A.name = '';
+      TR.ev('quiz_answer', 'name', { a: 'pulou', i: step + 1 });
+      next();
+    });
+    $('qBack').addEventListener('click', function () {
+      TR.ev('quiz_back', Q[step].id);
+      if (step === 0) { show('lang'); return; }
+      step--;
+      renderQ();
+    });
+
+    // atalhos de teclado: A–F ou 1–6
+    document.addEventListener('keydown', function (e) {
+      if (screen !== 'quiz' || /input|textarea/i.test((e.target || {}).tagName)) return;
+      var k = e.key.toLowerCase(), i = 'abcdef'.indexOf(k);
+      if (i < 0) i = '123456'.indexOf(k);
+      var opts = document.querySelectorAll('#qBody .q-opt, #qBody .chip');
+      if (i >= 0 && opts[i]) { e.preventDefault(); opts[i].click(); }
+      if (e.key === 'Enter' && !$('qActions').hidden && !$('qNext').disabled) $('qNext').click();
+    });
+
+    // =====================================================================
+    // KIT PERSONALIZADO
+    // =====================================================================
+    function recommend(a) {
+      var score = {}, from = {};
+      Object.keys(CATS).forEach(function (c) { score[c] = CATS[c][0] / 10000; from[c] = { pick: null, type: 0, vibe: 0 }; });
+      var wt = W_TYPE[a.type] || {}, wv = W_VIBE[a.vibe] || {};
+      Object.keys(wt).forEach(function (c) { score[c] += wt[c]; from[c].type = wt[c]; });
+      Object.keys(wv).forEach(function (c) { score[c] += wv[c]; from[c].vibe = wv[c]; });
+      (a.fams || []).forEach(function (f) {
+        (FAMS[f] || []).forEach(function (c) { score[c] += 4; if (!from[c].pick) from[c].pick = f; });
+      });
+      return Object.keys(CATS).sort(function (x, y) { return score[y] - score[x]; }).slice(0, 6).map(function (c) {
+        var f = from[c], why;
+        if (f.pick) why = t('why.pick').replace('{fam}', t('fam.' + f.pick).toLowerCase());
+        else if (f.type >= f.vibe) why = t('why.type').replace('{type}', t('short.' + a.type));
+        else why = t('why.vibe').replace('{vibe}', t('vshort.' + a.vibe));
+        return { id: c, n: CATS[c][0], color: CATS[c][1], why: why };
+      });
+    }
+
+    function hoursOf(a) { return MIN[+a.time || 0] * VID[+a.volume || 0] * 4.33 / 60; }
+
+    function complete() {
+      kit = { a: A, at: Date.now(), lang: lang };
+      store('dropsfx_kit', JSON.stringify(kit));
+      var h = Math.round(hoursOf(A));
+      TR.ev('quiz_complete', null, {
+        type: A.type, vibe: A.vibe, fams: A.fams, app: A.app, source: A.source,
+        time: A.time, volume: A.volume, hours_month: h, named: !!A.name
+      }, true);
+      pixel('QuizComplete', { type: A.type, vibe: A.vibe, app: A.app, source: A.source, hours_month: h });
+      if (window.dropsfxEvent) window.dropsfxEvent('Lead', { content_name: 'dropSFX quiz', content_category: A.type || 'quiz' });
+      runAnalysis();
+    }
+
+    function runAnalysis() {
+      show('analysis');
+      TR.ev('analysis_view');
+      var lines = [
+        t('an.1').replace('{type}', t('type.' + A.type)),
+        t('an.2').replace('{vibe}', t('vshort.' + A.vibe)),
+        t('an.3'),
+        t('an.4'),
+        t('an.5').replace('{app}', t('app.' + A.app))
+      ];
+      var ul = $('anSteps');
+      ul.innerHTML = lines.map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('');
+      var lis = ul.querySelectorAll('li');
+      var total = 4600, t0 = performance.now(), fg = $('ringFg'), n = $('ringN');
+      (function frame(now) {
+        var k = Math.min(1, (now - t0) / total);
+        var e = 1 - Math.pow(1 - k, 2.2);
+        fg.style.strokeDashoffset = 465 * (1 - e);
+        n.textContent = Math.round(e * 100) + '%';
+        var cur = Math.min(lis.length - 1, Math.floor(k * lis.length));
+        [].forEach.call(lis, function (li, i) { li.className = i < cur || k >= 1 ? 'ok' : i === cur ? 'run' : ''; });
+        if (k < 1) requestAnimationFrame(frame);
+        else setTimeout(function () { showResult('new'); }, 500);
+      })(t0);
+    }
+
+    // =====================================================================
+    // RESULTADO + OFERTA
+    // =====================================================================
+    function checkoutUrl(pos) {
+      var p = new URLSearchParams();
+      p.set('utm_source', 'quiz');
+      p.set('utm_medium', pos);
+      p.set('utm_campaign', TR.ctx.utm_campaign || 'dropsfx');
+      if (kit) p.set('utm_content', (kit.a.type || 'x') + '-' + (kit.a.vibe || 'x'));
+      if (TR.ctx.utm_content) p.set('utm_term', TR.ctx.utm_content);
+      p.set('src', TR.ctx.utm_source || 'direto');
+      p.set('sck', TR.sid);   // liga a compra (webhook da Kiwify) a esta sessão do quiz
+      return CONFIG.checkout + '?' + p.toString();
+    }
+
+    function wave(seed) {
+      var x = seed * 9301 + 49297, h = '';
+      for (var i = 0; i < 26; i++) { x = (x * 9301 + 49297) % 233280; h += '<i style="height:' + Math.round(18 + (x / 233280) * 82) + '%"></i>'; }
+      return h;
+    }
+
+    function renderResult() {
+      var a = kit.a;
+      var picks = recommend(a);
+      var name = (a.name || '').trim();
+      $('rHello').innerHTML = name ? t('r.hello').replace('{name}', esc(name)) : t('r.hello0');
+      $('rChips').innerHTML =
+        '<span class="r-chip"><b>' + esc(t('r.c.type')) + '</b>' + esc(t('type.' + a.type)) + '</span>' +
+        '<span class="r-chip"><b>' + esc(t('r.c.vibe')) + '</b>' + esc(t('vibe.' + a.vibe)) + '</span>' +
+        '<span class="r-chip"><b>' + esc(t('r.c.app')) + '</b>' + esc(t('app.' + a.app)) + '</span>';
+
+      var total = picks.reduce(function (s, p) { return s + p.n; }, 0);
+      $('kitTitle').textContent = t('r.kitTitle');
+      $('kitCount').textContent = t('r.kitCount').replace('{n}', num(total));
+      var names = CAT_NAMES[lang] || CAT_NAMES.pt;
+      $('kitGrid').innerHTML = picks.map(function (p, i) {
+        return '<div class="kc" style="--c:' + p.color + ';animation-delay:' + (i * 70) + 'ms">' +
+          '<div class="kc-top"><span class="kc-dot"></span><span class="kc-n"><b>' + p.n + '</b> ' + esc(t('r.kitCount').replace('{n}', '').trim()) + '</span></div>' +
+          '<div class="kc-name">' + esc(names[p.id] || p.id) + '</div>' +
+          '<div class="kc-why">' + esc(p.why) + '</div>' +
+          '<div class="kc-wave" aria-hidden="true">' + wave(p.n + i) + '</div></div>';
+      }).join('');
+      $('kitMore').innerHTML = t('r.kitMore');
+
+      // diagnóstico de tempo
+      var h = hoursOf(a), d = Math.floor(h / 8);
+      var big = h < 1 ? Math.round(h * 60) + ' min' : Math.round(h) + 'h';
+      $('diag').innerHTML =
+        '<div class="d-big">≈ ' + big + '</div>' +
+        '<span class="d-unit">' + esc(t(a.source === 'none' ? 'd.unit3' : 'd.unit')) + '</span>' +
+        '<p class="d-why">' + esc(t('d.why').replace('{m}', num(MIN[+a.time || 0])).replace('{v}', num(VID[+a.volume || 0]))) + '</p>' +
+        '<p class="d-days">' + (d >= 2 ? t('d.days').replace('{d}', d) : d === 1 ? t('d.day1') : t('d.small')) + '</p>' +
+        '<p class="d-fix">' + esc(t('d.fix.' + (a.source || 'yt'))) + '</p>' +
+        '<p class="d-ok' + (a.app === 'other' ? ' warn' : '') + '">' + esc(t('d.ok.' + (a.app || 'premiere'))) + '</p>';
+
+      $('oWho').textContent = name ? name + ' · ' + t('o.who').replace('{type}', t('short.' + a.type)) : t('o.who').replace('{type}', t('short.' + a.type));
+      $('stickyT').innerHTML = esc(t('s.title')) + '<span class="sticky-s">' + esc(t('o.terms')) + '</span>';
+
+      // FAQ (mesmas respostas do site)
+      var fq = FAQ[lang] || FAQ.pt, order = [4, 9, 7, 8, 5, 1];
+      $('faq').innerHTML = order.map(function (i) {
+        return '<div class="faq-item"><button type="button" class="faq-q" data-i="' + i + '"><span>' + esc(fq['faq.q' + i]) + '</span><span>+</span></button><div class="faq-a">' + esc(fq['faq.a' + i]) + '</div></div>';
+      }).join('');
+      [].forEach.call(document.querySelectorAll('.faq-q'), function (b) {
+        b.addEventListener('click', function () {
+          var it = b.parentNode, open = !it.classList.contains('open');
+          it.classList.toggle('open', open);
+          if (open) TR.ev('faq_open', b.getAttribute('data-i'));
+        });
+      });
+
+      [].forEach.call(document.querySelectorAll('.js-cta'), function (el) { el.href = checkoutUrl(el.getAttribute('data-pos')); });
+      $('vidSound').lastChild.textContent = t(vid.muted ? 'v.on' : 'v.off');
+    }
+
+    var resultWired = false;
+    function showResult(mode) {
+      show('result');
+      renderResult();
+      TR.ev('result_view', mode);
+      if (window.dropsfxEvent) window.dropsfxEvent('ViewContent', { content_name: 'dropSFX Full', content_type: 'product', content_ids: ['dropsfx-full'], value: CONFIG.pixelValue, currency: CONFIG.currency });
+      if (!resultWired) { resultWired = true; wireResult(); }
+    }
+
+    // ---------- vídeo, scroll, CTA, sticky ----------
+    var vid = $('vid');
+    function wireResult() {
+      // CTA
+      [].forEach.call(document.querySelectorAll('.js-cta'), function (el) {
+        el.addEventListener('click', function () {
+          el.href = checkoutUrl(el.getAttribute('data-pos'));
+          TR.ev('cta_click', el.getAttribute('data-pos'), null, true);
+          if (window.dropsfxEvent) window.dropsfxEvent('InitiateCheckout', { content_name: 'dropSFX Full', content_ids: ['dropsfx-full'], content_type: 'product', value: CONFIG.pixelValue, currency: CONFIG.currency, num_items: 1 });
+        });
+      });
+
+      // sticky aparece depois que o primeiro botão sai da tela
+      var first = document.querySelector('.cta-row .js-cta'), sticky = $('sticky');
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) {
+          var e = es[0];
+          sticky.classList.toggle('show', screen === 'result' && !e.isIntersecting && e.boundingClientRect.top < 0);
+        }).observe(first);
+        // some quando o card da oferta está na tela
+        new IntersectionObserver(function (es) {
+          if (es[0].isIntersecting) sticky.classList.remove('show');
+        }, { threshold: .4 }).observe(document.querySelector('.offer'));
+      }
+
+      // vídeo: carrega perto da tela, toca mudo quando visível
+      var src = vid.querySelector('source'), loaded = false, played = false, marks = {}, soundTracked = false;
+      function load() { if (loaded) return; loaded = true; src.src = src.getAttribute('data-src'); vid.load(); }
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) { if (es[0].isIntersecting) load(); }, { rootMargin: '400px 0px' }).observe(vid);
+        new IntersectionObserver(function (es) {
+          if (es[0].isIntersecting) { load(); var p = vid.play(); if (p && p.catch) p.catch(function () {}); }
+          else vid.pause();
+        }, { threshold: .4 }).observe(vid);
+      } else { load(); }
+      vid.addEventListener('play', function () { if (!played) { played = true; TR.ev('video_play'); } });
+      vid.addEventListener('timeupdate', function () {
+        var d = vid.duration || 0, c = vid.currentTime || 0;
+        if (!d) return;
+        $('vidProg').style.width = (c / d * 100) + '%';
+        var s = Math.floor(c);
+        $('vidTc').textContent = '00:00:' + (s < 10 ? '0' : '') + s;
+        [25, 50, 75, 95].forEach(function (m) {
+          if (!marks[m] && c / d * 100 >= m) { marks[m] = 1; TR.ev('video_progress', String(m === 95 ? 100 : m)); }
+        });
+      });
+      $('vidSound').addEventListener('click', function () {
+        var on = vid.muted;
+        vid.muted = !on;
+        this.setAttribute('aria-pressed', on ? 'true' : 'false');
+        this.lastChild.textContent = t(on ? 'v.off' : 'v.on');
+        if (on) {
+          load(); vid.currentTime = 0;
+          var p = vid.play(); if (p && p.catch) p.catch(function () {});
+          if (!soundTracked) { soundTracked = true; TR.ev('video_sound'); }
+        }
+      });
+
+      // profundidade de rolagem
+      var depth = {};
+      window.addEventListener('scroll', function () {
+        if (screen !== 'result') return;
+        var h = document.documentElement.scrollHeight - innerHeight;
+        if (h <= 0) return;
+        var pct = scrollY / h * 100;
+        [25, 50, 75, 100].forEach(function (m) {
+          if (!depth[m] && pct >= m - 2) { depth[m] = 1; TR.ev('scroll', String(m)); }
+        });
+      }, { passive: true });
+
+      $('redo').addEventListener('click', function () {
+        TR.ev('redo_quiz');
+        try { localStorage.removeItem('dropsfx_kit'); } catch (e) {}
+        kit = null;
+        $('sticky').classList.remove('show');
+        startQuiz();
+      });
+      $('siteLink').addEventListener('click', function () { TR.ev('site_link', null, null, true); });
+    }
+
+    // =====================================================================
+    // INÍCIO
+    // =====================================================================
+    [].forEach.call(document.querySelectorAll('#langMini button'), function (b) {
+      b.addEventListener('click', function () {
+        var l = b.getAttribute('data-lang');
+        if (l === lang) return;
+        setLang(l);
+        TR.ev('lang_change', screen, { lang: l });
+      });
+    });
+
+    var suggested = detectLang();
+    [].forEach.call(document.querySelectorAll('.lang-opt'), function (b) {
+      var l = b.getAttribute('data-lang');
+      if (l === suggested) b.classList.add('suggested');
+      b.addEventListener('click', function () {
+        setLang(l);
+        TR.ev('lang_select', null, { lang: l, suggested: suggested, matched: l === suggested });
+        pixel('LangSelect', { lang: l });
+        startQuiz();
+      });
+    });
+    // idioma sugerido primeiro na lista
+    var list = document.querySelector('.lang-list'), sug = list.querySelector('[data-lang="' + suggested + '"]');
+    if (sug) list.insertBefore(sug, list.firstChild);
+
+    var params = new URLSearchParams(location.search);
+    if (params.has('funil')) { try { localStorage.removeItem('dropsfx_kit'); } catch (e) {} }
+    try { kit = JSON.parse(read('dropsfx_kit') || 'null'); } catch (e) { kit = null; }
+    if (kit && !(kit.a && kit.a.type && kit.a.vibe)) kit = null;
+
+    var urlLang = (params.get('lang') || '').slice(0, 2).toLowerCase();
+    var savedLang = read('dropsfx_lang');
+
+    if (kit) {
+      // já fez o quiz: volta direto pro kit dele
+      setLang(LANGS.indexOf(urlLang) >= 0 ? urlLang : (savedLang || kit.lang || suggested));
+      TR.ev('page_view', 'return');
+      showResult('return');
+    } else if (LANGS.indexOf(urlLang) >= 0) {
+      // anúncio já com idioma (?lang=en): pula a escolha
+      setLang(urlLang);
+      TR.ev('page_view', 'lang_url');
+      TR.ev('lang_select', null, { lang: urlLang, suggested: suggested, via: 'url' });
+      startQuiz();
+    } else {
+      setLang(suggested);
+      show('lang');
+      TR.ev('page_view', 'lang');
+    }
+  })();
+  </script>
+</body>
+</html>

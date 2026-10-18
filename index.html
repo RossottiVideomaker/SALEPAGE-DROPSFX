@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <!-- Funil (vídeo → quiz → site): decide antes de pintar a tela, pra não piscar o site.
-       ?direto=1 pula o funil (bom pra testar as duas versões no anúncio)
-       ?funil=1 força o funil de novo (pra você testar) -->
+  <!-- Funil: visitante novo é mandado pra /comecar/ antes de pintar a tela.
+       ?direto=1 mostra este site sem passar pelo funil (bom pra comparar no anúncio)
+       ?funil=1 refaz o funil do zero (pra você testar) -->
   <script>
     (function () {
       var h = document.documentElement, on = true;
@@ -19,7 +19,13 @@
         if (/^#(comprar|faq)$/.test(location.hash)) on = false;
       } catch (e) {}
       if (/bot|crawl|spider|slurp|googlebot|bingbot|yandex|duckduck|facebookexternalhit|facebot|lighthouse|pagespeed/i.test(navigator.userAgent)) on = false;
-      if (on) h.classList.add('gate-on');
+      // visitante novo vai pro funil novo (idioma → quiz → kit personalizado)
+      if (on) {
+        var ref = document.referrer && document.referrer.indexOf(location.host) === -1 ? 'ref=' + encodeURIComponent(document.referrer.slice(0, 300)) : '';
+        var qs = location.search || '';
+        if (ref) qs += (qs ? '&' : '?') + ref;
+        location.replace('/comecar/' + qs);
+      }
     })();
   </script>
   <meta name="theme-color" content="#000000" />
@@ -6193,6 +6199,63 @@
     });
 
     window.dropLenis = lenis;
+  })();
+
+
+  // =====================================================================
+  // RASTREAMENTO DO SITE (page = home) — pra comparar com o funil na Central
+  // =====================================================================
+  (function () {
+    var URL_T = 'https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/funnel-track';
+    var off = false, p = new URLSearchParams(location.search);
+    try {
+      if (p.has('notrack')) localStorage.setItem('dropsfx_notrack', '1');
+      if (p.has('track')) localStorage.removeItem('dropsfx_notrack');
+      off = localStorage.getItem('dropsfx_notrack') === '1';
+    } catch (e) {}
+    if (off || /bot|crawl|spider|slurp|lighthouse|pagespeed|headless/i.test(navigator.userAgent)) return;
+    function uid() { return (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 12); }
+    var vid, sid;
+    try { vid = localStorage.getItem('dropsfx_vid') || uid(); localStorage.setItem('dropsfx_vid', vid); } catch (e) { vid = uid(); }
+    try { sid = sessionStorage.getItem('dropsfx_sid') || uid(); sessionStorage.setItem('dropsfx_sid', sid); } catch (e) { sid = uid(); }
+    var ctx = {};
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (k) { var v = p.get(k); if (v) ctx[k] = v.slice(0, 120); });
+    if (!ctx.utm_source && p.get('fbclid')) ctx.utm_source = 'facebook';
+    if (document.referrer && document.referrer.indexOf(location.host) === -1) ctx.ref = document.referrer.slice(0, 300);
+    try { ctx.tz = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (e) {}
+    ctx.sw = screen.width;
+    var q = [], timer, t0 = Date.now();
+    function lang() { return (window.DropI18N && DropI18N.get) ? DropI18N.get() : null; }
+    function flush(beacon) {
+      if (!q.length) return;
+      ctx.lang = lang();
+      var body = JSON.stringify({ sid: sid, vid: vid, page: 'home', ctx: ctx, events: q.splice(0, 40) });
+      var ok = false;
+      if (beacon && navigator.sendBeacon) { try { ok = navigator.sendBeacon(URL_T, new Blob([body], { type: 'text/plain' })); } catch (e) {} }
+      if (!ok) { try { fetch(URL_T, { method: 'POST', body: body, headers: { 'Content-Type': 'text/plain' }, keepalive: true }).catch(function () {}); } catch (e) {} }
+    }
+    function ev(e, s, v, now) {
+      q.push({ e: e, s: s == null ? null : String(s), v: v || null, t: Date.now(), l: lang() });
+      clearTimeout(timer);
+      if (now) flush(); else timer = setTimeout(flush, 1500);
+    }
+    ev('page_view', p.has('direto') ? 'direto' : 'normal');
+    // compra ligada à sessão: o sck vai no link e volta no webhook da Kiwify
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('.js-buy-cta');
+      if (!a) return;
+      try { var u = new URL(a.href); u.searchParams.set('sck', sid); a.href = u.toString(); } catch (err) {}
+      ev('cta_click', a.getAttribute('data-position') || '?', null, true);
+    }, true);
+    var depth = {};
+    window.addEventListener('scroll', function () {
+      var h = document.documentElement.scrollHeight - innerHeight; if (h <= 0) return;
+      var pct = scrollY / h * 100;
+      [25, 50, 75, 100].forEach(function (m) { if (!depth[m] && pct >= m - 2) { depth[m] = 1; ev('scroll', String(m)); } });
+    }, { passive: true });
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden') { ev('exit', null, { s: Math.round((Date.now() - t0) / 1000) }); flush(true); }
+    });
   })();
 
   // =====================================================================
