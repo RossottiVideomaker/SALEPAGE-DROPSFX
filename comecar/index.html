@@ -452,6 +452,53 @@
     .inc li::before { content: ""; flex: none; width: 20px; height: 20px; margin-top: 2px; border-radius: 50%; background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E") center/11px no-repeat; }
     .inc strong { color: #fff; }
 
+
+    /* ---------- prós ---------- */
+    .pros { margin-top: 26px; display: grid; grid-template-columns: 1fr; gap: 10px; }
+    .pro {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(150deg, color-mix(in srgb, var(--c) 10%, transparent), rgba(255, 255, 255, .015) 70%);
+    }
+    .pro-ic {
+      flex: none;
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--c) 18%, transparent);
+      color: var(--c);
+    }
+    .pro-ic svg { width: 22px; height: 22px; }
+    .pro h3 { font-family: var(--font-display); font-size: 18px; font-weight: 700; line-height: 1.15; color: #fff; }
+    .pro p { margin-top: 5px; font-size: 14.5px; line-height: 1.5; color: var(--ink-2); }
+    @media (min-width: 760px) { .pros { grid-template-columns: 1fr 1fr; } }
+
+    /* ---------- hoje × dropSFX ---------- */
+    .vs { margin-top: 4px; border: 1px solid var(--line-2); border-radius: 18px; overflow: hidden; }
+    .vs-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--line); }
+    .vs-row:first-child { border-top: 0; }
+    .vs-k { grid-column: 1 / -1; padding: 14px 16px 0; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--steel); }
+    .vs-old, .vs-new { padding: 8px 16px 16px; font-size: 14.5px; line-height: 1.45; }
+    .vs-old { color: var(--steel); }
+    .vs-old::before { content: "✕ "; color: var(--red); font-weight: 700; }
+    .vs-new { color: #fff; font-weight: 600; background: rgba(59, 110, 245, .08); }
+    .vs-new::before { content: "✓ "; color: var(--green); font-weight: 700; }
+    .vs-head span { padding: 12px 16px; font-family: var(--font-display); font-size: 15px; font-weight: 700; text-transform: uppercase; }
+    .vs-head span:first-child { display: none; }
+    .vs-head span:nth-child(2) { color: var(--steel); }
+    .vs-head span:nth-child(3) { color: var(--accent-hi); background: rgba(59, 110, 245, .08); }
+    @media (min-width: 760px) {
+      .vs-row { grid-template-columns: 170px 1fr 1fr; align-items: stretch; }
+      .vs-k { grid-column: auto; padding: 16px; display: flex; align-items: center; }
+      .vs-old, .vs-new { padding: 16px; }
+      .vs-head span:first-child { display: block; }
+    }
     .offer { padding: 26px; border: 1px solid var(--line-2); border-radius: 24px; background: #08090c; box-shadow: 0 40px 100px -40px rgba(59, 110, 245, .5); }
     .o-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .o-ribbon { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--steel); }
@@ -645,15 +692,32 @@
         </div>
 
         <div class="sec">
-          <h2 class="h2" data-t="i.title"></h2>
-          <ul class="inc">
-            <li data-th="i.1"></li>
-            <li data-th="i.2"></li>
-            <li data-th="i.3"></li>
-            <li data-th="i.4"></li>
-            <li data-th="i.5"></li>
-            <li data-th="i.6"></li>
-          </ul>
+          <p class="mono" data-t="p.kicker"></p>
+          <h2 class="h2" style="margin-top:12px" data-th="p.title"></h2>
+          <div class="pros">
+            <div class="pro" style="--c:#3b6ef5"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16M3 9h12"/></svg></span><div><h3 data-t="p.inside.t"></h3><p data-t="p.inside.d"></p></div></div>
+            <div class="pro" style="--c:#2dd4bf"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 7-6 2-2 6z"/><path d="M14 14l5 5"/></svg></span><div><h3 data-t="p.hover.t"></h3><p data-t="p.hover.d"></p></div></div>
+            <div class="pro" style="--c:#facc15"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9l11 4-5 2-2 5z"/><path d="M4 4l2 2M9 2v3M2 9h3"/></svg></span><div><h3 data-t="p.click.t"></h3><p data-t="p.click.d"></p></div></div>
+            <div class="pro" style="--c:#a78bfa"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="8" height="4" rx="1"/><rect x="13" y="6" width="8" height="4" rx="1"/><rect x="6" y="14" width="12" height="4" rx="1"/></svg></span><div><h3 data-t="p.color.t"></h3><p data-t="p.color.d"></p></div></div>
+            <div class="pro" style="--c:#fb923c"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18V6M10 18V10M16 18V4M22 18v-6"/></svg></span><div><h3 data-t="p.gain.t"></h3><p data-t="p.gain.d"></p></div></div>
+            <div class="pro" style="--c:#38bdf8"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h5v16H4zM10 4h5v16h-5z"/><path d="M16 5l4 1-3 14-4-1z"/></svg></span><div><h3 data-t="p.lib.t"></h3><p data-t="p.lib.d"></p></div></div>
+            <div class="pro" style="--c:#4ade80"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M12 10v6M9 13h6"/></svg></span><div><h3 data-t="p.folder.t"></h3><p data-t="p.folder.d"></p></div></div>
+            <div class="pro" style="--c:#f472b6"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 19c0-3 3-5 6-5s6 2 6 5M14 19c0-2 1.5-3.5 3.5-3.5S21 17 21 19"/></svg></span><div><h3 data-t="p.community.t"></h3><p data-t="p.community.d"></p></div></div>
+            <div class="pro" style="--c:#34d399"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></span><div><h3 data-t="p.once.t"></h3><p data-t="p.once.d"></p></div></div>
+            <div class="pro" style="--c:#94a3b8"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><div><h3 data-t="p.apps.t"></h3><p data-t="p.apps.d"></p></div></div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h2 class="h2" data-th="vs.title"></h2>
+          <div class="vs">
+            <div class="vs-row vs-head"><span></span><span data-t="vs.today"></span><span>dropSFX</span></div>
+            <div class="vs-row"><span class="vs-k" data-t="vs.find"></span><span class="vs-old" data-t="vs.find.old"></span><span class="vs-new" data-t="vs.find.new"></span></div>
+            <div class="vs-row"><span class="vs-k" data-t="vs.listen"></span><span class="vs-old" data-t="vs.listen.old"></span><span class="vs-new" data-t="vs.listen.new"></span></div>
+            <div class="vs-row"><span class="vs-k" data-t="vs.insert"></span><span class="vs-old" data-t="vs.insert.old"></span><span class="vs-new" data-t="vs.insert.new"></span></div>
+            <div class="vs-row"><span class="vs-k" data-t="vs.organize"></span><span class="vs-old" data-t="vs.organize.old"></span><span class="vs-new" data-t="vs.organize.new"></span></div>
+            <div class="vs-row"><span class="vs-k" data-t="vs.cost"></span><span class="vs-old" data-t="vs.cost.old"></span><span class="vs-new" data-t="vs.cost.new"></span></div>
+          </div>
         </div>
 
         <div class="sec" id="oferta">
@@ -825,6 +889,45 @@
       "i.5": "Suas pastas e <strong>seus próprios sons</strong> dentro do painel",
       "i.6": "Licença pra <strong>2 máquinas</strong>, uso comercial, royalty-free",
 
+      "p.kicker": "Por que editores trocam pro dropSFX",
+      "p.title": "Tudo que você ganha <span class='serif'>no dia a dia.</span>",
+      "p.inside.t": "Não sai do Premiere",
+      "p.inside.d": "Abre como painel do lado da timeline. Nada de navegador, pasta ou Downloads.",
+      "p.hover.t": "Ouve antes de usar",
+      "p.hover.d": "Passou o mouse, o som toca na hora com a forma de onda. Varre dezenas em segundos.",
+      "p.click.t": "2 cliques e tá na timeline",
+      "p.click.d": "Duplo clique insere no playhead, na trilha que você escolheu. Ou arrasta direto.",
+      "p.color.t": "Chega colorido e organizado",
+      "p.color.d": "O clipe entra com a cor da categoria. Sua trilha de áudio se organiza sozinha.",
+      "p.gain.t": "Volume certo de primeira",
+      "p.gain.d": "Escolhe -12, 0 ou +6 dB antes de inserir. Adeus mixer em cada clipe.",
+      "p.lib.t": "1.463 sons já escolhidos",
+      "p.lib.d": "Whooshes, impactos, risers, glitches, memes e foley em 21 categorias pensadas pra edição.",
+      "p.folder.t": "Seus sons também",
+      "p.folder.d": "Crie suas pastas, favorite e importe seus próprios áudios pro mesmo painel.",
+      "p.community.t": "Comunidade de editores",
+      "p.community.d": "Use sons enviados por outros editores e compartilhe os seus, direto no plugin.",
+      "p.once.t": "Paga uma vez, usa pra sempre",
+      "p.once.d": "Sem mensalidade. Uso comercial, royalty-free, em até 2 máquinas.",
+      "p.apps.t": "Premiere, After Effects e DaVinci",
+      "p.apps.d": "Funciona no Premiere Pro, After Effects e DaVinci Resolve Studio, em Mac e Windows.",
+      "vs.title": "Hoje <span class='serif'>× com dropSFX</span>",
+      "vs.today": "Hoje",
+      "vs.find": "Achar o som",
+      "vs.find.old": "YouTube, Envato, Artlist, pastas no PC",
+      "vs.find.new": "1.463 sons no painel, por categoria",
+      "vs.listen": "Ouvir",
+      "vs.listen.old": "Baixar pra descobrir se serve",
+      "vs.listen.new": "Passa o mouse e já toca",
+      "vs.insert": "Colocar na timeline",
+      "vs.insert.old": "Baixar, extrair o .zip, importar, arrastar",
+      "vs.insert.new": "2 cliques",
+      "vs.organize": "Organização",
+      "vs.organize.old": "Arquivo perdido em Downloads",
+      "vs.organize.new": "Clipe colorido por categoria",
+      "vs.cost": "Custo",
+      "vs.cost.old": "Mensalidade que nunca acaba",
+      "vs.cost.new": "Pagamento único, vitalício",
       "o.ribbon": "Oferta de lançamento",
       "o.title": "Kit dropSFX completo",
       "o.who": "montado pra {type}",
@@ -955,6 +1058,45 @@
       "i.5": "Your folders and <strong>your own sounds</strong> inside the panel",
       "i.6": "License for <strong>2 machines</strong>, commercial use, royalty-free",
 
+      "p.kicker": "Why editors switch to dropSFX",
+      "p.title": "Everything you get <span class='serif'>every single day.</span>",
+      "p.inside.t": "Never leave Premiere",
+      "p.inside.d": "Opens as a panel next to your timeline. No browser, no folders, no Downloads.",
+      "p.hover.t": "Hear it before using it",
+      "p.hover.d": "Hover and the sound plays instantly with its waveform. Scan dozens in seconds.",
+      "p.click.t": "2 clicks to the timeline",
+      "p.click.d": "Double-click inserts at the playhead on the track you chose. Or just drag it.",
+      "p.color.t": "Lands colored and organized",
+      "p.color.d": "The clip comes in with its category color. Your audio tracks organize themselves.",
+      "p.gain.t": "Right volume first time",
+      "p.gain.d": "Pick -12, 0 or +6 dB before inserting. No more mixer on every clip.",
+      "p.lib.t": "1,463 hand-picked sounds",
+      "p.lib.d": "Whooshes, impacts, risers, glitches, memes and foley in 21 categories built for editing.",
+      "p.folder.t": "Your sounds too",
+      "p.folder.d": "Create folders, favorite sounds and import your own audio into the same panel.",
+      "p.community.t": "Editors' community",
+      "p.community.d": "Use sounds shared by other editors and share yours, right inside the plugin.",
+      "p.once.t": "Pay once, use forever",
+      "p.once.d": "No subscription. Commercial use, royalty-free, on up to 2 machines.",
+      "p.apps.t": "Premiere, After Effects & DaVinci",
+      "p.apps.d": "Works in Premiere Pro, After Effects and DaVinci Resolve Studio, on Mac and Windows.",
+      "vs.title": "Today <span class='serif'>× with dropSFX</span>",
+      "vs.today": "Today",
+      "vs.find": "Finding the sound",
+      "vs.find.old": "YouTube, Envato, Artlist, random folders",
+      "vs.find.new": "1,463 sounds in the panel, by category",
+      "vs.listen": "Listening",
+      "vs.listen.old": "Download it to find out if it works",
+      "vs.listen.new": "Hover and it plays",
+      "vs.insert": "Getting it on the timeline",
+      "vs.insert.old": "Download, unzip, import, drag",
+      "vs.insert.new": "2 clicks",
+      "vs.organize": "Organization",
+      "vs.organize.old": "Files lost in Downloads",
+      "vs.organize.new": "Clips color-coded by category",
+      "vs.cost": "Cost",
+      "vs.cost.old": "A subscription that never ends",
+      "vs.cost.new": "One-time payment, lifetime",
       "o.ribbon": "Launch offer",
       "o.title": "Full dropSFX kit",
       "o.who": "built for {type}",
@@ -1085,6 +1227,45 @@
       "i.5": "Tus carpetas y <strong>tus propios sonidos</strong> dentro del panel",
       "i.6": "Licencia para <strong>2 equipos</strong>, uso comercial, royalty-free",
 
+      "p.kicker": "Por qué los editores se pasan a dropSFX",
+      "p.title": "Todo lo que ganas <span class='serif'>en el día a día.</span>",
+      "p.inside.t": "Sin salir de Premiere",
+      "p.inside.d": "Se abre como panel junto a la timeline. Sin navegador, carpetas ni Descargas.",
+      "p.hover.t": "Escuchas antes de usar",
+      "p.hover.d": "Pasas el mouse y suena al instante con su forma de onda. Revisas decenas en segundos.",
+      "p.click.t": "2 clics y está en la timeline",
+      "p.click.d": "Doble clic inserta en el playhead, en la pista que elegiste. O arrástralo.",
+      "p.color.t": "Llega con color y ordenado",
+      "p.color.d": "El clip entra con el color de su categoría. Tus pistas se ordenan solas.",
+      "p.gain.t": "Volumen justo a la primera",
+      "p.gain.d": "Elige -12, 0 o +6 dB antes de insertar. Adiós al mezclador en cada clip.",
+      "p.lib.t": "1.463 sonidos elegidos",
+      "p.lib.d": "Whooshes, impactos, risers, glitches, memes y foley en 21 categorías pensadas para editar.",
+      "p.folder.t": "Tus sonidos también",
+      "p.folder.d": "Crea carpetas, marca favoritos e importa tus propios audios al mismo panel.",
+      "p.community.t": "Comunidad de editores",
+      "p.community.d": "Usa sonidos compartidos por otros editores y comparte los tuyos, dentro del plugin.",
+      "p.once.t": "Pagas una vez, es para siempre",
+      "p.once.d": "Sin suscripción. Uso comercial, royalty-free, en hasta 2 equipos.",
+      "p.apps.t": "Premiere, After Effects y DaVinci",
+      "p.apps.d": "Funciona en Premiere Pro, After Effects y DaVinci Resolve Studio, en Mac y Windows.",
+      "vs.title": "Hoy <span class='serif'>× con dropSFX</span>",
+      "vs.today": "Hoy",
+      "vs.find": "Encontrar el sonido",
+      "vs.find.old": "YouTube, Envato, Artlist, carpetas sueltas",
+      "vs.find.new": "1.463 sonidos en el panel, por categoría",
+      "vs.listen": "Escuchar",
+      "vs.listen.old": "Descargar para saber si sirve",
+      "vs.listen.new": "Pasas el mouse y suena",
+      "vs.insert": "Ponerlo en la timeline",
+      "vs.insert.old": "Descargar, descomprimir, importar, arrastrar",
+      "vs.insert.new": "2 clics",
+      "vs.organize": "Organización",
+      "vs.organize.old": "Archivos perdidos en Descargas",
+      "vs.organize.new": "Clips con color por categoría",
+      "vs.cost": "Costo",
+      "vs.cost.old": "Una suscripción que nunca termina",
+      "vs.cost.new": "Pago único, de por vida",
       "o.ribbon": "Oferta de lanzamiento",
       "o.title": "Kit dropSFX completo",
       "o.who": "armado para {type}",
@@ -1215,6 +1396,45 @@
       "i.5": "पैनल में आपके फ़ोल्डर और <strong>आपके अपने साउंड</strong>",
       "i.6": "<strong>2 मशीनों</strong> के लिए लाइसेंस, कमर्शियल इस्तेमाल, रॉयल्टी-फ़्री",
 
+      "p.kicker": "एडिटर dropSFX पर क्यों आते हैं",
+      "p.title": "रोज़ के काम में <span class='serif'>आपको क्या मिलता है।</span>",
+      "p.inside.t": "Premiere छोड़ना नहीं पड़ता",
+      "p.inside.d": "टाइमलाइन के बगल में पैनल की तरह खुलता है। न ब्राउज़र, न फ़ोल्डर, न Downloads।",
+      "p.hover.t": "इस्तेमाल से पहले सुनिए",
+      "p.hover.d": "माउस ले जाते ही साउंड वेवफ़ॉर्म के साथ बजता है। सेकंडों में दर्जनों देखिए।",
+      "p.click.t": "2 क्लिक में टाइमलाइन पर",
+      "p.click.d": "डबल क्लिक से प्लेहेड पर, आपके चुने ट्रैक पर। या सीधे खींचिए।",
+      "p.color.t": "रंग के साथ, व्यवस्थित",
+      "p.color.d": "क्लिप अपनी कैटेगरी के रंग में आता है। ऑडियो ट्रैक अपने-आप व्यवस्थित।",
+      "p.gain.t": "पहली बार में सही वॉल्यूम",
+      "p.gain.d": "डालने से पहले -12, 0 या +6 dB चुनिए। हर क्लिप पर मिक्सर नहीं।",
+      "p.lib.t": "1,463 चुने हुए साउंड",
+      "p.lib.d": "व्हूश, इम्पैक्ट, राइज़र, ग्लिच, मीम्स और फ़ॉली, एडिटिंग के लिए 21 कैटेगरी में।",
+      "p.folder.t": "आपके साउंड भी",
+      "p.folder.d": "फ़ोल्डर बनाइए, फ़ेवरेट कीजिए और अपने ऑडियो उसी पैनल में इम्पोर्ट कीजिए।",
+      "p.community.t": "एडिटर्स की कम्युनिटी",
+      "p.community.d": "दूसरे एडिटर्स के साउंड इस्तेमाल कीजिए और अपने शेयर कीजिए, प्लगइन के अंदर ही।",
+      "p.once.t": "एक बार दीजिए, हमेशा इस्तेमाल",
+      "p.once.d": "कोई सब्सक्रिप्शन नहीं। कमर्शियल इस्तेमाल, रॉयल्टी-फ़्री, 2 मशीनों तक।",
+      "p.apps.t": "Premiere, After Effects और DaVinci",
+      "p.apps.d": "Premiere Pro, After Effects और DaVinci Resolve Studio में, Mac और Windows पर।",
+      "vs.title": "आज <span class='serif'>× dropSFX के साथ</span>",
+      "vs.today": "आज",
+      "vs.find": "साउंड ढूँढना",
+      "vs.find.old": "YouTube, Envato, Artlist, बिखरे फ़ोल्डर",
+      "vs.find.new": "पैनल में कैटेगरी के हिसाब से 1,463 साउंड",
+      "vs.listen": "सुनना",
+      "vs.listen.old": "काम का है या नहीं, जानने के लिए डाउनलोड",
+      "vs.listen.new": "माउस ले जाइए, बज जाता है",
+      "vs.insert": "टाइमलाइन पर डालना",
+      "vs.insert.old": "डाउनलोड, अनज़िप, इम्पोर्ट, खींचना",
+      "vs.insert.new": "2 क्लिक",
+      "vs.organize": "व्यवस्था",
+      "vs.organize.old": "Downloads में खोई फ़ाइलें",
+      "vs.organize.new": "कैटेगरी के रंग में क्लिप",
+      "vs.cost": "कीमत",
+      "vs.cost.old": "कभी न ख़त्म होने वाला सब्सक्रिप्शन",
+      "vs.cost.new": "एक बार भुगतान, आजीवन",
       "o.ribbon": "लॉन्च ऑफ़र",
       "o.title": "पूरा dropSFX किट",
       "o.who": "{type} के लिए बना",
