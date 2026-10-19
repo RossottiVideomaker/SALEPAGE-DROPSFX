@@ -513,6 +513,8 @@
   // ------------------------------------------------------------------ vídeo (desenhado no canvas)
   var cv = $('vid'), g = cv.getContext('2d'), W = cv.width, H = cv.height;
   var FONT = getComputedStyle(document.body).fontFamily;
+  var LOGO = new Image(); LOGO.onload = function () { if (!S.playing) drawFrame(S.ph); }; LOGO.src = 'logo.webp';
+  function logo(cx, cy, w) { if (!LOGO.complete || !LOGO.naturalWidth) return; var h = w * LOGO.naturalHeight / LOGO.naturalWidth; g.drawImage(LOGO, cx - w / 2, cy - h / 2, w, h); }
   function rnd(i) { var x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
   function clamp(x, a, b) { return Math.max(a, Math.min(b, x)); }
   function easeOut(x) { return 1 - Math.pow(1 - clamp(x, 0, 1), 3); }
@@ -547,10 +549,7 @@
     }
     g.save(); g.translate(W / 2, H / 2 - 10); g.scale(sc, sc);
     g.globalAlpha = pre ? u / .35 : 1;
-    g.fillStyle = '#fff'; g.font = '800 140px ' + FONT; g.textAlign = 'center'; g.textBaseline = 'middle';
-    g.fillText('SOUND', 0, 0); g.restore();
-    var sa = clamp((u - .8) / .5, 0, 1);
-    if (sa) { g.globalAlpha = sa; g.fillStyle = '#6e9bff'; g.font = '700 30px ' + FONT; g.textAlign = 'center'; g.fillText('D  E  S  I  G  N', W / 2, H / 2 + 92); g.globalAlpha = 1; }
+    logo(0, 0, 560); g.restore();
     flash(u >= .35 ? .9 * (1 - (u - .35) / .22) : 0);
   }
   function shotB(u) {
@@ -612,9 +611,7 @@
     var sc = 1 + .18 * Math.exp(-u * 6);
     g.save(); g.translate(W / 2, H / 2); g.scale(sc, sc);
     g.shadowColor = 'rgba(59,110,245,.9)'; g.shadowBlur = 40;
-    g.fillStyle = '#fff'; g.textAlign = 'center'; g.textBaseline = 'middle';
-    g.font = '300 150px ' + FONT; g.fillText('S F X', 30, 6);
-    g.shadowBlur = 0; g.font = '600 30px ' + FONT; g.textAlign = 'right'; g.fillText('drop', -150, -34);
+    logo(0, 0, 600); g.shadowBlur = 0;
     g.restore();
     var ta = clamp((u - .9) / .6, 0, 1);
     if (ta) { g.globalAlpha = ta; g.fillStyle = '#9a9aab'; g.font = '600 22px ' + FONT; g.textAlign = 'center'; g.fillText('2,371 SFX · Premiere · After Effects · DaVinci', W / 2, H / 2 + 120); g.globalAlpha = 1; }
