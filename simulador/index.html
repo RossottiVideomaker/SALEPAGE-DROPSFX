@@ -145,6 +145,9 @@
   .pr-plugin{flex:1;min-height:0;position:relative;}
 
   @media (max-height: 820px) { .pr-plugin .waveform-wrap{height:38px;} .pr-plugin .time-row{padding:4px 2px 6px;} .pr-plugin .header{padding:10px 14px 6px;} }
+  /* sem nome/forma de onda/tempo no player: no site atrapalha mais que ajuda */
+  .pr-plugin .player-top,.pr-plugin .waveform-wrap,.pr-plugin .time-row{display:none !important;}
+  .pr-plugin .player-section{padding-top:12px;}
   /* ====== compacto (celular / iframe estreito) ====== */
   .sim.compact .pr-work{display:flex;flex-direction:column;}
   .sim.compact .pr-left{display:flex;flex-direction:column;}
