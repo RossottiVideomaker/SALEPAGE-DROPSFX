@@ -629,8 +629,9 @@
     volume: { '0':'1–2 por semana', '1':'3–5', '2':'6–10', '3':'> 10' },
     name: { 'preencheu':'Deu o nome', 'pulou':'Pulou' }
   };
-  var LANG_LABEL = { pt:'Português', en:'English', es:'Español', hi:'हिन्दी' };
-  var POS_LABEL = { kit:'Botão do kit (topo)', sounds:'Depois dos sons', offer:'Card da oferta', final:'Botão final', sticky:'Barra fixa', hero:'Hero (site)', nav:'Menu (site)', pricing:'Preço (site)', sticky_site:'Barra (site)', demo:'Demo (site)', depois:'Vida depois (site)', quiz:'Card do quiz antigo' };
+  var LANG_LABEL = { pt:'Português', en:'English', es:'Español', hi:'हिन्दी', fr:'Français', id:'Bahasa Indonesia' };
+  var REASON_LABEL = { declined:'Cartão recusado', confusing:'Se perdeu no checkout', price:'Achou caro', later:'Vai comprar depois', bought:'Já comprou' };
+  var POS_LABEL = { kit:'Botão do kit (topo)', sounds:'Depois dos sons', back:'Voltou e tentou de novo', offer:'Card da oferta', final:'Botão final', sticky:'Barra fixa', hero:'Hero (site)', nav:'Menu (site)', pricing:'Preço (site)', sticky_site:'Barra (site)', demo:'Demo (site)', depois:'Vida depois (site)', quiz:'Card do quiz antigo' };
 
   // fuso horário → país (o servidor não manda país)
   var TZ_COUNTRY = {
@@ -812,6 +813,29 @@
         }).join('') + '</div>';
     }
 
+    // ---- checkout: por que não compraram + eventos da Kiwify ----
+    function checkoutPanel(){
+      var f = d.checkout_flow || {}, rc = d.recovery || {}, rs = d.checkout_reasons || {};
+      var flow = '<div class="kv" style="margin-bottom:14px">' +
+        '<span>Clicaram em comprar</span><span>' + (T.cta_sessions||0) + '</span>' +
+        '<span>Gringos que viram a ajuda de pagamento</span><span>' + (T.checkout_help||0) + ' · seguiram ' + (T.checkout_go||0) + '</span>' +
+        '<span>Voltaram do checkout sem comprar</span><span>' + (f.back_shown||0) + '</span>' +
+        '<span>Disseram o motivo</span><span>' + (f.back_answered||0) + '</span>' +
+        '<span>Tentaram de novo</span><span>' + (f.retry||0) + '</span>' +
+        '<span>Chamaram no WhatsApp</span><span>' + (f.whatsapp||0) + '</span></div>';
+      var kiw = (rc.abandoned || rc.refused)
+        ? '<div class="kv"><span>Carrinhos abandonados</span><span>' + (rc.abandoned||0) + '</span><span>Cartões recusados</span><span>' + (rc.refused||0) + '</span><span>Compraram depois</span><span>' + (rc.recovered||0) + '</span></div>' +
+          (rc.recent||[]).slice(0, 12).map(function(x){
+            return '<div class="arow"><span class="t">' + escapeHtml((x.kind === 'refused' ? '💳 ' : '🛒 ') + (x.name || x.email || '—')) + ' <span style="color:var(--dim)">· ' + escapeHtml((x.country||'').toUpperCase()) + ' · ' + relTime(x.at) + '</span></span><span class="b"></span><span class="n">' + (x.bought ? '<span style="color:#4ade80">comprou</span>' : escapeHtml(x.email || '')) + '</span></div>';
+          }).join('')
+        : '<div class="empty-note">Nenhum evento ainda. Na Kiwify, em <b>Apps → Webhooks</b>, edite o webhook do dropSFX e marque também <b>Carrinho abandonado</b> e <b>Compra recusada</b>. Aí aparece aqui quem chegou no pagamento e travou.</div>';
+      return '<div class="grid3">' +
+        '<div class="panel"><h3>Checkout: o caminho</h3><div class="ph">sessões no período</div>' + flow + '</div>' +
+        '<div class="panel"><h3>Por que não compraram</h3><div class="ph">resposta de quem voltou do checkout</div>' + kv(rs, REASON_LABEL, f.back_answered) + '</div>' +
+        '<div class="panel"><h3>Kiwify: abandono e recusa</h3><div class="ph">eventos do webhook</div>' + kiw + '</div>' +
+      '</div>';
+    }
+
     // ---- sessões recentes ----
     var recent = d.recent || [];
     function stageOf(r){
@@ -872,6 +896,7 @@
         '<div class="panel"><h3>Vídeo e rolagem</h3><div class="ph">sessões</div>' + kv(Object.assign({}, vidObj, scObj), null, null, true) + '</div>' +
         '<div class="panel"><h3>Compras por origem (Kiwify)</h3><div class="ph">utm_source / utm_medium de cada venda</div>' + kv(d.purchases_by_medium) + '</div>' +
       '</div>' +
+      checkoutPanel() +
       sfxPanel() +
       '<div class="panel" style="padding-bottom:6px"><h3>Últimas sessões</h3><div class="ph">as 80 mais recentes no período · o nome digitado no quiz não é salvo</div></div>' +
       recentHtml;

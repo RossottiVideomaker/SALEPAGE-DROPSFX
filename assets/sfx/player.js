@@ -27,13 +27,17 @@
     pt: { whooshes: 'Whooshes', foley: 'Foley & Diegese', hits: 'Hits & Impacts', drops: 'Cinematic Drops', tonalidade: 'Tonalidade', clicks: 'Clicks & UI', camera: 'Câmera', ambientes: 'Ambientes', transitions: 'Transições', risers: 'Risers', natureza: 'Natureza', memes: 'Memes & Cartoon', elements: 'Elements', glitches: 'Glitches', guns: 'Guns', hud: 'HUD & Digital', slowmo: 'Slow Motion', retro: 'Retrô' },
     en: { whooshes: 'Whooshes', foley: 'Foley & Diegetic', hits: 'Hits & Impacts', drops: 'Cinematic Drops', tonalidade: 'Tonal', clicks: 'Clicks & UI', camera: 'Camera', ambientes: 'Ambiences', transitions: 'Transitions', risers: 'Risers', natureza: 'Nature', memes: 'Memes & Cartoon', elements: 'Elements', glitches: 'Glitches', guns: 'Guns', hud: 'HUD & Digital', slowmo: 'Slow Motion', retro: 'Retro' },
     es: { whooshes: 'Whooshes', foley: 'Foley & Diégesis', hits: 'Hits & Impacts', drops: 'Cinematic Drops', tonalidade: 'Tonalidad', clicks: 'Clicks & UI', camera: 'Cámara', ambientes: 'Ambientes', transitions: 'Transiciones', risers: 'Risers', natureza: 'Naturaleza', memes: 'Memes & Cartoon', elements: 'Elements', glitches: 'Glitches', guns: 'Guns', hud: 'HUD & Digital', slowmo: 'Slow Motion', retro: 'Retro' },
-    hi: { whooshes: 'व्हूश', foley: 'फ़ॉली', hits: 'हिट्स & इम्पैक्ट्स', drops: 'सिनेमैटिक ड्रॉप्स', tonalidade: 'टोनल', clicks: 'क्लिक्स & UI', camera: 'कैमरा', ambientes: 'एम्बिएंस', transitions: 'ट्रांज़िशन', risers: 'राइज़र', natureza: 'नेचर', memes: 'मीम्स & कार्टून', elements: 'एलिमेंट्स', glitches: 'ग्लिच', guns: 'गन्स', hud: 'HUD & डिजिटल', slowmo: 'स्लो मोशन', retro: 'रेट्रो' }
+    hi: { whooshes: 'व्हूश', foley: 'फ़ॉली', hits: 'हिट्स & इम्पैक्ट्स', drops: 'सिनेमैटिक ड्रॉप्स', tonalidade: 'टोनल', clicks: 'क्लिक्स & UI', camera: 'कैमरा', ambientes: 'एम्बिएंस', transitions: 'ट्रांज़िशन', risers: 'राइज़र', natureza: 'नेचर', memes: 'मीम्स & कार्टून', elements: 'एलिमेंट्स', glitches: 'ग्लिच', guns: 'गन्स', hud: 'HUD & डिजिटल', slowmo: 'स्लो मोशन', retro: 'रेट्रो' },
+    fr: { whooshes: 'Whooshes', foley: 'Foley & Diégétique', hits: 'Hits & Impacts', drops: 'Cinematic Drops', tonalidade: 'Tonal', clicks: 'Clics & UI', camera: 'Caméra', ambientes: 'Ambiances', transitions: 'Transitions', risers: 'Risers', natureza: 'Nature', memes: 'Mèmes & Cartoon', elements: 'Éléments', glitches: 'Glitches', guns: 'Armes', hud: 'HUD & Digital', slowmo: 'Slow Motion', retro: 'Rétro' },
+    id: { whooshes: 'Whoosh', foley: 'Foley & Diegetik', hits: 'Hits & Impact', drops: 'Cinematic Drops', tonalidade: 'Tonal', clicks: 'Klik & UI', camera: 'Kamera', ambientes: 'Ambience', transitions: 'Transisi', risers: 'Riser', natureza: 'Alam', memes: 'Meme & Kartun', elements: 'Elemen', glitches: 'Glitch', guns: 'Senjata', hud: 'HUD & Digital', slowmo: 'Slow Motion', retro: 'Retro' }
   };
   var UI = {
     pt: { forYou: 'Pra você', top: 'Destaques', hover: 'Passe o mouse pra ouvir', tap: 'Toque pra ouvir', play: 'Ouvir', stop: 'Parar', more: 'de {n} sons nesta categoria' },
     en: { forYou: 'For you', top: 'Highlights', hover: 'Hover to listen', tap: 'Tap to listen', play: 'Play', stop: 'Stop', more: 'of {n} sounds in this category' },
     es: { forYou: 'Para ti', top: 'Destacados', hover: 'Pasa el mouse para escuchar', tap: 'Toca para escuchar', play: 'Escuchar', stop: 'Parar', more: 'de {n} sonidos en esta categoría' },
-    hi: { forYou: 'आपके लिए', top: 'हाइलाइट्स', hover: 'सुनने के लिए माउस ले जाइए', tap: 'सुनने के लिए टैप करें', play: 'सुनें', stop: 'रोकें', more: 'इस कैटेगरी के {n} साउंड में से' }
+    hi: { forYou: 'आपके लिए', top: 'हाइलाइट्स', hover: 'सुनने के लिए माउस ले जाइए', tap: 'सुनने के लिए टैप करें', play: 'सुनें', stop: 'रोकें', more: 'इस कैटेगरी के {n} साउंड में से' },
+    fr: { forYou: 'Pour vous', top: 'À la une', hover: 'Survolez pour écouter', tap: 'Touchez pour écouter', play: 'Écouter', stop: 'Stop', more: 'sur {n} sons dans cette catégorie' },
+    id: { forYou: 'Untukmu', top: 'Pilihan', hover: 'Arahkan kursor untuk mendengar', tap: 'Ketuk untuk mendengar', play: 'Putar', stop: 'Stop', more: 'dari {n} suara di kategori ini' }
   };
   var COUNT = { whooshes: 436, foley: 231, hits: 196, drops: 192, tonalidade: 185, clicks: 169, camera: 139, ambientes: 124, transitions: 110, risers: 110, natureza: 77, memes: 71, elements: 69, glitches: 65, guns: 58, hud: 55, slowmo: 50, retro: 34 };
 
@@ -178,7 +182,7 @@
         });
         if (tab !== 'you' && tab !== 'top' && COUNT[tab]) {
           footEl.hidden = false;
-          footEl.textContent = list.length + ' ' + U.more.replace('{n}', COUNT[tab].toLocaleString(lang === 'pt' || lang === 'es' ? 'pt-BR' : 'en'));
+          footEl.textContent = list.length + ' ' + U.more.replace('{n}', COUNT[tab].toLocaleString(lang === 'pt' || lang === 'es' || lang === 'id' ? 'pt-BR' : lang === 'fr' ? 'fr' : 'en'));
         } else footEl.hidden = true;
       });
     }
