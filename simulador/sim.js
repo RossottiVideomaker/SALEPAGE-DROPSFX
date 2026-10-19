@@ -112,10 +112,14 @@
       prevBus = ac.createGain(); prevBus.gain.value = +$('vol-slider').value;
       master.connect(analyser); prevBus.connect(analyser); analyser.connect(ac.destination);
     }
-    if (ac.state === 'suspended') ac.resume();
+    if (ac.state !== 'running') {
+      try { ac.resume(); } catch (e) {}
+      // iOS só libera o áudio tocando algo dentro do próprio toque
+      try { var sb = ac.createBuffer(1, 1, 22050), ss = ac.createBufferSource(); ss.buffer = sb; ss.connect(ac.destination); ss.start(0); } catch (e) {}
+    }
     return ac;
   }
-  ['pointerdown', 'keydown', 'touchstart'].forEach(function (e) { window.addEventListener(e, ensureAC, { capture: true, passive: true }); });
+  ['pointerdown', 'touchstart', 'touchend', 'click', 'keydown'].forEach(function (e) { window.addEventListener(e, ensureAC, { capture: true, passive: true }); });
   function load(id) {
     if (bufs[id]) return Promise.resolve(bufs[id]);
     if (pend[id]) return pend[id];
@@ -374,7 +378,7 @@
     toast('success', '✓', t('inserted').replace('{t}', TRACKS[tr]).replace('{tc}', tc(start)));
     step(3);
     if (!S.steps[4]) { $('btnPlay').classList.add('pulse'); hint(t('hint.play')); }
-    if (simEl.classList.contains('compact')) post('reveal', { y: Math.round($('tl').getBoundingClientRect().top + window.scrollY) - 8 });
+    if (simEl.classList.contains('compact') && !S.revealed) { S.revealed = true; setTimeout(function () { post('reveal', { y: Math.round(document.querySelector('.pr-mon').getBoundingClientRect().top + window.scrollY) - 8 }); }, 650); }
     post('insert', { id: id, cat: s.cat, track: TRACKS[tr], at: Math.round(start * 100) / 100, gain: S.gain, how: how || (atTime != null ? 'drag' : 'button') });
     var row = document.querySelector('.file-item[data-id="' + id + '"] .file-meta');
     if (row && !row.querySelector('.use-badge')) row.insertAdjacentHTML('beforeend', '<span class="use-badge">×' + S.used[id] + '</span>');
