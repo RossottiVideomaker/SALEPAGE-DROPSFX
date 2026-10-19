@@ -133,13 +133,11 @@
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 
   <!-- Adobe Fonts (Degular) -->
-  <link rel="preconnect" href="https://use.typekit.net" crossorigin>
-  <link rel="stylesheet" href="https://use.typekit.net/czr1sny.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;700&display=swap"
     rel="stylesheet">
 
   <style>
@@ -164,9 +162,9 @@
       --red: #f87171;
       --pink: #f472b6;
       --gray: #94a3b8;
-      --font-display: 'degular-display', 'degular', 'Sora', 'Noto Sans Devanagari', sans-serif;
-      --font: 'degular', 'Sora', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-mono: 'JetBrains Mono', 'Noto Sans Devanagari', monospace;
+      --font: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Nirmala UI', 'Noto Sans Devanagari', 'Helvetica Neue', Arial, sans-serif;
+      --font-display: var(--font);
+      --font-mono: var(--font);
     }
 
     * {
@@ -1792,7 +1790,7 @@
     :root {
       --ice: #d8faff;
       --steel: #8a8f9c;
-      --font-serif: 'Instrument Serif', 'Noto Sans Devanagari', Georgia, serif;
+      --font-serif: var(--font);
     }
 
     .ed {
@@ -3295,6 +3293,15 @@
     .gain-big.on,
     .video-loader-spinner,
     .plm-tl-playhead { box-shadow: none !important; }
+  
+    /* ===== pele do plugin: fonte do sistema, títulos sem caixa-alta, destaque em gradiente azul ===== */
+    .ed-h, .gate-h, .night-verdict, .after-life h3 { text-transform: none !important; font-weight: 800; letter-spacing: -.045em; }
+    .ed-h .blue, .gate-h .blue, .night-verdict .blue { font-style: normal !important; font-weight: 800; font-size: 1em !important; letter-spacing: inherit;
+      background: linear-gradient(92deg, #5b8aff, #9db8ff 55%, #dbe5ff); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .ed-knock-cap, .fold-intro, .ed-quote .quote, .ed-terms dd, .res-unit, .night-after, .fold-count, .ed-foot-line, .night-list em { font-style: normal !important; font-weight: 600; letter-spacing: -.02em; }
+    .sim-frame { position: relative; width: min(1240px, calc(100vw - 40px)); left: 50%; transform: translateX(-50%); border-radius: 18px; overflow: hidden; background: #000; }
+    .sim-frame iframe { display: block; width: 100%; height: clamp(660px, calc(100vh - 32px), 800px); border: 0; background: #000; }
+    @media (max-width: 859px) { .sim-frame { width: calc(100vw - 12px); border-radius: 14px; } .sim-frame iframe { height: 1180px; } }
   </style>
 </head>
 
@@ -3557,10 +3564,10 @@
   <section class="ed-sec ed-listen" id="ouvir">
     <div class="ed">
       <div class="listen-head">
-        <h2 class="ed-h" data-i18n-html="listen.title">Ouça <span class="blue">a qualidade.</span></h2>
-        <p class="ed-lead" data-i18n="listen.lead">Sons reais da biblioteca do plugin, 3 de cada categoria. Coloca o fone e passa o mouse.</p>
+        <h2 class="ed-h" data-i18n-html="listen.title">Teste o plugin <span class="blue">agora, aqui.</span></h2>
+        <p class="ed-lead" data-i18n="listen.lead">Um Premiere de mentira com o painel do dropSFX de verdade: abra uma pasta, ouça, insira na timeline e dê play. Coloca o fone.</p>
       </div>
-      <div id="sfxPlayerHome" class="listen-box"></div>
+      <div class="sim-frame"><iframe id="simFrame" title="dropSFX" allow="autoplay" scrolling="no"></iframe></div>
     </div>
   </section>
 
@@ -3877,7 +3884,6 @@
 
   <!-- Rolagem suave (Lenis). Se o CDN falhar, a página rola normalmente. -->
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script src="assets/sfx/player.js"></script>
 
   <script>
   // =====================================================================
@@ -5222,8 +5228,8 @@
   (function () {
     var add = {
       pt: {
-        "listen.title": "Ouça <span class='blue'>a qualidade.</span>",
-        "listen.lead": "Sons reais da biblioteca do plugin, 3 de cada categoria. Coloca o fone e passa o mouse.",
+        "listen.title": "Teste o plugin <span class='blue'>agora, aqui.</span>",
+        "listen.lead": "Um Premiere de mentira com o painel do dropSFX de verdade: abra uma pasta, ouça, insira na timeline e dê play. Coloca o fone.",
         "demo.title": "Na prática.<br><span class='blue'>Sem sair do Premiere.</span>",
         "demo.lead": "Gravação de tela real, direto do Premiere: abrir a categoria, <strong>ouvir no hover</strong> e mandar o som pra timeline. Liga o som pra ouvir junto.",
         "demo.rec": "Tela real · Premiere Pro",
@@ -5233,8 +5239,8 @@
         "demo.note": "2.371 sons · Premiere, After Effects e DaVinci"
       },
       en: {
-        "listen.title": "Hear <span class='blue'>the quality.</span>",
-        "listen.lead": "Real sounds from the plugin library, 3 from each category. Put your headphones on and hover.",
+        "listen.title": "Try the plugin <span class='blue'>right here.</span>",
+        "listen.lead": "A fake Premiere with the real dropSFX panel: open a folder, listen, insert it on the timeline and hit play. Headphones on.",
         "demo.title": "In practice.<br><span class='blue'>Without leaving Premiere.</span>",
         "demo.lead": "A real screen recording, straight from Premiere: open a category, <strong>hear it on hover</strong> and send the sound to the timeline. Turn the sound on to listen along.",
         "demo.rec": "Real screen · Premiere Pro",
@@ -5244,8 +5250,8 @@
         "demo.note": "2,371 sounds · Premiere, After Effects & DaVinci"
       },
       es: {
-        "listen.title": "Escucha <span class='blue'>la calidad.</span>",
-        "listen.lead": "Sonidos reales de la biblioteca del plugin, 3 de cada categoría. Ponte los auriculares y pasa el mouse.",
+        "listen.title": "Prueba el plugin <span class='blue'>aquí mismo.</span>",
+        "listen.lead": "Un Premiere de mentira con el panel real de dropSFX: abre una carpeta, escucha, insértalo en la línea de tiempo y dale play. Ponte los auriculares.",
         "demo.title": "En la práctica.<br><span class='blue'>Sin salir de Premiere.</span>",
         "demo.lead": "Grabación de pantalla real, directo de Premiere: abrir la categoría, <strong>escuchar al pasar el mouse</strong> y mandar el sonido a la timeline. Activa el sonido para escuchar.",
         "demo.rec": "Pantalla real · Premiere Pro",
@@ -5255,8 +5261,8 @@
         "demo.note": "2.371 sonidos · Premiere, After Effects y DaVinci"
       },
       hi: {
-        "listen.title": "क्वालिटी <span class='blue'>सुनिए।</span>",
-        "listen.lead": "प्लगइन लाइब्रेरी की असली आवाज़ें, हर कैटेगरी से 3। हेडफ़ोन लगाइए और माउस ले जाइए।",
+        "listen.title": "प्लगइन <span class='blue'>यहीं आज़माइए।</span>",
+        "listen.lead": "नकली Premiere में असली dropSFX पैनल: फ़ोल्डर खोलें, सुनें, टाइमलाइन पर इन्सर्ट करें और प्ले दबाएँ। हेडफ़ोन लगा लें।",
         "demo.title": "असल इस्तेमाल।<br><span class='blue'>Premiere छोड़े बिना।</span>",
         "demo.lead": "Premiere से सीधी असली स्क्रीन रिकॉर्डिंग: कैटेगरी खोलिए, <strong>होवर पर सुनिए</strong> और साउंड टाइमलाइन पर भेजिए। साथ सुनने के लिए साउंड चालू कीजिए।",
         "demo.rec": "असली स्क्रीन · Premiere Pro",
@@ -6289,19 +6295,35 @@
     });
   })();
 
-  // Player de sons reais (assets/sfx/player.js)
+  // Simulador (Premiere + painel dropSFX) na seção "Teste o plugin"
   (function () {
-    var el = document.getElementById('sfxPlayerHome'), player = null;
-    if (!el) return;
+    var f = document.getElementById('simFrame'), cur = 'pt', loaded = false;
+    if (!f) return;
+    function load() { if (loaded) return; loaded = true; f.src = '/simulador/?embed=1&lang=' + cur; }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { load(); io.disconnect(); } }, { rootMargin: '900px 0px' });
+      io.observe(f);
+    } else load();
     document.addEventListener('dropsfx:langchange', function (e) {
-      var l = (e.detail && e.detail.lang) || 'pt';
-      if (!window.DropSFXPlayer) return;
-      if (!player) player = DropSFXPlayer.mount(el, {
-        lang: l, max: 8,
-        onPlay: function (id, cat) { if (window.dropTrack) window.dropTrack('sfx_play', id, { cat: cat }); },
-        onTab: function (t) { if (window.dropTrack) window.dropTrack('sfx_tab', t); }
-      });
-      else player.setLang(l);
+      cur = (e.detail && e.detail.lang) || 'pt';
+      if (loaded) try { f.contentWindow.postMessage({ type: 'dropsfx-sim-cmd', lang: cur }, '*'); } catch (x) {}
+    });
+    var T = function (a, b, c) { if (window.dropTrack) window.dropTrack(a, b, c); };
+    window.addEventListener('message', function (e) {
+      var d = e.data || {};
+      if (e.source !== f.contentWindow || d.type !== 'dropsfx-sim') return;
+      var x = d.data || {};
+      switch (d.ev) {
+        case 'height': f.style.height = (window.innerWidth < 860 && x.h > 400) ? x.h + 'px' : ''; break;
+        case 'open_folder': T('sim_folder', x.cat); break;
+        case 'sfx_play': T('sfx_play', x.id, { cat: x.cat, hover: !!x.hover }); break;
+        case 'insert': T('sim_insert', x.id, x); break;
+        case 'play': T('sim_play', null, x); break;
+        case 'demo': T('sim_demo'); break;
+        case 'step': T('sim_step', String(x.n)); break;
+        case 'reveal': window.scrollTo({ top: f.getBoundingClientRect().top + window.scrollY + (x.y || 0) - 70, behavior: 'smooth' }); break;
+        case 'cta': T('sim_cta', x.cat || null); var c = document.getElementById('comprar'); if (c) window.scrollTo({ top: c.getBoundingClientRect().top + window.scrollY - 40, behavior: 'smooth' }); break;
+      }
     });
   })();
 

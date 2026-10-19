@@ -32,11 +32,9 @@
     fbq('track', 'PageView');
   </script>
 
-  <link rel="preconnect" href="https://use.typekit.net" crossorigin>
-  <link rel="stylesheet" href="https://use.typekit.net/czr1sny.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://bwgrxdjdvrdawarbnqjv.supabase.co" crossorigin>
 
   <style>
@@ -57,10 +55,10 @@
       --red: #ff5a5a;
       --green: #4ade80;
       --yellow: #facc15;
-      --font-display: 'degular-display', 'degular', 'Sora', 'Noto Sans Devanagari', sans-serif;
-      --font: 'degular', 'Sora', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-serif: 'Instrument Serif', 'Noto Sans Devanagari', Georgia, serif;
-      --font-mono: 'JetBrains Mono', 'Noto Sans Devanagari', monospace;
+      --font: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Nirmala UI', 'Noto Sans Devanagari', 'Helvetica Neue', Arial, sans-serif;
+      --font-display: var(--font);
+      --font-serif: var(--font);
+      --font-mono: var(--font);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -505,6 +503,9 @@
     .o-ribbon { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--steel); }
     .o-off { padding: 6px 12px; border-radius: 999px; background: var(--accent); font-family: var(--font-display); font-size: 18px; font-weight: 700; }
     .o-title { margin-top: 20px; font-family: var(--font-display); font-size: clamp(26px, 4vw, 34px); font-weight: 700; line-height: 1.05; text-transform: uppercase; }
+    .sim-frame { position: relative; width: min(1240px, calc(100vw - 40px)); left: 50%; transform: translateX(-50%); border-radius: 18px; overflow: hidden; background: #000; }
+    .sim-frame iframe { display: block; width: 100%; height: clamp(660px, calc(100vh - 32px), 800px); border: 0; background: #000; }
+    @media (max-width: 859px) { .sim-frame { width: calc(100vw - 12px); border-radius: 14px; } .sim-frame iframe { height: 1180px; } }
     .o-price { margin-top: 14px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
     .o-price b { font-family: var(--font-display); font-size: clamp(34px, 6vw, 44px); font-weight: 700; line-height: 1; }
     .o-price s { color: var(--steel); font-size: 16px; }
@@ -630,6 +631,105 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
+  
+    /* =====================================================================
+       PELE DO PLUGIN — mesma linguagem visual do painel dropSFX (v2.6):
+       fonte do sistema, preto puro, cards translúcidos, azul #3b6ef5,
+       rótulos pequenos em caixa-alta, cards de pasta com a cor da categoria
+       ===================================================================== */
+    :root {
+      --ink: #f2f2f7; --ink-2: #c9c9d3; --steel: #9a9aab; --dim: #5a5a6b;
+      --line: rgba(255, 255, 255, .07); --line-2: rgba(255, 255, 255, .13);
+      --card: rgba(255, 255, 255, .045); --card-hover: rgba(255, 255, 255, .08); --card-active: rgba(59, 110, 245, .12);
+      --accent: #3b6ef5; --accent-hi: #5b8aff; --accent-soft: rgba(59, 110, 245, .15); --accent-glow: rgba(59, 110, 245, .45);
+      --ice: #c9d8ff; --green: #30d158; --red: #f87171; --yellow: #f5c33b;
+    }
+    body { background: radial-gradient(circle at 50% -40px, rgba(59, 110, 245, .16), transparent 420px) no-repeat, #000; }
+    .h1, .h2, .lang-title, .o-title, .ck-t, .guar h3, .vs-head span { text-transform: none; }
+    .h1 { font-weight: 800; letter-spacing: -.045em; line-height: 1.02; font-size: clamp(34px, 6.4vw, 64px); }
+    .h2 { font-weight: 800; letter-spacing: -.038em; line-height: 1.06; font-size: clamp(27px, 4.4vw, 44px); }
+    .h1 .serif, .h2 .serif { font-style: normal; font-weight: 800; font-size: 1em; letter-spacing: inherit; color: var(--accent-hi); background: linear-gradient(92deg, #5b8aff, #9db8ff 55%, #dbe5ff); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .mono { display: inline-flex; align-items: center; gap: 8px; font-size: 10.5px; font-weight: 700; letter-spacing: .14em; color: var(--accent-hi); }
+    .mono::before { content: ""; flex: none; width: 14px; height: 11px; background:
+      linear-gradient(currentColor, currentColor) 0 100% / 2.5px 45% no-repeat, linear-gradient(currentColor, currentColor) 4px 100% / 2.5px 100% no-repeat,
+      linear-gradient(currentColor, currentColor) 8px 100% / 2.5px 62% no-repeat, linear-gradient(currentColor, currentColor) 12px 100% / 2.5px 82% no-repeat; }
+    .lead { color: var(--steel); }
+    .cta-note, .q-intro, .an-proof, .kit-count, .d-why, .d-ok, .vs-k, .o-ribbon, .lang-foot, .vid-bar { font-size: 10.5px; font-weight: 600; letter-spacing: .09em; }
+    .o-price span { font-weight: 700; letter-spacing: .08em; font-size: 10.5px; color: var(--accent-hi); }
+
+    /* botões = botões do painel */
+    .btn { border-radius: 13px; font-weight: 800; letter-spacing: -.01em; padding: 17px 26px; }
+    .btn.blue { background: linear-gradient(180deg, var(--accent-hi), var(--accent)); box-shadow: 0 8px 26px var(--accent-glow), inset 0 1px 0 rgba(255, 255, 255, .2); }
+    .btn.blue:hover { background: linear-gradient(180deg, #6d98ff, #3b6ef5); box-shadow: 0 12px 34px var(--accent-glow), inset 0 1px 0 rgba(255, 255, 255, .25); }
+
+    /* cards e opções = itens do painel */
+    .lang-opt, .q-opt, .bk-opt { border-radius: 14px; border-color: var(--line-2); background: var(--card); transition: background .13s, border-color .13s, transform .15s; }
+    .lang-opt:hover, .lang-opt:focus-visible, .q-opt:hover, .q-opt:focus-visible, .bk-opt:hover { background: var(--card-hover); border-color: var(--line-2); }
+    .q-opt.picked { background: var(--card-active); border-color: var(--accent); color: #fff; box-shadow: inset 3px 0 0 var(--accent); }
+    .q-key { border-radius: 9px; font-weight: 700; }
+    .q-opt.picked .q-key { background: var(--accent); border-color: var(--accent); }
+    .lang-code { border-radius: 11px; font-weight: 800; letter-spacing: .02em; border: 1px solid var(--line-2); background: var(--card); }
+    .lang-opt.suggested { border-color: rgba(91, 138, 255, .55); background: var(--card-active); }
+    .lang-opt.suggested .lang-code { background: var(--accent); border-color: var(--accent); }
+    .lang-name { font-weight: 700; font-size: 19px; letter-spacing: -.02em; }
+    .name-in { border-radius: 13px; background: rgba(255, 255, 255, .06); }
+    .name-in:focus { background: rgba(59, 110, 245, .07); box-shadow: 0 0 0 3px rgba(59, 110, 245, .14); }
+    .insight { border-color: rgba(91, 138, 255, .28); border-radius: 12px; background: rgba(59, 110, 245, .1); }
+    .r-chip { background: var(--card); border-color: var(--line); font-weight: 600; }
+    .r-chip b { font-weight: 700; font-size: 9.5px; letter-spacing: .1em; color: var(--dim); }
+
+    /* tela de idioma = splash do plugin */
+    #sLang .wrap { max-width: 520px; }
+    #sLang .lang-title, #sLang .lang-foot { text-align: center; }
+    .splash { position: relative; display: flex; justify-content: center; margin: 4px 0 26px; }
+    .splash-glow { position: absolute; left: 50%; top: 50%; width: 230px; height: 230px; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 65%); filter: blur(30px); opacity: .6; animation: glow 2.2s ease-in-out infinite; pointer-events: none; }
+    @keyframes glow { 0%, 100% { opacity: .45; } 50% { opacity: .85; } }
+    .splash-bars { position: relative; display: flex; align-items: flex-end; gap: 4px; height: 34px; }
+    .splash-bars span { width: 5px; border-radius: 3px; background: linear-gradient(180deg, var(--accent-hi), var(--accent)); animation: eqb 1s ease-in-out infinite; }
+    .splash-bars span:nth-child(1) { height: 30%; } .splash-bars span:nth-child(2) { height: 65%; animation-delay: .12s; } .splash-bars span:nth-child(3) { height: 100%; animation-delay: .24s; }
+    .splash-bars span:nth-child(4) { height: 55%; animation-delay: .36s; } .splash-bars span:nth-child(5) { height: 85%; animation-delay: .48s; } .splash-bars span:nth-child(6) { height: 45%; animation-delay: .6s; } .splash-bars span:nth-child(7) { height: 25%; animation-delay: .72s; }
+    @keyframes eqb { 0%, 100% { transform: scaleY(.4); } 50% { transform: scaleY(1); } }
+    .lang-title { font-weight: 800; letter-spacing: -.04em; }
+
+    /* kit = grade de pastas do plugin */
+    .kit { border-radius: 18px; border-color: var(--line-2); background: rgba(255, 255, 255, .02); padding: 18px; }
+    .kit-head .mono { color: var(--steel); }
+    .kit-grid { gap: 8px; }
+    .kc { padding: 14px 13px 13px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--c) 24%, transparent);
+      background: linear-gradient(150deg, color-mix(in srgb, var(--c) 17%, transparent) 0%, color-mix(in srgb, var(--c) 5%, transparent) 55%, rgba(255, 255, 255, .02) 100%);
+      transition: transform .16s; }
+    .kc:hover { transform: translateY(-3px); }
+    .kc-ic { width: 34px; height: 34px; border-radius: 10px; margin-bottom: 18px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, .08); color: var(--c); }
+    .kc-deco { position: absolute; right: 11px; top: 15px; display: flex; gap: 2px; align-items: flex-end; height: 17px; opacity: .45; }
+    .kc-deco i { width: 2.5px; border-radius: 2px; background: var(--c); }
+    .kc:hover .kc-deco { opacity: .85; }
+    .kc-name { margin-top: 0; font-size: 15px; font-weight: 700; letter-spacing: -.02em; line-height: 1.2; }
+    .kc-n { margin-top: 3px; font-size: 11px; font-weight: 500; color: var(--dim); }
+    .kc-n b { color: var(--c); font-size: 11px; font-weight: 700; }
+    .kc-why { margin-top: 8px; font-size: 12px; color: var(--steel); }
+
+    /* demais blocos */
+    .diag, .vs, .pro, .vid, .guar { border-radius: 16px; }
+    .diag { background: var(--card); border-color: var(--line-2); }
+    .d-big { font-weight: 800; letter-spacing: -.055em; }
+    .d-unit { font-style: normal; font-weight: 600; color: var(--ink-2); letter-spacing: -.02em; }
+    .d-fix { border-radius: 0 12px 12px 0; background: var(--card-active); }
+    .pro { background: var(--card); border-color: var(--line-2); }
+    .pro h3 { font-weight: 700; letter-spacing: -.02em; font-size: 16.5px; }
+    .vs-new { background: var(--card-active); }
+    .offer { border-radius: 20px; background: linear-gradient(180deg, rgba(12, 12, 16, .6), #08080c 30%); border-color: var(--line-2); }
+    .o-off { font-weight: 800; background: var(--accent); }
+    .o-title { font-weight: 800; letter-spacing: -.035em; }
+    .o-price b { font-weight: 800; letter-spacing: -.04em; }
+    .o-who { font-style: normal; font-weight: 600; font-size: 17px; color: var(--ice); }
+    .guar h3 { font-weight: 800; letter-spacing: -.02em; }
+    .faq-q { font-weight: 600; letter-spacing: -.01em; }
+    .ck-card { background: #0c0c10; }
+    .ck-t { font-weight: 800; letter-spacing: -.03em; }
+    .lang-mini { border-color: var(--line-2); background: var(--card); }
+    .lang-mini button { font-weight: 700; }
+    .lang-mini button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+    body.sim-on .sticky { opacity: 0; visibility: hidden; pointer-events: none; }
   </style>
 </head>
 <body>
@@ -651,7 +751,7 @@
     <!-- 0 · IDIOMA -->
     <section class="screen" id="sLang" aria-labelledby="langTitle">
       <div class="wrap">
-        <div class="lang-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="splash" aria-hidden="true"><div class="splash-glow"></div><div class="splash-bars"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
         <h1 class="lang-title" id="langTitle">
           <span data-lang="pt">Escolha seu idioma</span>
           <span data-lang="en">Choose your language</span>
@@ -729,10 +829,10 @@
         </div>
 
         <div class="sec" id="ouvir">
-          <p class="mono" data-t="sfx.kicker"></p>
-          <h2 class="h2" style="margin-top:12px" data-th="sfx.title"></h2>
-          <p class="lead" style="margin:12px 0 22px" data-t="sfx.sub"></p>
-          <div id="sfxPlayer"></div>
+          <p class="mono" data-t="sim.kicker"></p>
+          <h2 class="h2" style="margin-top:12px" data-th="sim.title"></h2>
+          <p class="lead" style="margin:12px 0 22px" data-t="sim.sub"></p>
+          <div class="sim-frame"><iframe id="simFrame" title="dropSFX" allow="autoplay" scrolling="no"></iframe></div>
           <div class="cta-row">
             <a class="btn blue js-cta" data-pos="sounds" href="#" target="_blank" rel="noopener"><span data-t="sfx.cta"></span> →</a>
             <p class="cta-note" data-t="sfx.cta.note"></p>
@@ -879,7 +979,6 @@
     </div>
   </main>
 
-  <script src="/assets/sfx/player.js"></script>
   <noscript><p style="padding:40px 20px;text-align:center"><a href="/?direto=1" style="color:#6e9bff">dropsfx.com.br</a></p></noscript>
   <script>
   // =====================================================================
@@ -1586,6 +1685,7 @@
   L.id = {"ui.back": "Kembali", "ui.next": "Lanjut", "ui.skip": "Lewati", "ui.qn": "{i} / {n}", "q.intro": "Yuk susun kit sound design kamu · 8 pertanyaan · 1 menit", "q.type.t": "Video apa yang paling sering kamu edit?", "q.type.s": "Kit kamu dimulai dari jenis videonya.", "type.reels": "Reels, TikTok & Shorts", "type.youtube": "YouTube", "type.wedding": "Pernikahan & acara", "type.ads": "Iklan & korporat", "type.games": "Gaming & streaming", "type.podcast": "Podcast & potongan klip", "short.reels": "Reels & Shorts", "short.youtube": "YouTube", "short.wedding": "pernikahan", "short.ads": "iklan", "short.games": "gaming", "short.podcast": "klip podcast", "ins.type.reels": "Mantap. Di video pendek, ada suara di setiap cut bikin orang nonton sampai habis.", "ins.type.youtube": "Mantap. Di YouTube, efek suara yang pas bikin ritme dan menahan penonton.", "ins.type.wedding": "Indah. Di video pernikahan, suara yang tepat bikin keluarga menangis lagi.", "ins.type.ads": "Mantap. Di iklan, suaralah yang bikin brand terasa premium.", "ins.type.games": "Mantap. Di gameplay, impact dan suara HUD mengubah klip biasa jadi highlight.", "ins.type.podcast": "Mantap. Di klip podcast, suara meme di momen yang pas langsung jadi bahan komentar.", "q.vibe.t": "Apa nuansa konten kamu?", "q.vibe.s": "Ini menentukan suara mana yang naik ke atas kit kamu.", "vibe.cinematic": "Sinematik & epik", "vibe.funny": "Lucu, pakai meme", "vibe.clean": "Bersih & korporat", "vibe.hype": "Energik, tempo cepat", "vibe.emotional": "Emosional & menyentuh", "vshort.cinematic": "sinematik", "vshort.funny": "lucu", "vshort.clean": "bersih", "vshort.hype": "energik", "vshort.emotional": "emosional", "ins.vibe.cinematic": "Dicatat: riser, drop dan impact dalam naik ke atas kit kamu.", "ins.vibe.funny": "Dicatat: meme, kartun dan suara tombol naik ke atas kit kamu.", "ins.vibe.clean": "Dicatat: klik, whoosh halus dan transisi bersih naik ke atas.", "ins.vibe.hype": "Dicatat: impact, glitch dan whoosh cepat naik ke atas.", "ins.vibe.emotional": "Dicatat: suara tonal, ambience dan slow motion naik ke atas.", "q.fams.t": "Suara apa yang paling sering kamu pakai, atau ingin lebih sering kamu pakai?", "q.fams.s": "Pilih sebanyak yang kamu mau.", "fam.whoosh": "Whoosh & transisi", "fam.hits": "Impact & drop", "fam.risers": "Riser & ketegangan", "fam.ui": "Klik & UI", "fam.glitch": "Glitch & digital", "fam.memes": "Meme & kartun", "fam.foley": "Foley & ambience", "fam.cine": "Slow motion & kamera", "fam.emotion": "Tonal & atmosfer", "fam.action": "Aksi & senjata", "fam.retro": "Retro", "ins.fams": "Sempurna. {n} keluarga suara dicatat untuk kit kamu.", "q.app.t": "Kamu edit pakai software apa?", "q.app.s": "Untuk cek kompatibilitas.", "app.premiere": "Premiere Pro", "app.ae": "After Effects", "app.davinci": "DaVinci Resolve Studio", "app.multi": "Lebih dari satu", "app.other": "Lainnya (CapCut, Final Cut…)", "ins.app.premiere": "Kompatibel: dropSFX terbuka sebagai panel langsung di dalam Premiere Pro.", "ins.app.ae": "Kompatibel: dropSFX terbuka sebagai panel langsung di dalam After Effects.", "ins.app.davinci": "Kompatibel: dropSFX punya versi untuk DaVinci Resolve Studio.", "ins.app.multi": "Kompatibel: dropSFX jalan di Premiere, After Effects dan DaVinci.", "ins.app.other": "Dicatat. Saat ini dropSFX jalan di Premiere Pro, After Effects dan DaVinci Resolve Studio.", "q.source.t": "Kalau butuh efek suara, kamu cari di mana?", "q.source.s": "Santai saja: semua editor pernah begitu.", "source.yt": "YouTube, lalu situs download audio", "source.envato": "Envato atau Artlist", "source.folder": "Folder berantakan di komputer", "source.none": "Malah nggak pakai: terlalu ribet", "ins.source.yt": "Jalur itu (YouTube → converter → download → import) adalah pencuri waktu terbesar.", "ins.source.envato": "Envato dan Artlist bagus, tapi setiap suara jadi .zip yang harus di-download, diekstrak lalu di-import.", "ins.source.folder": "Paling umum. Masalahnya: cari suara yang pas di tengah editing.", "ins.source.none": "Banyak editor melewatkan suara karena ribet. Justru itu yang diberesin kit kamu.", "q.time.t": "Berapa lama waktu kamu habis mencari suara di setiap video?", "q.time.talt": "Kalau kamu menambahkan suara, berapa lama per video?", "q.time.s": "Perkiraan kasar saja.", "time.0": "Kurang dari 10 menit", "time.1": "10 sampai 30 menit", "time.2": "30 menit sampai 1 jam", "time.3": "Lebih dari 1 jam", "q.volume.t": "Berapa video yang kamu edit per minggu?", "q.volume.s": "Untuk menghitung berapa banyak waktu yang dikembalikan kit kamu.", "volume.0": "1 atau 2", "volume.1": "3 sampai 5", "volume.2": "6 sampai 10", "volume.3": "Lebih dari 10", "q.name.t": "Terakhir: kami panggil kamu siapa?", "q.name.s": "Biar kit kamu ada namamu.", "q.name.ph": "Nama depan kamu", "q.name.go": "Lihat kit saya", "an.title": "Menyusun kit kamu…", "an.1": "Jenis video: {type}", "an.2": "Menyesuaikan nuansa {vibe}", "an.3": "Memilih kategori dari 2.371 suara", "an.4": "Menghitung waktu yang kamu dapat kembali", "an.5": "Kompatibilitas: {app}", "an.proof": "1.000+ editor sudah memakai dropSFX", "r.kicker": "Kit dropSFX personal", "r.hello": "{name}, kit kamu <span class='serif'>sudah siap.</span>", "r.hello0": "Kit kamu <span class='serif'>sudah siap.</span>", "r.c.type": "Video", "r.c.vibe": "Nuansa", "r.c.app": "Software", "r.kitTitle": "6 kategori yang paling cocok untuk kamu", "r.kitCount": "{n} suara", "r.kitMore": "Dan kamu dapat <b>semua 18 kategori</b>: total <b>2.371 suara</b>, diberi warna di dalam panel.", "why.pick": "Kamu memilih {fam}", "why.type": "Wajib untuk {type}", "why.vibe": "Cocok untuk nuansa {vibe}", "r.cta1": "Saya mau kit saya", "d.title": "Apa yang berubah di harimu", "d.unit": "sebulan untuk mencari efek suara, saat ini.", "d.unit3": "sebulan: waktu yang dibutuhkan kalau kamu menambahkan suara sekarang.", "d.why": "Dari jawabanmu: {m} menit per video × {v} video per minggu × 4,3 minggu", "d.days": "Itu lebih dari <strong>{d} hari kerja penuh</strong>, setiap bulan.", "d.day1": "Itu lebih dari <strong>1 hari kerja penuh</strong>, setiap bulan.", "d.small": "Kelihatannya kecil. Tapi berulang <strong>setiap bulan</strong>, di setiap proyek.", "d.fix.yt": "Dengan kit kamu: tanpa YouTube, tanpa converter, tanpa pop-up. Suara bunyi saat di-hover dan masuk timeline dalam 2 klik.", "d.fix.envato": "Dengan kit kamu: tanpa .zip, tanpa ekstrak, tanpa import. Dan tanpa langganan: bayar sekali, pakai selamanya.", "d.fix.folder": "Dengan kit kamu: 2.371 suara dalam 18 kategori berwarna, langsung di dalam panel. Nggak perlu bongkar folder lagi.", "d.fix.none": "Dengan kit kamu, menambahkan suara cuma 2 klik. Jadi kamu pakai di mana-mana, dan itu yang bikin video naik level.", "d.ok.premiere": "✓ Jalan di Premiere Pro", "d.ok.ae": "✓ Jalan di After Effects", "d.ok.davinci": "✓ Jalan di DaVinci Resolve Studio", "d.ok.multi": "✓ Jalan di Premiere, After Effects dan DaVinci", "d.ok.other": "Perhatian: dropSFX jalan di dalam Premiere Pro, After Effects dan DaVinci Resolve Studio. Tidak bisa dibuka di CapCut atau Final Cut.", "sfx.cta": "Saya mau suara ini di software saya", "sfx.cta.note": "2.371 suara seperti ini · bayar sekali", "o.usd": "Perkiraan · bayar sekali · bank kamu menagih dalam mata uangmu", "ck.kicker": "Sebelum bayar · 20 detik", "ck.title": "Cara bayar dari luar Brasil", "ck.1": "Pembayaran lewat <b>Kiwify</b>, platform pembayaran Brasil. Halamannya bisa terbuka dalam bahasa Portugis: itu normal dan aman.", "ck.2": "Ketuk <b>“Change country”</b> (Alterar país) lalu pilih negaramu. Kamu <b>tidak perlu CPF</b>: itu hanya untuk orang Brasil.", "ck.3": "Bayar dengan <b>kartu Visa atau Mastercard</b>. Bank kamu mengonversi ke mata uangmu (sekitar <b>{usd}</b>).", "ck.4": "Akses langsung <b>dikirim lewat e-mail</b>, dengan panduan instalasi dalam bahasa Indonesia.", "ck.go": "Lanjut ke pembayaran aman", "ck.note": "🔒 Bayar sekali · Garansi uang kembali 7 hari", "v.title": "Lihat langsung dari dalam", "v.rec": "Layar asli · tanpa potong", "v.on": "Nyalakan suara", "v.off": "Matikan suara", "i.title": "Isi kit kamu", "i.1": "<strong>2.371 efek suara profesional</strong> dalam 18 kategori", "i.2": "Panel <strong>native</strong> untuk Premiere Pro, After Effects dan DaVinci Resolve Studio", "i.3": "Dengar saat <strong>hover</strong>, masukkan dalam <strong>2 klik</strong> atau seret ke timeline", "i.4": "Gain yang pas <strong>sebelum dimasukkan</strong>: -12, 0 atau +6 dB", "i.5": "Folder kamu dan <strong>suara milikmu sendiri</strong> di dalam panel", "i.6": "Lisensi untuk <strong>2 perangkat</strong>, penggunaan komersial, bebas royalti", "p.kicker": "Kenapa editor pindah ke dropSFX", "p.title": "Semua yang kamu dapat <span class='serif'>setiap hari.</span>", "p.inside.t": "Tanpa keluar dari {app}", "appname.premiere": "Premiere", "appname.ae": "After Effects", "appname.davinci": "DaVinci", "appname.multi": "software kamu", "appname.other": "software kamu", "p.inside.d": "Terbuka sebagai panel di samping timeline. Tanpa browser, tanpa folder, tanpa Downloads.", "p.hover.t": "Dengar sebelum dipakai", "p.hover.d": "Hover dan suara langsung bunyi dengan waveform-nya. Puluhan suara tersaring dalam hitungan detik.", "p.click.t": "2 klik ke timeline", "p.click.d": "Klik dua kali untuk masuk di playhead pada track pilihanmu. Atau tinggal seret.", "p.color.t": "Masuk berwarna dan rapi", "p.color.d": "Klip masuk dengan warna kategorinya. Track audio kamu rapi dengan sendirinya.", "p.gain.t": "Volume pas sejak awal", "p.gain.d": "Pilih -12, 0 atau +6 dB sebelum dimasukkan. Nggak perlu atur mixer di setiap klip.", "p.lib.t": "2.371 suara pilihan", "p.lib.d": "Whoosh, impact, riser, glitch, meme dan foley dalam 18 kategori yang dibuat untuk editing.", "p.folder.t": "Suara kamu juga", "p.folder.d": "Buat folder, simpan favorit dan import audio milikmu sendiri ke panel yang sama.", "p.community.t": "Komunitas editor", "p.community.d": "Pakai suara yang dibagikan editor lain dan bagikan punyamu, langsung di dalam plugin.", "p.once.t": "Bayar sekali, pakai selamanya", "p.once.d": "Tanpa langganan. Penggunaan komersial, bebas royalti, di 2 perangkat.", "p.apps.t": "Premiere, After Effects & DaVinci", "p.apps.d": "Jalan di Premiere Pro, After Effects dan DaVinci Resolve Studio, di Mac dan Windows.", "vs.title": "Sekarang <span class='serif'>× dengan dropSFX</span>", "vs.today": "Sekarang", "vs.find": "Mencari suara", "vs.find.old": "YouTube, Envato, Artlist, folder acak", "vs.find.new": "2.371 suara di panel, per kategori", "vs.listen": "Mendengarkan", "vs.listen.old": "Download dulu baru tahu cocok atau tidak", "vs.listen.new": "Hover dan langsung bunyi", "vs.insert": "Memasukkan ke timeline", "vs.insert.old": "Download, unzip, import, seret", "vs.insert.new": "2 klik", "vs.organize": "Kerapian", "vs.organize.old": "File hilang di Downloads", "vs.organize.new": "Klip berwarna per kategori", "vs.cost": "Biaya", "vs.cost.old": "Langganan yang tidak ada habisnya", "vs.cost.new": "Bayar sekali, seumur hidup", "sfx.kicker": "Dengar sebelum beli", "sfx.title": "Suara asli <span class='serif'>dari kit kamu.</span>", "sfx.sub": "Langsung dari library plugin, dimulai dari kategori yang cocok untukmu. Pakai headphone.", "o.ribbon": "Penawaran peluncuran", "o.title": "Kit dropSFX lengkap", "o.who": "dibuat untuk {type}", "o.terms": "Bayar sekali · Akses seumur hidup · Garansi 7 hari", "o.cta": "Ambil kit saya sekarang", "o.secure": "🔒 Pembayaran aman lewat Kiwify · akses langsung lewat e-mail", "o.proof": "<b>1.000+ editor</b> sudah memakai dropSFX", "g.days": "hari", "g.title": "Garansi 7 hari", "g.text": "Instal dan pakai di proyekmu. Kalau tidak cocok, uangmu kembali 100%. Cukup kirim e-mail.", "f.title": "Pertanyaan umum", "ft.redo": "Ulangi kuis", "ft.site": "Lihat situs lengkap", "s.title": "Kit dropSFX kamu", "s.titleName": "Kit {name}", "s.sub": "Seumur hidup · Garansi 7 hari", "s.btn": "Ambil"};
   // textos novos (ajuda de pagamento, volta do checkout), nos 6 idiomas
   (function (X) { for (var k in X) L.pt[k] = X[k]; })({"o.usd": "Aproximado · pagamento único · seu banco cobra na sua moeda", "ck.kicker": "Antes de pagar · 20 segundos", "ck.title": "Como pagar de fora do Brasil", "ck.1": "O pagamento é pela <b>Kiwify</b>, plataforma brasileira. É seguro.", "ck.2": "Toque em <b>“Alterar país”</b> e escolha o seu. Você <b>não precisa de CPF</b>: isso é só pra quem mora no Brasil.", "ck.3": "Pague com <b>cartão Visa ou Mastercard</b>. Seu banco converte pra sua moeda (cerca de <b>{usd}</b>).", "ck.4": "O acesso chega <b>na hora, por e-mail</b>, com o guia de instalação.", "ck.go": "Continuar pro pagamento seguro", "ck.note": "🔒 Pagamento único · Garantia de 7 dias", "ck.tip.in": "<b>Cartões da Índia:</b> ative as <b>transações internacionais online</b> no app do banco antes de pagar.", "ck.tip.id": "<b>Cartões da Indonésia:</b> confira se o Visa/Mastercard está liberado pra <b>pagamentos internacionais online</b>.", "ck.tip.af": "Use um <b>Visa ou Mastercard liberado pra pagamentos internacionais</b>. Cartões só nacionais não passam."});
+  (function (X) { for (var l in X) for (var k in X[l]) L[l][k] = X[l][k]; })({"pt": {"sim.kicker": "Teste antes de comprar", "sim.title": "Teste o plugin <span class='serif'>agora, aqui.</span>", "sim.sub": "Um Premiere de mentira com o painel do dropSFX de verdade: abra uma pasta, ouça, insira na timeline e dê play. Coloca o fone."}, "en": {"sim.kicker": "Try before you buy", "sim.title": "Try the plugin <span class='serif'>right here.</span>", "sim.sub": "A fake Premiere with the real dropSFX panel: open a folder, listen, insert it on the timeline and hit play. Headphones on."}, "es": {"sim.kicker": "Pruébalo antes de comprar", "sim.title": "Prueba el plugin <span class='serif'>aquí mismo.</span>", "sim.sub": "Un Premiere de mentira con el panel real de dropSFX: abre una carpeta, escucha, insértalo en la línea de tiempo y dale play. Ponte los auriculares."}, "hi": {"sim.kicker": "ख़रीदने से पहले आज़माइए", "sim.title": "प्लगइन <span class='serif'>यहीं आज़माइए।</span>", "sim.sub": "नकली Premiere में असली dropSFX पैनल: फ़ोल्डर खोलें, सुनें, टाइमलाइन पर इन्सर्ट करें और प्ले दबाएँ। हेडफ़ोन लगा लें।"}, "fr": {"sim.kicker": "Testez avant d'acheter", "sim.title": "Testez le plugin <span class='serif'>ici même.</span>", "sim.sub": "Un faux Premiere avec le vrai panneau dropSFX : ouvrez un dossier, écoutez, insérez sur la timeline et lancez la lecture. Mettez vos écouteurs."}, "id": {"sim.kicker": "Coba sebelum beli", "sim.title": "Coba pluginnya <span class='serif'>di sini.</span>", "sim.sub": "Premiere tiruan dengan panel dropSFX asli: buka folder, dengarkan, masukkan ke timeline lalu putar. Pakai headphone."}});
   (function (X) { for (var l in X) for (var k in X[l]) L[l][k] = X[l][k]; })({"pt": {"ck.wa": "Travou no pagamento? Chama no WhatsApp", "wa.msg": "Oi! Quero comprar o dropSFX e preciso de ajuda pra pagar.", "bk.kicker": "Você voltou", "bk.title": "Algo travou no checkout?", "bk.sub": "Um toque e a gente mostra como resolver.", "bk.r.declined": "Meu cartão foi recusado", "bk.r.confusing": "Fiquei perdido no checkout", "bk.r.price": "Tá caro pra mim agora", "bk.r.later": "Vou comprar depois", "bk.r.bought": "Já comprei", "bk.a.declined": "<b>O que mais resolve:</b> pague com <b>Pix</b>. Aprova na hora e não depende do limite do cartão. No cartão, dá pra <b>parcelar</b>. Continua dando erro? Chama a gente no WhatsApp que resolvemos com você.", "bk.a.confusing": "Resumindo: <b>1)</b> preencha nome, e-mail e CPF, <b>2)</b> escolha Pix ou cartão, <b>3)</b> pronto. O acesso chega no seu e-mail em segundos.", "bk.a.price": "Justo. Só pra você saber: é <b>pagamento único</b> (menos que 2 meses de Envato ou Artlist), dá pra <b>parcelar no cartão</b>, e você tem <b>7 dias</b> pra pedir 100% de volta se não valer a pena.", "bk.a.later": "Tranquilo. Seu kit fica salvo neste aparelho: é só abrir esta página de novo que ele estará aqui.", "bk.a.bought": "Bem-vindo! O link de acesso chegou no seu e-mail (olhe também o spam). O guia de instalação está aqui:", "bk.retry": "Tentar o checkout de novo", "bk.guide": "Abrir o guia de instalação", "bk.wa": "Falar no WhatsApp"}, "en": {"ck.tip.in": "<b>Indian cards:</b> open your bank app and turn on <b>international online transactions</b> before paying. Most declines in India are just this switch.", "ck.tip.id": "<b>Indonesian cards:</b> make sure your Visa/Mastercard is enabled for <b>international online payments</b> in your bank app.", "ck.tip.af": "Use a <b>Visa or Mastercard enabled for international payments</b>. Local-only cards are not accepted.", "ck.wa": "Stuck paying? Message us on WhatsApp", "wa.msg": "Hi! I want to buy dropSFX and I need help paying.", "bk.kicker": "Welcome back", "bk.title": "Did something go wrong at checkout?", "bk.sub": "One tap and we'll show you how to fix it.", "bk.r.declined": "My card was declined", "bk.r.confusing": "The checkout was confusing", "bk.r.price": "It's too expensive for me right now", "bk.r.later": "I'll buy later", "bk.r.bought": "I already bought it", "bk.a.declined": "<b>This fixes most declines:</b> turn on <b>international online payments</b> in your bank app, then try again. Use a <b>Visa or Mastercard</b> (debit works too). Still declined? Try another card or message us on WhatsApp and we'll sort it out with you.", "bk.a.confusing": "Short version: <b>1)</b> tap <b>Change country</b> and pick yours, <b>2)</b> fill in your name and email, <b>3)</b> pay by card. No CPF needed. Access arrives by email in seconds.", "bk.a.price": "Fair. Just so you know: it's a <b>one-time payment</b> (less than 2 months of Envato or Artlist), and you have <b>7 days</b> to get 100% back if it doesn't pay off.", "bk.a.later": "No problem. Your kit is saved on this device: open this page again and it'll be right here.", "bk.a.bought": "Welcome! Your access link is in your email (check spam too). The install guide is here:", "bk.retry": "Try checkout again", "bk.guide": "Open the install guide", "bk.wa": "Message us on WhatsApp"}, "es": {"ck.tip.in": "<b>Tarjetas de India:</b> abre la app de tu banco y activa las <b>transacciones internacionales en línea</b> antes de pagar.", "ck.tip.id": "<b>Tarjetas de Indonesia:</b> asegúrate de que tu Visa/Mastercard tenga activados los <b>pagos internacionales en línea</b>.", "ck.tip.af": "Usa una <b>Visa o Mastercard habilitada para pagos internacionales</b>. Las tarjetas solo locales no se aceptan.", "ck.wa": "¿Problemas para pagar? Escríbenos por WhatsApp", "wa.msg": "¡Hola! Quiero comprar dropSFX y necesito ayuda para pagar.", "bk.kicker": "Volviste", "bk.title": "¿Algo falló en el checkout?", "bk.sub": "Un toque y te mostramos cómo resolverlo.", "bk.r.declined": "Mi tarjeta fue rechazada", "bk.r.confusing": "El checkout me confundió", "bk.r.price": "Ahora está caro para mí", "bk.r.later": "Compro después", "bk.r.bought": "Ya lo compré", "bk.a.declined": "<b>Esto resuelve la mayoría de los rechazos:</b> activa los <b>pagos internacionales en línea</b> en la app de tu banco e inténtalo de nuevo. Usa <b>Visa o Mastercard</b> (débito también sirve). ¿Sigue fallando? Prueba otra tarjeta o escríbenos por WhatsApp y lo resolvemos contigo.", "bk.a.confusing": "Resumen: <b>1)</b> toca <b>Change country</b> y elige tu país, <b>2)</b> completa nombre y e-mail, <b>3)</b> paga con tarjeta. No necesitas CPF. El acceso llega por e-mail en segundos.", "bk.a.price": "Justo. Para que lo sepas: es un <b>pago único</b> (menos que 2 meses de Envato o Artlist), y tienes <b>7 días</b> para pedir el 100% de vuelta si no vale la pena.", "bk.a.later": "Sin problema. Tu kit queda guardado en este dispositivo: abre esta página otra vez y estará aquí.", "bk.a.bought": "¡Bienvenido! El enlace de acceso está en tu e-mail (revisa también spam). La guía de instalación está aquí:", "bk.retry": "Intentar el checkout de nuevo", "bk.guide": "Abrir la guía de instalación", "bk.wa": "Escribir por WhatsApp"}, "hi": {"ck.tip.in": "<b>भारतीय कार्ड:</b> भुगतान से पहले अपने बैंक ऐप में <b>इंटरनेशनल ऑनलाइन ट्रांज़ैक्शन</b> चालू करें। भारत में ज़्यादातर कार्ड इसी वजह से डिक्लाइन होते हैं।", "ck.tip.id": "<b>इंडोनेशियाई कार्ड:</b> पक्का करें कि आपका Visa/Mastercard <b>इंटरनेशनल ऑनलाइन पेमेंट</b> के लिए चालू है।", "ck.tip.af": "<b>इंटरनेशनल पेमेंट के लिए चालू Visa या Mastercard</b> इस्तेमाल करें। सिर्फ़ लोकल कार्ड स्वीकार नहीं होते।", "ck.wa": "भुगतान में दिक्कत? WhatsApp पर मैसेज करें", "wa.msg": "नमस्ते! मैं dropSFX खरीदना चाहता हूँ और भुगतान में मदद चाहिए।", "bk.kicker": "आप वापस आ गए", "bk.title": "क्या चेकआउट में कुछ गड़बड़ हुई?", "bk.sub": "एक टैप कीजिए, हम बताएँगे कैसे ठीक करें।", "bk.r.declined": "मेरा कार्ड डिक्लाइन हो गया", "bk.r.confusing": "चेकआउट समझ नहीं आया", "bk.r.price": "अभी मेरे लिए महँगा है", "bk.r.later": "बाद में खरीदूँगा", "bk.r.bought": "मैंने खरीद लिया है", "bk.a.declined": "<b>ज़्यादातर मामलों में यह काम करता है:</b> अपने बैंक ऐप में <b>इंटरनेशनल ऑनलाइन ट्रांज़ैक्शन</b> चालू करें और फिर से कोशिश करें। <b>Visa या Mastercard</b> इस्तेमाल करें (डेबिट भी चलता है)। फिर भी दिक्कत? दूसरा कार्ड आज़माएँ या WhatsApp पर मैसेज करें, हम मदद करेंगे।", "bk.a.confusing": "संक्षेप में: <b>1)</b> <b>Change country</b> पर टैप करके अपना देश चुनें, <b>2)</b> नाम और ई-मेल भरें, <b>3)</b> कार्ड से भुगतान करें। CPF की ज़रूरत नहीं। एक्सेस कुछ सेकंड में ई-मेल पर आ जाता है।", "bk.a.price": "ठीक है। बस जान लीजिए: यह <b>एक बार का भुगतान</b> है (Envato या Artlist के 2 महीने से भी कम), और पसंद न आए तो <b>7 दिन</b> में 100% पैसा वापस।", "bk.a.later": "कोई बात नहीं। आपका किट इस डिवाइस पर सेव है: यह पेज दोबारा खोलिए, वह यहीं मिलेगा।", "bk.a.bought": "स्वागत है! एक्सेस लिंक आपके ई-मेल में है (स्पैम भी देखें)। इंस्टॉल गाइड यहाँ है:", "bk.retry": "चेकआउट फिर से आज़माएँ", "bk.guide": "इंस्टॉल गाइड खोलें", "bk.wa": "WhatsApp पर मैसेज करें"}, "fr": {"ck.tip.in": "<b>Cartes indiennes :</b> activez les <b>transactions internationales en ligne</b> dans l'app de votre banque avant de payer.", "ck.tip.id": "<b>Cartes indonésiennes :</b> vérifiez que votre Visa/Mastercard est activée pour les <b>paiements internationaux en ligne</b>.", "ck.tip.af": "Utilisez une <b>carte Visa ou Mastercard activée pour l'international</b>. Les cartes uniquement locales (CIB, Edahabia…) ne sont pas acceptées.", "ck.wa": "Un souci pour payer ? Écrivez-nous sur WhatsApp", "wa.msg": "Bonjour ! Je veux acheter dropSFX et j'ai besoin d'aide pour payer.", "bk.kicker": "Vous êtes revenu", "bk.title": "Un souci au moment de payer ?", "bk.sub": "Un seul clic et on vous montre comment régler ça.", "bk.r.declined": "Ma carte a été refusée", "bk.r.confusing": "Je me suis perdu au paiement", "bk.r.price": "C'est trop cher pour moi en ce moment", "bk.r.later": "J'achèterai plus tard", "bk.r.bought": "J'ai déjà acheté", "bk.a.declined": "<b>Ce qui règle la plupart des refus :</b> activez les <b>paiements internationaux en ligne</b> dans l'app de votre banque, puis réessayez. Utilisez une <b>Visa ou Mastercard</b> (la carte de débit marche aussi). Toujours refusée ? Essayez une autre carte ou écrivez-nous sur WhatsApp, on règle ça avec vous.", "bk.a.confusing": "En bref : <b>1)</b> touchez <b>Change country</b> et choisissez votre pays, <b>2)</b> remplissez nom et e-mail, <b>3)</b> payez par carte. Pas besoin de CPF. L'accès arrive par e-mail en quelques secondes.", "bk.a.price": "Compris. Pour info : c'est un <b>paiement unique</b> (moins que 2 mois d'Envato ou d'Artlist), et vous avez <b>7 jours</b> pour être remboursé à 100 % si ça ne vaut pas le coup.", "bk.a.later": "Pas de souci. Votre kit est enregistré sur cet appareil : rouvrez cette page et il sera là.", "bk.a.bought": "Bienvenue ! Le lien d'accès est dans vos e-mails (regardez aussi les spams). Le guide d'installation est ici :", "bk.retry": "Réessayer le paiement", "bk.guide": "Ouvrir le guide d'installation", "bk.wa": "Écrire sur WhatsApp"}, "id": {"ck.tip.in": "<b>Kartu India:</b> aktifkan <b>transaksi online internasional</b> di aplikasi bank sebelum membayar.", "ck.tip.id": "<b>Kartu Indonesia:</b> pastikan Visa/Mastercard kamu sudah aktif untuk <b>pembayaran online internasional</b> (cek di aplikasi bank).", "ck.tip.af": "Gunakan <b>Visa atau Mastercard yang aktif untuk pembayaran internasional</b>. Kartu khusus lokal tidak diterima.", "ck.wa": "Kesulitan bayar? Chat kami di WhatsApp", "wa.msg": "Halo! Saya mau beli dropSFX dan butuh bantuan untuk bayar.", "bk.kicker": "Kamu kembali", "bk.title": "Ada kendala saat checkout?", "bk.sub": "Ketuk sekali, kami tunjukkan cara mengatasinya.", "bk.r.declined": "Kartu saya ditolak", "bk.r.confusing": "Checkout-nya membingungkan", "bk.r.price": "Terlalu mahal untuk saya sekarang", "bk.r.later": "Nanti saja belinya", "bk.r.bought": "Saya sudah beli", "bk.a.declined": "<b>Ini yang paling sering berhasil:</b> aktifkan <b>pembayaran online internasional</b> di aplikasi bank, lalu coba lagi. Pakai <b>Visa atau Mastercard</b> (kartu debit juga bisa). Masih ditolak? Coba kartu lain atau chat kami di WhatsApp, kami bantu sampai beres.", "bk.a.confusing": "Singkatnya: <b>1)</b> ketuk <b>Change country</b> dan pilih negaramu, <b>2)</b> isi nama dan e-mail, <b>3)</b> bayar pakai kartu. Tidak perlu CPF. Akses dikirim ke e-mail dalam hitungan detik.", "bk.a.price": "Wajar. Sekadar info: ini <b>bayar sekali</b> (lebih murah dari 2 bulan Envato atau Artlist), dan kamu punya <b>7 hari</b> untuk minta uang kembali 100% kalau tidak sepadan.", "bk.a.later": "Tidak masalah. Kit kamu tersimpan di perangkat ini: buka halaman ini lagi dan kit-nya ada di sini.", "bk.a.bought": "Selamat datang! Link akses ada di e-mail kamu (cek juga folder spam). Panduan instalasinya di sini:", "bk.retry": "Coba checkout lagi", "bk.guide": "Buka panduan instalasi", "bk.wa": "Chat di WhatsApp"}});
   FAQ.fr = {"faq.q1": "Ça fonctionne sur quels logiciels ?", "faq.a1": "Premiere Pro (CC 2020 et plus récent), After Effects et DaVinci Resolve Studio, sur Mac (Intel et Apple Silicon) et Windows 10/11. Sur DaVinci, il faut la version Studio.", "faq.q2": "Comment j'insère un son sur la timeline ?", "faq.a2": "Comme vous préférez : un double-clic place le son à la tête de lecture, ou utilisez le bouton Insérer. Au clavier, les flèches naviguent et Entrée insère ; Maj+Entrée le place à votre point d'entrée. Et vous choisissez le gain (-12 / 0 / +6 dB) avant d'insérer.", "faq.q3": "Je peux écouter avant d'insérer ?", "faq.a3": "Oui. Il suffit de survoler le son (sans cliquer) et il joue tout de suite, avec sa forme d'onde. C'est le moyen le plus rapide de passer en revue plein de sons et de trouver le bon.", "faq.q4": "C'est un paiement unique ou un abonnement ?", "faq.a4": "100 % paiement unique. Vous achetez une fois et l'utilisez pour toujours, sans abonnement ni renouvellement. Le prix actuel s'affiche sur la page de paiement.", "faq.q5": "Je peux l'utiliser dans des projets commerciaux ?", "faq.a5": "Oui. Tous les sons sont 100 % libres de droits pour tout usage commercial : YouTube monétisé, pubs, films, jingles, jeux.", "faq.q6": "Je peux créer des dossiers et importer mes sons ?", "faq.a6": "Oui. En plus des 18 catégories prêtes, vous créez vos propres dossiers en couleur, importez vos audios et glissez des sons d'un dossier à l'autre. Le panneau crée aussi un onglet \"Top\" avec les sons que vous utilisez le plus.", "faq.q7": "Sur combien de machines je peux l'installer ?", "faq.a7": "Jusqu'à 2 machines en même temps, Mac et/ou Windows. Vous pouvez désactiver et changer quand vous voulez.", "faq.q8": "Comment je reçois le produit ?", "faq.a8": "Accès immédiat. Après le paiement, vous recevez par e-mail le lien de téléchargement et vos identifiants. Connectez-vous au panneau et toute la bibliothèque est disponible.", "faq.q9": "Et si ça ne me plaît pas ?", "faq.a9": "7 jours pour tester. Si ça ne vous convient pas, on rembourse 100 %. Un simple e-mail suffit, sans questionnaire."};
   FAQ.id = {"faq.q1": "Bisa dipakai di software apa saja?", "faq.a1": "Premiere Pro (CC 2020 ke atas), After Effects dan DaVinci Resolve Studio, di Mac (Intel dan Apple Silicon) dan Windows 10/11. Untuk DaVinci, harus versi Studio.", "faq.q2": "Bagaimana cara memasukkan suara ke timeline?", "faq.a2": "Terserah kamu: klik dua kali untuk menaruh suara di playhead, atau pakai tombol Insert. Dengan keyboard, panah untuk navigasi dan Enter untuk memasukkan; Shift+Enter menaruhnya di in-point kamu. Gain (-12 / 0 / +6 dB) juga bisa dipilih sebelum dimasukkan.", "faq.q3": "Bisa dengar dulu sebelum dimasukkan?", "faq.a3": "Bisa. Cukup arahkan kursor ke suara (tanpa klik) dan langsung bunyi, lengkap dengan waveform. Cara tercepat menyaring banyak suara dan menemukan yang pas.", "faq.q4": "Bayar sekali atau langganan?", "faq.a4": "100% bayar sekali. Beli sekali, pakai selamanya, tanpa langganan dan tanpa perpanjangan. Harga saat ini tampil di halaman checkout.", "faq.q5": "Boleh dipakai untuk proyek komersial?", "faq.a5": "Boleh. Semua suara 100% bebas royalti untuk penggunaan komersial apa pun: YouTube yang dimonetisasi, iklan, film, jingle, game.", "faq.q6": "Bisa bikin folder dan import suara sendiri?", "faq.a6": "Bisa. Selain 18 kategori bawaan, kamu bisa bikin folder berwarna sendiri, import audio milikmu dan menyeret suara antar folder. Panel juga membuat tab \"Top\" berisi suara yang paling sering kamu pakai.", "faq.q7": "Bisa diinstal di berapa perangkat?", "faq.a7": "Sampai 2 perangkat sekaligus, Mac dan/atau Windows. Bisa dinonaktifkan dan dipindah kapan saja.", "faq.q8": "Bagaimana saya menerima produknya?", "faq.a8": "Akses langsung. Setelah bayar, kamu menerima e-mail berisi link download dan data akun. Login di panel dan seluruh library langsung tersedia.", "faq.q9": "Kalau saya tidak suka?", "faq.a9": "Ada 7 hari untuk mencoba. Kalau tidak cocok, uang kembali 100%. Cukup kirim e-mail, tanpa kuesioner."};
@@ -1608,12 +1708,24 @@
 
     // categorias reais da biblioteca: [quantidade de sons, cor]
     var CATS = {
-      whooshes: [436, '#2dd4bf'], foley: [231, '#06b6d4'], hits: [196, '#f87171'], drops: [192, '#a78bfa'],
-      tonal: [185, '#fde047'], clicks: [169, '#38bdf8'], camera: [139, '#94a3b8'], ambient: [124, '#86efac'],
-      transitions: [110, '#facc15'], risers: [110, '#fb923c'], nature: [77, '#65a30d'], memes: [71, '#f472b6'],
-      elements: [69, '#d97706'], glitches: [65, '#60a5fa'], guns: [58, '#ef4444'], hud: [55, '#22d3ee'],
-      slowmo: [50, '#c4b5fd'], retro: [34, '#b45309']
+      whooshes: [436, '#2dd4bf'], foley: [231, '#fb923c'], hits: [196, '#f87171'], drops: [192, '#a78bfa'],
+      tonal: [185, '#38bdf8'], clicks: [169, '#facc15'], camera: [139, '#94a3b8'], ambient: [124, '#818cf8'],
+      transitions: [110, '#22d3ee'], risers: [110, '#a3e635'], nature: [77, '#4ade80'], memes: [71, '#f472b6'],
+      elements: [69, '#f59e0b'], glitches: [65, '#34d399'], guns: [58, '#ef4444'], hud: [55, '#60a5fa'],
+      slowmo: [50, '#c084fc'], retro: [34, '#d6bb8c']
     };
+    var CAT_IC = {
+      whooshes: '<path d="M3 8h10a3 3 0 100-6M3 12h14a3 3 0 110 6M3 16h6"/>', foley: '<rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 17v5M8 22h8"/>',
+      hits: '<path d="M12 2l2 6 6-2-4 5 5 4-6 1 1 6-4-4-4 4 1-6-6-1 5-4-4-5 6 2z"/>', drops: '<path d="M12 2l4 6-4 14-4-14z"/><path d="M2 8h20"/>',
+      tonal: '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>', clicks: '<path d="M4 4l7 17 2.5-7L21 11.5z"/>',
+      camera: '<path d="M23 7l-7 5 7 5z"/><rect x="1" y="5" width="15" height="14" rx="2"/>', ambient: '<path d="M3 21h18M5 21V8l5-4v17M14 21V10l5 3v8"/>',
+      transitions: '<path d="M7 7h13M17 4l3 3-3 3M17 17H4M7 14l-3 3 3 3"/>', risers: '<path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/>',
+      nature: '<path d="M11 20A7 7 0 014 13c0-4 3-8 8-10 0 0 8 2 8 10a7 7 0 01-7 7z"/><path d="M12 21v-9"/>', memes: '<circle cx="12" cy="12" r="9"/><path d="M8 10h.01M16 10h.01M8 15s1.5 2 4 2 4-2 4-2"/>',
+      elements: '<path d="M12 2c2 4 6 6 6 11a6 6 0 11-12 0c0-5 4-7 6-11z"/>', glitches: '<path d="M13 2L4 14h6l-1 8 9-12h-6z"/>',
+      guns: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/>', hud: '<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>',
+      slowmo: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>', retro: '<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M8 2l4 4 4-4M8 11v3M12 10v5M16 12v2"/>'
+    };
+    function catIc(id) { return '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + (CAT_IC[id] || CAT_IC.tonal) + '</svg>'; }
     // id do kit → pasta dos previews (assets/sfx)
     var SFX_CAT = { ambient: 'ambientes', nature: 'natureza', tonal: 'tonalidade' };
     // "famílias" que a pessoa escolhe no quiz → categorias da biblioteca
@@ -2024,10 +2136,10 @@
       var names = CAT_NAMES[lang] || CAT_NAMES.pt;
       $('kitGrid').innerHTML = picks.map(function (p, i) {
         return '<div class="kc" style="--c:' + p.color + ';animation-delay:' + (i * 70) + 'ms">' +
-          '<div class="kc-top"><span class="kc-dot"></span><span class="kc-n"><b>' + p.n + '</b> ' + esc(t('r.kitCount').replace('{n}', '').trim()) + '</span></div>' +
+          '<div class="kc-ic">' + catIc(p.id) + '</div><div class="kc-deco" aria-hidden="true"><i style="height:45%"></i><i style="height:80%"></i><i style="height:60%"></i><i style="height:100%"></i></div>' +
           '<div class="kc-name">' + esc(names[p.id] || p.id) + '</div>' +
-          '<div class="kc-why">' + esc(p.why) + '</div>' +
-          '<div class="kc-wave" aria-hidden="true">' + wave(p.n + i) + '</div></div>';
+          '<div class="kc-n"><b>' + p.n + '</b> ' + esc(t('r.kitCount').replace('{n}', '').trim()) + '</div>' +
+          '<div class="kc-why">' + esc(p.why) + '</div></div>';
       }).join('');
       $('kitMore').innerHTML = t('r.kitMore');
 
@@ -2070,25 +2182,48 @@
 
       [].forEach.call(document.querySelectorAll('.js-cta'), function (el) { el.href = checkoutUrl(el.getAttribute('data-pos')); });
 
-      // pré-escuta com sons reais, começando pelas categorias do kit
+      // simulador: o painel do plugin rodando num "Premiere", começando pelas categorias do kit
       var prio = picks.map(function (p) { return SFX_CAT[p.id] || p.id; }), prioKey = prio.join(',');
-      if (window.DropSFXPlayer) {
-        if (!sfxPlayer) {
-          sfxPlayer = DropSFXPlayer.mount($('sfxPlayer'), {
-            lang: lang, priority: prio, max: 8,
-            onPlay: function (id, cat) { TR.ev('sfx_play', id, { cat: cat }); },
-            onTab: function (tab) { TR.ev('sfx_tab', tab); }
-          });
-        } else {
-          sfxPlayer.setLang(lang);
-          if (prioKey !== sfxPrioKey) sfxPlayer.setPriority(prio);
-        }
-        sfxPrioKey = prioKey;
-      }
+      mountSim(prioKey);
       $('vidSound').lastChild.textContent = t(vid.muted ? 'v.on' : 'v.off');
     }
 
-    var resultWired = false, sfxPlayer = null, sfxPrioKey = '';
+    var resultWired = false, simKey = null, simObs = null;
+    function simSrc(k) { return '/simulador/?embed=1&lang=' + lang + '&prio=' + encodeURIComponent(k); }
+    function mountSim(k) {
+      var f = $('simFrame');
+      if (simKey === k) { try { f.contentWindow.postMessage({ type: 'dropsfx-sim-cmd', lang: lang }, '*'); } catch (e) {} return; }
+      var loadNow = simKey !== null && f.getAttribute('src');
+      simKey = k;
+      if (loadNow) { f.src = simSrc(k); return; }
+      if (simObs) simObs.disconnect();
+      if ('IntersectionObserver' in window) {
+        simObs = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { f.src = simSrc(simKey); simObs.disconnect(); } }, { rootMargin: '900px 0px' });
+        simObs.observe(f);
+      } else f.src = simSrc(k);
+    }
+    // eventos que o simulador manda (rastreio + rolagem no celular)
+    window.addEventListener('message', function (e) {
+      var f = $('simFrame'), d = e.data || {};
+      if (!f || e.source !== f.contentWindow || d.type !== 'dropsfx-sim') return;
+      var x = d.data || {};
+      switch (d.ev) {
+        case 'height': if (window.innerWidth < 860 && x.h > 400) f.style.height = x.h + 'px'; else f.style.height = ''; break;
+        case 'ready': TR.ev('sim_ready'); break;
+        case 'open_folder': TR.ev('sim_folder', x.cat); break;
+        case 'sfx_play': TR.ev('sfx_play', x.id, { cat: x.cat, hover: !!x.hover }); break;
+        case 'insert': TR.ev('sim_insert', x.id, x); pixel('SimInsert', { cat: x.cat }); break;
+        case 'play': TR.ev('sim_play', null, x); break;
+        case 'demo': TR.ev('sim_demo'); break;
+        case 'step': TR.ev('sim_step', String(x.n)); break;
+        case 'community': TR.ev('sim_community'); break;
+        case 'reveal': window.scrollTo({ top: f.getBoundingClientRect().top + window.scrollY + (x.y || 0) - 70, behavior: 'smooth' }); break;
+        case 'cta':
+          TR.ev('sim_cta', x.cat || null, null, true);
+          var o = document.getElementById('oferta'); if (o) window.scrollTo({ top: o.getBoundingClientRect().top + window.scrollY - 40, behavior: 'smooth' });
+          break;
+      }
+    });
     function showResult(mode) {
       show('result');
       renderResult();
@@ -2195,6 +2330,10 @@
           var e = es[0];
           sticky.classList.toggle('show', screen === 'result' && !e.isIntersecting && e.boundingClientRect.top < 0);
         }).observe(first);
+        // some enquanto o simulador está na tela (não cobrir a timeline)
+        new IntersectionObserver(function (es) {
+          document.body.classList.toggle('sim-on', es[0].isIntersecting);
+        }, { threshold: .25 }).observe($('simFrame'));
         // some quando o card da oferta está na tela
         new IntersectionObserver(function (es) {
           if (es[0].isIntersecting) sticky.classList.remove('show');

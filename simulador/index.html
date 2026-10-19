@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="theme-color" content="#000000"/>
+<title>dropSFX · Teste o plugin no navegador</title>
+<meta name="description" content="Um Premiere de mentira com o painel do dropSFX funcionando de verdade: ouça os sons, insira na timeline e dê play. Direto no navegador."/>
+<meta property="og:title" content="dropSFX · Teste o plugin no navegador"/>
+<meta property="og:description" content="Ouça, insira na timeline e dê play. O painel do dropSFX rodando direto no navegador."/>
+<meta property="og:image" content="https://www.dropsfx.com.br/assets/og-image.jpg"/>
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- o CSS real do painel do plugin (v2.6.3) -->
+<link rel="stylesheet" href="plugin.css"/>
+<style>
+  /* ====== ajustes do CSS do plugin pra rodar dentro do "Premiere" ====== */
+  :root{ --font:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI','Nirmala UI','Noto Sans Devanagari','Helvetica Neue',Arial,sans-serif; }
+  html,body{height:auto;min-height:100%;}
+  body{overflow:hidden;background:#000;}
+  body.standalone{overflow:auto;}
+  .pr-plugin #app{height:100%;}
+  .pr-plugin #app::before{display:block;}
+  .pr-plugin .fcard{background:var(--g, rgba(255,255,255,.04));border-color:var(--b, rgba(255,255,255,.1));}
+  .pr-plugin .file-item.locked{cursor:default;opacity:.42;}
+  .pr-plugin .file-item.locked:hover{background:transparent;}
+  .pr-plugin .file-item.locked .file-mini-bars{border-style:dashed;}
+  .lock-ic{margin-left:6px;color:var(--txt-3);flex-shrink:0;}
+  .more-strip{margin:10px 14px 4px;padding:12px 13px;border-radius:13px;border:1px solid rgba(91,138,255,.28);background:var(--accent-dim);display:flex;align-items:center;gap:10px;}
+  .more-strip b{display:block;font-size:12px;color:var(--txt);}
+  .more-strip span{font-size:10.5px;color:var(--txt-2);}
+  .more-strip button{margin-left:auto;flex-shrink:0;height:30px;padding:0 12px;border:none;border-radius:10px;background:var(--accent);color:#fff;font:700 11px var(--font);cursor:pointer;}
+  .fcard .prio{position:absolute;left:12px;top:-1px;font-size:8px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#fff;background:var(--c);padding:2px 6px 3px;border-radius:0 0 6px 6px;}
+  .file-item[draggable="true"]{cursor:grab;}
+  .file-item .dur-pill{font-variant-numeric:tabular-nums;}
+
+  /* ====== o "Premiere" ====== */
+  .sim{position:relative;display:flex;flex-direction:column;height:100vh;height:100dvh;background:#000;color:#b9b9bf;font-family:var(--font);}
+  body.embed .sim{height:var(--h,660px);}
+  .pr-steps{display:flex;align-items:center;gap:6px;padding:8px 10px;overflow-x:auto;scrollbar-width:none;flex-shrink:0;}
+  .pr-steps::-webkit-scrollbar{display:none;}
+  .pr-step{display:flex;align-items:center;gap:7px;padding:6px 11px 6px 7px;border-radius:99px;border:1px solid var(--line-2);background:var(--card);font-size:11.5px;font-weight:600;color:var(--txt-2);white-space:nowrap;transition:.25s;}
+  .pr-step i{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:10px;font-weight:800;background:rgba(255,255,255,.08);color:var(--txt-2);transition:.25s;}
+  .pr-step.now{border-color:var(--accent);color:var(--txt);background:var(--accent-dim);}
+  .pr-step.now i{background:var(--accent);color:#fff;}
+  .pr-step.done{color:var(--green);border-color:rgba(48,209,88,.35);background:var(--green-soft);}
+  .pr-step.done i{background:var(--green);color:#000;}
+  .pr-steps .pr-sp{flex:1;min-width:8px;}
+  .pr-ex{flex-shrink:0;height:30px;padding:0 12px;border-radius:10px;border:1px solid var(--line-2);background:var(--card);color:var(--txt);font:600 11.5px var(--font);cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap;}
+  .pr-ex:hover{border-color:var(--accent);background:var(--accent-dim);}
+
+  .pr-win{flex:1;min-height:0;display:flex;flex-direction:column;border:1px solid #2a2a2e;border-radius:12px;overflow:hidden;background:#0e0e10;margin:0 10px 10px;box-shadow:0 30px 80px -30px rgba(59,110,245,.35);}
+  .pr-top{height:34px;flex-shrink:0;display:flex;align-items:center;gap:14px;padding:0 12px;background:#151517;border-bottom:1px solid #000;font-size:12px;}
+  .pr-top .dots{display:flex;gap:6px;}
+  .pr-top .dots i{width:10px;height:10px;border-radius:50%;background:#3a3a3e;}
+  .pr-top .dots i:nth-child(1){background:#ff5f57}.pr-top .dots i:nth-child(2){background:#febc2e}.pr-top .dots i:nth-child(3){background:#28c840}
+  .pr-top nav{display:flex;gap:2px;}
+  .pr-top nav span{padding:4px 9px;border-radius:6px;color:#8f8f96;}
+  .pr-top nav span.on{color:#fff;background:#2a2a2e;}
+  .pr-top .ttl{flex:1;text-align:center;color:#8f8f96;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .pr-top .sim-tag{font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--accent-hi);background:var(--accent-dim);padding:3px 8px;border-radius:99px;}
+
+  .pr-work{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,340px);gap:3px;background:#000;padding:3px;}
+  .pr-left{min-width:0;min-height:0;display:grid;grid-template-rows:minmax(0,1fr) auto;gap:3px;}
+  .pr-pane{background:#1b1b1e;border-radius:6px;display:flex;flex-direction:column;min-height:0;overflow:hidden;}
+  .pr-tab{height:26px;flex-shrink:0;display:flex;align-items:center;gap:14px;padding:0 10px;font-size:11px;border-bottom:1px solid #111;color:#77777e;white-space:nowrap;overflow:hidden;}
+  .pr-tab b{color:#d8d8dd;font-weight:600;display:flex;align-items:center;gap:6px;}
+  .pr-tab b::after{content:'≡';color:#77777e;font-weight:400;}
+
+  /* monitor */
+  .pr-screen{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:8px;background:#141416;position:relative;}
+  .pr-screen canvas{max-width:100%;max-height:100%;aspect-ratio:16/9;width:auto;height:100%;background:#000;border-radius:2px;box-shadow:0 0 0 1px #000;}
+  .pr-mon-bar{height:52px;flex-shrink:0;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 10px;border-top:1px solid #111;}
+  .pr-tc{font:600 12px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#4ea1ff;letter-spacing:.3px;}
+  .pr-dur{justify-self:end;font:500 11px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#77777e;}
+  .pr-trans{display:flex;align-items:center;gap:6px;}
+  .pr-tbtn{width:30px;height:30px;border-radius:8px;border:none;background:transparent;color:#b9b9bf;display:grid;place-items:center;cursor:pointer;}
+  .pr-tbtn:hover{background:#2a2a2e;color:#fff;}
+  .pr-tbtn.play{width:38px;height:38px;border-radius:50%;background:#fff;color:#000;}
+  .pr-tbtn.play:hover{background:#fff;transform:scale(1.06);}
+  .pr-tbtn.play.pulse{animation:pulse 1.4s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(59,110,245,.7)}50%{box-shadow:0 0 0 9px rgba(59,110,245,0)}}
+
+  /* timeline */
+  .pr-tl-top{display:flex;align-items:center;gap:12px;padding:6px 10px 4px;flex-shrink:0;}
+  .pr-tl-top .pr-tc{font-size:15px;}
+  .pr-tools{display:flex;gap:2px;color:#77777e;}
+  .pr-tools span{width:24px;height:22px;display:grid;place-items:center;border-radius:5px;}
+  .pr-tools span.on{background:#2a2a2e;color:#4ea1ff;}
+  .pr-tl-top .pr-sp{flex:1;}
+  .pr-mini{height:24px;padding:0 9px;border-radius:7px;border:1px solid #333;background:#232326;color:#b9b9bf;font:600 10.5px var(--font);cursor:pointer;display:flex;align-items:center;gap:5px;}
+  .pr-mini:hover{color:#fff;border-color:#4a4a50;}
+  .pr-mini[hidden]{display:none;}
+  .pr-tl-body{display:grid;grid-template-columns:118px minmax(0,1fr) 22px;min-height:0;position:relative;}
+  .pr-heads{display:flex;flex-direction:column;border-right:1px solid #111;}
+  .pr-heads .rul{height:24px;border-bottom:1px solid #111;}
+  .pr-h{height:var(--th,30px);display:flex;align-items:center;gap:6px;padding:0 8px;border-bottom:1px solid #111;font-size:10px;color:#6f6f76;}
+  .pr-h.v{height:var(--tv,34px);}
+  .pr-h .lk{opacity:.6;}
+  .pr-h .nm{min-width:24px;height:18px;display:grid;place-items:center;border-radius:5px;background:#2a2a2e;color:#9a9aa2;font-weight:700;font-size:10px;padding:0 4px;}
+  .pr-h.tgt .nm{background:#2d72ff;color:#fff;}
+  .pr-h .ms{margin-left:auto;display:flex;gap:6px;font-weight:700;}
+  .pr-lanes{position:relative;min-width:0;overflow:hidden;cursor:default;}
+  .pr-ruler{height:24px;border-bottom:1px solid #111;position:relative;cursor:pointer;background:#19191c;}
+  .pr-ruler .tk{position:absolute;bottom:0;width:1px;background:#3d3d42;height:5px;}
+  .pr-ruler .tk.m{height:9px;background:#56565c;}
+  .pr-ruler .lb{position:absolute;top:3px;font:500 9px/1 ui-monospace,Menlo,Consolas,monospace;color:#77777e;transform:translateX(-50%);white-space:nowrap;}
+  .pr-mk{position:absolute;top:0;width:12px;margin-left:-6px;height:13px;cursor:help;z-index:3;}
+  .pr-mk::before{content:'';position:absolute;inset:0 1px 3px;background:var(--mc);clip-path:polygon(0 0,100% 0,100% 62%,50% 100%,0 62%);}
+  .pr-mk:hover::after{content:attr(data-t);position:absolute;top:15px;left:50%;transform:translateX(-50%);background:#0b0b0d;border:1px solid #333;color:#fff;font:600 10px var(--font);padding:4px 7px;border-radius:6px;white-space:nowrap;z-index:9;}
+  .pr-mkline{position:absolute;top:24px;bottom:0;width:0;border-left:1px dashed;opacity:.22;pointer-events:none;z-index:1;}
+  .pr-lane{position:relative;height:var(--th,30px);border-bottom:1px solid #111;background:#1d1d20;}
+  .pr-lane.v{height:var(--tv,34px);background:#1a1a1d;}
+  .pr-lane.drop{background:rgba(45,114,255,.14);}
+  .pr-lane.tgt{background:#202027;}
+  .pr-clip{position:absolute;top:2px;bottom:2px;border-radius:4px;overflow:hidden;cursor:grab;background:var(--cc);box-shadow:inset 0 0 0 1px rgba(0,0,0,.35);touch-action:none;}
+  .pr-clip canvas{position:absolute;inset:11px 0 0 0;width:100%;height:calc(100% - 11px);opacity:.85;}
+  .pr-clip .cn{position:absolute;left:4px;right:4px;top:1px;font:600 9px/10px var(--font);color:rgba(0,0,0,.78);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .pr-clip .cg{position:absolute;right:3px;top:1px;font:800 8px/10px var(--font);color:rgba(0,0,0,.7);}
+  .pr-clip.sel{box-shadow:inset 0 0 0 2px #fff;}
+  .pr-clip.ghost{opacity:.55;pointer-events:none;outline:1px dashed #fff;}
+  .pr-clip.new{animation:clipIn .45s cubic-bezier(.2,.9,.3,1.3);}
+  @keyframes clipIn{from{transform:scaleY(.2);opacity:0}to{transform:none;opacity:1}}
+  .pr-clip .cx{position:absolute;right:2px;bottom:2px;width:16px;height:16px;border-radius:4px;border:none;background:rgba(0,0,0,.55);color:#fff;font-size:11px;line-height:16px;display:none;cursor:pointer;padding:0;}
+  .pr-clip.sel .cx{display:block;}
+  .pr-vclip{position:absolute;top:2px;bottom:2px;border-radius:4px;background:#5d6fd6;box-shadow:inset 0 0 0 1px rgba(0,0,0,.4);overflow:hidden;}
+  .pr-vclip span{position:absolute;left:5px;top:3px;font:600 9px var(--font);color:rgba(0,0,0,.75);white-space:nowrap;}
+  .pr-vclip i{position:absolute;left:0;top:14px;bottom:0;width:100%;background:repeating-linear-gradient(90deg,rgba(0,0,0,.18) 0 22px,rgba(255,255,255,.08) 22px 44px);}
+  .pr-ph{position:absolute;top:0;bottom:0;width:0;z-index:5;pointer-events:none;}
+  .pr-ph::before{content:'';position:absolute;top:0;left:-6px;width:12px;height:14px;background:#4ea1ff;clip-path:polygon(0 0,100% 0,100% 55%,50% 100%,0 55%);}
+  .pr-ph::after{content:'';position:absolute;top:13px;bottom:0;left:-.5px;width:1px;background:#4ea1ff;}
+  .pr-meter{display:flex;gap:3px;padding:26px 5px 4px;background:#151517;}
+  .pr-meter i{flex:1;background:#262629;border-radius:2px;position:relative;overflow:hidden;}
+  .pr-meter i::after{content:'';position:absolute;left:0;right:0;bottom:0;height:var(--l,0%);background:linear-gradient(0deg,#28c840 0%,#28c840 70%,#febc2e 86%,#ff5f57 100%);background-size:100% var(--mh,100px);background-position:bottom;transition:height .06s linear;}
+  #toast-wrap{left:auto;right:24px;transform:none;bottom:126px;align-items:flex-end;}
+  .sim.compact ~ #toast-wrap{left:50%;right:auto;transform:translateX(-50%);align-items:center;bottom:16px;position:fixed;}
+  .pr-hint{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);background:rgba(10,10,12,.9);border:1px solid #333;color:#d8d8dd;font:600 11px var(--font);padding:6px 10px;border-radius:8px;pointer-events:none;white-space:nowrap;opacity:0;transition:.3s;z-index:8;}
+  .pr-hint.show{opacity:1;}
+
+  /* painel */
+  .pr-panel{min-height:0;display:flex;flex-direction:column;background:#000;border-radius:6px;overflow:hidden;}
+  .pr-panel .pr-tab{background:#151517;}
+  .pr-plugin{flex:1;min-height:0;position:relative;}
+
+  @media (max-height: 820px) { .pr-plugin .waveform-wrap{height:38px;} .pr-plugin .time-row{padding:4px 2px 6px;} .pr-plugin .header{padding:10px 14px 6px;} }
+  /* ====== compacto (celular / iframe estreito) ====== */
+  .sim.compact .pr-work{display:flex;flex-direction:column;}
+  .sim.compact .pr-left{display:flex;flex-direction:column;}
+  .sim.compact .pr-mon{flex-shrink:0;}
+  .sim.compact .pr-screen{flex:none;padding:0;background:#000;}
+  .sim.compact .pr-screen canvas{width:100%;height:auto;}
+  .sim.compact .pr-mon-bar{height:46px;}
+  .sim.compact .pr-tl-body{grid-template-columns:52px minmax(0,1fr) 14px;}
+  .sim.compact .pr-h{padding:0 5px;}
+  .sim.compact .pr-h .lk,.sim.compact .pr-h .ms{display:none;}
+  .sim.compact .pr-tools{display:none;}
+  .sim.compact .pr-meter{padding:26px 3px 4px;gap:2px;}
+  .sim.compact .pr-panel{flex:none;height:var(--ph,600px);}
+  .sim.compact .pr-top nav,.sim.compact .pr-top .dots{display:none;}
+  .sim.compact .pr-win{margin:0 6px 6px;}
+  .sim.compact .pr-steps{padding:8px 6px;}
+  .sim.compact{height:auto;}
+  body.embed .sim.compact{height:auto;}
+
+  /* página aberta direto (fora do funil) */
+  .solo-head{display:none;}
+  body.standalone .solo-head{display:flex;align-items:center;gap:14px;padding:14px 16px 6px;}
+  .solo-head img{height:22px;}
+  .solo-head p{flex:1;font-size:13px;color:var(--txt-2);}
+  .solo-head a{height:36px;padding:0 16px;border-radius:11px;background:linear-gradient(180deg,var(--accent-hi),var(--accent));color:#fff;font:800 12.5px var(--font);display:flex;align-items:center;text-decoration:none;white-space:nowrap;}
+  @media (max-width:560px){ body.standalone .solo-head p{display:none;} body.standalone .solo-head{justify-content:space-between;} }
+</style>
+</head>
+<body>
+<div class="sim" id="sim">
+  <header class="solo-head">
+    <img src="logo.webp" alt="dropSFX"/>
+    <p data-t="solo.sub"></p>
+    <a href="/comecar/?ref=simulador" id="soloCta" data-t="solo.cta"></a>
+  </header>
+
+  <div class="pr-steps" id="steps">
+    <span class="pr-step" data-s="1"><i>1</i><span data-t="st.1"></span></span>
+    <span class="pr-step" data-s="2"><i>2</i><span id="st2"></span></span>
+    <span class="pr-step" data-s="3"><i>3</i><span data-t="st.3"></span></span>
+    <span class="pr-step" data-s="4"><i>4</i><span data-t="st.4"></span></span>
+    <span class="pr-sp"></span>
+    <button type="button" class="pr-ex" id="btnDemo">✦ <span data-t="demo"></span></button>
+  </div>
+
+  <div class="pr-win" id="win">
+    <div class="pr-top">
+      <span class="dots"><i></i><i></i><i></i></span>
+      <nav><span data-t="m.import"></span><span class="on" data-t="m.edit"></span><span data-t="m.export"></span></nav>
+      <span class="ttl" id="winTitle"></span>
+      <span class="sim-tag" data-t="simtag"></span>
+    </div>
+
+    <div class="pr-work">
+      <div class="pr-left">
+        <section class="pr-pane pr-mon">
+          <div class="pr-tab"><b data-t="program"></b></div>
+          <div class="pr-screen"><canvas id="vid" width="960" height="540"></canvas></div>
+          <div class="pr-mon-bar">
+            <span class="pr-tc" id="tcMon">00:00:00:00</span>
+            <div class="pr-trans">
+              <button type="button" class="pr-tbtn" id="btnStart" aria-label="Início"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+              <button type="button" class="pr-tbtn" id="btnBack" aria-label="-1 frame"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M15 6v12L7 12z"/></svg></button>
+              <button type="button" class="pr-tbtn play" id="btnPlay" aria-label="Play"><svg id="icoPlay" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg></button>
+              <button type="button" class="pr-tbtn" id="btnFwd" aria-label="+1 frame"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 6v12l8-6z"/></svg></button>
+            </div>
+            <span class="pr-dur" id="durMon">00:00:12:00</span>
+          </div>
+        </section>
+
+        <section class="pr-pane pr-tl" id="tl">
+          <div class="pr-tab"><b id="seqName"></b></div>
+          <div class="pr-tl-top">
+            <span class="pr-tc" id="tcTl">00:00:00:00</span>
+            <span class="pr-tools">
+              <span class="on"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-6 1.5L9.5 20z"/></svg></span>
+              <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M8 8l-4 4 4 4M16 8l4 4-4 4"/></svg></span>
+              <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3l12 18M18 3L6 21"/></svg></span>
+              <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></span>
+            </span>
+            <span class="pr-sp"></span>
+            <button type="button" class="pr-mini" id="btnClear" hidden>✕ <span data-t="clear"></span></button>
+          </div>
+          <div class="pr-tl-body" id="tlBody">
+            <div class="pr-heads" id="heads"></div>
+            <div class="pr-lanes" id="lanes"></div>
+            <div class="pr-meter" id="meter"><i></i><i></i></div>
+            <div class="pr-hint" id="tlHint"></div>
+          </div>
+        </section>
+      </div>
+
+      <aside class="pr-panel">
+        <div class="pr-tab"><b>DropSFX</b><span data-t="tab.lumetri"></span><span data-t="tab.props"></span></div>
+        <div class="pr-plugin">
+          <!-- ===== painel do plugin (mesma estrutura do index.html do dropSFX) ===== -->
+          <div id="app">
+            <header class="header">
+              <img class="logo-img" src="logo.webp" alt="dropSFX"/>
+              <div class="header-actions">
+                <div class="conn-pill" id="status-bar"><div id="status-dot" class="connected"></div><span id="status-text">Premiere</span></div>
+                <button class="hbtn" type="button" id="btn-refresh" tabindex="-1"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg></button>
+                <button class="hbtn" type="button" tabindex="-1"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
+              </div>
+            </header>
+
+            <div class="area-switch">
+              <button class="area-btn active" type="button" data-area="library"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg><span data-t="lib"></span></button>
+              <button class="area-btn" type="button" data-area="community"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg><span data-t="comm"></span></button>
+            </div>
+
+            <div id="area-library" style="display:flex;flex-direction:column;flex:1;min-height:0;">
+              <div class="search-hero">
+                <div class="search-box">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <input type="text" id="search-input" autocomplete="off" spellcheck="false"/>
+                </div>
+              </div>
+              <div class="tabs-row">
+                <div class="tabs-drop" id="tabs-drop">
+                  <button class="tabs-drop-btn" id="tabs-drop-btn" type="button">
+                    <span class="tabs-drop-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg></span>
+                    <span class="tabs-drop-label" data-t="folders"></span>
+                    <span class="tab-badge" id="tabs-drop-badge">2371</span>
+                    <svg class="tabs-drop-chevron" width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </button>
+                </div>
+                <button class="tb-btn" type="button" id="sort-btn" data-t="sort"></button>
+              </div>
+              <div id="file-list"></div>
+            </div>
+
+            <div class="player-section" id="player">
+              <div class="player-top">
+                <div class="player-name empty" id="player-name"></div>
+                <div class="player-meta">
+                  <div class="player-ext-badge" id="player-ext">—</div>
+                  <div class="vol-wrap">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 010 7.07"/></svg>
+                    <input type="range" id="vol-slider" min="0" max="1" step="0.01" value="0.85"/>
+                  </div>
+                </div>
+              </div>
+              <div class="waveform-wrap" id="waveform-wrap">
+                <canvas id="waveform-canvas"></canvas>
+                <div id="wave-played"></div>
+              </div>
+              <div class="time-row">
+                <span class="time-val" id="time-cur">0:00</span>
+                <div class="time-bar"><div class="time-bar-fill" id="time-fill"></div></div>
+                <span class="time-val" id="time-tot">0:00</span>
+              </div>
+              <div class="gain-row">
+                <span class="gain-label" data-t="gain"></span>
+                <div class="gain-pills" id="gain-pills">
+                  <button class="gain-pill" type="button" data-g="-12">−12</button>
+                  <button class="gain-pill active" type="button" data-g="0">0 dB</button>
+                  <button class="gain-pill" type="button" data-g="6">+6</button>
+                </div>
+                <span class="gain-hint" data-t="inpoint"></span>
+              </div>
+              <div class="player-bottom">
+                <button class="t-btn btn-play" type="button" id="btn-play"><svg id="play-icon" width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></button>
+                <div class="track-drop" id="track-drop">
+                  <button class="track-drop-btn" type="button" id="track-drop-btn"><span id="track-drop-label">A1</span><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                  <div class="track-drop-menu" id="track-drop-menu"></div>
+                </div>
+                <button class="hbtn tiny" type="button" tabindex="-1"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg></button>
+                <div class="auto-track-wrap"><button class="toggle on" type="button" id="toggle-auto-track" aria-label="Auto"></button><span class="auto-label">Auto</span></div>
+                <button class="btn-action btn-primary" type="button" id="btn-insert" disabled>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.6" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+                  <span data-t="insert"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- /painel -->
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+<div id="toast-wrap"></div>
+<script src="sim.js"></script>
+</body>
+</html>

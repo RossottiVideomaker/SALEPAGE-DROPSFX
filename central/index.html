@@ -151,7 +151,8 @@
   .fbar .hint{font-size:11.5px;color:var(--dim);margin-left:auto;font-family:var(--mono);}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
   .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px;}
-  @media(max-width:1000px){.grid2,.grid3{grid-template-columns:1fr;}}
+  .span2{grid-column:span 2;}
+  @media(max-width:1000px){.grid2,.grid3{grid-template-columns:1fr;}.span2{grid-column:auto;}}
   .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px;min-width:0;}
   .grid2 .panel,.grid3 .panel{margin-bottom:0;}
   .panel h3{font-size:13px;font-weight:700;margin-bottom:4px;}
@@ -631,7 +632,7 @@
   };
   var LANG_LABEL = { pt:'Português', en:'English', es:'Español', hi:'हिन्दी', fr:'Français', id:'Bahasa Indonesia' };
   var REASON_LABEL = { declined:'Cartão recusado', confusing:'Se perdeu no checkout', price:'Achou caro', later:'Vai comprar depois', bought:'Já comprou' };
-  var POS_LABEL = { kit:'Botão do kit (topo)', sounds:'Depois dos sons', back:'Voltou e tentou de novo', offer:'Card da oferta', final:'Botão final', sticky:'Barra fixa', hero:'Hero (site)', nav:'Menu (site)', pricing:'Preço (site)', sticky_site:'Barra (site)', demo:'Demo (site)', depois:'Vida depois (site)', quiz:'Card do quiz antigo' };
+  var POS_LABEL = { kit:'Botão do kit (topo)', sounds:'Depois do simulador', back:'Voltou e tentou de novo', offer:'Card da oferta', final:'Botão final', sticky:'Barra fixa', hero:'Hero (site)', nav:'Menu (site)', pricing:'Preço (site)', sticky_site:'Barra (site)', demo:'Demo (site)', depois:'Vida depois (site)', quiz:'Card do quiz antigo' };
 
   // fuso horário → país (o servidor não manda país)
   var TZ_COUNTRY = {
@@ -799,7 +800,7 @@
 
     // ---- sons mais ouvidos ----
     var SFX_NAME = {}; (window.__sfxList || []).forEach(function(x){ SFX_NAME[x.id] = x.name; });
-    if (!window.__sfxList) fetch('/assets/sfx/sfx.json').then(function(r){ return r.json(); }).then(function(l){ window.__sfxList = l; if (fstate.data === d) renderFunnel(); }).catch(function(){});
+    if (!window.__sfxList) fetch('/assets/sim/lib.json').then(function(r){ return r.json(); }).then(function(l){ window.__sfxList = l.sounds; if (fstate.data === d) renderFunnel(); }).catch(function(){});
     var SFX_CATN = { whooshes:'Whooshes', foley:'Foley', hits:'Hits & Impacts', drops:'Cinematic Drops', tonalidade:'Tonalidade', clicks:'Clicks & UI', camera:'Câmera', ambientes:'Ambientes', transitions:'Transições', risers:'Risers', natureza:'Natureza', memes:'Memes', elements:'Elements', glitches:'Glitches', guns:'Guns', hud:'HUD', slowmo:'Slow Motion', retro:'Retrô' };
     function sfxPanel(){
       var list = d.sfx || [], st = d.sfx_totals || {};
@@ -811,6 +812,18 @@
           var nm = SFX_NAME[x.id] || x.id;
           return '<div class="arow"><span class="t" title="' + escapeAttr(nm) + '">' + escapeHtml(nm) + ' <span style="color:var(--dim)">· ' + escapeHtml(SFX_CATN[x.cat] || x.cat || '') + '</span></span><span class="b"><i style="width:' + (x.plays / max * 100) + '%;background:var(--accent-hi)"></i></span><span class="n">' + x.plays + ' · ' + x.sessions + 's</span></div>';
         }).join('') + '</div>';
+    }
+
+    // ---- simulador (Premiere + painel) ----
+    function simPanel(){
+      var m = d.sim || {}, b = m.loaded || 0;
+      var rows = [['Carregaram o simulador', m.loaded], ['Abriram uma pasta', m.folder], ['Ouviram um som', m.listened], ['Inseriram na timeline', m.inserted], ['Deram play na timeline', m.played], ['Viram o exemplo pronto', m.demo], ['Clicaram em desbloquear', m.cta]];
+      var flow = rows.map(function(r){ var v = r[1] || 0; return '<div class="arow"><span class="t">' + r[0] + '</span><span class="b"><i style="width:' + (b ? v / b * 100 : 0) + '%;background:var(--accent-hi)"></i></span><span class="n">' + v + (b ? ' · ' + Math.round(v / b * 100) + '%' : '') + '</span></div>'; }).join('');
+      var extra = '<div class="kv"><span>Sons inseridos (total)</span><span>' + (m.inserts||0) + '</span><span>Inseriram e clicaram em comprar</span><span>' + (m.clicked_after_insert||0) + '</span><span>Inseriram e compraram</span><span>' + (m.bought_after_insert||0) + '</span></div>';
+      return '<div class="grid3">' +
+        '<div class="panel span2"><h3>Simulador do plugin</h3><div class="ph">sessões que fizeram cada passo</div>' + flow + '</div>' +
+        '<div class="panel"><h3>Simulador: resultado</h3><div class="ph">inserções por categoria</div>' + extra + '<div style="height:10px"></div>' + kv(m.by_cat, SFX_CATN, m.inserts) + '</div>' +
+      '</div>';
     }
 
     // ---- checkout: por que não compraram + eventos da Kiwify ----
@@ -897,6 +910,7 @@
         '<div class="panel"><h3>Compras por origem (Kiwify)</h3><div class="ph">utm_source / utm_medium de cada venda</div>' + kv(d.purchases_by_medium) + '</div>' +
       '</div>' +
       checkoutPanel() +
+      simPanel() +
       sfxPanel() +
       '<div class="panel" style="padding-bottom:6px"><h3>Últimas sessões</h3><div class="ph">as 80 mais recentes no período · o nome digitado no quiz não é salvo</div></div>' +
       recentHtml;
