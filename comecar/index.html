@@ -1121,6 +1121,11 @@
       .wa-row::-webkit-scrollbar { display: none; }
       .wa { flex: 0 0 82%; scroll-snap-align: center; margin-top: 0 !important; }
     }
+    /* rolagem suave (Lenis) */
+    html.lenis, html.lenis body { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto !important; }
+    .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+    .lenis.lenis-stopped { overflow: hidden; }
     /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
     .h1, .h2, .lang-title, .o-title, .ck-t, .guar h3 { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
     .h1, .ed-h, .display { line-height: 1; }
@@ -1359,7 +1364,7 @@
         </div>
       </div>
     </section>
-    <div class="ck" id="ck" hidden role="dialog" aria-modal="true" aria-labelledby="ckT">
+    <div class="ck" id="ck" data-lenis-prevent hidden role="dialog" aria-modal="true" aria-labelledby="ckT">
       <div class="ck-bg" data-close></div>
       <div class="ck-card">
         <button type="button" class="ck-x" data-close aria-label="Close">×</button>
@@ -1379,7 +1384,7 @@
     </div>
 
     <!-- volta do checkout: o que travou? -->
-    <div class="ck" id="bk" hidden role="dialog" aria-modal="true" aria-labelledby="bkT">
+    <div class="ck" id="bk" data-lenis-prevent hidden role="dialog" aria-modal="true" aria-labelledby="bkT">
       <div class="ck-bg" data-close></div>
       <div class="ck-card">
         <button type="button" class="ck-x" data-close aria-label="Close">×</button>
@@ -3116,6 +3121,24 @@
     else v.pause();
   }, { rootMargin: '300px 0px' }).observe(v);
   }
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+/* rolagem suave: inércia no mouse/trackpad, toque continua nativo */
+(function () {
+  if (!window.Lenis || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  var lenis = new Lenis({ lerp: 0.08, wheelMultiplier: 0.9, smoothWheel: true });
+  function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+  // window.scrollTo({behavior:'smooth'}) do funil passa pelo Lenis
+  var nativeTo = window.scrollTo.bind(window);
+  window.scrollTo = function (a, b) {
+    var y = (a && typeof a === 'object') ? a.top : b;
+    if (typeof y === 'number' && a && typeof a === 'object' && a.behavior === 'smooth') { lenis.scrollTo(y, { duration: 1.1 }); return; }
+    nativeTo(a, b); lenis.resize && lenis.resize();
+  };
+  window.dropLenis = lenis;
 })();
 </script>
 </body>
