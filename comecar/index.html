@@ -32,12 +32,16 @@
     fbq('track', 'PageView');
   </script>
 
+  <link rel="preload" href="/assets/fonts/acid-tm.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://bwgrxdjdvrdawarbnqjv.supabase.co" crossorigin>
 
   <style>
+    @font-face{font-family:'Acid TM';src:url('/assets/fonts/acid-tm.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+    html{font-synthesis:none}
+
     :root {
       --bg: #000;
       --ink: #fff;
@@ -803,6 +807,10 @@
     .r-hero .r-chip b, .r-hero .kit-count, .r-hero .kit-more { display: none; }
     .r-hero .r-chip { padding: 6px 12px; font-size: 12.5px; }
     .r-hero .kit-grid { margin-top: 10px; }
+    /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
+    .h1, .h2, .h1 .serif, .h2 .serif, .lang-title, .o-title, .ck-t, .guar h3 { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
+    .h1, .ed-h, .display { line-height: 1; }
+    html[lang="hi"] :is(.h1, .h2, .h1 .serif, .h2 .serif, .lang-title, .o-title, .ck-t, .guar h3) { font-family: var(--font); font-weight: 800; letter-spacing: -.02em; }
 </style>
 </head>
 <body>

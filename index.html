@@ -134,6 +134,7 @@
 
   <!-- Adobe Fonts (Degular) -->
 
+  <link rel="preload" href="/assets/fonts/acid-tm.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -141,6 +142,9 @@
     rel="stylesheet">
 
   <style>
+    @font-face{font-family:'Acid TM';src:url('/assets/fonts/acid-tm.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+    html{font-synthesis:none}
+
     :root {
       --bg: #000000;
       --ink: #ffffff;
@@ -3327,6 +3331,10 @@
       .clipx-bar { height: 28px; font-size: 10.5px; }
     }
     .clips-wide { position: relative; width: min(1100px, calc(100vw - 40px)); left: 50%; transform: translateX(-50%); }
+    /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
+    .ed-h, .ed-h .blue, .ed-h .fill, .ed-h em, .display, .gate-h { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
+    .h1, .ed-h, .display { line-height: 1; }
+    html[lang="hi"] :is(.ed-h, .ed-h .blue, .ed-h .fill, .ed-h em, .display, .gate-h) { font-family: var(--font); font-weight: 800; letter-spacing: -.02em; }
 </style>
 </head>
 
