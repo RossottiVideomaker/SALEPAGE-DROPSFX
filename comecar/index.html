@@ -1014,11 +1014,8 @@
     .o-band + .o-price { margin-top: 18px; }
     @media (max-width: 760px) { .o-band { height: 130px; } }
     /* orbe sonoro (gif da esfera) ao lado do título do simulador, invertido e multiplicado no papel */
-    #ouvir { position: relative; }
-    #ouvir > :not(.orb) { position: relative; z-index: 1; }
-    .orb { position: absolute; z-index: 0; right: -40px; top: -10px; width: 300px; height: 300px; mix-blend-mode: multiply; opacity: .9; pointer-events: none;
+    .orb { display: inline-block; width: 1.15em; height: 1.15em; margin-left: .1em; vertical-align: -.2em; object-fit: cover; mix-blend-mode: multiply; pointer-events: none;
       -webkit-mask-image: radial-gradient(circle, #000 55%, transparent 71%); mask-image: radial-gradient(circle, #000 55%, transparent 71%); }
-    @media (max-width: 760px) { .orb { width: 150px; height: 150px; right: -18px; top: 10px; } }
     /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
     .h1, .h2, .lang-title, .o-title, .ck-t, .guar h3 { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
     .h1, .ed-h, .display { line-height: 1; }
@@ -1134,9 +1131,9 @@
         </div>
 
         <div class="sec" id="ouvir">
-          <video class="orb" id="orbV" muted loop playsinline preload="none" poster="/assets/orb.jpg" aria-hidden="true"><source src="/assets/orb.webm" type="video/webm"><source src="/assets/orb.mp4" type="video/mp4"></video>
+          <video class="orb" id="orbV" muted loop playsinline preload="none" poster="/assets/orb.jpg?v=2" aria-hidden="true"><source src="/assets/orb.webm?v=2" type="video/webm"><source src="/assets/orb.mp4?v=2" type="video/mp4"></video>
           <p class="mono" data-t="sim.kicker"></p>
-          <h2 class="h2" style="margin-top:12px" data-th="sim.title"></h2>
+          <h2 class="h2" id="simTitle" style="margin-top:12px" data-th="sim.title"></h2>
           <p class="lead" style="margin:12px 0 22px" data-t="sim.sub"></p>
           <div class="sim-frame"><iframe id="simFrame" title="dropSFX" allow="autoplay" scrolling="no"></iframe></div>
           <div class="cta-row">
@@ -2989,6 +2986,12 @@
 })();
 </script>
 <script>
+/* orbe colado no título "Teste o plugin", reposto se o idioma reescrever o título */
+(function () {
+  var h = document.getElementById('simTitle'), v = document.getElementById('orbV'); if (!h || !v) return;
+  function put() { if (v.parentNode === h) return; var sp = h.querySelector('.serif'); if (sp) h.insertBefore(v, sp); else h.appendChild(v); }
+  put(); new MutationObserver(put).observe(h, { childList: true });
+})();
 /* faixa do prisma: só carrega/toca quando aparece na tela */
 (function () {
   ['prismV', 'orbV'].forEach(function (id) { var v = document.getElementById(id); if (v) lazyPlay(v); });
