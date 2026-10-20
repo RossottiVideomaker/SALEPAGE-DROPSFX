@@ -3164,5 +3164,28 @@
   window.dropLenis = lenis;
 })();
 </script>
+<script>
+/* títulos das seções no celular: cresce a fonte até a linha mais larga encher a coluna */
+(function () {
+  var mq = window.matchMedia('(max-width: 760px)');
+  function fit(h) {
+    h.style.fontSize = ''; h.style.whiteSpace = '';
+    if (!mq.matches || !h.offsetParent) return;
+    var w = h.clientWidth; if (!w) return;
+    var base = parseFloat(getComputedStyle(h).fontSize);
+    h.style.whiteSpace = 'nowrap'; h.style.width = 'max-content';
+    var need = h.getBoundingClientRect().width; h.style.width = '';
+    var fs = Math.max(base, Math.min(76, base * (w - 2) / need));
+    h.style.fontSize = fs.toFixed(1) + 'px';
+    h.style.width = 'max-content'; var now = h.getBoundingClientRect().width; h.style.width = ''; if (now > w + 1) h.style.whiteSpace = '';
+  }
+  function all() { [].forEach.call(document.querySelectorAll('.sec .h2'), fit); }
+  var t; function later() { clearTimeout(t); t = setTimeout(all, 60); }
+  window.addEventListener('resize', later);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(later);
+  new MutationObserver(later).observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ['class'] });
+  later();
+})();
+</script>
 </body>
 </html>
