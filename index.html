@@ -3302,7 +3302,14 @@
     .sim-frame { position: relative; width: min(1240px, calc(100vw - 40px)); left: 50%; transform: translateX(-50%); border-radius: 18px; overflow: hidden; background: #000; }
     .sim-frame iframe { display: block; width: 100%; height: clamp(660px, calc(100vh - 32px), 800px); border: 0; background: #000; }
     @media (max-width: 859px) { .sim-frame { width: calc(100vw - 12px); border-radius: 14px; } .sim-frame iframe { height: 1350px; } }
-  </style>
+  
+    .clips { display: grid; gap: 22px; margin-top: 8px; }
+    .clip { margin: 0; border: 1px solid rgba(255,255,255,.13); border-radius: 16px; overflow: hidden; background: #0b0b0e; }
+    .clip video { display: block; width: 100%; aspect-ratio: 1280 / 818; background: #000; }
+    .clip figcaption { display: flex; gap: 12px; align-items: center; padding: 13px 16px; font-weight: 600; color: #f2f2f7; font-size: 15px; }
+    .clip figcaption b { flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: #3b6ef5; color: #fff; font-size: 13px; }
+    .clips-wide { position: relative; width: min(1100px, calc(100vw - 40px)); left: 50%; transform: translateX(-50%); }
+</style>
 </head>
 
 <body>
@@ -3561,6 +3568,13 @@
   </section>
 
   <!-- ============ OUÇA (sons reais do plugin) ============ -->
+  <section class="ed-sec" id="momentos">
+    <div class="ed">
+      <h2 class="ed-h" data-i18n-html="cl.title">Veja o plugin <span class="blue">em ação.</span></h2>
+      <div class="clips clips-wide" style="margin-top:28px"><figure class="clip"><video muted loop playsinline preload="none" poster="/assets/clips/pastas.jpg"><source data-src="/assets/clips/pastas.mp4" type="video/mp4"></video><figcaption><b>1</b><span data-i18n="cl.1">Navegue pelas pastas e ache o som em segundos</span></figcaption></figure><figure class="clip"><video muted loop playsinline preload="none" poster="/assets/clips/inserir.jpg"><source data-src="/assets/clips/inserir.mp4" type="video/mp4"></video><figcaption><b>2</b><span data-i18n="cl.2">Um clique e o som cai na timeline, já colorido</span></figcaption></figure><figure class="clip"><video muted loop playsinline preload="none" poster="/assets/clips/montar.jpg"><source data-src="/assets/clips/montar.mp4" type="video/mp4"></video><figcaption><b>3</b><span data-i18n="cl.3">Monte o sound design inteiro sem sair do Premiere</span></figcaption></figure></div>
+    </div>
+  </section>
+
   <section class="ed-sec ed-listen" id="ouvir">
     <div class="ed">
       <div class="listen-head">
@@ -5230,6 +5244,10 @@
       pt: {
         "listen.title": "Teste o plugin <span class='blue'>agora, aqui.</span>",
         "listen.lead": "Um Premiere de mentira com o painel do dropSFX de verdade: abra uma pasta, ouça, insira na timeline e dê play. Coloca o fone.",
+        "cl.title": "Veja o plugin <span class='blue'>em ação.</span>",
+        "cl.1": "Navegue pelas pastas e ache o som em segundos",
+        "cl.2": "Um clique e o som cai na timeline, já colorido",
+        "cl.3": "Monte o sound design inteiro sem sair do Premiere",
         "demo.title": "Na prática.<br><span class='blue'>Sem sair do Premiere.</span>",
         "demo.lead": "Gravação de tela real, direto do Premiere: abrir a categoria, <strong>ouvir no hover</strong> e mandar o som pra timeline. Liga o som pra ouvir junto.",
         "demo.rec": "Tela real · Premiere Pro",
@@ -5241,6 +5259,10 @@
       en: {
         "listen.title": "Try the plugin <span class='blue'>right here.</span>",
         "listen.lead": "A fake Premiere with the real dropSFX panel: open a folder, listen, insert it on the timeline and hit play. Headphones on.",
+        "cl.title": "See the plugin <span class='blue'>in action.</span>",
+        "cl.1": "Browse the folders and find the sound in seconds",
+        "cl.2": "One click and the sound lands on the timeline, already colored",
+        "cl.3": "Build the whole sound design without leaving Premiere",
         "demo.title": "In practice.<br><span class='blue'>Without leaving Premiere.</span>",
         "demo.lead": "A real screen recording, straight from Premiere: open a category, <strong>hear it on hover</strong> and send the sound to the timeline. Turn the sound on to listen along.",
         "demo.rec": "Real screen · Premiere Pro",
@@ -5252,6 +5274,10 @@
       es: {
         "listen.title": "Prueba el plugin <span class='blue'>aquí mismo.</span>",
         "listen.lead": "Un Premiere de mentira con el panel real de dropSFX: abre una carpeta, escucha, insértalo en la línea de tiempo y dale play. Ponte los auriculares.",
+        "cl.title": "Mira el plugin <span class='blue'>en acción.</span>",
+        "cl.1": "Navega por las carpetas y encuentra el sonido en segundos",
+        "cl.2": "Un clic y el sonido cae en la línea de tiempo, ya con color",
+        "cl.3": "Arma todo el sound design sin salir de Premiere",
         "demo.title": "En la práctica.<br><span class='blue'>Sin salir de Premiere.</span>",
         "demo.lead": "Grabación de pantalla real, directo de Premiere: abrir la categoría, <strong>escuchar al pasar el mouse</strong> y mandar el sonido a la timeline. Activa el sonido para escuchar.",
         "demo.rec": "Pantalla real · Premiere Pro",
@@ -5263,6 +5289,10 @@
       hi: {
         "listen.title": "प्लगइन <span class='blue'>यहीं आज़माइए।</span>",
         "listen.lead": "नकली Premiere में असली dropSFX पैनल: फ़ोल्डर खोलें, सुनें, टाइमलाइन पर इन्सर्ट करें और प्ले दबाएँ। हेडफ़ोन लगा लें।",
+        "cl.title": "प्लगइन को <span class='blue'>काम करते देखें।</span>",
+        "cl.1": "फ़ोल्डर देखें और सेकंडों में साउंड ढूँढें",
+        "cl.2": "एक क्लिक और साउंड टाइमलाइन पर, पहले से रंगीन",
+        "cl.3": "Premiere छोड़े बिना पूरा साउंड डिज़ाइन बनाइए",
         "demo.title": "असल इस्तेमाल।<br><span class='blue'>Premiere छोड़े बिना।</span>",
         "demo.lead": "Premiere से सीधी असली स्क्रीन रिकॉर्डिंग: कैटेगरी खोलिए, <strong>होवर पर सुनिए</strong> और साउंड टाइमलाइन पर भेजिए। साथ सुनने के लिए साउंड चालू कीजिए।",
         "demo.rec": "असली स्क्रीन · Premiere Pro",
@@ -6333,5 +6363,20 @@
   DropI18N.init();
   </script>
 
+
+  <script>
+  (function () {
+    var vs = document.querySelectorAll('.clip video');
+    if (!('IntersectionObserver' in window)) { vs.forEach(function (v) { var s = v.querySelector('source'); s.src = s.getAttribute('data-src'); v.load(); v.play(); }); return; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var v = e.target, s = v.querySelector('source');
+        if (e.isIntersecting) { if (!s.getAttribute('src')) { s.src = s.getAttribute('data-src'); v.load(); } var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else v.pause();
+      });
+    }, { threshold: .35 });
+    vs.forEach(function (v) { io.observe(v); });
+  })();
+  </script>
 </body>
 </html>
