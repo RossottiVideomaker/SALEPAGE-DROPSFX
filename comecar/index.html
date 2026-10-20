@@ -992,6 +992,16 @@
     .o-logo { height: 46px; width: auto; margin-left: -8px; filter: brightness(0); }
     .o-kit { padding: 6px 12px; border: 1px solid var(--line-2); border-radius: 999px; font: 700 11px var(--font); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); white-space: nowrap; }
     .o-brand + .o-price { margin-top: 16px; }
+    /* prova social com avatares em bolinhas */
+    .o-proof { flex-wrap: wrap; gap: 10px 12px; }
+    .o-avs { display: inline-flex; align-items: center; }
+    .o-av { width: 30px; height: 30px; margin-left: -9px; border-radius: 50%; display: grid; place-items: center; overflow: hidden;
+      font: 700 10.5px var(--font); color: #fff; background: color-mix(in srgb, var(--c) 78%, #000); border: 2px solid #fff;
+      box-shadow: 0 2px 6px rgba(20, 20, 20, .12); }
+    .o-av:first-child { margin-left: 0; }
+    .o-av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .o-av-photo { background: #e6e2d9; }
+    .o-av-more { background: #efece5; color: var(--ink-2); font-size: 13px; }
     /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
     .h1, .h2, .lang-title, .o-title, .ck-t, .guar h3 { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
     .h1, .ed-h, .display { line-height: 1; }
@@ -1181,7 +1191,7 @@
               <p class="ck-tip" id="ptTip" hidden></p>
               <a class="ck-wa js-wa" data-pos="tips" href="#" target="_blank" rel="noopener" data-t="ck.wa"></a>
             </details>
-            <p class="o-proof" data-th="o.proof"></p>
+            <div class="o-proof"><span class="o-avs" id="oAvs" aria-hidden="true"><span class="o-av" style="--c:#3b6ef5">JP</span><span class="o-av" style="--c:#2dd4bf">MC</span><span class="o-av" style="--c:#a78bfa">RS</span><span class="o-av" style="--c:#fb923c">TF</span><span class="o-av" style="--c:#f472b6">GV</span><span class="o-av o-av-more">+</span></span><span data-th="o.proof"></span></div>
           </div>
         </div>
 
@@ -2924,6 +2934,24 @@
   // ao mostrar o resultado a tela troca de display:none → block; reobserva
   new MutationObserver(function () { if (io) { io.unobserve(box); io.observe(box); } })
     .observe(document.getElementById('sResult'), { attributes: true, attributeFilter: ['class'] });
+})();
+</script>
+<script>
+/* avatares reais da comunidade (mesma fonte da home), com as iniciais como reserva */
+(function () {
+  var box = document.getElementById('oAvs'); if (!box || !window.fetch) return;
+  fetch('https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/public-avatars').then(function (r) { return r.json(); }).then(function (d) {
+    var list = (d && d.avatars || []).slice(0, 10), slots = [].slice.call(box.querySelectorAll('.o-av:not(.o-av-more)')), n = 0;
+    // só troca a bolinha de iniciais quando a foto carregou de verdade
+    list.forEach(function (u) {
+      var im = new Image();
+      im.onload = function () {
+        if (n >= slots.length || !im.naturalWidth) return;
+        var sl = slots[n++]; sl.className = 'o-av o-av-photo'; sl.textContent = ''; im.alt = ''; sl.appendChild(im);
+      };
+      im.referrerPolicy = 'no-referrer'; im.src = String(u);
+    });
+  }).catch(function () {});
 })();
 </script>
 </body>
