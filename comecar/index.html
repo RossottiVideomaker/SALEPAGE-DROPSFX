@@ -740,11 +740,30 @@
     .q-jump:hover { color: #fff; }
     body.sim-on .sticky { opacity: 0; visibility: hidden; pointer-events: none; }
   
-    .clips { display: grid; gap: 22px; margin-top: 8px; }
-    .clip { margin: 0; border: 1px solid var(--line-2); border-radius: 16px; overflow: hidden; background: #0b0b0e; }
-    .clip video { display: block; width: 100%; aspect-ratio: 1280 / 818; background: #000; }
-    .clip figcaption { display: flex; gap: 12px; align-items: center; padding: 13px 16px; font-weight: 600; color: #f2f2f7; font-size: 15px; }
-    .clip figcaption b { flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: #3b6ef5; color: #fff; font-size: 13px; }
+    .clipx { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 18px; align-items: start; margin-top: 10px; }
+    .clipx-tabs { display: grid; gap: 8px; }
+    .clipx-tab { position: relative; display: flex; gap: 12px; align-items: flex-start; width: 100%; padding: 15px 15px 18px; border: 1px solid rgba(255,255,255,.1); border-radius: 14px; background: rgba(255,255,255,.035); color: #9a9aab; font: 600 14.5px/1.35 -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif; text-align: left; cursor: pointer; overflow: hidden; transition: background .2s, border-color .2s, color .2s; }
+    .clipx-tab:hover { color: #f2f2f7; background: rgba(255,255,255,.06); }
+    .clipx-tab b { flex: none; width: 26px; height: 26px; border-radius: 9px; display: grid; place-items: center; background: rgba(255,255,255,.08); color: #9a9aab; font-size: 12.5px; transition: .2s; }
+    .clipx-tab.on { color: #fff; border-color: rgba(91,138,255,.55); background: rgba(59,110,245,.12); }
+    .clipx-tab.on b { background: #3b6ef5; color: #fff; }
+    .clipx-tab i { position: absolute; left: 15px; right: 15px; bottom: 9px; height: 3px; border-radius: 3px; background: rgba(255,255,255,.08); overflow: hidden; }
+    .clipx-tab i u { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #3b6ef5, #5b8aff); }
+    .clipx-tab:not(.on) i { opacity: 0; }
+    .clipx-stage { border: 1px solid rgba(255,255,255,.13); border-radius: 16px; overflow: hidden; background: #0b0b0e; box-shadow: 0 40px 90px -40px rgba(59,110,245,.5); }
+    .clipx-bar { display: flex; align-items: center; gap: 7px; height: 34px; padding: 0 14px; background: #151517; border-bottom: 1px solid #000; font: 600 11.5px -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; color: #8f8f96; }
+    .clipx-bar i { width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; } .clipx-bar i:nth-child(2) { background: #febc2e; } .clipx-bar i:nth-child(3) { background: #28c840; margin-right: 8px; }
+    .clipx-bar span { margin-left: auto; color: #5b8aff; }
+    .clipx-stage video { display: block; width: 100%; aspect-ratio: 1280 / 818; background: #000; }
+    @media (max-width: 860px) {
+      .clipx { grid-template-columns: 1fr; gap: 12px; }
+      .clipx-tabs { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+      .clipx-stage video { aspect-ratio: 540 / 966; }
+      .clipx.clips-wide { width: calc(100vw - 32px); }
+      .clipx-tab { flex-direction: column; gap: 8px; padding: 11px 10px 16px; font-size: 12px; }
+      .clipx-tab i { left: 10px; right: 10px; bottom: 7px; }
+      .clipx-bar { height: 28px; font-size: 10.5px; }
+    }
     .clips-wide { position: relative; width: min(1100px, calc(100vw - 40px)); left: 50%; transform: translateX(-50%); }
 </style>
 </head>
@@ -894,7 +913,7 @@
         <div class="sec" id="momentos">
           <p class="mono" data-t="cl.kicker"></p>
           <h2 class="h2" style="margin-top:12px" data-th="cl.title"></h2>
-          <div class="clips clips-wide"><figure class="clip"><video muted loop playsinline preload="none" poster="/assets/clips/pastas.jpg"><source data-src="/assets/clips/pastas.mp4" type="video/mp4"></video><figcaption><b>1</b><span data-t="cl.1"></span></figcaption></figure><figure class="clip"><video muted loop playsinline preload="none" poster="/assets/clips/inserir.jpg"><source data-src="/assets/clips/inserir.mp4" type="video/mp4"></video><figcaption><b>2</b><span data-t="cl.2"></span></figcaption></figure><figure class="clip"><video muted loop playsinline preload="none" poster="/assets/clips/montar.jpg"><source data-src="/assets/clips/montar.mp4" type="video/mp4"></video><figcaption><b>3</b><span data-t="cl.3"></span></figcaption></figure></div>
+          <div class="clipx clips-wide" style="margin-top:28px"><div class="clipx-tabs"><button type="button" class="clipx-tab on" data-src="/assets/clips/pastas.mp4" data-poster="/assets/clips/pastas.jpg"><b>1</b><span data-t="cl.1"></span><i><u></u></i></button><button type="button" class="clipx-tab" data-src="/assets/clips/inserir.mp4" data-poster="/assets/clips/inserir.jpg"><b>2</b><span data-t="cl.2"></span><i><u></u></i></button><button type="button" class="clipx-tab" data-src="/assets/clips/montar.mp4" data-poster="/assets/clips/montar.jpg"><b>3</b><span data-t="cl.3"></span><i><u></u></i></button></div><div class="clipx-stage"><div class="clipx-bar"><i></i><i></i><i></i>Premiere Pro<span>dropSFX</span></div><video muted playsinline preload="none"></video></div></div>
         </div>
 
         <div class="sec" style="display:none">
@@ -2515,16 +2534,24 @@
 
   <script>
   (function () {
-    var vs = document.querySelectorAll('.clip video');
-    if (!('IntersectionObserver' in window)) { vs.forEach(function (v) { var s = v.querySelector('source'); s.src = s.getAttribute('data-src'); v.load(); v.play(); }); return; }
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        var v = e.target, s = v.querySelector('source');
-        if (e.isIntersecting) { if (!s.getAttribute('src')) { s.src = s.getAttribute('data-src'); v.load(); } var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    var box = document.querySelector('.clipx'); if (!box) return;
+    var v = box.querySelector('video'), tabs = [].slice.call(box.querySelectorAll('.clipx-tab')), cur = 0, seen = false;
+    function load(i, play) {
+      cur = i;
+      tabs.forEach(function (t, j) { t.classList.toggle('on', j === i); t.querySelector('u').style.width = '0%'; });
+      var t = tabs[i], mob = window.innerWidth < 861, suf = mob ? '-m' : ''; v.poster = t.getAttribute('data-poster').replace('.jpg', suf + '.jpg'); v.src = t.getAttribute('data-src').replace('.mp4', suf + '.mp4');
+      if (play) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    }
+    tabs.forEach(function (t, i) { t.addEventListener('click', function () { load(i, true); }); });
+    v.addEventListener('timeupdate', function () { if (v.duration) tabs[cur].querySelector('u').style.width = (v.currentTime / v.duration * 100) + '%'; });
+    v.addEventListener('ended', function () { load((cur + 1) % tabs.length, true); });
+    v.poster = tabs[0].getAttribute('data-poster').replace('.jpg', window.innerWidth < 861 ? '-m.jpg' : '.jpg');
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        if (es[0].isIntersecting) { if (!seen) { seen = true; load(0, true); } else { var p = v.play(); if (p && p.catch) p.catch(function () {}); } }
         else v.pause();
-      });
-    }, { threshold: .35 });
-    vs.forEach(function (v) { io.observe(v); });
+      }, { threshold: .35 }).observe(v);
+    } else load(0, true);
   })();
   </script>
 </body>
