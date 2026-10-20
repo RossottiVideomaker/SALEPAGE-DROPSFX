@@ -39,6 +39,7 @@
   <link rel="preconnect" href="https://bwgrxdjdvrdawarbnqjv.supabase.co" crossorigin>
 
   <style>
+    @font-face{font-family:'Instrument Serif';src:url('/assets/fonts/instrument-serif-italic.woff2') format('woff2');font-weight:400;font-style:italic;font-display:swap}
     @font-face{font-family:'Acid TM';src:url('/assets/fonts/acid-tm.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
     html{font-synthesis:none}
 
@@ -858,10 +859,27 @@
     .clipx-tab.on { color: var(--ink); border-color: rgba(47, 95, 230, .45); background: #fff; }
     .clipx-tab.on b { background: var(--accent); color: #fff; }
     .clipx-tab i { background: rgba(20, 20, 20, .08); }
+    /* ===== TIPOGRAFIA EDITORIAL (referências: títulos empilhados, palavra-destaque em serifa itálica) ===== */
+    .h1 .serif, .h2 .serif {
+      display: block; font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif; font-style: italic; font-weight: 400;
+      font-size: 1.08em; letter-spacing: -.01em; line-height: .95; color: var(--accent); -webkit-text-fill-color: currentColor; background: none;
+    }
+    .h1 { font-size: clamp(50px, 8vw, 104px); line-height: .92; }
+    .h2 { font-size: clamp(34px, 5.2vw, 62px); line-height: .95; }
+    .q-title { font-size: clamp(30px, 4.6vw, 52px); line-height: 1; }
+    .lang-title { font-size: clamp(34px, 6vw, 64px); }
+    .r-hero .h1 { font-size: clamp(54px, 7.4vw, 100px); }
+    .lead, .sec .lead { max-width: 34em; }
+    /* blob orgânico no fundo, bem suave */
+    body { background:
+      radial-gradient(38vw 30vw at 88% 6%, rgba(47, 95, 230, .16), transparent 70%),
+      radial-gradient(30vw 26vw at 4% 38%, rgba(56, 189, 248, .10), transparent 70%),
+      var(--bg); background-attachment: fixed; }
+    html[lang="hi"] .h1 .serif, html[lang="hi"] .h2 .serif { font-family: var(--font); font-style: normal; font-weight: 800; font-size: 1em; }
     /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
-    .h1, .h2, .h1 .serif, .h2 .serif, .lang-title, .o-title, .ck-t, .guar h3 { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
+    .h1, .h2, .lang-title, .o-title, .ck-t, .guar h3 { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
     .h1, .ed-h, .display { line-height: 1; }
-    html[lang="hi"] :is(.h1, .h2, .h1 .serif, .h2 .serif, .lang-title, .o-title, .ck-t, .guar h3) { font-family: var(--font); font-weight: 800; letter-spacing: -.02em; }
+    html[lang="hi"] :is(.h1, .h2, .lang-title, .o-title, .ck-t, .guar h3) { font-family: var(--font); font-weight: 800; letter-spacing: -.02em; }
 </style>
 </head>
 <body>
