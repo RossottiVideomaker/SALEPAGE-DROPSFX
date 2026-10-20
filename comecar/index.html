@@ -1016,6 +1016,10 @@
     /* orbe sonoro (gif da esfera) ao lado do título do simulador, invertido e multiplicado no papel */
     .orb { display: inline-block; width: 2.3em; height: 2.3em; margin: -.75em 0 -.75em .02em; vertical-align: -.62em; object-fit: cover; mix-blend-mode: multiply; pointer-events: none;
       -webkit-mask-image: radial-gradient(circle, #000 55%, transparent 71%); mask-image: radial-gradient(circle, #000 55%, transparent 71%); }
+    /* -63% da barra fixa: sem caixa, com o orbe girando atrás */
+    .sticky-off { position: relative; background: none !important; border: 0 !important; box-shadow: none; overflow: visible; isolation: isolate; }
+    .sticky-off b { position: relative; z-index: 1; font: inherit; color: var(--ink); text-shadow: 0 0 6px rgba(251, 250, 246, .9), 0 0 2px rgba(251, 250, 246, .9); }
+    .sticky-off .orb { position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: 0; transform: translate(-50%, -50%); z-index: 0; vertical-align: 0; }
     /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
     .h1, .h2, .lang-title, .o-title, .ck-t, .guar h3 { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
     .h1, .ed-h, .display { line-height: 1; }
@@ -1241,7 +1245,7 @@
 
       <div class="sticky" id="sticky">
         <div class="sticky-in">
-          <span class="sticky-off">-63%</span>
+          <span class="sticky-off" id="stickyOff"><b>-63%</b></span>
           <span class="sticky-txt"><span class="sticky-t" id="stickyT"></span><span class="sticky-s" data-t="s.sub"></span></span>
           <a class="btn blue js-cta" data-pos="sticky" href="#" target="_blank" rel="noopener"><span data-t="s.btn"></span> →</a>
         </div>
@@ -2985,11 +2989,10 @@
 })();
 </script>
 <script>
-/* orbe colado no título "Teste o plugin", reposto se o idioma reescrever o título */
+/* orbe atrás do -63% da barra fixa */
 (function () {
-  var h = document.getElementById('simTitle'), v = document.getElementById('orbV'); if (!h || !v) return;
-  function put() { if (v.parentNode === h) return; var sp = h.querySelector('.serif'); if (sp) h.insertBefore(v, sp); else h.appendChild(v); }
-  put(); new MutationObserver(put).observe(h, { childList: true });
+  var h = document.getElementById('stickyOff'), v = document.getElementById('orbV'); if (!h || !v) return;
+  h.insertBefore(v, h.firstChild);
 })();
 /* faixa do prisma: só carrega/toca quando aparece na tela */
 (function () {
