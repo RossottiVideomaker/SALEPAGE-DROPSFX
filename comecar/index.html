@@ -1043,6 +1043,37 @@
     @keyframes stTxt { from { opacity: 0; transform: translateY(10px); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
     @keyframes stBtn { from { opacity: 0; transform: translateX(26px) scale(.85); } to { opacity: 1; transform: none; } }
     @media (prefers-reduced-motion: reduce) { .sticky.show .sticky-off, .sticky.show .sticky-t, .sticky.show .btn { animation: none; } }
+    /* ===== KIT = SAMPLER DE PADS (substitui a tracklist) ===== */
+    .r-hero .kit { padding: 12px 12px 12px; border: 0; border-radius: 22px; background: linear-gradient(180deg, #151517, #0d0d0f);
+      box-shadow: 0 30px 60px -32px rgba(0, 0, 0, .55), inset 0 1px 0 rgba(255, 255, 255, .07), 0 0 0 1px rgba(0, 0, 0, .6); }
+    .r-hero .kit-head { padding: 2px 4px 11px; border-bottom: 0; }
+    .r-hero .kit-head .mono { color: #8d8d95; font-size: 9.5px; letter-spacing: .18em; }
+    .r-hero .kit-head .mono::before { opacity: .7; }
+    .r-hero .kit-count { color: #d9d9de !important; font-size: 11px !important; }
+    .r-hero .kit-grid { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
+    .kt { display: flex; flex-direction: column; justify-content: space-between; gap: 6px; aspect-ratio: 1 / .9; padding: 10px 10px 9px; border: 0; border-radius: 13px;
+      background: linear-gradient(180deg, #212125, #18181b); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .07), inset 0 -3px 0 rgba(0, 0, 0, .45), 0 1px 0 rgba(255, 255, 255, .03);
+      overflow: hidden; transition: transform .12s, box-shadow .2s, background .2s; grid-template-columns: none; }
+    .kt::before { content: ""; position: absolute; left: 10px; right: 10px; top: 0; height: 2px; border-radius: 0 0 2px 2px; background: var(--c); box-shadow: 0 0 10px var(--c); opacity: .85; }
+    .kt:last-child { border-bottom: 0; }
+    .kt-no { display: none; }
+    .kt { align-items: stretch; text-align: left; }
+    .kt > * { align-self: stretch; }
+    .kt-play { display: flex !important; justify-content: flex-start !important; align-items: center; width: auto !important; }
+    .kt-play { width: 22px; height: 22px; border-radius: 7px; background: transparent !important; color: var(--c) !important; transform: none !important; justify-content: start; }
+    .kt-play svg { width: 16px; height: 16px; }
+    .kt .kt-pp { display: none; }
+    .kt:hover .kt-play svg:not(.kt-pp), .kt.playing .kt-play svg:not(.kt-pp) { opacity: 1; transform: none; }
+    .kt-n { position: absolute; top: 11px; right: 10px; font: 600 10px var(--font); color: rgba(255, 255, 255, .42) !important; }
+    .kt-name { font: 700 12.5px/1.15 var(--font); color: #f4f4f6; white-space: normal; letter-spacing: -.01em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+    .kt-wave { height: 12px; gap: 1.5px; padding: 0; }
+    .kt-wave i { max-width: 3px; background: rgba(255, 255, 255, .13) !important; }
+    .kt-wave i.on, .kt:hover .kt-wave i.on, .kt.playing .kt-wave i.on { background: var(--c) !important; }
+    .kt:hover { background: linear-gradient(180deg, #26262b, #1b1b1f); }
+    .kt:active { transform: scale(.95); }
+    .kt.playing { background: radial-gradient(120% 90% at 50% 115%, color-mix(in srgb, var(--c) 48%, transparent), transparent 70%), linear-gradient(180deg, #232327, #19191c);
+      box-shadow: 0 0 0 1.5px var(--c), 0 0 26px -6px var(--c), inset 0 1px 0 rgba(255, 255, 255, .08); }
+    @media (max-width: 760px) { .kt { grid-template-columns: none; aspect-ratio: 1 / .86; } .kt-name { font-size: 12px; } }
     /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
     .h1, .h2, .lang-title, .o-title, .ck-t, .guar h3 { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
     .h1, .ed-h, .display { line-height: 1; }
@@ -2616,7 +2647,7 @@
       function load() { return libP || (libP = fetch('/assets/sim/lib.json').then(function (r) { return r.json(); }).then(function (d) { lib = d; return d; }).catch(function () { return null; })); }
       function list(cat) { var c = MAP[cat] || cat; return lib ? lib.sounds.filter(function (x) { return x.cat === c; }) : []; }
       function bars(el, w) {
-        var n = window.innerWidth < 761 ? 18 : 24, out = '';
+        var n = 16, out = '';
         for (var k = 0; k < n; k++) {
           var v = w ? w[Math.floor(k * w.length / n)] : 25 + 50 * Math.abs(Math.sin(k * 1.7 + el.parentNode.dataset.cat.length));
           out += '<i style="height:' + Math.max(10, Math.min(100, v)).toFixed(0) + '%"></i>';
