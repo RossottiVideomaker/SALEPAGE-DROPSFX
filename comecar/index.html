@@ -950,6 +950,12 @@
     .kt-n { font: 700 12px var(--font); text-align: right; color: color-mix(in srgb, var(--c) 68%, #000); font-variant-numeric: tabular-nums; }
     .kt:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 8px; }
     @media (max-width: 760px) { .kt { grid-template-columns: 18px 30px minmax(0, 8em) 1fr 32px; gap: 9px; } }
+    /* CTAs em laranja-avermelhado */
+    :root { --cta: #f2461c; --cta-hi: #ff6b2e; --cta-glow: rgba(242, 70, 28, .5); }
+    .btn.blue { background: linear-gradient(180deg, var(--cta-hi), var(--cta)); color: #fff; box-shadow: 0 12px 28px -10px var(--cta-glow), inset 0 1px 0 rgba(255, 255, 255, .28); }
+    .btn.blue:hover { background: linear-gradient(180deg, #ff7a40, #e03a12); box-shadow: 0 16px 34px -10px rgba(242, 70, 28, .62), inset 0 1px 0 rgba(255, 255, 255, .3); }
+    .btn.blue:active { transform: translateY(1px); }
+    .sticky .btn { box-shadow: 0 8px 22px -6px var(--cta-glow); }
     /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
     .h1, .h2, .lang-title, .o-title, .ck-t, .guar h3 { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
     .h1, .ed-h, .display { line-height: 1; }
