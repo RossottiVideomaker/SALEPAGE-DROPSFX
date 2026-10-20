@@ -1083,7 +1083,8 @@
     .top .lang-mini button { font: 600 11px var(--font); letter-spacing: .12em; color: #a7a7ae; }
     .top .lang-mini button[aria-pressed="true"] { background: #f4f1ea; color: #141414; box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset; }
     @media (min-width: 761px) { .top { padding-top: 14px; } .top .top-in { max-width: 760px; } }
-    .top .top-in { background: linear-gradient(90deg, rgba(14, 14, 16, .55), rgba(14, 14, 16, .15) 60%, rgba(14, 14, 16, .35)), #151517 url(/assets/band.webp) 50% 42% / cover; }
+    .top .top-in { position: relative; isolation: isolate; background: rgba(18, 18, 21, .42); -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4); }
+    .top .top-in::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: url(/assets/band.webp) 50% 42% / cover; opacity: .4; mix-blend-mode: screen; pointer-events: none; }
     /* depoimentos em conversas de WhatsApp recriadas (sem número/foto) */
     #depoimentos { position: relative; }
     .wa-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 26px; align-items: start; }
