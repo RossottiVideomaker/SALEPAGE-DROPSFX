@@ -1020,6 +1020,15 @@
     .sticky-off { position: relative; background: none !important; border: 0 !important; box-shadow: none; overflow: visible; isolation: isolate; }
     .sticky-off b { position: relative; z-index: 1; font: inherit; color: var(--ink); text-shadow: 0 0 6px rgba(251, 250, 246, .9), 0 0 2px rgba(251, 250, 246, .9); }
     .sticky-off .orb { position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: 0; transform: translate(-50%, -50%); z-index: 0; vertical-align: 0; }
+    /* timeline com SFX dentro de uma cápsula, ao lado de "está pronto." */
+    .h1 .e-tl { position: relative; display: inline-block; width: 2.3em; height: .74em; margin-left: .16em; vertical-align: .02em; border-radius: 999px; overflow: hidden;
+      background: #1d1d1f url(/assets/tl-strip.webp) 0 50% / auto 100% repeat-x; box-shadow: 0 10px 24px -12px rgba(20, 20, 20, .55), inset 0 0 0 1px rgba(255, 255, 255, .12);
+      animation: tlpan 16s linear infinite; -webkit-text-fill-color: initial; }
+    .h1 .e-tl i { position: absolute; left: 34%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: #4ea1ff; box-shadow: 0 0 8px #4ea1ff; }
+    .h1 .e-tl i::before { content: ""; position: absolute; left: -4px; top: 0; width: 10px; height: 8px; background: #4ea1ff; clip-path: polygon(0 0, 100% 0, 100% 55%, 50% 100%, 0 55%); }
+    @keyframes tlpan { from { background-position-x: 0; } to { background-position-x: -1078px; } }
+    @media (prefers-reduced-motion: reduce) { .h1 .e-tl { animation: none; } }
+    @media (max-width: 760px) { .h1 .e-tl { width: 1.42em; height: .7em; margin-left: .1em; } }
     /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
     .h1, .h2, .lang-title, .o-title, .ck-t, .guar h3 { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
     .h1, .ed-h, .display { line-height: 1; }
@@ -2480,6 +2489,8 @@
       (function (h) { var sp = h.querySelector('.serif'), e = document.createElement('span');
         e.className = 'e-hp'; e.setAttribute('aria-hidden', 'true'); e.textContent = '🎧';
         if (sp) h.insertBefore(e, sp); else h.appendChild(e); })($('rHello'));
+      (function (h) { var sp = h.querySelector('.serif') || h, tl = document.createElement('span');
+        tl.className = 'e-tl'; tl.setAttribute('aria-hidden', 'true'); tl.innerHTML = '<i></i>'; sp.appendChild(tl); })($('rHello'));
       $('rChips').innerHTML =
         '<span class="r-chip"><b>' + esc(t('r.c.type')) + '</b>' + esc(t('type.' + a.type)) + '</span>' +
         '<span class="r-chip"><b>' + esc(t('r.c.vibe')) + '</b>' + esc(t('vibe.' + a.vibe)) + '</span>' +
