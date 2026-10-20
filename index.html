@@ -3321,7 +3321,6 @@
     @media (max-width: 860px) {
       .clipx { grid-template-columns: 1fr; gap: 12px; }
       .clipx-tabs { grid-template-columns: repeat(3, 1fr); gap: 6px; }
-      .clipx-stage video { aspect-ratio: 540 / 966; }
       .clipx.clips-wide { width: calc(100vw - 32px); }
       .clipx-tab { flex-direction: column; gap: 8px; padding: 11px 10px 16px; font-size: 12px; }
       .clipx-tab i { left: 10px; right: 10px; bottom: 7px; }
@@ -6390,13 +6389,13 @@
     function load(i, play) {
       cur = i;
       tabs.forEach(function (t, j) { t.classList.toggle('on', j === i); t.querySelector('u').style.width = '0%'; });
-      var t = tabs[i], mob = window.innerWidth < 861, suf = mob ? '-m' : ''; v.poster = t.getAttribute('data-poster').replace('.jpg', suf + '.jpg'); v.src = t.getAttribute('data-src').replace('.mp4', suf + '.mp4');
+      var t = tabs[i], suf = ''; v.poster = t.getAttribute('data-poster').replace('.jpg', suf + '.jpg'); v.src = t.getAttribute('data-src').replace('.mp4', suf + '.mp4');
       if (play) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
     }
     tabs.forEach(function (t, i) { t.addEventListener('click', function () { load(i, true); }); });
     v.addEventListener('timeupdate', function () { if (v.duration) tabs[cur].querySelector('u').style.width = (v.currentTime / v.duration * 100) + '%'; });
     v.addEventListener('ended', function () { load((cur + 1) % tabs.length, true); });
-    v.poster = tabs[0].getAttribute('data-poster').replace('.jpg', window.innerWidth < 861 ? '-m.jpg' : '.jpg');
+    v.poster = tabs[0].getAttribute('data-poster');
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) {
         if (es[0].isIntersecting) { if (!seen) { seen = true; load(0, true); } else { var p = v.play(); if (p && p.catch) p.catch(function () {}); } }
