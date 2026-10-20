@@ -2754,7 +2754,7 @@
     }
 
     var resultWired = false, simKey = null, simObs = null;
-    function simSrc(k) { return '/simulador/?embed=1&v=3&lang=' + lang + '&prio=' + encodeURIComponent(k); }
+    function simSrc(k) { return '/simulador/?embed=1&v=4&lang=' + lang + '&prio=' + encodeURIComponent(k); }
     function mountSim(k) {
       var f = $('simFrame');
       if (simKey === k) { try { f.contentWindow.postMessage({ type: 'dropsfx-sim-cmd', lang: lang }, '*'); } catch (e) {} return; }

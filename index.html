@@ -6355,7 +6355,7 @@
   (function () {
     var f = document.getElementById('simFrame'), cur = 'pt', loaded = false;
     if (!f) return;
-    function load() { if (loaded) return; loaded = true; f.src = '/simulador/?embed=1&v=3&lang=' + cur; }
+    function load() { if (loaded) return; loaded = true; f.src = '/simulador/?embed=1&v=4&lang=' + cur; }
     if ('IntersectionObserver' in window) {
       var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { load(); io.disconnect(); } }, { rootMargin: '900px 0px' });
       io.observe(f);
