@@ -458,7 +458,7 @@
   function removeClip(uid) {
     S.clips = S.clips.filter(function (c) { return c.uid !== uid; });
     if (S.selClip === uid) S.selClip = null;
-    renderClips(); toast('info', '–', t('removed'));
+    renderClips(); toast('info', '✕', t('removed'));
   }
 
   // ------------------------------------------------------------------ play

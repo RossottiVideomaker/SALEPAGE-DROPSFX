@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
-  <title>dropSFX — Entrar com Google</title>
+  <title>dropSFX · Entrar com Google</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -118,20 +118,20 @@
       </button>
     </div>
 
-    <!-- STATE: done — automatic pairing, nothing to type -->
+    <!-- STATE: done, automatic pairing, nothing to type -->
     <div class="state" id="s-done">
       <h1>Tudo certo! 🎉</h1>
-      <p class="sub">Logado como<br><span class="email-tag" id="user-email">—</span></p>
+      <p class="sub">Logado como<br><span class="email-tag" id="user-email">·</span></p>
       <div class="code-box">
         <div class="code-label" style="font-size:14px;color:var(--txt);">Pode voltar para o <strong>Premiere Pro</strong></div>
         <div class="code-label" style="margin-top:8px;margin-bottom:0;">O plugin vai entrar sozinho em alguns segundos.<br>Você já pode fechar esta aba.</div>
       </div>
     </div>
 
-    <!-- STATE: manual fallback — show pairing code -->
+    <!-- STATE: manual fallback, show pairing code -->
     <div class="state" id="s-code">
       <h1>Quase lá! 🎉</h1>
-      <p class="sub">Logado como<br><span class="email-tag" id="user-email-2">—</span></p>
+      <p class="sub">Logado como<br><span class="email-tag" id="user-email-2">·</span></p>
 
       <div class="code-box">
         <div class="code-label">Seu código de acesso</div>
@@ -290,7 +290,7 @@
         // Traduz os erros mais comuns pra mensagens que se explicam sozinhas
         if (/signups? not allowed/i.test(msg)) {
           msg = 'Essa conta Google não está ligada a nenhuma compra do dropSFX. ' +
-                'Tente de novo com o e-mail que você usou na compra — ou, se acabou de comprar, ' +
+                'Tente de novo com o e-mail que você usou na compra, ou, se acabou de comprar, ' +
                 'aguarde alguns minutos e tente novamente. Precisa de ajuda? Chama no WhatsApp aí embaixo. 👇';
         }
         showError(msg);
@@ -309,7 +309,7 @@
       if (data && data.session) {
         await proceedWithSession(data.session);
       } else {
-        // No session yet — also listen in case it resolves a beat later
+        // No session yet, also listen in case it resolves a beat later
         show('s-login');
         _sbClient.auth.onAuthStateChange((event, session) => {
           if (session && event === 'SIGNED_IN') proceedWithSession(session);
