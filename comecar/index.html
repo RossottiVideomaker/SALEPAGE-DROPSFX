@@ -880,17 +880,17 @@
     .r-hero { position: relative; }
     .r-hero-l, .r-hero .kit { position: relative; z-index: 2; }
     .fx3d { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
-    .e3 { position: absolute; display: block; height: auto; will-change: transform; filter: drop-shadow(0 18px 22px rgba(20, 20, 20, .18)); }
+    .e3 { position: absolute; display: block; line-height: 1; font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif; font-style: normal; user-select: none; will-change: transform; filter: drop-shadow(0 16px 18px rgba(20, 20, 20, .2)); }
     .e3 { --x: 0px; --y: 0px; transform: translate3d(var(--x), var(--y), 0); }
     .e3::after { content: none; }
-    .e-tech { width: 150px; left: calc(100% - 380px - 28px - 168px); top: 120px; z-index: 3; animation: bob 5.5s ease-in-out infinite; }
-    .e-notes { width: 92px; right: -26px; top: -46px; animation: bob 6.5s ease-in-out -2s infinite; }
-    .e-note { width: 64px; left: 47%; top: -18px; animation: bob 4.8s ease-in-out -1s infinite; }
+    .e-tech { font-size: 132px; left: calc(100% - 380px - 28px - 168px); top: 120px; z-index: 3; animation: bob 5.5s ease-in-out infinite; }
+    .e-notes { font-size: 78px; right: -26px; top: -46px; animation: bob 6.5s ease-in-out -2s infinite; }
+    .e-note { font-size: 54px; left: 47%; top: -18px; animation: bob 4.8s ease-in-out -1s infinite; }
     #sResult { overflow-x: clip; }
-    .e-phones { width: 80px; left: -96px; bottom: -64px; opacity: .95; animation: bob 7s ease-in-out -3s infinite; }
+    .e-phones { font-size: 70px; left: -96px; bottom: -64px; opacity: .95; animation: bob 7s ease-in-out -3s infinite; }
     @keyframes bob { 0%, 100% { translate: 0 0; rotate: -4deg; } 50% { translate: 0 -14px; rotate: 5deg; } }
     .e-emit { position: absolute; left: calc(100% - 380px - 28px - 168px + 60px); top: 150px; width: 40px; height: 1px; z-index: 2; }
-    .e-emit img { position: absolute; left: 0; top: 0; width: 34px; opacity: 0; filter: drop-shadow(0 8px 10px rgba(20, 20, 20, .16)); animation: rise 2.8s cubic-bezier(.25, .7, .3, 1) forwards; }
+    .e-emit span { position: absolute; left: 0; top: 0; font-size: 30px; line-height: 1; font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif; opacity: 0; filter: drop-shadow(0 8px 10px rgba(20, 20, 20, .16)); animation: rise 2.8s cubic-bezier(.25, .7, .3, 1) forwards; }
     @keyframes rise {
       0% { opacity: 0; transform: translate(0, 10px) scale(.4) rotate(0deg); }
       15% { opacity: 1; }
@@ -898,17 +898,17 @@
     }
     @media (max-width: 1180px) and (min-width: 761px) { .e-phones { left: -30px; bottom: -86px; } }
     @media (max-width: 1100px) and (min-width: 761px) {
-      .e-tech { width: 100px; left: calc(100% - 380px - 66px); top: -2px; z-index: 4; }
+      .e-tech { font-size: 90px; left: calc(100% - 380px - 66px); top: -2px; z-index: 4; }
       .e-emit { left: calc(100% - 380px - 26px); top: 20px; }
       .e-note { left: 40%; top: -40px; }
     }
     @media (max-width: 760px) {
-      .e-tech { width: 92px; left: auto; right: -4px; top: 34px; }
+      .e-tech { font-size: 80px; left: auto; right: -4px; top: 34px; }
       .e-emit { left: auto; right: 30px; top: 56px; }
-      .e-notes { width: 50px; right: 104px; top: 4px; }
+      .e-notes { font-size: 42px; right: 104px; top: 4px; }
       .e-note { display: none; }
-      .e-phones { width: 50px; left: auto; right: -12px; bottom: auto; top: 150px; }
-      .e-emit img { width: 26px; }
+      .e-phones { font-size: 42px; left: auto; right: -12px; bottom: auto; top: 150px; }
+      .e-emit span { font-size: 22px; }
     }
     @media (prefers-reduced-motion: reduce) { .e3 { animation: none; } .e-emit { display: none; } }
     /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
@@ -996,10 +996,10 @@
       <div class="wrap">
         <div class="r-hero">
           <div class="fx3d" id="fx3d" aria-hidden="true">
-            <img class="e3 e-tech" data-d="1" src="/assets/emoji/tech.webp" alt="" width="256" height="256">
-            <img class="e3 e-notes" data-d="2.2" src="/assets/emoji/notes.webp" alt="" width="256" height="256">
-            <img class="e3 e-note" data-d="1.6" src="/assets/emoji/note.webp" alt="" width="256" height="256">
-            <img class="e3 e-phones" data-d="2.8" src="/assets/emoji/phones.webp" alt="" width="256" height="256">
+            <span class="e3 e-tech" data-d="1">👨‍💻</span>
+            <span class="e3 e-notes" data-d="2.2">🎶</span>
+            <span class="e3 e-note" data-d="1.6">🎵</span>
+            <span class="e3 e-phones" data-d="2.8">🎧</span>
             <div class="e-emit" id="fxEmit"></div>
           </div>
           <div class="r-hero-l">
@@ -2749,9 +2749,8 @@
   var visible = false, timer = 0;
   function spawn() {
     if (!visible || document.hidden || !emit) return;
-    var im = new Image();
-    im.src = Math.random() < .7 ? '/assets/emoji/note.webp' : '/assets/emoji/notes.webp';
-    im.alt = '';
+    var im = document.createElement('span');
+    im.textContent = Math.random() < .7 ? '🎵' : '🎶';
     im.style.setProperty('--dx', (Math.random() * 120 - 60).toFixed(0) + 'px');
     im.style.setProperty('--r', (Math.random() * 60 - 30).toFixed(0) + 'deg');
     im.addEventListener('animationend', function () { im.remove(); });
