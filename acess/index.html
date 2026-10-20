@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="robots" content="noindex, nofollow"/>
-<title>Minha Central · dropSFX</title>
+<title>Minha Central, dropSFX</title>
 <link rel="icon" href="assets/logo.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -247,7 +247,7 @@ button{font-family:var(--font);}
     <aside class="sidebar">
       <div class="sb-user">
         <div class="sb-avatar" id="sbAvatar">?</div>
-        <div class="sb-email" id="userName">·</div>
+        <div class="sb-email" id="userName"></div>
       </div>
       <nav class="sb-nav">
         <button class="sb-item active"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>Início</button>
@@ -404,7 +404,7 @@ button{font-family:var(--font);}
         <div id="changelog-list"><div class="cl-loading">Carregando…</div></div>
       </div>
 
-      <div class="foot">dropSFX © 2026 · <a href="https://dropsfx.com.br">dropsfx.com.br</a></div>
+      <div class="foot">dropSFX © 2026 | <a href="https://dropsfx.com.br">dropsfx.com.br</a></div>
     </main>
   </div>
 </div>
@@ -493,7 +493,7 @@ button{font-family:var(--font);}
       meta.textContent = 'Se acha que isso é um engano, chama no suporte.';
     } else if (info.trial && info.trial.active) {
       badge.className = 'hero-badge trial';
-      badgeText.textContent = 'Teste · ' + info.trial.days_left + ' dia(s) restante(s)';
+      badgeText.textContent = 'Teste: ' + info.trial.days_left + ' dia(s) restante(s)';
       meta.textContent = 'Depois disso, os ' + TOTAL_EFFECTS + ' efeitos são liberados automaticamente.';
     } else {
       badge.className = 'hero-badge off';
@@ -519,7 +519,7 @@ button{font-family:var(--font);}
       .then(function(r){ return r.json(); })
       .then(function(d){
         var el = document.getElementById('versionTag');
-        if (el && d && d.version) el.textContent = 'v' + d.version + ' · sempre atualizado';
+        if (el && d && d.version) el.textContent = 'v' + d.version + ', sempre atualizado';
       }).catch(function(){});
 
     sb.auth.getSession().then(function(res){
