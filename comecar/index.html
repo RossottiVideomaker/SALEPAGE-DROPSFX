@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#f4f1ea" />
+  <meta name="theme-color" content="#1f2023" />
   <title>dropSFX | Monte seu kit de sound design</title>
   <meta name="description" content="Responda 8 perguntas rápidas e veja quais dos 2.371 efeitos sonoros do dropSFX combinam com o seu tipo de vídeo. Premiere Pro, After Effects e DaVinci Resolve." />
   <link rel="canonical" href="https://www.dropsfx.com.br/" />
@@ -1074,6 +1074,11 @@
     .kt.playing { background: radial-gradient(120% 90% at 50% 115%, color-mix(in srgb, var(--c) 48%, transparent), transparent 70%), linear-gradient(180deg, #232327, #19191c);
       box-shadow: 0 0 0 1.5px var(--c), 0 0 26px -6px var(--c), inset 0 1px 0 rgba(255, 255, 255, .08); }
     @media (max-width: 760px) { .kt { grid-template-columns: none; aspect-ratio: 1 / .86; } .kt-name { font-size: 12px; } }
+    /* topo sólido grafite, sem fade */
+    .top { background: #1f2023 !important; border-bottom: 1px solid rgba(255, 255, 255, .06); }
+    .top .logo { filter: none !important; }
+    .top .lang-mini { background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .14); }
+    .top .lang-mini button:not([aria-pressed="true"]) { color: #c9c9cf; }
     /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
     .h1, .h2, .lang-title, .o-title, .ck-t, .guar h3 { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
     .h1, .ed-h, .display { line-height: 1; }
