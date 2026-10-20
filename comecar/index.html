@@ -1074,13 +1074,6 @@
     .kt.playing { background: radial-gradient(120% 90% at 50% 115%, color-mix(in srgb, var(--c) 48%, transparent), transparent 70%), linear-gradient(180deg, #232327, #19191c);
       box-shadow: 0 0 0 1.5px var(--c), 0 0 26px -6px var(--c), inset 0 1px 0 rgba(255, 255, 255, .08); }
     @media (max-width: 760px) { .kt { grid-template-columns: none; aspect-ratio: 1 / .86; } .kt-name { font-size: 12px; } }
-    /* barra do topo com a textura de vidro canelado */
-    .top { background: #2a2c31 url(/assets/topbar.webp) 50% 55% / cover !important; box-shadow: 0 10px 30px -18px rgba(20, 20, 20, .6); }
-    .top::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, .08), rgba(0, 0, 0, .22)); pointer-events: none; }
-    .top-in { position: relative; z-index: 1; }
-    .top .logo { filter: drop-shadow(0 1px 6px rgba(0, 0, 0, .35)) !important; }
-    .top .lang-mini { background: rgba(255, 255, 255, .16); border-color: rgba(255, 255, 255, .28); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
-    .top .lang-mini button:not([aria-pressed="true"]) { color: #fff; }
     /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
     .h1, .h2, .lang-title, .o-title, .ck-t, .guar h3 { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
     .h1, .ed-h, .display { line-height: 1; }
