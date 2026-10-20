@@ -956,6 +956,13 @@
     .btn.blue:hover { background: linear-gradient(180deg, #ff7a40, #e03a12); box-shadow: 0 16px 34px -10px rgba(242, 70, 28, .62), inset 0 1px 0 rgba(255, 255, 255, .3); }
     .btn.blue:active { transform: translateY(1px); }
     .sticky .btn { box-shadow: 0 8px 22px -6px var(--cta-glow); }
+    /* ícones do quiz em pastilhas coloridas */
+    .q-ic { flex: none; width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center;
+      background: color-mix(in srgb, var(--c) 13%, #fff); color: color-mix(in srgb, var(--c) 80%, #000);
+      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 22%, transparent); transition: background .2s, color .2s, transform .25s cubic-bezier(.3, 1.6, .5, 1); }
+    .q-opt:hover .q-ic { transform: rotate(-6deg) scale(1.06); }
+    .q-opt.picked .q-ic { background: var(--c); color: #fff; box-shadow: 0 8px 18px -8px var(--c); }
+    .q-opts.grid .q-opt .q-ic { margin-bottom: 2px; }
     /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
     .h1, .h2, .lang-title, .o-title, .ck-t, .guar h3 { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
     .h1, .ed-h, .display { line-height: 1; }
@@ -2012,6 +2019,24 @@
       { id: 'volume', kind: 'list', opts: [['0'], ['1'], ['2'], ['3']] },
       { id: 'name', kind: 'text' }
     ];
+    // ícones do quiz (traço, no estilo do kit) — substituem os emojis
+    var QI = {
+      reels: ['#ec4899', '<rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 9.5v5l4-2.5z" fill="currentColor"/>'],
+      youtube: ['#ef4444', '<rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9v6l5-3z" fill="currentColor"/>'],
+      wedding: ['#d99a1e', '<circle cx="12" cy="15" r="6"/><path d="M9.5 5.5L12 3l2.5 2.5L12 9z"/>'],
+      ads: ['#f97316', '<path d="M3 10v4a1 1 0 001 1h2l7 4V5L6 9H4a1 1 0 00-1 1z"/><path d="M17 9a4 4 0 010 6"/>'],
+      games: ['#8b5cf6', '<path d="M6 8h12a4 4 0 014 4v1a3 3 0 01-5.2 2l-1.3-1.5h-7L7.2 15A3 3 0 012 13v-1a4 4 0 014-4z"/><path d="M8 10.5v3M6.5 12h3"/><circle cx="16" cy="11" r=".9" fill="currentColor"/><circle cx="17.6" cy="13" r=".9" fill="currentColor"/>'],
+      podcast: ['#14b8a6', '<rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v4M8 22h8"/>'],
+      cinematic: ['#6366f1', '<rect x="3" y="9" width="18" height="12" rx="2"/><path d="M3 9l1.5-5.2L21 4l-.5 5M8.5 3.9L7 9M14 3.9L12.5 9"/>'],
+      funny: ['#f59e0b', '<circle cx="12" cy="12" r="9"/><path d="M8 14c1 2 2.3 3 4 3s3-1 4-3z" fill="currentColor"/><path d="M8 10h2M14 10h2"/>'],
+      clean: ['#0ea5e9', '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/>'],
+      hype: ['#eab308', '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>'],
+      emotional: ['#2f5fe6', '<path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/>']
+    };
+    function qIcon(id) {
+      var d = QI[id]; if (!d) return '';
+      return '<span class="q-ic" style="--c:' + d[0] + '" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + d[1] + '</svg></span>';
+    }
     var LABEL = { type: 'type.', vibe: 'vibe.', app: 'app.', source: 'source.', time: 'time.', volume: 'volume.' };
     var MIN = [7, 20, 45, 75], VID = [1.5, 4, 8, 12];
     var LANGS = ['pt', 'en', 'es', 'hi', 'fr', 'id'];
@@ -2185,7 +2210,7 @@
         html = '<div class="q-opts' + (q.kind === 'grid' ? ' grid' : '') + '" role="radiogroup">';
         q.opts.forEach(function (o, j) {
           var on = A[q.id] === o[0];
-          var lead = o[1] ? '<span class="q-emoji" aria-hidden="true">' + o[1] + '</span>' : '<span class="q-key">' + 'ABCDEF'.charAt(j) + '</span>';
+          var lead = QI[o[0]] ? qIcon(o[0]) : o[1] ? '<span class="q-emoji" aria-hidden="true">' + o[1] + '</span>' : '<span class="q-key">' + 'ABCDEF'.charAt(j) + '</span>';
           html += '<button type="button" class="q-opt' + (on ? ' picked' : '') + '" role="radio" aria-checked="' + on + '" data-v="' + o[0] + '">' + lead + '<span>' + esc(t(LABEL[q.id] + o[0])) + '</span></button>';
         });
         html += '</div>';
