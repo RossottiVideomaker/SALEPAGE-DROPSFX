@@ -784,6 +784,21 @@
     .lang-mini:not(.open) button:not([aria-pressed="true"]) { max-width: 0; padding-left: 0; padding-right: 0; opacity: 0; }
     .lang-mini:not(.open) button[aria-pressed="true"]::after { content: " ▾"; font-size: 9px; opacity: .8; }
     .lang-mini:not(.open) button[aria-pressed="true"] { max-width: 60px; }
+
+    /* kit ao lado do título (desktop), compacto */
+    .r-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 380px); gap: 28px; align-items: center; }
+    .r-hero .kit { margin-top: 0; padding: 12px; border-radius: 16px; }
+    .r-hero .kit-head { gap: 6px; }
+    .r-hero .kit-head .mono { font-size: 9.5px; letter-spacing: .12em; }
+    .r-hero .kit-count { font-size: 10px; }
+    .r-hero .kit-grid { grid-template-columns: repeat(2, 1fr); gap: 5px; margin-top: 9px; }
+    .r-hero .kc { padding: 7px 8px; gap: 7px; border-radius: 10px; }
+    .r-hero .kc-ic { width: 24px; height: 24px; border-radius: 7px; }
+    .r-hero .kc-ic svg { width: 12px; height: 12px; }
+    .r-hero .kc-name { font-size: 11.5px; }
+    .r-hero .kit-more { margin-top: 8px; font-size: 11.5px; line-height: 1.4; color: var(--steel); }
+    @media (min-width: 761px) { .r-hero { position: relative; width: min(1100px, calc(100vw - 40px)); left: 50%; transform: translateX(-50%); } }
+    @media (max-width: 760px) { .r-hero { grid-template-columns: 1fr; gap: 20px; } }
 </style>
 </head>
 <body>
@@ -864,9 +879,19 @@
     <section class="screen" id="sResult">
       <div class="wrap">
         <div class="r-hero">
+          <div class="r-hero-l">
           <p class="mono" data-t="r.kicker"></p>
           <h1 class="h1" id="rHello" style="margin-top:14px"></h1>
           <div class="r-chips" id="rChips"></div>
+          </div>
+          <div class="kit">
+            <div class="kit-head">
+              <p class="mono" id="kitTitle"></p>
+              <span class="kit-count" id="kitCount"></span>
+            </div>
+            <div class="kit-grid" id="kitGrid"></div>
+            <p class="kit-more" id="kitMore"></p>
+          </div>
         </div>
 
         <div class="sec" id="momentos" style="padding-top:28px">
@@ -875,14 +900,6 @@
           <div class="clipx clips-wide" style="margin-top:28px"><div class="clipx-tabs"><button type="button" class="clipx-tab on" data-src="/assets/clips/pastas.mp4" data-poster="/assets/clips/pastas.jpg"><b>1</b><span data-t="cl.1"></span><i><u></u></i></button><button type="button" class="clipx-tab" data-src="/assets/clips/inserir.mp4" data-poster="/assets/clips/inserir.jpg"><b>2</b><span data-t="cl.2"></span><i><u></u></i></button><button type="button" class="clipx-tab" data-src="/assets/clips/montar.mp4" data-poster="/assets/clips/montar.jpg"><b>3</b><span data-t="cl.3"></span><i><u></u></i></button></div><div class="clipx-stage"><div class="clipx-bar"><i></i><i></i><i></i>Premiere Pro<span>dropSFX</span></div><video muted playsinline preload="none"></video></div></div>
         </div>
 
-        <div class="kit">
-          <div class="kit-head">
-            <p class="mono" id="kitTitle"></p>
-            <span class="kit-count" id="kitCount"></span>
-          </div>
-          <div class="kit-grid" id="kitGrid"></div>
-          <p class="kit-more" id="kitMore"></p>
-        </div>
 
         <div class="cta-row">
           <a class="btn blue js-cta" data-pos="kit" href="#" target="_blank" rel="noopener"><span data-t="r.cta1"></span> →</a>
