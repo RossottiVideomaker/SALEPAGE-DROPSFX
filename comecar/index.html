@@ -764,6 +764,21 @@
       .clipx-bar { height: 28px; font-size: 10.5px; }
     }
     .clips-wide { position: relative; width: min(1100px, calc(100vw - 40px)); left: 50%; transform: translateX(-50%); }
+
+    /* kit compacto: só ícone, nome e quantidade */
+    .kit { margin-top: 28px; padding: 14px; }
+    .kit-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 12px; }
+    .kc { display: flex; align-items: center; gap: 9px; padding: 9px 10px; border-radius: 11px; }
+    .kc-ic { width: 28px; height: 28px; margin: 0; flex: none; border-radius: 8px; }
+    .kc-ic svg { width: 14px; height: 14px; }
+    .kc-deco, .kc-why { display: none; }
+    .kc-name { flex: 1; min-width: 0; font-size: 12.5px; line-height: 1.2; }
+    .kc-n { margin: 0; flex: none; font-size: 0; }
+    .kc-n b { font-size: 11px; }
+    .kit-more { margin-top: 10px; font-size: 13px; }
+    @media (max-width: 640px) { .kit-grid { grid-template-columns: repeat(2, 1fr); } }
+    .clipx-tab { padding: 11px 13px 15px; font-size: 13.5px; }
+    @media (max-width: 860px) { .clipx-tab { flex-direction: row; align-items: center; gap: 7px; padding: 9px 9px 13px; font-size: 11.5px; line-height: 1.25; } .clipx-tab b { width: 20px; height: 20px; font-size: 11px; border-radius: 6px; } .clipx-tab span { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; } }
 </style>
 </head>
 <body>
@@ -849,6 +864,12 @@
           <div class="r-chips" id="rChips"></div>
         </div>
 
+        <div class="sec" id="momentos" style="padding-top:28px">
+          <p class="mono" data-t="cl.kicker"></p>
+          <h2 class="h2" style="margin-top:12px" data-th="cl.title"></h2>
+          <div class="clipx clips-wide" style="margin-top:28px"><div class="clipx-tabs"><button type="button" class="clipx-tab on" data-src="/assets/clips/pastas.mp4" data-poster="/assets/clips/pastas.jpg"><b>1</b><span data-t="cl.1"></span><i><u></u></i></button><button type="button" class="clipx-tab" data-src="/assets/clips/inserir.mp4" data-poster="/assets/clips/inserir.jpg"><b>2</b><span data-t="cl.2"></span><i><u></u></i></button><button type="button" class="clipx-tab" data-src="/assets/clips/montar.mp4" data-poster="/assets/clips/montar.jpg"><b>3</b><span data-t="cl.3"></span><i><u></u></i></button></div><div class="clipx-stage"><div class="clipx-bar"><i></i><i></i><i></i>Premiere Pro<span>dropSFX</span></div><video muted playsinline preload="none"></video></div></div>
+        </div>
+
         <div class="kit">
           <div class="kit-head">
             <p class="mono" id="kitTitle"></p>
@@ -907,12 +928,6 @@
             <div class="vs-row"><span class="vs-k" data-t="vs.organize"></span><span class="vs-old" data-t="vs.organize.old"></span><span class="vs-new" data-t="vs.organize.new"></span></div>
             <div class="vs-row"><span class="vs-k" data-t="vs.cost"></span><span class="vs-old" data-t="vs.cost.old"></span><span class="vs-new" data-t="vs.cost.new"></span></div>
           </div>
-        </div>
-
-        <div class="sec" id="momentos">
-          <p class="mono" data-t="cl.kicker"></p>
-          <h2 class="h2" style="margin-top:12px" data-th="cl.title"></h2>
-          <div class="clipx clips-wide" style="margin-top:28px"><div class="clipx-tabs"><button type="button" class="clipx-tab on" data-src="/assets/clips/pastas.mp4" data-poster="/assets/clips/pastas.jpg"><b>1</b><span data-t="cl.1"></span><i><u></u></i></button><button type="button" class="clipx-tab" data-src="/assets/clips/inserir.mp4" data-poster="/assets/clips/inserir.jpg"><b>2</b><span data-t="cl.2"></span><i><u></u></i></button><button type="button" class="clipx-tab" data-src="/assets/clips/montar.mp4" data-poster="/assets/clips/montar.jpg"><b>3</b><span data-t="cl.3"></span><i><u></u></i></button></div><div class="clipx-stage"><div class="clipx-bar"><i></i><i></i><i></i>Premiere Pro<span>dropSFX</span></div><video muted playsinline preload="none"></video></div></div>
         </div>
 
         <div class="sec" style="display:none">
@@ -2061,7 +2076,6 @@
       kit = { a: A, at: Date.now(), lang: lang, skipped: true };
       store('dropsfx_kit', JSON.stringify(kit));
       showResult('skip');
-      setTimeout(function () { var o = $('ouvir'); if (o) window.scrollTo({ top: o.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); }, 500);
     });
     $('qBack').addEventListener('click', function () {
       TR.ev('quiz_back', Q[step].id);
