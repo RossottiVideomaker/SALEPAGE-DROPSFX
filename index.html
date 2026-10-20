@@ -3305,7 +3305,7 @@
     .ed-knock-cap, .fold-intro, .ed-quote .quote, .ed-terms dd, .res-unit, .night-after, .fold-count, .ed-foot-line, .night-list em { font-style: normal !important; font-weight: 600; letter-spacing: -.02em; }
     .sim-frame { position: relative; width: min(1240px, calc(100vw - 40px)); left: 50%; transform: translateX(-50%); border-radius: 18px; overflow: hidden; background: #000; }
     .sim-frame iframe { display: block; width: 100%; height: clamp(660px, calc(100vh - 32px), 800px); border: 0; background: #000; }
-    @media (max-width: 859px) { .sim-frame { width: calc(100vw - 32px); height: 590px; border-radius: 16px; } .sim-frame iframe { width: calc(100% / .7); height: 843px; transform: scale(.7); transform-origin: 0 0; } }
+    @media (max-width: 859px) { .sim-frame { width: calc(100vw - 32px); height: 472px; border-radius: 14px; } .sim-frame iframe { width: calc(100% / .56); height: 843px; transform: scale(.56); transform-origin: 0 0; } }
   
     .clipx { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 18px; align-items: start; margin-top: 10px; }
     .clipx-tabs { display: grid; gap: 8px; }
@@ -6370,7 +6370,7 @@
       if (e.source !== f.contentWindow || d.type !== 'dropsfx-sim') return;
       var x = d.data || {};
       switch (d.ev) {
-        case 'height': var _sc = .7; if (window.innerWidth < 860 && x.h > 400) { f.style.height = x.h + 'px'; f.parentNode.style.height = Math.ceil(x.h * _sc) + 'px'; } else { f.style.height = ''; f.parentNode.style.height = ''; } break;
+        case 'height': var _sc = .56; if (window.innerWidth < 860 && x.h > 400) { f.style.height = x.h + 'px'; f.parentNode.style.height = Math.ceil(x.h * _sc) + 'px'; } else { f.style.height = ''; f.parentNode.style.height = ''; } break;
         case 'open_folder': T('sim_folder', x.cat); break;
         case 'sfx_play': T('sfx_play', x.id, { cat: x.cat, hover: !!x.hover }); break;
         case 'insert': T('sim_insert', x.id, x); break;
