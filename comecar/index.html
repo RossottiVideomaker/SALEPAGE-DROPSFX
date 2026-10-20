@@ -911,6 +911,10 @@
       .e-emit span { font-size: 22px; }
     }
     @media (prefers-reduced-motion: reduce) { .e3 { animation: none; } .e-emit { display: none; } }
+    /* só o fone: ocupa o espaço entre o título e o kit */
+    .r-hero .e-phones { font-size: 120px; left: calc(100% - 380px - 28px - 158px); right: auto; top: 96px; bottom: auto; z-index: 3; }
+    @media (max-width: 1100px) and (min-width: 761px) { .r-hero .e-phones { font-size: 84px; left: calc(100% - 380px - 62px); top: -10px; } }
+    @media (max-width: 760px) { .r-hero .e-phones { font-size: 76px; left: auto; right: 0; top: 34px; } }
     /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
     .h1, .h2, .lang-title, .o-title, .ck-t, .guar h3 { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
     .h1, .ed-h, .display { line-height: 1; }
@@ -996,11 +1000,7 @@
       <div class="wrap">
         <div class="r-hero">
           <div class="fx3d" id="fx3d" aria-hidden="true">
-            <span class="e3 e-tech" data-d="1">👨‍💻</span>
-            <span class="e3 e-notes" data-d="2.2">🎶</span>
-            <span class="e3 e-note" data-d="1.6">🎵</span>
-            <span class="e3 e-phones" data-d="2.8">🎧</span>
-            <div class="e-emit" id="fxEmit"></div>
+            <span class="e3 e-phones" data-d="1.6">🎧</span>
           </div>
           <div class="r-hero-l">
           <p class="mono" data-t="r.kicker"></p>
