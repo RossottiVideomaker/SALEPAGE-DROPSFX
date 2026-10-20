@@ -701,7 +701,7 @@
     if (isQuiz) {
       steps.push(['Escolheram idioma', T.lang_selected], ['Começaram o quiz', T.quiz_starts]);
       Q_ORDER.forEach(function(q){ steps.push([Q_LABEL[q], Qs[q] || 0, 'q']); });
-      steps.push(['Terminaram o quiz', T.quiz_completes], ['Tela "montando kit"', T.analysis_views], ['Viram o kit e a oferta', T.result_views], ['Ouviram os sons', (d.sfx_totals||{}).sessions || 0], ['Viram o vídeo', T.video_plays]);
+      steps.push(['Pularam o quiz direto pro plugin', T.quiz_skips || 0], ['Terminaram o quiz', T.quiz_completes], ['Tela "montando kit"', T.analysis_views], ['Viram o kit e a oferta', T.result_views], ['Ouviram os sons', (d.sfx_totals||{}).sessions || 0], ['Viram o vídeo', T.video_plays]);
     }
     steps.push(['Clicaram em comprar', T.cta_sessions]);
     if (T.checkout_help) steps.push(['Gringos: viram a ajuda do checkout', T.checkout_help], ['Gringos: seguiram pro checkout', T.checkout_go || 0]);
