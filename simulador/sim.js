@@ -728,7 +728,7 @@
   function fit() {
     var compact = window.innerWidth < 860;
     simEl.classList.toggle('compact', compact);
-    var th = compact ? 26 : Math.max(26, Math.min(34, Math.round((window.innerHeight - 470) / 6)));
+    var th = compact ? 26 : Math.max(34, Math.min(120, Math.round((window.innerHeight - 205) / 5.15)));
     document.documentElement.style.setProperty('--th', th + 'px');
     document.documentElement.style.setProperty('--tv', (th + 4) + 'px');
     if (EMBED && !compact) document.documentElement.style.setProperty('--h', window.innerHeight + 'px');
@@ -752,7 +752,6 @@
     d.sounds.forEach(function (s) { SND[s.id] = s; });
     $('tabs-drop-badge').textContent = d.total;
     buildTimeline(); renderList(); fit();
-    setTimeout(function () { hint(t('hint.start'), 4200); }, 900);
     post('ready');
   });
 })();

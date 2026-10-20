@@ -194,6 +194,17 @@
   .solo-head p{flex:1;font-size:13px;color:var(--txt-2);}
   .solo-head a{height:36px;padding:0 16px;border-radius:11px;background:linear-gradient(180deg,var(--accent-hi),var(--accent));color:#fff;font:800 12.5px var(--font);display:flex;align-items:center;text-decoration:none;white-space:nowrap;}
   @media (max-width:560px){ body.standalone .solo-head p{display:none;} body.standalone .solo-head{justify-content:space-between;} }
+
+  /* minimalista: só timeline (sem monitor, sem marcadores, sem brilho) */
+  .pr-mon{display:none !important;}
+  .pr-left{grid-template-rows:minmax(0,1fr) !important;}
+  .pr-tl{min-height:0;}
+  .pr-tl-body{flex:1;align-content:start;}
+  .pr-win{box-shadow:none !important;}
+  .pr-plugin #app::before{display:none !important;}
+  .pr-mk,.pr-mkline{display:none !important;}
+  .pr-tl-top .pr-trans{margin-left:6px;}
+  .pr-tl-top .pr-tbtn.play{width:32px;height:32px;}
 </style>
 </head>
 <body>
@@ -228,12 +239,6 @@
           <div class="pr-screen"><canvas id="vid" width="960" height="540"></canvas></div>
           <div class="pr-mon-bar">
             <span class="pr-tc" id="tcMon">00:00:00:00</span>
-            <div class="pr-trans">
-              <button type="button" class="pr-tbtn" id="btnStart" aria-label="Início"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
-              <button type="button" class="pr-tbtn" id="btnBack" aria-label="-1 frame"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M15 6v12L7 12z"/></svg></button>
-              <button type="button" class="pr-tbtn play" id="btnPlay" aria-label="Play"><svg id="icoPlay" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg></button>
-              <button type="button" class="pr-tbtn" id="btnFwd" aria-label="+1 frame"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 6v12l8-6z"/></svg></button>
-            </div>
             <span class="pr-dur" id="durMon">00:00:12:00</span>
           </div>
         </section>
@@ -242,6 +247,12 @@
           <div class="pr-tab"><b id="seqName"></b></div>
           <div class="pr-tl-top">
             <span class="pr-tc" id="tcTl">00:00:00:00</span>
+            <div class="pr-trans">
+              <button type="button" class="pr-tbtn" id="btnStart" aria-label="Início"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+              <button type="button" class="pr-tbtn" id="btnBack" aria-label="-1 frame"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M15 6v12L7 12z"/></svg></button>
+              <button type="button" class="pr-tbtn play" id="btnPlay" aria-label="Play"><svg id="icoPlay" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg></button>
+              <button type="button" class="pr-tbtn" id="btnFwd" aria-label="+1 frame"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 6v12l8-6z"/></svg></button>
+            </div>
             <span class="pr-tools">
               <span class="on"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-6 1.5L9.5 20z"/></svg></span>
               <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M8 8l-4 4 4 4M16 8l4 4-4 4"/></svg></span>
