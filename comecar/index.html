@@ -911,6 +911,12 @@
       .e-emit span { font-size: 22px; }
     }
     @media (prefers-reduced-motion: reduce) { .e3 { animation: none; } .e-emit { display: none; } }
+    /* fone colado no título, logo depois de "Seu kit" */
+    .fx3d { display: none; }
+    .h1 .e-hp { display: inline-block; margin-left: .12em; font-size: .78em; line-height: 1; vertical-align: .04em;
+      font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif; font-style: normal;
+      filter: drop-shadow(0 12px 14px rgba(20, 20, 20, .2)); animation: bob 5s ease-in-out infinite; transform-origin: 50% 80%; }
+    @media (prefers-reduced-motion: reduce) { .h1 .e-hp { animation: none; } }
     /* só o fone: ocupa o espaço entre o título e o kit */
     .r-hero .e-phones { font-size: 120px; left: calc(100% - 380px - 28px - 158px); right: auto; top: 96px; bottom: auto; z-index: 3; }
     @media (max-width: 1100px) and (min-width: 761px) { .r-hero .e-phones { font-size: 84px; left: calc(100% - 380px - 62px); top: -10px; } }
@@ -2348,6 +2354,9 @@
       var picks = recommend(a);
       var name = (a.name || '').trim();
       $('rHello').innerHTML = name ? t('r.hello').replace('{name}', esc(name)) : t('r.hello0');
+      (function (h) { var sp = h.querySelector('.serif'), e = document.createElement('span');
+        e.className = 'e-hp'; e.setAttribute('aria-hidden', 'true'); e.textContent = '🎧';
+        if (sp) h.insertBefore(e, sp); else h.appendChild(e); })($('rHello'));
       $('rChips').innerHTML =
         '<span class="r-chip"><b>' + esc(t('r.c.type')) + '</b>' + esc(t('type.' + a.type)) + '</span>' +
         '<span class="r-chip"><b>' + esc(t('r.c.vibe')) + '</b>' + esc(t('vibe.' + a.vibe)) + '</span>' +
