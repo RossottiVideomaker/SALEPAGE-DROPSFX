@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#000000" />
+  <meta name="theme-color" content="#f4f1ea" />
   <title>dropSFX · Monte seu kit de sound design</title>
   <meta name="description" content="Responda 8 perguntas rápidas e veja quais dos 2.371 efeitos sonoros do dropSFX combinam com o seu tipo de vídeo. Premiere Pro, After Effects e DaVinci Resolve." />
   <link rel="canonical" href="https://www.dropsfx.com.br/" />
@@ -807,6 +807,57 @@
     .r-hero .r-chip b, .r-hero .kit-count, .r-hero .kit-more { display: none; }
     .r-hero .r-chip { padding: 6px 12px; font-size: 12.5px; }
     .r-hero .kit-grid { margin-top: 10px; }
+    /* =====================================================================
+       TEMA CLARO ORGÂNICO — papel off-white, texto quase preto, azul nos destaques.
+       Prints do plugin (simulador e vídeos) continuam escuros, como "janelas".
+       ===================================================================== */
+    :root {
+      --bg: #f4f1ea; --paper: #fbfaf6; --ink: #141414; --ink-2: #3b3b40; --steel: #6d6c69; --dim: #9b9993;
+      --line: rgba(20, 20, 20, .08); --line-2: rgba(20, 20, 20, .14);
+      --card: #fbfaf6; --card-hover: #fff; --card-active: rgba(47, 95, 230, .07);
+      --accent: #2f5fe6; --accent-hi: #2f5fe6; --accent-soft: rgba(47, 95, 230, .1); --accent-glow: rgba(47, 95, 230, .28);
+      --ice: #2f5fe6; --red: #d9463e; --green: #1e9e57; --yellow: #b7860b;
+    }
+    body { background: var(--bg); color: var(--ink); }
+    .top { background: linear-gradient(180deg, rgba(244, 241, 234, .96) 60%, rgba(244, 241, 234, 0)); }
+    .logo { filter: invert(1); }
+    .h1 .serif, .h2 .serif { background: none; -webkit-text-fill-color: currentColor; color: var(--accent); }
+    .q-back:hover, .btn-ghost:hover, .kit-more b, .d-days strong, .inc strong, .pro h3, .vs-new, .ck-steps b, .ck-tip b,
+    .bk-txt b, .o-proof b, .foot a:hover, .foot button:hover, .sticky-off, .sticky-t, .q-jump:hover, .name-in,
+    .q-opt.picked, .q-opt.picked .q-key { color: var(--ink); }
+    .q-opt.picked .q-key { border-color: var(--accent); }
+    .q-opt { background: var(--paper); box-shadow: 0 1px 2px rgba(20, 20, 20, .04); }
+    .q-opt:hover { background: #fff; }
+    .q-track { background: rgba(20, 20, 20, .1); }
+    .ring .bg { stroke: rgba(20, 20, 20, .1); }
+    .name-in { background: #fff; }
+    .name-in:focus { background: #fff; box-shadow: 0 0 0 3px rgba(47, 95, 230, .14); }
+    .insight { background: rgba(47, 95, 230, .06); border-color: rgba(47, 95, 230, .25); }
+    .btn { background: var(--ink); color: var(--bg); }
+    .btn.blue { background: linear-gradient(180deg, #4673f0, #2f5fe6); color: #fff; box-shadow: 0 12px 28px -10px rgba(47, 95, 230, .6), inset 0 1px 0 rgba(255, 255, 255, .22); }
+    .btn.blue:hover { background: linear-gradient(180deg, #5280f5, #2a56d6); box-shadow: 0 14px 32px -10px rgba(47, 95, 230, .7), inset 0 1px 0 rgba(255, 255, 255, .25); }
+    .kit-head .mono { color: var(--steel); }
+    .kit { background: var(--paper); }
+    .kc { background: color-mix(in srgb, var(--c) 8%, #fff); border-color: color-mix(in srgb, var(--c) 32%, transparent); }
+    .kc-ic { background: color-mix(in srgb, var(--c) 16%, #fff); color: color-mix(in srgb, var(--c) 72%, #000); }
+    .kc-n b { color: color-mix(in srgb, var(--c) 68%, #000); }
+    .diag, .pro, .vs, .guar { background: var(--paper); }
+    .vs-new, .vs-head span:nth-child(3) { background: rgba(47, 95, 230, .06); }
+    .offer { background: #fff; border-color: var(--line-2); box-shadow: 0 30px 80px -40px rgba(20, 20, 20, .28); }
+    .o-off { color: #fff; }
+    .ck-card { background: #fff; }
+    .ck-bg { background: rgba(20, 20, 20, .45); }
+    .sticky { background: rgba(251, 250, 246, .97); box-shadow: 0 -12px 30px rgba(20, 20, 20, .08); }
+    .sticky-off { border-color: rgba(47, 95, 230, .3); }
+    .lang-mini { background: #fff; }
+    .sim-frame, .clipx-stage { box-shadow: 0 30px 70px -32px rgba(20, 20, 20, .4); }
+    .clipx-stage { border-color: rgba(20, 20, 20, .25); }
+    .clipx-tab { border-color: var(--line-2); background: var(--paper); color: var(--steel); }
+    .clipx-tab:hover { color: var(--ink); background: #fff; }
+    .clipx-tab b { background: rgba(20, 20, 20, .06); color: var(--steel); }
+    .clipx-tab.on { color: var(--ink); border-color: rgba(47, 95, 230, .45); background: #fff; }
+    .clipx-tab.on b { background: var(--accent); color: #fff; }
+    .clipx-tab i { background: rgba(20, 20, 20, .08); }
     /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
     .h1, .h2, .h1 .serif, .h2 .serif, .lang-title, .o-title, .ck-t, .guar h3 { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
     .h1, .ed-h, .display { line-height: 1; }
