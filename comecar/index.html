@@ -1003,6 +1003,16 @@
     .o-av img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .o-av-photo { background: #e6e2d9; }
     .o-av-more { background: #efece5; color: var(--ink-2); font-size: 13px; }
+    /* faixa iridescente (gif do prisma) com a logo oficial em branco */
+    .o-band { position: relative; margin-top: 20px; height: 150px; border-radius: 16px; overflow: hidden; background: #111 url(/assets/prism.jpg) center / cover;
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; padding: 16px 18px; isolation: isolate; }
+    .o-band-v { position: absolute; inset: -10% 0 0; width: 100%; height: 120%; object-fit: cover; z-index: -2; }
+    .o-band::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(10, 10, 12, 0) 30%, rgba(10, 10, 12, .55)); }
+    .o-band-logo { height: 46px; width: auto; margin-left: -8px; filter: drop-shadow(0 2px 10px rgba(0, 0, 0, .45)); }
+    .o-band-kit { padding: 6px 11px; border-radius: 999px; background: rgba(255, 255, 255, .14); border: 1px solid rgba(255, 255, 255, .28);
+      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font: 700 10.5px var(--font); letter-spacing: .12em; text-transform: uppercase; color: #fff; white-space: nowrap; }
+    .o-band + .o-price { margin-top: 18px; }
+    @media (max-width: 760px) { .o-band { height: 130px; } }
     /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
     .h1, .h2, .lang-title, .o-title, .ck-t, .guar h3 { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
     .h1, .ed-h, .display { line-height: 1; }
@@ -1180,7 +1190,11 @@
         <div class="sec" id="oferta">
           <div class="offer">
             <div class="o-top"><span class="o-ribbon" data-t="o.ribbon"></span><span class="o-off">63% OFF</span></div>
-            <div class="o-brand"><img class="o-logo" src="/assets/logo.png" alt="dropSFX" width="1024" height="381"><span class="o-kit" data-t="o.kit"></span></div>
+            <div class="o-band">
+              <video class="o-band-v" id="prismV" muted loop playsinline preload="none" poster="/assets/prism.jpg" aria-hidden="true"><source src="/assets/prism.webm" type="video/webm"><source src="/assets/prism.mp4" type="video/mp4"></video>
+              <img class="o-band-logo" src="/assets/logo.png" alt="dropSFX" width="1024" height="381">
+              <span class="o-band-kit" data-t="o.kit"></span>
+            </div>
             <p class="o-price" id="oPrice"></p>
             <p class="o-who" id="oWho"></p>
             <p class="o-terms" data-t="o.terms"></p>
@@ -2965,6 +2979,18 @@
       im.src = String(u);
     });
   }).catch(function () {});
+})();
+</script>
+<script>
+/* faixa do prisma: só carrega/toca quando aparece na tela */
+(function () {
+  var v = document.getElementById('prismV'); if (!v) return;
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!('IntersectionObserver' in window)) { v.preload = 'auto'; v.play && v.play().catch(function () {}); return; }
+  new IntersectionObserver(function (es) {
+    if (es[0].isIntersecting) { if (v.preload !== 'auto') { v.preload = 'auto'; v.load(); } var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    else v.pause();
+  }, { rootMargin: '300px 0px' }).observe(v);
 })();
 </script>
 </body>
