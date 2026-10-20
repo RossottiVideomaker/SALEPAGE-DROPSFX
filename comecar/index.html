@@ -876,6 +876,41 @@
       radial-gradient(30vw 26vw at 4% 38%, rgba(56, 189, 248, .10), transparent 70%),
       var(--bg); background-attachment: fixed; }
     html[lang="hi"] .h1 .serif, html[lang="hi"] .h2 .serif { font-family: var(--font); font-style: normal; font-weight: 800; font-size: 1em; }
+    /* ===== EMOJIS 3D (Fluent Emoji 3D, MIT) — cena flutuante no topo do resultado ===== */
+    .r-hero { position: relative; }
+    .r-hero-l, .r-hero .kit { position: relative; z-index: 2; }
+    .fx3d { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+    .e3 { position: absolute; display: block; height: auto; will-change: transform; filter: drop-shadow(0 18px 22px rgba(20, 20, 20, .18)); }
+    .e3 { --x: 0px; --y: 0px; transform: translate3d(var(--x), var(--y), 0); }
+    .e3::after { content: none; }
+    .e-tech { width: 150px; left: calc(100% - 380px - 28px - 168px); top: 120px; z-index: 3; animation: bob 5.5s ease-in-out infinite; }
+    .e-notes { width: 92px; right: -26px; top: -46px; animation: bob 6.5s ease-in-out -2s infinite; }
+    .e-note { width: 64px; left: 47%; top: -18px; animation: bob 4.8s ease-in-out -1s infinite; }
+    #sResult { overflow-x: clip; }
+    .e-phones { width: 80px; left: -96px; bottom: -64px; opacity: .95; animation: bob 7s ease-in-out -3s infinite; }
+    @keyframes bob { 0%, 100% { translate: 0 0; rotate: -4deg; } 50% { translate: 0 -14px; rotate: 5deg; } }
+    .e-emit { position: absolute; left: calc(100% - 380px - 28px - 168px + 60px); top: 150px; width: 40px; height: 1px; z-index: 2; }
+    .e-emit img { position: absolute; left: 0; top: 0; width: 34px; opacity: 0; filter: drop-shadow(0 8px 10px rgba(20, 20, 20, .16)); animation: rise 2.8s cubic-bezier(.25, .7, .3, 1) forwards; }
+    @keyframes rise {
+      0% { opacity: 0; transform: translate(0, 10px) scale(.4) rotate(0deg); }
+      15% { opacity: 1; }
+      100% { opacity: 0; transform: translate(var(--dx), -150px) scale(1) rotate(var(--r)); }
+    }
+    @media (max-width: 1180px) and (min-width: 761px) { .e-phones { left: -30px; bottom: -86px; } }
+    @media (max-width: 1100px) and (min-width: 761px) {
+      .e-tech { width: 100px; left: calc(100% - 380px - 66px); top: -2px; z-index: 4; }
+      .e-emit { left: calc(100% - 380px - 26px); top: 20px; }
+      .e-note { left: 40%; top: -40px; }
+    }
+    @media (max-width: 760px) {
+      .e-tech { width: 92px; left: auto; right: -4px; top: 34px; }
+      .e-emit { left: auto; right: 30px; top: 56px; }
+      .e-notes { width: 50px; right: 104px; top: 4px; }
+      .e-note { display: none; }
+      .e-phones { width: 50px; left: auto; right: -12px; bottom: auto; top: 150px; }
+      .e-emit img { width: 26px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .e3 { animation: none; } .e-emit { display: none; } }
     /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
     .h1, .h2, .lang-title, .o-title, .ck-t, .guar h3 { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
     .h1, .ed-h, .display { line-height: 1; }
@@ -960,6 +995,13 @@
     <section class="screen" id="sResult">
       <div class="wrap">
         <div class="r-hero">
+          <div class="fx3d" id="fx3d" aria-hidden="true">
+            <img class="e3 e-tech" data-d="1" src="/assets/emoji/tech.webp" alt="" width="256" height="256">
+            <img class="e3 e-notes" data-d="2.2" src="/assets/emoji/notes.webp" alt="" width="256" height="256">
+            <img class="e3 e-note" data-d="1.6" src="/assets/emoji/note.webp" alt="" width="256" height="256">
+            <img class="e3 e-phones" data-d="2.8" src="/assets/emoji/phones.webp" alt="" width="256" height="256">
+            <div class="e-emit" id="fxEmit"></div>
+          </div>
           <div class="r-hero-l">
           <p class="mono" data-t="r.kicker"></p>
           <h1 class="h1" id="rHello" style="margin-top:14px"></h1>
@@ -2675,5 +2717,60 @@
     } else load(0, true);
   })();
   </script>
+<script>
+/* cena 3D do resultado: parallax no mouse/scroll/giroscópio + notas saindo do notebook */
+(function () {
+  var box = document.getElementById('fx3d'), emit = document.getElementById('fxEmit');
+  if (!box) return;
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = [].slice.call(box.querySelectorAll('.e3'));
+  var mx = 0, my = 0, tx = 0, ty = 0, raf = 0, sy = 0;
+  function loop() {
+    tx += (mx - tx) * .08; ty += (my - ty) * .08;
+    var r = box.getBoundingClientRect();
+    sy = Math.max(-1, Math.min(1, r.top / (window.innerHeight || 800)));
+    els.forEach(function (el) {
+      var d = +el.getAttribute('data-d') || 1;
+      el.style.setProperty('--x', (tx * 14 * d).toFixed(1) + 'px');
+      el.style.setProperty('--y', (ty * 12 * d + sy * 40 * d).toFixed(1) + 'px');
+    });
+    raf = requestAnimationFrame(loop);
+  }
+  if (!reduce) {
+    window.addEventListener('pointermove', function (e) {
+      if (e.pointerType === 'touch') return;
+      mx = e.clientX / innerWidth * 2 - 1; my = e.clientY / innerHeight * 2 - 1;
+    }, { passive: true });
+    window.addEventListener('deviceorientation', function (e) {
+      if (e.gamma == null) return;
+      mx = Math.max(-1, Math.min(1, e.gamma / 30)); my = Math.max(-1, Math.min(1, (e.beta - 40) / 30));
+    }, { passive: true });
+  }
+  var visible = false, timer = 0;
+  function spawn() {
+    if (!visible || document.hidden || !emit) return;
+    var im = new Image();
+    im.src = Math.random() < .7 ? '/assets/emoji/note.webp' : '/assets/emoji/notes.webp';
+    im.alt = '';
+    im.style.setProperty('--dx', (Math.random() * 120 - 60).toFixed(0) + 'px');
+    im.style.setProperty('--r', (Math.random() * 60 - 30).toFixed(0) + 'deg');
+    im.addEventListener('animationend', function () { im.remove(); });
+    emit.appendChild(im);
+  }
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (en) {
+    visible = en[0].isIntersecting && box.offsetParent !== null;
+    if (visible) {
+      if (!raf && !reduce) raf = requestAnimationFrame(loop);
+      if (!timer && !reduce) timer = setInterval(spawn, 1100);
+    } else {
+      cancelAnimationFrame(raf); raf = 0; clearInterval(timer); timer = 0;
+    }
+  }) : null;
+  if (io) io.observe(box);
+  // ao mostrar o resultado a tela troca de display:none → block; reobserva
+  new MutationObserver(function () { if (io) { io.unobserve(box); io.observe(box); } })
+    .observe(document.getElementById('sResult'), { attributes: true, attributeFilter: ['class'] });
+})();
+</script>
 </body>
 </html>
