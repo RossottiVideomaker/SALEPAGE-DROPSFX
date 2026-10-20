@@ -378,7 +378,7 @@
     toast('success', '✓', t('inserted').replace('{t}', TRACKS[tr]).replace('{tc}', tc(start)));
     step(3);
     if (!S.steps[4]) { $('btnPlay').classList.add('pulse'); hint(t('hint.play')); }
-    if (simEl.classList.contains('compact') && !S.revealed) { S.revealed = true; setTimeout(function () { post('reveal', { y: Math.round(document.querySelector('.pr-mon').getBoundingClientRect().top + window.scrollY) - 8 }); }, 650); }
+    if (false && !S.revealed) { S.revealed = true; setTimeout(function () { post('reveal', { y: Math.round(document.querySelector('.pr-mon').getBoundingClientRect().top + window.scrollY) - 8 }); }, 650); }
     post('insert', { id: id, cat: s.cat, track: TRACKS[tr], at: Math.round(start * 100) / 100, gain: S.gain, how: how || (atTime != null ? 'drag' : 'button') });
     var row = document.querySelector('.file-item[data-id="' + id + '"] .file-meta');
     if (row && !row.querySelector('.use-badge')) row.insertAdjacentHTML('beforeend', '<span class="use-badge">×' + S.used[id] + '</span>');
