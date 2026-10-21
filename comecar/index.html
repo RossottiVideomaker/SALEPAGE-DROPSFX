@@ -1083,8 +1083,12 @@
     .top .lang-mini button { font: 600 11px var(--font); letter-spacing: .12em; color: #a7a7ae; }
     .top .lang-mini button[aria-pressed="true"] { background: #f4f1ea; color: #141414; box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset; }
     @media (min-width: 761px) { .top { padding-top: 14px; } .top .top-in { max-width: 760px; } }
-    .top .top-in { position: relative; isolation: isolate; background: linear-gradient(90deg, rgba(12, 12, 14, .95) 0%, rgba(12, 12, 14, .88) 22%, rgba(18, 18, 21, .3) 42%, rgba(18, 18, 21, .3) 58%, rgba(12, 12, 14, .88) 78%, rgba(12, 12, 14, .95) 100%); -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4); }
-    .top .top-in::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: url(/assets/band.webp) 50% 42% / cover; opacity: .4; mix-blend-mode: screen; pointer-events: none; }
+    .top .top-in { position: relative; isolation: isolate; overflow: hidden; background: rgba(14, 14, 16, .9); -webkit-backdrop-filter: blur(18px) saturate(1.3); backdrop-filter: blur(18px) saturate(1.3); }
+    /* brilho de vidro só no miolo, com fade suave (curva easing, sem degrau) */
+    .top .top-in::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+      background: url(/assets/band.webp) 50% 42% / cover; opacity: .8; mix-blend-mode: screen;
+      -webkit-mask-image: radial-gradient(ellipse 38% 120% at 50% 50%, #000 0%, rgba(0,0,0,.86) 22%, rgba(0,0,0,.64) 40%, rgba(0,0,0,.4) 56%, rgba(0,0,0,.2) 70%, rgba(0,0,0,.07) 84%, transparent 100%);
+      mask-image: radial-gradient(ellipse 38% 120% at 50% 50%, #000 0%, rgba(0,0,0,.86) 22%, rgba(0,0,0,.64) 40%, rgba(0,0,0,.4) 56%, rgba(0,0,0,.2) 70%, rgba(0,0,0,.07) 84%, transparent 100%); }
     /* depoimentos em conversas de WhatsApp recriadas (sem número/foto) */
     #depoimentos { position: relative; }
     .wa-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 26px; align-items: start; }
