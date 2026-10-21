@@ -512,6 +512,7 @@
     .sim-frame iframe { display: block; width: 100%; height: clamp(660px, calc(100vh - 32px), 800px); border: 0; background: #000; }
     @media (max-width: 859px) { .sim-frame { width: min(330px, calc(100vw - 80px)); height: 472px; border-radius: 14px; } .sim-frame iframe { width: calc(100% / .56); height: 843px; transform: scale(.56); transform-origin: 0 0; } }
     .o-price { margin-top: 14px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
+    .o-price[hidden] { display: none !important; }
     .o-price b { font-family: var(--font-display); font-size: clamp(34px, 6vw, 44px); font-weight: 700; line-height: 1; }
     .o-price s { color: var(--steel); font-size: 16px; }
     .o-price span { flex-basis: 100%; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--ice); }
@@ -2766,13 +2767,13 @@
       $('oWho').textContent = name ? name + ', ' + t('o.who').replace('{type}', t('short.' + a.type)) : t('o.who').replace('{type}', t('short.' + a.type));
       // fora do Brasil o preço aparece em dólar (a Kiwify cobra na moeda local do cartão)
       var priceNow = priceFor();
-      [].forEach.call(document.querySelectorAll('.js-pnote'), function (el) { el.textContent = priceNow + ', ' + t('o.terms'); });
+      [].forEach.call(document.querySelectorAll('.js-pnote'), function (el) { el.textContent = t('o.terms'); });
       var rg = region(); $('ckTip').hidden = !rg; if (rg) $('ckTip').innerHTML = t('ck.tip.' + rg);
-      $('payTips').hidden = !needHelp(); $('pt3').innerHTML = t('ck.3').replace('{usd}', priceNow); $('ptTip').hidden = !rg; if (rg) $('ptTip').innerHTML = t('ck.tip.' + rg);
+      $('payTips').hidden = !needHelp(); $('pt3').innerHTML = t('ck.3').replace(/\s*\([^()]*\{usd\}[^()]*\)/, ''); $('ptTip').hidden = !rg; if (rg) $('ptTip').innerHTML = t('ck.tip.' + rg);
       [].forEach.call(document.querySelectorAll('.js-wa'), function (el) { el.href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(t('wa.msg')); });
-      $('oPrice').innerHTML = '<b>' + priceNow + '</b>' + (priceNow === CONFIG.price ? '' : '<span>' + esc(t('o.usd')) + '</span>');
-      var ss = document.querySelector('.sticky-s'); if (ss) ss.textContent = priceNow + ', ' + t('s.sub');
-      $('ck3').innerHTML = t('ck.3').replace('{usd}', priceNow);
+      $('oPrice').innerHTML = ''; $('oPrice').hidden = true;
+      var ss = document.querySelector('.sticky-s'); if (ss) ss.textContent = t('s.sub');
+      $('ck3').innerHTML = t('ck.3').replace(/\s*\([^()]*\{usd\}[^()]*\)/, '');
       $('stickyT').textContent = (a.name ? t('s.titleName').replace('{name}', a.name) : t('s.title'));
 
       // FAQ (mesmas respostas do site)
