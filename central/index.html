@@ -199,6 +199,20 @@
   .cmp b{display:block;font-size:20px;font-weight:800;}
   .cmp span{font-size:10.5px;color:var(--muted);}
   .empty-note{padding:30px;text-align:center;color:var(--dim);font-size:12.5px;}
+
+  /* ===== feedback ===== */
+  .fb-bar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:rgba(255,255,255,.05);margin-bottom:10px;}
+  .fb-bar i{display:block;height:100%;}
+  .fb-quote{border-top:1px solid var(--line);padding:12px 0;}
+  .fb-quote:first-of-type{border-top:0;padding-top:0;}
+  .fb-quote p{font-size:13px;color:var(--ink);margin-top:5px;white-space:pre-wrap;}
+  .fb-quote .meta{font-size:11px;color:var(--muted);}
+  .fb-prints{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+  .fb-print{display:flex;flex-direction:column;gap:8px;}
+  .fb-print canvas{width:100%;height:auto;border-radius:12px;border:1px solid var(--line);}
+  .fb-opts{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px;}
+  .fb-opts label{font-size:12px;color:var(--ink-2);display:inline-flex;align-items:center;gap:6px;cursor:pointer;}
+  .fb-opts input{accent-color:var(--accent);}
 </style>
 </head>
 <body>
@@ -223,6 +237,7 @@
     <div class="tabs" role="tablist">
       <button class="tab on" data-tab="clientes" role="tab">Clientes</button>
       <button class="tab" data-tab="funil" role="tab">Funil e métricas</button>
+      <button class="tab" data-tab="feedback" role="tab">Feedback</button>
     </div>
     <div class="actions">
       <button class="btn" id="btn-refresh">
@@ -257,7 +272,7 @@
   };
 
   var state = { users: [], summary: {}, filter: 'all', search: '', sortKey: 'last_sign_in', sortDir: -1, token: '', tab: 'clientes' };
-  try { if (localStorage.getItem('dropsfx_central_tab') === 'funil') state.tab = 'funil'; } catch(e){}
+  try { var savedTab = localStorage.getItem('dropsfx_central_tab'); if (savedTab === 'funil' || savedTab === 'feedback') state.tab = savedTab; } catch(e){}
 
   var gate = document.getElementById('gate');
   var gateErr = document.getElementById('gate-err');
@@ -308,6 +323,7 @@
     try { localStorage.setItem('dropsfx_central_tab', tab); } catch(e){}
     document.querySelectorAll('.tab').forEach(function(b){ b.classList.toggle('on', b.dataset.tab === tab); });
     if (tab === 'funil') loadFunnel();
+    else if (tab === 'feedback') loadFeedback();
     else if (state.users.length) render(); else load();
   }
   document.querySelectorAll('.tab').forEach(function(b){ b.addEventListener('click', function(){ setTab(b.dataset.tab); }); });
@@ -315,7 +331,7 @@
   function enterApp(){
     gate.classList.add('hide');
     document.getElementById('app').classList.add('show');
-    if (state.tab === 'funil') { setTab('funil'); return; }
+    if (state.tab !== 'clientes') { setTab(state.tab); return; }
     if (state.users.length) {
       render();
     } else {
@@ -327,8 +343,8 @@
     sessionStorage.removeItem('dropsfx_admin_token');
     location.reload();
   });
-  document.getElementById('btn-refresh').addEventListener('click', function(){ if (state.tab === 'funil') loadFunnel(); else load(); });
-  document.getElementById('btn-export').addEventListener('click', function(){ if (state.tab === 'funil') exportFunnelCSV(); else exportCSV(); });
+  document.getElementById('btn-refresh').addEventListener('click', function(){ if (state.tab === 'funil') loadFunnel(); else if (state.tab === 'feedback') loadFeedback(); else load(); });
+  document.getElementById('btn-export').addEventListener('click', function(){ if (state.tab === 'funil') exportFunnelCSV(); else if (state.tab === 'feedback') exportFeedbackCSV(); else exportCSV(); });
 
   function apiCall(payload, cb){
     fetch(ADMIN_ENDPOINT, {
@@ -355,7 +371,7 @@
       }
       state.users = data.users || [];
       state.summary = data.summary || {};
-      if (state.tab !== 'funil') render();
+      if (state.tab === 'clientes') render();
     });
   }
 
@@ -935,6 +951,254 @@
     var blob = new Blob([lines.join('\n')], { type:'text/csv;charset=utf-8;' });
     var u = URL.createObjectURL(blob), el = document.createElement('a');
     el.href = u; el.download = 'dropsfx-funil-' + new Date().toISOString().slice(0,10) + '.csv'; el.click(); URL.revokeObjectURL(u);
+  }
+
+  // =====================================================================
+  // ABA FEEDBACK, pedido de avaliação no WhatsApp 7 dias depois da compra
+  // (functions feedback-send / feedback-whatsapp / feedback-stats)
+  // =====================================================================
+  var FB_ENDPOINT = 'https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/';
+  var fbstate = { days: 0, data: null, theme: 'light', showAsk: true, queue: null };
+  try { var sfb = JSON.parse(localStorage.getItem('dropsfx_central_feedback') || 'null'); if (sfb) { fbstate.days = sfb.days; fbstate.theme = sfb.theme; fbstate.showAsk = sfb.showAsk; } } catch(e){}
+  function saveFb(){ try { localStorage.setItem('dropsfx_central_feedback', JSON.stringify({ days: fbstate.days, theme: fbstate.theme, showAsk: fbstate.showAsk })); } catch(e){} }
+
+  var FB_RATING = { 3: ['😍 Amando', 'var(--green)', '#4ade80'], 2: ['🙂 Bom', 'var(--accent-hi)', '#6e9bff'], 1: ['😕 Pode melhorar', 'var(--orange)', '#ffc46b'] };
+  var FB_STATUS = { pending: 'Enviando', sent: 'Enviado', failed: 'Falhou', skipped: 'Pulado', rated: 'Avaliou', answered: 'Comentou' };
+  var FB_LANG = { pt_BR: 'PT', es: 'ES', en: 'EN' };
+  // a pergunta que o bot manda antes do comentário (mesmo texto de functions/_shared/whatsapp.ts)
+  var FB_ASK = {
+    pt_BR: 'Valeu demais pela resposta! 🙏 Se puder, conta numa mensagem: o que você mais curte no dropSFX e o que a gente poderia melhorar?',
+    es: '¡Muchas gracias por responder! 🙏 Si puedes, cuéntanos en un mensaje: ¿qué es lo que más te gusta de dropSFX y qué podríamos mejorar?',
+    en: 'Thanks so much for answering! 🙏 If you can, tell us in one message: what do you like most about dropSFX, and what could we improve?'
+  };
+
+  function fbCall(fn, body, cb){
+    fetch(FB_ENDPOINT + fn, {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization':'Bearer ' + SUPABASE_ANON_KEY, 'x-admin-token': state.token },
+      body: JSON.stringify(body || {})
+    }).then(function(r){ return r.json().then(function(d){ cb(r.ok, d); }); }).catch(function(){ cb(false, {}); });
+  }
+
+  function loadFeedback(){
+    var content = document.getElementById('content');
+    content.innerHTML = '<div class="loading"><div class="spinner"></div>Carregando feedback…</div>';
+    var body = fbstate.days ? { from: new Date(Date.now() - fbstate.days * 86400000).toISOString() } : {};
+    fbCall('feedback-stats', body, function(ok, d){
+      if (state.tab !== 'feedback') return;
+      if (!ok) { content.innerHTML = '<div class="loading">Erro ao carregar o feedback. ' + escapeHtml(d && d.error || '') + '</div>'; return; }
+      fbstate.data = d;
+      renderFeedback();
+    });
+  }
+
+  function renderFeedback(){
+    var d = fbstate.data || {}, T = d.totals || {}, rows = d.rows || [];
+    var testimonials = rows.filter(function(r){ return r.comment && r.testimonial_ok === true; });
+    var commented = rows.filter(function(r){ return r.comment; });
+
+    var bar = '<div class="fbar">' +
+      [[0,'Tudo'],[7,'7 dias'],[30,'30 dias'],[90,'90 dias']].map(function(o){ return '<div class="fchip ' + (fbstate.days===o[0]?'on':'') + '" data-fbdays="' + o[0] + '">' + o[1] + '</div>'; }).join('') +
+      '<span class="hint">envio automático todo dia às 10h · 7 dias após a compra</span>' +
+    '</div>';
+
+    var cards = '<div class="cards">' +
+      card('Mensagens entregues', T.reached || 0, 'var(--accent)', (T.requests||0) + ' pedidos · ' + (T.failed||0) + ' falhas · ' + (T.skipped||0) + ' pulados') +
+      card('Responderam', T.rated || 0, 'var(--purple)', Math.round(pct(T.rated, T.reached)) + '% de quem recebeu') +
+      card('Amando', Math.round(pct(T.love, T.rated)) + '%', 'var(--green)', (T.love||0) + ' de ' + (T.rated||0) + ' avaliações') +
+      card('Comentários', T.commented || 0, 'var(--orange)', Math.round(pct(T.commented, T.rated)) + '% de quem avaliou') +
+      card('Depoimentos liberados', testimonials.length, 'var(--green)', 'autorizaram usar na página') +
+    '</div>';
+
+    var parts = [[3, T.love||0], [2, T.good||0], [1, T.improve||0]];
+    var dist = '<div class="panel"><h3>Como os clientes avaliam</h3><div class="ph">resposta ao botão da mensagem</div>' +
+      (T.rated
+        ? '<div class="fb-bar">' + parts.map(function(p){ return p[1] ? '<i style="width:' + (p[1] / T.rated * 100) + '%;background:' + FB_RATING[p[0]][1] + '" title="' + FB_RATING[p[0]][0] + ': ' + p[1] + '"></i>' : ''; }).join('') + '</div>' +
+          '<div class="legend">' + parts.map(function(p){ return '<span><i style="background:' + FB_RATING[p[0]][1] + '"></i>' + FB_RATING[p[0]][0] + ' · ' + p[1] + ' (' + Math.round(pct(p[1], T.rated)) + '%)</span>'; }).join('') + '</div>'
+        : '<div class="empty-note">Nenhuma avaliação ainda</div>') +
+    '</div>';
+
+    var prints = '<div class="panel"><h3>Prints para a página de vendas</h3><div class="ph">só comentários reais de quem tocou em "Pode sim" · PNG 1080px · aparece só o primeiro nome</div>' +
+      (testimonials.length
+        ? '<div class="fb-opts">' +
+            '<div class="fchip ' + (fbstate.theme==='light'?'on':'') + '" data-fbtheme="light">WhatsApp claro</div>' +
+            '<div class="fchip ' + (fbstate.theme==='dark'?'on':'') + '" data-fbtheme="dark">WhatsApp escuro</div>' +
+            '<label><input type="checkbox" id="fb-ask"' + (fbstate.showAsk ? ' checked' : '') + '> mostrar a pergunta</label>' +
+            '<button class="btn btn-primary" id="fb-all" style="margin-left:auto">Baixar todos</button>' +
+          '</div><div class="fb-prints" id="fb-prints"></div>'
+        : '<div class="empty-note">Nenhum depoimento liberado ainda. Quando um cliente avaliar bem, comentar e tocar em "Pode sim", o print aparece aqui.</div>') +
+    '</div>';
+
+    var CONSENT = { 'true': '✅ liberou pra página', 'false': '🔒 não liberou' };
+    var quotes = '<div class="panel"><h3>Comentários</h3><div class="ph">tudo que os clientes escreveram, inclusive quem não liberou pra página</div>' +
+      (commented.length ? commented.map(function(r){
+        var rt = FB_RATING[r.rating] || ['', 'var(--muted)'];
+        return '<div class="fb-quote"><span class="sess-tag" style="background:rgba(255,255,255,.06);color:' + rt[1] + '">' + rt[0] + '</span> ' +
+          '<span class="meta">' + escapeHtml(r.name || 'Cliente') + ' · ' + (FB_LANG[r.lang] || '') + ' · ' + fmtDate(r.answered_at) + ' · ' + (CONSENT[String(r.testimonial_ok)] || 'sem resposta sobre uso') + '</span>' +
+          '<p>' + escapeHtml(r.comment) + '</p></div>';
+      }).join('') : '<div class="empty-note">Nenhum comentário ainda</div>') +
+    '</div>';
+
+    var queue = '<div class="panel"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px"><div><h3>Próximos envios</h3><div class="ph" style="margin:0">quem recebe a mensagem no próximo disparo das 10h</div></div><button class="btn" id="fb-queue">Ver fila</button></div><div id="fb-queue-box">' + queueHtml() + '</div></div>';
+
+    var table = '<div class="table-wrap"><div class="table-scroll"><table><thead><tr>' +
+      '<th>Cliente</th><th>Idioma</th><th>Status</th><th>Nota</th><th>Enviado</th><th>Avaliou</th><th>Página</th><th>Obs.</th>' +
+      '</tr></thead><tbody>' +
+      (rows.length ? rows.map(function(r){
+        return '<tr><td><span class="who-name">' + escapeHtml(r.name || '·') + '</span></td>' +
+          '<td>' + (FB_LANG[r.lang] || '·') + '</td>' +
+          '<td>' + (FB_STATUS[r.status] || r.status) + '</td>' +
+          '<td>' + (r.rating ? FB_RATING[r.rating][0] : '<span class="empty-dash">·</span>') + '</td>' +
+          '<td>' + (r.sent_at ? '<span class="date-cell">' + fmtDate(r.sent_at) + '<span class="rel">' + relTime(r.sent_at) + '</span></span>' : '<span class="empty-dash">·</span>') + '</td>' +
+          '<td>' + (r.rated_at ? '<span class="date-cell">' + fmtDate(r.rated_at) + '</span>' : '<span class="empty-dash">·</span>') + '</td>' +
+          '<td>' + (r.testimonial_ok === true ? '✅' : r.testimonial_ok === false ? '🔒' : '<span class="empty-dash">·</span>') + '</td>' +
+          '<td style="color:var(--dim)">' + escapeHtml(r.error || '') + '</td></tr>';
+      }).join('') : '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--dim)">Nenhum pedido enviado ainda</td></tr>') +
+      '</tbody></table></div></div>';
+
+    document.getElementById('content').innerHTML = bar + cards + '<div class="grid2">' + dist + queue + '</div>' + prints + quotes +
+      '<div class="panel" style="padding-bottom:6px"><h3>Todos os pedidos</h3><div class="ph">um por compra</div></div>' + table;
+
+    document.querySelectorAll('.fchip[data-fbdays]').forEach(function(c){ c.addEventListener('click', function(){ fbstate.days = +c.dataset.fbdays; saveFb(); loadFeedback(); }); });
+    document.querySelectorAll('.fchip[data-fbtheme]').forEach(function(c){ c.addEventListener('click', function(){ fbstate.theme = c.dataset.fbtheme; saveFb(); renderFeedback(); }); });
+    var ask = document.getElementById('fb-ask');
+    if (ask) ask.addEventListener('change', function(){ fbstate.showAsk = ask.checked; saveFb(); renderFeedback(); });
+    document.getElementById('fb-queue').addEventListener('click', loadFbQueue);
+
+    var box = document.getElementById('fb-prints');
+    if (box) {
+      testimonials.forEach(function(r){
+        var canvas = drawPrint(r, fbstate.theme, fbstate.showAsk);
+        var item = document.createElement('div'); item.className = 'fb-print';
+        var btn = document.createElement('button'); btn.className = 'btn';
+        btn.textContent = 'Baixar PNG · ' + firstName(r.name) + ' (' + (FB_LANG[r.lang] || '') + ')';
+        btn.addEventListener('click', function(){ downloadPrint(canvas, r); });
+        item.appendChild(canvas); item.appendChild(btn); box.appendChild(item);
+      });
+      document.getElementById('fb-all').addEventListener('click', function(){
+        var i = 0;
+        (function next(){
+          if (i >= testimonials.length) return;
+          var r = testimonials[i++];
+          downloadPrint(drawPrint(r, fbstate.theme, fbstate.showAsk), r);
+          setTimeout(next, 300); // navegador bloqueia downloads em rajada
+        })();
+      });
+    }
+  }
+
+  function queueHtml(){
+    var q = fbstate.queue;
+    if (!q) return '<div class="empty-note" style="padding:14px">Clique em "Ver fila" pra conferir</div>';
+    var warn = q.configured ? '' : '<div class="grant-msg err" style="margin:0 0 10px">WhatsApp ainda não configurado: nada é enviado até os secrets WA_TOKEN e WA_PHONE_NUMBER_ID existirem no Supabase.</div>';
+    if (!q.queue || !q.queue.length) return warn + '<div class="empty-note" style="padding:14px">Ninguém na fila agora</div>';
+    return warn + '<div class="kv">' + q.queue.map(function(c){
+      return '<span>' + escapeHtml(c.name || 'Cliente') + ' · ' + (c.lang ? FB_LANG[c.lang] : '?') + (c.phone_ok ? '' : ' <span style="color:var(--orange)">· sem DDI, será pulado</span>') + '</span><span>comprou ' + relTime(c.purchased_at) + '</span>';
+    }).join('') + '</div>';
+  }
+
+  function loadFbQueue(){
+    document.getElementById('fb-queue-box').innerHTML = '<div class="empty-note" style="padding:14px">Carregando…</div>';
+    fbCall('feedback-send', { dry_run: true }, function(ok, d){
+      fbstate.queue = ok ? d : { configured: true, queue: [] };
+      var box = document.getElementById('fb-queue-box');
+      if (box) box.innerHTML = ok ? queueHtml() : '<div class="grant-msg err">Erro: ' + escapeHtml(d.error || 'falha ao carregar') + '</div>';
+    });
+  }
+
+  // ---- print estilo WhatsApp desenhado em canvas ----
+  var WA_THEME = {
+    light: { header:'#f0f2f5', name:'#111b21', sub:'#667781', bg:'#efeae2', inB:'#ffffff', outB:'#d9fdd3', text:'#111b21', time:'#667781' },
+    dark:  { header:'#202c33', name:'#e9edef', sub:'#8696a0', bg:'#0b141a', inB:'#202c33', outB:'#005c4b', text:'#e9edef', time:'#8696a0' }
+  };
+  var WA_FONT = '"Segoe UI", "Helvetica Neue", Helvetica, Arial, "Segoe UI Emoji", "Apple Color Emoji", sans-serif';
+  function firstName(n){
+    var f = String(n || '').trim().split(/\s+/)[0] || 'Cliente';
+    return f.charAt(0).toUpperCase() + f.slice(1).toLowerCase();
+  }
+  function hhmm(iso){ return new Date(iso).toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }); }
+
+  function wrapText(ctx, text, maxW){
+    var lines = [];
+    String(text).split('\n').forEach(function(para){
+      var line = '';
+      para.split(/\s+/).forEach(function(word){
+        var test = line ? line + ' ' + word : word;
+        if (ctx.measureText(test).width <= maxW) { line = test; return; }
+        if (line) lines.push(line);
+        // palavra maior que a linha inteira: quebra por caractere
+        line = '';
+        Array.from(word).forEach(function(ch){
+          if (ctx.measureText(line + ch).width > maxW) { lines.push(line); line = ch; } else line += ch;
+        });
+      });
+      lines.push(line);
+    });
+    return lines;
+  }
+
+  function drawPrint(r, theme, showAsk){
+    var t = WA_THEME[theme], S = 2, W = 540, PAD = 16, HEADER = 64, BMAX = W * 0.78, LH = 22, TIME_W = 44;
+    var canvas = document.createElement('canvas'), ctx = canvas.getContext('2d');
+    ctx.font = '15px ' + WA_FONT;
+    var bubbles = [];
+    if (showAsk) bubbles.push({ out: true, lines: wrapText(ctx, FB_ASK[r.lang] || FB_ASK.en, BMAX - 24 - TIME_W), time: hhmm(r.rated_at || r.answered_at) });
+    bubbles.push({ out: false, lines: wrapText(ctx, r.comment, BMAX - 24 - TIME_W), time: hhmm(r.answered_at) });
+
+    var H = HEADER + PAD * 2;
+    bubbles.forEach(function(b){ H += b.lines.length * LH + 26; });
+    canvas.width = W * S; canvas.height = H * S;
+    ctx.scale(S, S);
+    ctx.fillStyle = t.bg; ctx.fillRect(0, 0, W, H);
+
+    // cabeçalho: avatar com a inicial + primeiro nome
+    var name = firstName(r.name);
+    ctx.fillStyle = t.header; ctx.fillRect(0, 0, W, HEADER);
+    ctx.fillStyle = '#6b7c85'; ctx.beginPath(); ctx.arc(PAD + 20, HEADER / 2, 20, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#fff'; ctx.font = '600 18px ' + WA_FONT; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(name.charAt(0), PAD + 20, HEADER / 2 + 1);
+    ctx.textAlign = 'left'; ctx.fillStyle = t.name; ctx.font = '600 16px ' + WA_FONT;
+    ctx.fillText(name, PAD + 52, HEADER / 2 - 8);
+    ctx.fillStyle = t.sub; ctx.font = '13px ' + WA_FONT;
+    ctx.fillText('Cliente dropSFX', PAD + 52, HEADER / 2 + 11);
+
+    var y = HEADER + PAD;
+    bubbles.forEach(function(b){
+      ctx.font = '15px ' + WA_FONT;
+      var textW = Math.max.apply(null, b.lines.map(function(l){ return ctx.measureText(l).width; }));
+      var bw = Math.min(BMAX, textW + 24 + TIME_W), bh = b.lines.length * LH + 18;
+      var x = b.out ? W - PAD - bw : PAD;
+      ctx.fillStyle = b.out ? t.outB : t.inB;
+      ctx.shadowColor = 'rgba(0,0,0,.13)'; ctx.shadowOffsetY = 1; ctx.shadowBlur = 1;
+      ctx.beginPath(); ctx.roundRect(x, y, bw, bh, 8); ctx.fill();
+      ctx.shadowColor = 'transparent';
+      ctx.fillStyle = t.text; ctx.textBaseline = 'top';
+      b.lines.forEach(function(l, i){ ctx.fillText(l, x + 12, y + 8 + i * LH); });
+      ctx.fillStyle = t.time; ctx.font = '11px ' + WA_FONT; ctx.textAlign = 'right'; ctx.textBaseline = 'alphabetic';
+      ctx.fillText(b.out ? b.time + ' ✓✓' : b.time, x + bw - 9, y + bh - 7);
+      ctx.textAlign = 'left';
+      y += bh + 8;
+    });
+    return canvas;
+  }
+
+  function downloadPrint(canvas, r){
+    var a = document.createElement('a');
+    a.download = 'depoimento-' + firstName(r.name).toLowerCase() + '-' + String(r.answered_at).slice(0, 10) + '.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  function exportFeedbackCSV(){
+    var rows = (fbstate.data && fbstate.data.rows) || [];
+    var head = ['nome','idioma','status','nota','comentario','liberou_pagina','enviado','avaliou','comentou','erro'];
+    var lines = [head.join(',')];
+    rows.forEach(function(r){
+      lines.push([r.name, r.lang, FB_STATUS[r.status] || r.status, r.rating ? FB_RATING[r.rating][0] : '', r.comment, r.testimonial_ok == null ? '' : (r.testimonial_ok ? 'sim' : 'nao'), r.sent_at, r.rated_at, r.answered_at, r.error].map(csvCell).join(','));
+    });
+    var blob = new Blob([lines.join('\n')], { type:'text/csv;charset=utf-8;' });
+    var u = URL.createObjectURL(blob), el = document.createElement('a');
+    el.href = u; el.download = 'dropsfx-feedback-' + new Date().toISOString().slice(0,10) + '.csv'; el.click(); URL.revokeObjectURL(u);
   }
 
   function escapeHtml(s){ return (s||'').replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); }
