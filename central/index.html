@@ -958,18 +958,21 @@
   // (functions feedback-send / feedback-whatsapp / feedback-stats)
   // =====================================================================
   var FB_ENDPOINT = 'https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/';
-  var fbstate = { days: 0, data: null, theme: 'light', showAsk: true, queue: null };
+  var fbstate = { days: 0, data: null, theme: 'light', showAsk: true, queue: null, list: null, listErr: '', sel: {}, langPick: {}, search: '', onlySendable: true, sending: false };
   try { var sfb = JSON.parse(localStorage.getItem('dropsfx_central_feedback') || 'null'); if (sfb) { fbstate.days = sfb.days; fbstate.theme = sfb.theme; fbstate.showAsk = sfb.showAsk; } } catch(e){}
   function saveFb(){ try { localStorage.setItem('dropsfx_central_feedback', JSON.stringify({ days: fbstate.days, theme: fbstate.theme, showAsk: fbstate.showAsk })); } catch(e){} }
 
   var FB_RATING = { 3: ['😍 Amando', 'var(--green)', '#4ade80'], 2: ['🙂 Bom', 'var(--accent-hi)', '#6e9bff'], 1: ['😕 Pode melhorar', 'var(--orange)', '#ffc46b'] };
   var FB_STATUS = { pending: 'Enviando', sent: 'Enviado', failed: 'Falhou', skipped: 'Pulado', rated: 'Avaliou', answered: 'Comentou' };
-  var FB_LANG = { pt_BR: 'PT', es: 'ES', en: 'EN' };
+  var FB_LANG = { pt_BR: 'PT', es: 'ES', en: 'EN', fr: 'FR' };
+  // de onde veio o idioma (feedback-send detectLang)
+  var FB_SRC = { site: 'escolheu no site', country: 'país da compra', phone: 'DDI do telefone', manual: 'escolhido na Central' };
   // a pergunta que o bot manda antes do comentário (mesmo texto de functions/_shared/whatsapp.ts)
   var FB_ASK = {
     pt_BR: 'Valeu demais pela resposta! 🙏 Se puder, conta numa mensagem: o que você mais curte no dropSFX e o que a gente poderia melhorar?',
     es: '¡Muchas gracias por responder! 🙏 Si puedes, cuéntanos en un mensaje: ¿qué es lo que más te gusta de dropSFX y qué podríamos mejorar?',
-    en: 'Thanks so much for answering! 🙏 If you can, tell us in one message: what do you like most about dropSFX, and what could we improve?'
+    en: 'Thanks so much for answering! 🙏 If you can, tell us in one message: what do you like most about dropSFX, and what could we improve?',
+    fr: "Merci beaucoup pour ta réponse ! 🙏 Si tu peux, dis-nous en un message : qu'est-ce que tu préfères dans dropSFX, et qu'est-ce qu'on pourrait améliorer ?"
   };
 
   function fbCall(fn, body, cb){
@@ -989,6 +992,16 @@
       if (!ok) { content.innerHTML = '<div class="loading">Erro ao carregar o feedback. ' + escapeHtml(d && d.error || '') + '</div>'; return; }
       fbstate.data = d;
       renderFeedback();
+    });
+    loadFbList();
+  }
+
+  // lista de clientes pro envio manual (idioma detectado + status do feedback)
+  function loadFbList(){
+    fbCall('feedback-send', { mode: 'list' }, function(ok, d){
+      fbstate.list = ok ? d : null;
+      fbstate.listErr = ok ? '' : (d && d.error || 'falha ao carregar');
+      if (state.tab === 'feedback') renderManual();
     });
   }
 
@@ -1046,8 +1059,8 @@
       '</tr></thead><tbody>' +
       (rows.length ? rows.map(function(r){
         return '<tr><td><span class="who-name">' + escapeHtml(r.name || '·') + '</span></td>' +
-          '<td>' + (FB_LANG[r.lang] || '·') + '</td>' +
-          '<td>' + (FB_STATUS[r.status] || r.status) + '</td>' +
+          '<td>' + (FB_LANG[r.lang] || '·') + (r.lang_source ? '<span style="display:block;color:var(--dim);font-size:9.5px">' + (FB_SRC[r.lang_source] || '') + '</span>' : '') + '</td>' +
+          '<td>' + (FB_STATUS[r.status] || r.status) + (r.manual ? '<span class="tag-manual">manual</span>' : '') + '</td>' +
           '<td>' + (r.rating ? FB_RATING[r.rating][0] : '<span class="empty-dash">·</span>') + '</td>' +
           '<td>' + (r.sent_at ? '<span class="date-cell">' + fmtDate(r.sent_at) + '<span class="rel">' + relTime(r.sent_at) + '</span></span>' : '<span class="empty-dash">·</span>') + '</td>' +
           '<td>' + (r.rated_at ? '<span class="date-cell">' + fmtDate(r.rated_at) + '</span>' : '<span class="empty-dash">·</span>') + '</td>' +
@@ -1056,7 +1069,9 @@
       }).join('') : '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--dim)">Nenhum pedido enviado ainda</td></tr>') +
       '</tbody></table></div></div>';
 
-    document.getElementById('content').innerHTML = bar + cards + '<div class="grid2">' + dist + queue + '</div>' + prints + quotes +
+    var manualBox = '<div class="panel" id="fb-manual"></div>';
+
+    document.getElementById('content').innerHTML = bar + cards + '<div class="grid2">' + dist + queue + '</div>' + manualBox + prints + quotes +
       '<div class="panel" style="padding-bottom:6px"><h3>Todos os pedidos</h3><div class="ph">um por compra</div></div>' + table;
 
     document.querySelectorAll('.fchip[data-fbdays]').forEach(function(c){ c.addEventListener('click', function(){ fbstate.days = +c.dataset.fbdays; saveFb(); loadFeedback(); }); });
@@ -1064,6 +1079,7 @@
     var ask = document.getElementById('fb-ask');
     if (ask) ask.addEventListener('change', function(){ fbstate.showAsk = ask.checked; saveFb(); renderFeedback(); });
     document.getElementById('fb-queue').addEventListener('click', loadFbQueue);
+    renderManual();
 
     var box = document.getElementById('fb-prints');
     if (box) {
@@ -1087,13 +1103,116 @@
     }
   }
 
+  // ---- envio manual ----
+  function selectedIds(){
+    var L = fbstate.list;
+    if (!L) return [];
+    return L.customers.filter(function(c){ return c.can_send && fbstate.sel[c.license_id]; }).map(function(c){ return c.license_id; });
+  }
+
+  function renderManual(){
+    var box = document.getElementById('fb-manual');
+    if (!box) return;
+    var head = '<h3>Enviar manualmente</h3><div class="ph">escolha os clientes e mande o pedido de feedback agora, sem esperar os 7 dias · o idioma é detectado sozinho (escolheu no site → país da compra → DDI), mas dá pra trocar</div>';
+    var L = fbstate.list;
+    if (!L) {
+      box.innerHTML = head + (fbstate.listErr ? '<div class="grant-msg err">Erro: ' + escapeHtml(fbstate.listErr) + '</div>' : '<div class="empty-note" style="padding:14px">Carregando clientes…</div>');
+      return;
+    }
+    var q = fbstate.search.trim().toLowerCase();
+    var rows = L.customers.filter(function(c){
+      return (!fbstate.onlySendable || c.can_send) && (!q || (c.name || '').toLowerCase().indexOf(q) !== -1);
+    });
+    var sendable = rows.filter(function(c){ return c.can_send; });
+    var allOn = sendable.length > 0 && sendable.every(function(c){ return fbstate.sel[c.license_id]; });
+    var nSel = selectedIds().length;
+    var langs = L.supported_langs || ['pt_BR', 'es', 'en'];
+
+    var controls = '<div class="filters" style="margin-bottom:12px">' +
+      '<div class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>' +
+      '<input type="text" id="fb-search" placeholder="Buscar cliente pelo nome…" value="' + escapeAttr(fbstate.search) + '"/></div>' +
+      '<div class="fchip ' + (fbstate.onlySendable ? 'on' : '') + '" data-fbonly="1">Podem receber (' + L.customers.filter(function(c){ return c.can_send; }).length + ')</div>' +
+      '<div class="fchip ' + (!fbstate.onlySendable ? 'on' : '') + '" data-fbonly="0">Todos (' + L.customers.length + ')</div>' +
+      '<button class="btn btn-primary" id="fb-send"' + (!nSel || !L.configured || fbstate.sending ? ' disabled style="opacity:.5;cursor:not-allowed"' : '') + '>' +
+        (fbstate.sending ? 'Enviando…' : 'Enviar para ' + nSel + ' selecionado' + (nSel === 1 ? '' : 's')) + '</button>' +
+    '</div>' +
+    (L.configured ? '' : '<div class="grant-msg err" style="margin:0 0 10px">WhatsApp ainda não configurado: dá pra escolher e conferir o idioma, mas o envio só funciona depois dos secrets WA_TOKEN e WA_PHONE_NUMBER_ID no Supabase.</div>');
+
+    var table = '<div class="table-scroll" style="max-height:420px;overflow-y:auto"><table class="mini"><thead><tr>' +
+      '<th style="width:28px"><input type="checkbox" id="fb-all-sel"' + (allOn ? ' checked' : '') + (sendable.length ? '' : ' disabled') + ' style="accent-color:var(--accent)"></th>' +
+      '<th>Cliente</th><th>Idioma detectado</th><th>Enviar em</th><th>Feedback</th></tr></thead><tbody>' +
+      (rows.length ? rows.map(function(c){
+        var cur = fbstate.langPick[c.license_id] || '';
+        var status = !c.phone_ok ? '<span style="color:var(--orange)">' + (c.has_phone ? 'telefone inválido' : 'sem telefone') + '</span>'
+          : c.feedback_status ? (FB_STATUS[c.feedback_status] || c.feedback_status) + (c.feedback_sent_at ? ' <span style="color:var(--dim)">· ' + relTime(c.feedback_sent_at) + '</span>' : '')
+          : '<span style="color:var(--dim)">nunca recebeu</span>';
+        return '<tr>' +
+          '<td><input type="checkbox" class="fb-sel" data-id="' + c.license_id + '"' + (fbstate.sel[c.license_id] ? ' checked' : '') + (c.can_send ? '' : ' disabled') + ' style="accent-color:var(--accent)"></td>' +
+          '<td class="k" style="max-width:220px"><span class="who-name">' + escapeHtml(c.name || 'Cliente') + '</span> <span style="color:var(--dim)">· comprou ' + relTime(c.purchased_at) + '</span></td>' +
+          '<td>' + (c.lang ? '<b style="color:var(--ink)">' + FB_LANG[c.lang] + '</b> <span style="color:var(--dim)">· ' + (FB_SRC[c.lang_source] || '') + '</span>' : '<span class="empty-dash">·</span>') + '</td>' +
+          '<td><select class="fb-lang" data-id="' + c.license_id + '"' + (c.can_send ? '' : ' disabled') + ' style="background:var(--card2);color:var(--ink);border:1px solid var(--line-2);border-radius:7px;padding:4px 6px;font-family:var(--font);font-size:11.5px">' +
+            '<option value="">Auto (' + (c.lang ? FB_LANG[c.lang] : '?') + ')</option>' +
+            langs.map(function(l){ return '<option value="' + l + '"' + (cur === l ? ' selected' : '') + '>' + FB_LANG[l] + '</option>'; }).join('') +
+          '</select></td>' +
+          '<td>' + status + '</td></tr>';
+      }).join('') : '<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--dim)">Nenhum cliente</td></tr>') +
+      '</tbody></table></div>' +
+      '<div class="count-line" style="margin-top:10px">quem já avaliou não aparece como "pode receber" · reenviar pra quem não respondeu troca os botões da mensagem antiga</div>';
+
+    box.innerHTML = head + controls + table;
+
+    var search = document.getElementById('fb-search');
+    search.addEventListener('input', function(){
+      var pos = search.selectionStart;
+      fbstate.search = search.value; renderManual();
+      var s2 = document.getElementById('fb-search'); s2.focus(); s2.setSelectionRange(pos, pos);
+    });
+    box.querySelectorAll('.fchip[data-fbonly]').forEach(function(c){ c.addEventListener('click', function(){ fbstate.onlySendable = c.dataset.fbonly === '1'; renderManual(); }); });
+    box.querySelectorAll('.fb-sel').forEach(function(cb){ cb.addEventListener('change', function(){ fbstate.sel[cb.dataset.id] = cb.checked; renderManual(); }); });
+    box.querySelectorAll('.fb-lang').forEach(function(s){ s.addEventListener('change', function(){ fbstate.langPick[s.dataset.id] = s.value; }); });
+    document.getElementById('fb-all-sel').addEventListener('change', function(){
+      var on = this.checked;
+      sendable.forEach(function(c){ fbstate.sel[c.license_id] = on; });
+      renderManual();
+    });
+    document.getElementById('fb-send').addEventListener('click', sendManual);
+  }
+
+  function sendManual(){
+    var ids = selectedIds();
+    if (!ids.length || fbstate.sending) return;
+    if (!confirm('Enviar o pedido de feedback no WhatsApp agora para ' + ids.length + ' cliente(s)?')) return;
+
+    // um envio por idioma escolhido ("" = automático), em lotes de 50 (limite da função)
+    var groups = {};
+    ids.forEach(function(id){ var l = fbstate.langPick[id] || ''; (groups[l] = groups[l] || []).push(id); });
+    var calls = [];
+    Object.keys(groups).forEach(function(l){
+      for (var i = 0; i < groups[l].length; i += 50) calls.push({ mode: 'manual', license_ids: groups[l].slice(i, i + 50), lang: l || undefined });
+    });
+
+    fbstate.sending = true; renderManual();
+    var tot = { sent: 0, failed: 0, skipped: 0 }, errs = [], pending = calls.length;
+    calls.forEach(function(body){
+      fbCall('feedback-send', body, function(ok, d){
+        if (ok) { tot.sent += d.sent || 0; tot.failed += d.failed || 0; tot.skipped += (d.skipped || 0) + (d.not_allowed || 0); }
+        else errs.push(d.error === 'whatsapp_not_configured' ? 'WhatsApp não configurado' : (d.error || 'erro'));
+        if (--pending) return;
+        fbstate.sending = false; fbstate.sel = {}; fbstate.langPick = {};
+        if (errs.length) showToast('Erro: ' + errs[0], 'err');
+        else showToast(tot.sent + ' enviado(s)' + (tot.failed ? ' · ' + tot.failed + ' falha(s)' : '') + (tot.skipped ? ' · ' + tot.skipped + ' pulado(s)' : ''), tot.failed ? 'err' : 'ok');
+        loadFeedback();
+      });
+    });
+  }
+
   function queueHtml(){
     var q = fbstate.queue;
     if (!q) return '<div class="empty-note" style="padding:14px">Clique em "Ver fila" pra conferir</div>';
     var warn = q.configured ? '' : '<div class="grant-msg err" style="margin:0 0 10px">WhatsApp ainda não configurado: nada é enviado até os secrets WA_TOKEN e WA_PHONE_NUMBER_ID existirem no Supabase.</div>';
     if (!q.queue || !q.queue.length) return warn + '<div class="empty-note" style="padding:14px">Ninguém na fila agora</div>';
     return warn + '<div class="kv">' + q.queue.map(function(c){
-      return '<span>' + escapeHtml(c.name || 'Cliente') + ' · ' + (c.lang ? FB_LANG[c.lang] : '?') + (c.phone_ok ? '' : ' <span style="color:var(--orange)">· sem DDI, será pulado</span>') + '</span><span>comprou ' + relTime(c.purchased_at) + '</span>';
+      return '<span>' + escapeHtml(c.name || 'Cliente') + ' · ' + (c.lang ? FB_LANG[c.lang] + ' <span style="color:var(--dim)">(' + (FB_SRC[c.lang_source] || '') + ')</span>' : '?') + (c.phone_ok ? '' : ' <span style="color:var(--orange)">· telefone inválido, será pulado</span>') + '</span><span>comprou ' + relTime(c.purchased_at) + '</span>';
     }).join('') + '</div>';
   }
 
