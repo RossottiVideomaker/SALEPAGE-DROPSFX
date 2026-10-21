@@ -1220,6 +1220,14 @@
     /* sem quiz: esconde o que dependia das respostas */
     body.noquiz #rChips, body.noquiz #redo, body.noquiz .sec:has(#diag), body.noquiz .o-who { display: none !important; }
     body.noquiz .r-hero-l .top-proof { margin-top: 22px; }
+    /* vídeo da home no lugar do kit */
+    .r-hero .kit[hidden] { display: none !important; }
+    .r-vid { position: relative; overflow: hidden; border-radius: 22px; aspect-ratio: 16 / 10; background: #0b0b0d;
+      box-shadow: 0 30px 60px -30px rgba(20, 20, 20, .55), 0 0 0 1px rgba(0, 0, 0, .5); }
+    .r-vid video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .r-vid::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08); pointer-events: none; }
+    html.rv .r-hero .r-vid { animation: heroIn 1.1s cubic-bezier(.16, 1, .3, 1) .32s both; }
+    @media (max-width: 760px) { .r-vid { aspect-ratio: 4 / 5; border-radius: 20px; } }
     /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
     .h1, .h2, .lang-title, .o-title, .ck-t, .guar h3 { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
     .h1, .ed-h, .display { line-height: 1; }
@@ -1314,7 +1322,10 @@
           <div class="r-chips" id="rChips"></div>
           <div class="top-proof" hidden><span class="o-avs js-avs" aria-hidden="true"></span><span data-th="o.proof"></span></div>
           </div>
-          <div class="kit">
+          <div class="r-vid" aria-hidden="true">
+            <video id="heroV" autoplay loop muted playsinline preload="auto" poster="/assets/hero-poster.jpg"><source src="/assets/hero-desktop.mp4" type="video/mp4" media="(min-width: 761px)"><source src="/assets/hero-mobile.mp4" type="video/mp4"></video>
+          </div>
+          <div class="kit" hidden>
             <div class="kit-head">
               <p class="mono" id="kitTitle"></p>
               <span class="kit-count" id="kitCount"></span>
@@ -3343,6 +3354,16 @@
     scan();
   }, 30); }).observe(document.body, { subtree: true, childList: true });
   scan();
+})();
+</script>
+<script>
+/* vídeo do topo: garante o play no iOS e pausa fora da tela */
+(function () {
+  var v = document.getElementById('heroV'); if (!v) return;
+  function play() { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { es[0].isIntersecting ? play() : v.pause(); }).observe(v);
+  document.addEventListener('touchstart', play, { once: true, passive: true });
+  play();
 })();
 </script>
 </body>
