@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#f4f1ea" />
+  <meta name="theme-color" content="#000000" />
   <title>dropSFX | Monte seu kit de sound design</title>
   <meta name="description" content="Responda 8 perguntas rápidas e veja quais dos 2.371 efeitos sonoros do dropSFX combinam com o seu tipo de vídeo. Premiere Pro, After Effects e DaVinci Resolve." />
   <link rel="canonical" href="https://www.dropsfx.com.br/" />
@@ -1239,10 +1239,156 @@
     .r-vid::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08); pointer-events: none; }
     html.rv .r-hero .r-vid { animation: heroIn 1.1s cubic-bezier(.16, 1, .3, 1) .32s both; }
     @media (max-width: 760px) { .r-vid { border-radius: 18px; } }
+    /* ===== pontos fortes (demos portados da home) ===== */
+    :root { --muted: #8a8f9c; }
+    .pl-mini { width: min(420px, 90vw); background: #060608; border: 1px solid var(--line-2); border-radius: 18px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px rgba(255, 255, 255, .05), 0 50px 100px -24px rgba(0, 0, 0, .92), 0 0 90px rgba(59, 110, 245, .22); }
+    .plm-head { background: #0a0a0c; padding: 10px 13px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+    .plm-back { display: flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 600; color: #fff; }
+    .plm-back svg { width: 13px; height: 13px; color: var(--accent-hi); }
+    .plm-count { font-family: var(--font-mono); font-size: 9px; color: var(--muted); }
+    .plm-list { padding: 8px 0; }
+    .fitem { display: flex; align-items: center; gap: 10px; padding: 8px 9px; margin: 0 8px 1px; border-radius: 12px; position: relative; transition: background .13s; }
+    .fitem.active { background: rgba(59, 110, 245, .12); }
+    .fitem.active::before { content: ''; position: absolute; left: 0; top: 22%; bottom: 22%; width: 3px; background: var(--accent); border-radius: 0 3px 3px 0; }
+    .fitem-bars { flex-shrink: 0; width: 34px; height: 34px; border-radius: 11px; display: flex; align-items: flex-end; justify-content: center; gap: 2px; padding: 7px 5px; border: 1px solid; overflow: hidden; }
+    .fitem-bars span { width: 2.5px; border-radius: 2px; min-height: 3px; }
+    .fitem.playing .fitem-bars span { animation: eqBar .8s ease-in-out infinite; }
+    .fitem.playing .fitem-bars span:nth-child(2) { animation-delay: .15s; }
+    .fitem.playing .fitem-bars span:nth-child(3) { animation-delay: .3s; }
+    .fitem.playing .fitem-bars span:nth-child(4) { animation-delay: .45s; }
+    .fitem-info { flex: 1; min-width: 0; }
+    .fitem-name { font-size: 12px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .fitem-meta { display: flex; align-items: center; gap: 5px; margin-top: 3px; font-size: 9.5px; color: var(--dim); }
+    .fitem-tag { font-size: 8.5px; font-weight: 700; padding: 1px 7px; border-radius: 99px; }
+    .fitem-star { flex-shrink: 0; color: var(--dim); display: flex; opacity: .5; }
+    .fitem-star svg { width: 14px; height: 14px; }
+    .fitem-star.on { color: #f5c33b; opacity: 1; }
+    .fitem-prog { position: absolute; left: 12px; right: 12px; bottom: 2px; height: 2px; border-radius: 2px; overflow: hidden; background: transparent; }
+    .fitem.previewing .fitem-prog { background: rgba(255, 255, 255, .07); }
+    .fitem-prog-fill { height: 100%; width: 0%; background: var(--accent-hi); border-radius: 2px; }
+    .fitem.previewing .fitem-prog-fill { animation: hoverFill 1.3s linear; }
+    .plm-timeline { border-top: 1px solid var(--line); background: linear-gradient(180deg, #0a0a0c, #111114); padding: 11px 13px; }
+    .plm-tl-label { font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    .plm-tl-label svg { width: 10px; height: 10px; }
+    .plm-tl-track { height: 30px; border-radius: 7px; background: repeating-linear-gradient(90deg, rgba(255, 255, 255, .03) 0 20px, transparent 20px 22px); position: relative; overflow: hidden; }
+    .plm-tl-playhead { position: absolute; top: -2px; bottom: -2px; left: 32%; width: 2px; background: #fff; box-shadow: 0 0 8px rgba(255, 255, 255, .8); z-index: 2; }
+    .plm-tl-clip { position: absolute; top: 3px; bottom: 3px; left: 32%; width: 30%; border-radius: 6px; background: linear-gradient(180deg, var(--accent-hi), var(--accent)); display: flex; align-items: center; justify-content: center; gap: 2px; opacity: 0; transform: scaleX(.5); transform-origin: left; transition: opacity .4s, transform .45s cubic-bezier(.2, 1.4, .4, 1); }
+    .plm-tl-clip.in { opacity: 1; transform: scaleX(1); }
+    .plm-tl-clip i { width: 2px; background: rgba(255, 255, 255, .65); border-radius: 1px; }
+    .plm-cursor { position: absolute; width: 26px; height: 26px; pointer-events: none; z-index: 10; color: #fff; filter: drop-shadow(0 3px 7px rgba(0, 0, 0, .8)); opacity: 0; transition: transform .6s cubic-bezier(.4, 0, .2, 1), opacity .3s; }
+    .plm-cursor svg { width: 100%; height: 100%; }
+    @media (max-width: 720px) {
+      .plm-cursor { display: none !important; }
+    }
+    .plm-keys { display: flex; gap: 7px; justify-content: center; margin-top: 22px; }
+    .plm-key { font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--ink-2); min-width: 46px; height: 46px; padding: 0 14px; border-radius: 11px; background: rgba(255, 255, 255, .04); border: 1.5px solid var(--line-2); display: flex; align-items: center; justify-content: center; transition: all .2s; }
+    .plm-key.lit { background: var(--accent); border-color: var(--accent-hi); color: #fff; box-shadow: 0 0 22px var(--accent-glow); transform: translateY(-3px); }
+    .gain-demo { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+    .gain-pills-big { display: flex; gap: 14px; }
+    .gain-big { font-family: var(--font-mono); font-size: clamp(18px, 2.2vw, 26px); font-weight: 700; color: var(--muted); background: rgba(255, 255, 255, .04); border: 1.5px solid var(--line-2); border-radius: 14px; padding: 18px 26px; transition: all .4s; }
+    .gain-big.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-hi); box-shadow: 0 0 30px var(--accent-glow); transform: scale(1.06); }
+    .gain-meter { width: min(320px, 80vw); height: 8px; background: rgba(255, 255, 255, .06); border-radius: 4px; overflow: hidden; }
+    .gain-meter-fill { height: 100%; width: 70%; background: linear-gradient(90deg, var(--green), var(--yellow), var(--red)); border-radius: 4px; transition: width .5s; }
+    @media (max-width: 720px) {
+      .gain-meter-fill { transition: width .25s; }
+      .plm-tl-clip { transition: opacity .25s, transform .3s; }
+    }
+    .ed-ch-grid { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(40px, 7vw, 120px); align-items: center; }
+    .ed-ch-grid.flip { grid-template-columns: 6fr 5fr; }
+    .ed-ch-grid.flip .ed-ch-copy { order: 2; }
+    .ed-ch-visual { display: flex; justify-content: center; }
+    .ed .pl-mini { width: min(480px, 100%); border-radius: 16px; border-color: rgba(255, 255, 255, .12); background: #060607; box-shadow: 0 50px 100px -40px rgba(0, 0, 0, .95); }
+    .ed .gain-demo { width: min(440px, 100%); align-items: stretch; gap: 22px; }
+    .ed .gain-pills-big { gap: 10px; }
+    .ed .gain-big { flex: 1; text-align: center; padding: 26px 0; border-radius: 14px; font-family: var(--font-display); font-weight: 700; font-size: clamp(18px, 1.9vw, 24px); letter-spacing: -.01em; }
+    .ed .gain-meter { width: 100%; height: 4px; }
+    #dragMock .plm-cursor { transition: transform .75s cubic-bezier(.5, 0, .2, 1), opacity .3s; }
+    .drag-ghost { position: absolute; top: 0; left: 0; z-index: 9; display: flex; align-items: center; gap: 8px; padding: 6px 12px 6px 7px; border-radius: 10px; --c: #2dd4bf; background: color-mix(in srgb, var(--c) 16%, #0c0c0e); border: 1px solid color-mix(in srgb, var(--c) 65%, transparent); color: #fff; font-size: 11px; font-weight: 600; white-space: nowrap; opacity: 0; pointer-events: none; box-shadow: 0 14px 30px rgba(0, 0, 0, .6); transition: transform .75s cubic-bezier(.5, 0, .2, 1), opacity .25s; }
+    .dg-bars { display: flex; align-items: flex-end; gap: 2px; height: 14px; }
+    .dg-bars i { width: 2.5px; border-radius: 2px; background: var(--c); }
+    .dg-bars i:nth-child(1) { height: 40%; }
+    .dg-bars i:nth-child(2) { height: 75%; }
+    .dg-bars i:nth-child(3) { height: 55%; }
+    .dg-bars i:nth-child(4) { height: 90%; }
+    .dm-tracks { display: flex; flex-direction: column; gap: 5px; }
+    .dm-row { display: grid; grid-template-columns: 22px 1fr; align-items: center; }
+    .dm-lab { font-family: var(--font-mono); font-size: 8.5px; color: var(--muted); }
+    .dm-track { position: relative; height: 30px; border-radius: 7px; background: repeating-linear-gradient(90deg, rgba(255, 255, 255, .03) 0 20px, transparent 20px 22px); transition: background .2s, box-shadow .2s; }
+    .dm-track.over { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .28); }
+    .dm-clip { position: absolute; top: 3px; bottom: 3px; display: flex; align-items: center; justify-content: space-evenly; padding: 0 4px; border-radius: 5px; background: color-mix(in srgb, var(--c) 34%, #111216); box-shadow: inset 0 2px 0 var(--c); }
+    .dm-clip i { width: 2px; border-radius: 1px; background: var(--c); opacity: .85; }
+    .dm-drop { opacity: 0; transform: translateY(-6px); transition: opacity .3s, transform .45s cubic-bezier(.2, 1.4, .4, 1); }
+    .dm-drop.in { opacity: 1; transform: none; }
+    @media (max-width: 880px) {
+      .ed-lib,
+          .ed-ch-grid,
+          .ed-ch-grid.flip,
+          .ed-price-grid,
+          .ed-faq-grid { grid-template-columns: 1fr; }
+      .ed-ch-grid.flip .ed-ch-copy { order: 0; }
+    }
+    .nav-cta:hover,
+        .price-cta:hover,
+        .pop-btn:active,
+        .plm-key.lit,
+        .gain-big.on,
+        .video-loader-spinner,
+        .plm-tl-playhead { box-shadow: none !important; }
+    @keyframes eqBar {
+          0%, 100% { height: 25%; }
+          50% { height: 90%; }
+        }
+    @keyframes hoverFill {
+          from { width: 0%; }
+          to { width: 100%; }
+        }
+    .pro.dup { display: none; }
+    .sec.fx { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+    .sec.fx.flip .fx-copy { order: 2; }
+    .sec.fx .ed-ch-visual { display: flex; justify-content: center; }
+    .fx-libv { margin: 0; width: min(300px, 100%); border-radius: 22px; overflow: hidden; box-shadow: 0 30px 70px -30px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.08); }
+    .fx-libv video { display: block; width: 100%; height: auto; }
+    @media (min-width: 761px) { .sec.fx { position: relative; width: min(1100px, calc(100vw - 40px)); left: 50%; transform: translateX(-50%); } }
+    @media (max-width: 760px) { .sec.fx { grid-template-columns: 1fr; gap: 26px; } .sec.fx.flip .fx-copy { order: 0; } }
     /* fonte dos títulos: Acid TM (só títulos grandes; textos e rótulos ficam na Inter) */
     .h1, .h2, .lang-title, .o-title, .ck-t, .guar h3 { font-family: 'Acid TM', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif; font-weight: 400; letter-spacing: .005em; font-style: normal; }
     .h1, .ed-h, .display { line-height: 1; }
     html[lang="hi"] :is(.h1, .h2, .lang-title, .o-title, .ck-t, .guar h3) { font-family: var(--font); font-weight: 800; letter-spacing: -.02em; }
+
+    /* ===================== TEMA ESCURO (volta ao preto, igual à página original) ===================== */
+    :root {
+      --bg: #000; --paper: #0d0d10; --ink: #f2f2f7; --ink-2: #c9c9d3; --steel: #9a9aab; --dim: #5f5f70; --muted: #8a8f9c;
+      --line: rgba(255, 255, 255, .08); --line-2: rgba(255, 255, 255, .14);
+      --card: rgba(255, 255, 255, .04); --card-hover: rgba(255, 255, 255, .07); --card-active: rgba(59, 110, 245, .14);
+      --accent: #3b6ef5; --accent-hi: #6e9bff; --accent-soft: rgba(59, 110, 245, .16); --accent-glow: rgba(59, 110, 245, .45); --ice: #c9d8ff;
+      --red: #f87171; --green: #4ade80; --yellow: #facc15;
+    }
+    html { background: #000 !important; }
+    body { color: var(--ink); background: radial-gradient(60vw 40vw at 85% -5%, rgba(59, 110, 245, .18), transparent 70%), radial-gradient(50vw 40vw at 0% 40%, rgba(56, 189, 248, .06), transparent 70%), #000 !important; background-attachment: fixed !important; }
+    .logo { filter: none !important; }
+    .h1 .serif, .h2 .serif { color: var(--accent-hi); }
+    .lead, .sec .lead { color: var(--steel); }
+    .btn { background: #fff; color: #000; }
+    .r-chip, .q-opt, .chip, .name-in, .lang-mini, .clipx-tab, .pro, .vs, .diag, .guar, .faq-item, .kit { background: var(--card) !important; border-color: var(--line-2) !important; color: var(--ink); box-shadow: none; }
+    .q-opt:hover, .chip:hover, .clipx-tab:hover { background: var(--card-hover) !important; }
+    .clipx-tab.on { background: rgba(59, 110, 245, .14) !important; color: #fff; border-color: rgba(110, 155, 255, .5) !important; }
+    .clipx-tab b { background: rgba(255, 255, 255, .08); color: var(--steel); }
+    .clipx-tab i { background: rgba(255, 255, 255, .08); }
+    .vs-new, .vs-head span:nth-child(3) { background: rgba(59, 110, 245, .1) !important; }
+    .offer { background: linear-gradient(180deg, #0f0f13, #08080b) !important; border-color: var(--line-2) !important; box-shadow: 0 40px 100px -40px rgba(59, 110, 245, .45) !important; }
+    .ck-card { background: #0c0c10 !important; }
+    .ck-bg { background: rgba(0, 0, 0, .72) !important; }
+    .o-av { border-color: #000 !important; }
+    .o-av-more { background: #1a1a20 !important; color: var(--ink-2) !important; }
+    .top-proof b, .o-proof b { color: #fff; }
+    .sticky { background: rgba(12, 12, 15, .96) !important; border-top-color: rgba(255, 255, 255, .08) !important; }
+    .wa-note { color: var(--steel); }
+    .h1 .e-tl { box-shadow: 0 10px 24px -12px rgba(0, 0, 0, .8), inset 0 0 0 1px rgba(255, 255, 255, .14); }
+    .r-vid, .sim-frame, .clipx-stage, .wa { box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .9), 0 0 0 1px rgba(255, 255, 255, .08) !important; }
+    .insight { background: rgba(59, 110, 245, .1) !important; border-color: rgba(110, 155, 255, .3) !important; }
+    .btn.blue:disabled, .btn.blue[disabled] { background: #1c1c22 !important; color: #5f5f70 !important; }
+    .pay-tips summary { color: var(--ink); }
+    .foot, .foot a, .foot button { color: var(--steel); }
 </style>
 </head>
 <body>
@@ -1376,16 +1522,169 @@
         </div>
 
 
+        <!-- pontos fortes (iguais à página original) -->
+        <div class="sec fx" id="fx-lib">
+          <div class="fx-copy">
+            <p class="mono" data-t="fx.lib.k"></p>
+            <h2 class="h2" style="margin-top:12px" data-th="fx.lib.t"></h2>
+            <p class="lead" style="margin-top:14px" data-th="fx.lib.d"></p>
+          </div>
+          <div class="ed-ch-visual"><figure class="fx-libv"><video loop muted playsinline preload="none" data-lazy-video data-src="/assets/library-proof.mp4" width="520" height="830"></video></figure></div>
+        </div>
+        <div class="sec fx" id="fx-hover">
+          <div class="fx-copy">
+            <p class="mono" data-t="fx.hover.k"></p>
+            <h2 class="h2" style="margin-top:12px" data-th="fx.hover.t"></h2>
+            <p class="lead" style="margin-top:14px" data-th="fx.hover.d"></p>
+          </div>
+          <div class="ed-ch-visual">
+        <div class="pl-mini" id="hoverMock">
+          <div class="plm-cursor" id="hoverCursor"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 3.2l13.6 6.8c.6.3.5 1.2-.1 1.4l-5.3 1.7c-.2.1-.4.2-.5.4l-2.6 5c-.3.6-1.2.5-1.4-.1L3.2 4.6c-.2-.6.4-1.2 1-1z"/></svg></div>
+          <div class="plm-head">
+            <div class="plm-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg> Whooshes</div>
+            <div class="plm-count"><span>240</span> <span data-t="fx.sounds">sons</span></div>
+          </div>
+          <div class="plm-list">
+            <div class="fitem" data-i="0">
+              <div class="fitem-bars" style="border-color:rgba(45,212,191,.35);background:rgba(45,212,191,.08)"><span style="background:#2dd4bf;height:40%"></span><span style="background:#2dd4bf;height:70%"></span><span style="background:#2dd4bf;height:50%"></span><span style="background:#2dd4bf;height:85%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Whoosh Fast 02</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(45,212,191,.14);color:#2dd4bf">whoosh</span> 0:01.4</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+              <div class="fitem-prog"><div class="fitem-prog-fill"></div></div>
+            </div>
+            <div class="fitem" data-i="1">
+              <div class="fitem-bars" style="border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.08)"><span style="background:#f87171;height:60%"></span><span style="background:#f87171;height:90%"></span><span style="background:#f87171;height:45%"></span><span style="background:#f87171;height:75%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Impact Heavy 01</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(248,113,113,.14);color:#f87171">impact</span> 0:02.1</div></div>
+              <span class="fitem-star on"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+              <div class="fitem-prog"><div class="fitem-prog-fill"></div></div>
+            </div>
+            <div class="fitem" data-i="2">
+              <div class="fitem-bars" style="border-color:rgba(251,146,60,.35);background:rgba(251,146,60,.08)"><span style="background:#fb923c;height:35%"></span><span style="background:#fb923c;height:55%"></span><span style="background:#fb923c;height:75%"></span><span style="background:#fb923c;height:90%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Riser Tension 03</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(251,146,60,.14);color:#fb923c">riser</span> 0:03.8</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+              <div class="fitem-prog"><div class="fitem-prog-fill"></div></div>
+            </div>
+            <div class="fitem" data-i="3">
+              <div class="fitem-bars" style="border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.08)"><span style="background:#a78bfa;height:55%"></span><span style="background:#a78bfa;height:80%"></span><span style="background:#a78bfa;height:50%"></span><span style="background:#a78bfa;height:70%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Cinematic Drop 05</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(167,139,250,.14);color:#a78bfa">drop</span> 0:04.2</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+              <div class="fitem-prog"><div class="fitem-prog-fill"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sec fx flip" id="fx-twoclick">
+          <div class="fx-copy">
+            <p class="mono" data-t="fx.twoclick.k"></p>
+            <h2 class="h2" style="margin-top:12px" data-th="fx.twoclick.t"></h2>
+            <p class="lead" style="margin-top:14px" data-th="fx.twoclick.d"></p>
+          </div>
+          <div class="ed-ch-visual">
+        <div class="pl-mini" id="clickMock">
+          <div class="plm-cursor" id="clickCursor"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 3.2l13.6 6.8c.6.3.5 1.2-.1 1.4l-5.3 1.7c-.2.1-.4.2-.5.4l-2.6 5c-.3.6-1.2.5-1.4-.1L3.2 4.6c-.2-.6.4-1.2 1-1z"/></svg></div>
+          <div class="plm-head">
+            <div class="plm-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg> Whooshes</div>
+            <div class="plm-count"><span>240</span> <span data-t="fx.sounds">sons</span></div>
+          </div>
+          <div class="plm-list">
+            <div class="fitem" id="clickItem" data-i="0">
+              <div class="fitem-bars" style="border-color:rgba(45,212,191,.35);background:rgba(45,212,191,.08)"><span style="background:#2dd4bf;height:40%"></span><span style="background:#2dd4bf;height:70%"></span><span style="background:#2dd4bf;height:50%"></span><span style="background:#2dd4bf;height:85%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Whoosh Fast 02</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(45,212,191,.14);color:#2dd4bf">whoosh</span> 0:01.4</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+            </div>
+            <div class="fitem" data-i="1">
+              <div class="fitem-bars" style="border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.08)"><span style="background:#f87171;height:60%"></span><span style="background:#f87171;height:90%"></span><span style="background:#f87171;height:45%"></span><span style="background:#f87171;height:75%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Impact Heavy 01</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(248,113,113,.14);color:#f87171">impact</span> 0:02.1</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+            </div>
+          </div>
+          <div class="plm-timeline">
+            <div class="plm-tl-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg> Timeline, A1</div>
+            <div class="plm-tl-track">
+              <div class="plm-tl-playhead"></div>
+              <div class="plm-tl-clip" id="clickClip"><i style="height:30%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:70%"></i><i style="height:40%"></i><i style="height:65%"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sec fx" id="fx-drag">
+          <div class="fx-copy">
+            <p class="mono" data-t="fx.drag.k"></p>
+            <h2 class="h2" style="margin-top:12px" data-th="fx.drag.t"></h2>
+            <p class="lead" style="margin-top:14px" data-th="fx.drag.d"></p>
+          </div>
+          <div class="ed-ch-visual">
+        <div class="pl-mini" id="dragMock">
+          <div class="plm-cursor"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 3.2l13.6 6.8c.6.3.5 1.2-.1 1.4l-5.3 1.7c-.2.1-.4.2-.5.4l-2.6 5c-.3.6-1.2.5-1.4-.1L3.2 4.6c-.2-.6.4-1.2 1-1z"/></svg></div>
+          <div class="drag-ghost" aria-hidden="true">
+            <span class="dg-bars"><i></i><i></i><i></i><i></i></span>
+            <span class="dg-name">Whoosh Fast 02</span>
+          </div>
+          <div class="plm-head">
+            <div class="plm-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg> <span data-t="fx.fav">Favoritos</span></div>
+            <div class="plm-count"><span>3</span> <span data-t="fx.sounds">sons</span></div>
+          </div>
+          <div class="plm-list">
+            <div class="fitem" data-drag="0" data-name="Whoosh Fast 02" data-color="#2dd4bf">
+              <div class="fitem-bars" style="border-color:rgba(45,212,191,.35);background:rgba(45,212,191,.08)"><span style="background:#2dd4bf;height:40%"></span><span style="background:#2dd4bf;height:70%"></span><span style="background:#2dd4bf;height:50%"></span><span style="background:#2dd4bf;height:85%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Whoosh Fast 02</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(45,212,191,.14);color:#2dd4bf">whoosh</span> 0:01.4</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+            </div>
+            <div class="fitem" data-drag="1" data-name="Riser Tension 03" data-color="#fb923c">
+              <div class="fitem-bars" style="border-color:rgba(251,146,60,.35);background:rgba(251,146,60,.08)"><span style="background:#fb923c;height:40%"></span><span style="background:#fb923c;height:70%"></span><span style="background:#fb923c;height:50%"></span><span style="background:#fb923c;height:85%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Riser Tension 03</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(251,146,60,.14);color:#fb923c">riser</span> 0:03.8</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+            </div>
+            <div class="fitem" data-drag="2" data-name="Cinematic Drop 05" data-color="#a78bfa">
+              <div class="fitem-bars" style="border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.08)"><span style="background:#a78bfa;height:40%"></span><span style="background:#a78bfa;height:70%"></span><span style="background:#a78bfa;height:50%"></span><span style="background:#a78bfa;height:85%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Cinematic Drop 05</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(167,139,250,.14);color:#a78bfa">drop</span> 0:04.2</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+            </div>
+          </div>
+          <div class="plm-timeline">
+            <div class="plm-tl-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg> Timeline</div>
+            <div class="dm-tracks">
+              <div class="dm-row"><span class="dm-lab">A1</span><div class="dm-track">
+                <div class="dm-clip dm-drop" data-drop="0" style="--c:#2dd4bf;left:4%;width:24%"><i style="height:30%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:70%"></i><i style="height:40%"></i><i style="height:65%"></i><i style="height:50%"></i><i style="height:75%"></i><i style="height:35%"></i><i style="height:60%"></i></div>
+                <div class="dm-clip dm-drop" data-drop="2" style="--c:#a78bfa;left:64%;width:16%"><i style="height:30%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:70%"></i><i style="height:40%"></i><i style="height:65%"></i></div>
+              </div></div>
+              <div class="dm-row"><span class="dm-lab">A2</span><div class="dm-track">
+                <div class="dm-clip dm-drop" data-drop="1" style="--c:#fb923c;left:26%;width:34%"><i style="height:30%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:70%"></i><i style="height:40%"></i><i style="height:65%"></i><i style="height:50%"></i><i style="height:75%"></i><i style="height:35%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:70%"></i></div>
+              </div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sec fx flip" id="fx-gain">
+          <div class="fx-copy">
+            <p class="mono" data-t="fx.gain.k"></p>
+            <h2 class="h2" style="margin-top:12px" data-th="fx.gain.t"></h2>
+            <p class="lead" style="margin-top:14px" data-th="fx.gain.d"></p>
+          </div>
+          <div class="ed-ch-visual">
+        <div class="gain-demo">
+          <div class="gain-pills-big">
+            <div class="gain-big on" id="g-12">-12 dB</div>
+            <div class="gain-big" id="g-0">0 dB</div>
+            <div class="gain-big" id="g-6">+6 dB</div>
+          </div>
+          <div class="gain-meter"><div class="gain-meter-fill" id="gainFill"></div></div>
+        </div>
+      </div>
+        </div>
+
         <div class="sec">
           <p class="mono" data-t="p.kicker"></p>
           <h2 class="h2" style="margin-top:12px" data-th="p.title"></h2>
           <div class="pros">
             <div class="pro" style="--c:#3b6ef5"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16M3 9h12"/></svg></span><div><h3 data-t="p.inside.t"></h3><p data-t="p.inside.d"></p></div></div>
-            <div class="pro" style="--c:#2dd4bf"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 7-6 2-2 6z"/><path d="M14 14l5 5"/></svg></span><div><h3 data-t="p.hover.t"></h3><p data-t="p.hover.d"></p></div></div>
-            <div class="pro" style="--c:#facc15"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9l11 4-5 2-2 5z"/><path d="M4 4l2 2M9 2v3M2 9h3"/></svg></span><div><h3 data-t="p.click.t"></h3><p data-t="p.click.d"></p></div></div>
-            <div class="pro" style="--c:#a78bfa"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="8" height="4" rx="1"/><rect x="13" y="6" width="8" height="4" rx="1"/><rect x="6" y="14" width="12" height="4" rx="1"/></svg></span><div><h3 data-t="p.color.t"></h3><p data-t="p.color.d"></p></div></div>
-            <div class="pro" style="--c:#fb923c"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18V6M10 18V10M16 18V4M22 18v-6"/></svg></span><div><h3 data-t="p.gain.t"></h3><p data-t="p.gain.d"></p></div></div>
-            <div class="pro" style="--c:#38bdf8"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h5v16H4zM10 4h5v16h-5z"/><path d="M16 5l4 1-3 14-4-1z"/></svg></span><div><h3 data-t="p.lib.t"></h3><p data-t="p.lib.d"></p></div></div>
+            <div class="pro dup" style="--c:#2dd4bf"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 7-6 2-2 6z"/><path d="M14 14l5 5"/></svg></span><div><h3 data-t="p.hover.t"></h3><p data-t="p.hover.d"></p></div></div>
+            <div class="pro dup" style="--c:#facc15"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9l11 4-5 2-2 5z"/><path d="M4 4l2 2M9 2v3M2 9h3"/></svg></span><div><h3 data-t="p.click.t"></h3><p data-t="p.click.d"></p></div></div>
+            <div class="pro dup" style="--c:#a78bfa"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="8" height="4" rx="1"/><rect x="13" y="6" width="8" height="4" rx="1"/><rect x="6" y="14" width="12" height="4" rx="1"/></svg></span><div><h3 data-t="p.color.t"></h3><p data-t="p.color.d"></p></div></div>
+            <div class="pro dup" style="--c:#fb923c"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18V6M10 18V10M16 18V4M22 18v-6"/></svg></span><div><h3 data-t="p.gain.t"></h3><p data-t="p.gain.d"></p></div></div>
+            <div class="pro dup" style="--c:#38bdf8"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h5v16H4zM10 4h5v16h-5z"/><path d="M16 5l4 1-3 14-4-1z"/></svg></span><div><h3 data-t="p.lib.t"></h3><p data-t="p.lib.d"></p></div></div>
             <div class="pro" style="--c:#4ade80"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M12 10v6M9 13h6"/></svg></span><div><h3 data-t="p.folder.t"></h3><p data-t="p.folder.d"></p></div></div>
             <div class="pro" style="--c:#f472b6"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 19c0-3 3-5 6-5s6 2 6 5M14 19c0-2 1.5-3.5 3.5-3.5S21 17 21 19"/></svg></span><div><h3 data-t="p.community.t"></h3><p data-t="p.community.d"></p></div></div>
             <div class="pro" style="--c:#34d399"><span class="pro-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></span><div><h3 data-t="p.once.t"></h3><p data-t="p.once.d"></p></div></div>
@@ -2247,6 +2546,7 @@
   FAQ.fr = {"faq.q1": "Ça fonctionne sur quels logiciels ?", "faq.a1": "Premiere Pro (CC 2020 et plus récent), After Effects et DaVinci Resolve Studio, sur Mac (Intel et Apple Silicon) et Windows 10/11. Sur DaVinci, il faut la version Studio.", "faq.q2": "Comment j'insère un son sur la timeline ?", "faq.a2": "Comme vous préférez : un double clic place le son à la tête de lecture, ou utilisez le bouton Insérer. Au clavier, les flèches naviguent et Entrée insère ; Maj+Entrée le place à votre point d'entrée. Et vous choisissez le gain (-12 / 0 / +6 dB) avant d'insérer.", "faq.q3": "Je peux écouter avant d'insérer ?", "faq.a3": "Oui. Il suffit de survoler le son (sans cliquer) et il joue tout de suite, avec sa forme d'onde. C'est le moyen le plus rapide de passer en revue plein de sons et de trouver le bon.", "faq.q4": "C'est un paiement unique ou un abonnement ?", "faq.a4": "100 % paiement unique. Vous achetez une fois et l'utilisez pour toujours, sans abonnement ni renouvellement. Le prix actuel s'affiche sur la page de paiement.", "faq.q5": "Je peux l'utiliser dans des projets commerciaux ?", "faq.a5": "Oui. Tous les sons sont 100 % libres de droits pour tout usage commercial : YouTube monétisé, pubs, films, jingles, jeux.", "faq.q6": "Je peux créer des dossiers et importer mes sons ?", "faq.a6": "Oui. En plus des 18 catégories prêtes, vous créez vos propres dossiers en couleur, importez vos audios et glissez des sons d'un dossier à l'autre. Le panneau crée aussi un onglet \"Top\" avec les sons que vous utilisez le plus.", "faq.q7": "Sur combien de machines je peux l'installer ?", "faq.a7": "Jusqu'à 2 machines en même temps, Mac et/ou Windows. Vous pouvez désactiver et changer quand vous voulez.", "faq.q8": "Comment je reçois le produit ?", "faq.a8": "Accès immédiat. Après le paiement, vous recevez par email le lien de téléchargement et vos identifiants. Connectez-vous au panneau et toute la bibliothèque est disponible.", "faq.q9": "Et si ça ne me plaît pas ?", "faq.a9": "7 jours pour tester. Si ça ne vous convient pas, on rembourse 100 %. Un simple email suffit, sans questionnaire."};
   FAQ.id = {"faq.q1": "Bisa dipakai di software apa saja?", "faq.a1": "Premiere Pro (CC 2020 ke atas), After Effects dan DaVinci Resolve Studio, di Mac (Intel dan Apple Silicon) dan Windows 10/11. Untuk DaVinci, harus versi Studio.", "faq.q2": "Bagaimana cara memasukkan suara ke timeline?", "faq.a2": "Terserah kamu: klik dua kali untuk menaruh suara di playhead, atau pakai tombol Insert. Dengan keyboard, panah untuk navigasi dan Enter untuk memasukkan; Shift+Enter menaruhnya di in point kamu. Gain (-12 / 0 / +6 dB) juga bisa dipilih sebelum dimasukkan.", "faq.q3": "Bisa dengar dulu sebelum dimasukkan?", "faq.a3": "Bisa. Cukup arahkan kursor ke suara (tanpa klik) dan langsung bunyi, lengkap dengan waveform. Cara tercepat menyaring banyak suara dan menemukan yang pas.", "faq.q4": "Bayar sekali atau langganan?", "faq.a4": "100% bayar sekali. Beli sekali, pakai selamanya, tanpa langganan dan tanpa perpanjangan. Harga saat ini tampil di halaman checkout.", "faq.q5": "Boleh dipakai untuk proyek komersial?", "faq.a5": "Boleh. Semua suara 100% bebas royalti untuk penggunaan komersial apa pun: YouTube yang dimonetisasi, iklan, film, jingle, game.", "faq.q6": "Bisa bikin folder dan import suara sendiri?", "faq.a6": "Bisa. Selain 18 kategori bawaan, kamu bisa bikin folder berwarna sendiri, import audio milikmu dan menyeret suara antar folder. Panel juga membuat tab \"Top\" berisi suara yang paling sering kamu pakai.", "faq.q7": "Bisa diinstal di berapa perangkat?", "faq.a7": "Sampai 2 perangkat sekaligus, Mac dan/atau Windows. Bisa dinonaktifkan dan dipindah kapan saja.", "faq.q8": "Bagaimana saya menerima produknya?", "faq.a8": "Akses langsung. Setelah bayar, kamu menerima email berisi link download dan data akun. Login di panel dan seluruh library langsung tersedia.", "faq.q9": "Kalau saya tidak suka?", "faq.a9": "Ada 7 hari untuk mencoba. Kalau tidak cocok, uang kembali 100%. Cukup kirim email, tanpa kuesioner."};
   CAT_NAMES.fr = {"whooshes": "Whooshes", "transitions": "Transitions", "drops": "Cinematic Drops", "clicks": "Clics & UI", "foley": "Foley & Diégétique", "risers": "Risers", "elements": "Éléments", "memes": "Mèmes & Cartoon", "hits": "Hits & Impacts", "glitches": "Glitches", "guns": "Armes", "reverb": "Reverb", "retro": "Rétro", "hud": "HUD & Digital", "ambient": "Ambiances", "nature": "Nature", "emotion": "Émotion", "camera": "Caméra", "bells": "Cloches & Boutons", "slowmo": "Slow Motion", "tonal": "Tonal"};
+  (function (X) { for (var l in X) for (var k in X[l]) L[l][k] = X[l][k]; })({"es": {"fx.hover.t": "Pasas el mouse <span class='serif'>y ya está sonando.</span>", "fx.hover.d": "Olvídate de abrir cada archivo para saber qué es. <strong>Solo pasa el cursor sobre el sonido</strong> y suena al instante, con la forma de onda en vivo. Recorre decenas de efectos en segundos.", "fx.twoclick.t": "Dos clics. <span class='serif'>Ya está en la timeline.</span>", "fx.twoclick.d": "¿Encontraste el sonido? <strong>Doble clic</strong> y cae exactamente en el playhead de Premiere, en la pista que elegiste. Sin arrastrar archivos, sin exportar, sin cambiar de ventana.", "fx.gain.t": "La ganancia justa, <span class='serif'>antes de insertar.</span>", "fx.gain.d": "¿El whoosh siempre demasiado alto? ¿El riser bajo? Elige <strong>-12, 0 o +6 dB</strong> y el sonido entra en la línea de tiempo al volumen correcto. Adiós a abrir el mixer en cada clip.", "fx.lib.d": "Seleccionados para edición real: desde whooshes e impactos hasta glitches, risers y foley. Cada categoría con su propio color, para encontrarla de un vistazo.", "fx.sounds": "sonidos", "fx.fav": "Favoritos", "fx.drag.t": "Arrastras, sueltas. <span class='serif'>Ya llega con color.</span>", "fx.drag.d": "¿Prefieres arrastrar? <strong>Lleva el sonido del panel directo a la timeline</strong>. Al soltarlo, el clip entra con el color de su categoría y tu pista de audio queda ordenada sola.", "fx.lib.t": "Una biblioteca <span class='serif'>hecha para editar.</span>", "fx.hover.k": "Escucha al pasar", "fx.twoclick.k": "Inserción", "fx.drag.k": "Arrastrar y soltar", "fx.gain.k": "Ganancia", "fx.lib.k": "La biblioteca"}, "hi": {"fx.hover.t": "माउस ले जाइए, <span class='serif'>साउंड बजने लगा।</span>", "fx.hover.d": "हर फ़ाइल खोलकर देखना भूल जाइए। <strong>बस कर्सर साउंड पर ले जाइए</strong> और वह तुरंत बजता है, लाइव वेवफ़ॉर्म के साथ। सेकंडों में दर्जनों इफ़ेक्ट्स सुन लीजिए।", "fx.twoclick.t": "दो क्लिक। <span class='serif'>टाइमलाइन पर।</span>", "fx.twoclick.d": "साउंड मिल गया? <strong>डबल क्लिक</strong> कीजिए और वह ठीक Premiere के प्लेहेड पर, आपके चुने ट्रैक पर आ जाता है। न फ़ाइल खींचना, न एक्सपोर्ट, न विंडो बदलना।", "fx.gain.t": "सही गेन, <span class='serif'>इन्सर्ट करने से पहले।</span>", "fx.gain.d": "व्हूश हमेशा बहुत तेज़? राइज़र धीमा? <strong>-12, 0 या +6 dB</strong> चुनिए और साउंड सही वॉल्यूम पर ही टाइमलाइन में आएगा। हर क्लिप के लिए मिक्सर खोलना बंद।", "fx.lib.d": "असली एडिटिंग के लिए चुने गए: व्हूश और इम्पैक्ट से लेकर ग्लिच, राइज़र और फ़ॉली तक। हर कैटेगरी का अपना रंग, ताकि एक नज़र में मिल जाए।", "fx.sounds": "साउंड", "fx.fav": "पसंदीदा", "fx.drag.t": "खींचा, छोड़ा। <span class='serif'>रंग के साथ पहुँचा।</span>", "fx.drag.d": "खींचना पसंद है? <strong>साउंड को पैनल से सीधे टाइमलाइन पर ले जाइए</strong>। छोड़ते ही क्लिप अपनी कैटेगरी के रंग में आती है और ऑडियो ट्रैक अपने आप व्यवस्थित रहता है।", "fx.lib.t": "एडिटिंग के लिए <span class='serif'>बनी लाइब्रेरी।</span>", "fx.hover.k": "माउस ले जाते ही सुनें", "fx.twoclick.k": "इन्सर्ट", "fx.drag.k": "ड्रैग एंड ड्रॉप", "fx.gain.k": "गेन", "fx.lib.k": "लाइब्रेरी"}, "pt": {"fx.hover.k": "Ouve sem clicar", "fx.hover.t": "Passou o mouse, <span class='serif'>já tá tocando.</span>", "fx.hover.d": "Nada de abrir arquivo por arquivo pra descobrir o que é. <strong>Passa o cursor em cima</strong> e o som toca na hora, com a forma de onda andando. Você varre dezenas de efeitos em segundos.", "fx.twoclick.k": "Inserir", "fx.twoclick.t": "Dois cliques. <span class='serif'>Tá na timeline.</span>", "fx.twoclick.d": "Achou o som? <strong>Duplo clique</strong> e ele cai certinho no playhead, na trilha que você escolheu. Sem arrastar arquivo, sem exportar, sem trocar de janela.", "fx.drag.k": "Arrastar e soltar", "fx.drag.t": "Arrastou, soltou. <span class='serif'>Já chega colorido.</span>", "fx.drag.d": "Prefere arrastar? <strong>Puxa o som do painel direto pra timeline</strong>. Quando solta, o clipe já entra com a cor da categoria e sua trilha de áudio fica organizada sozinha.", "fx.gain.k": "Ganho", "fx.gain.t": "O ganho certo, <span class='serif'>antes de inserir.</span>", "fx.gain.d": "Whoosh sempre estourando? Riser baixo demais? Escolhe <strong>-12, 0 ou +6 dB</strong> e o som já entra no volume certo. Chega de abrir o mixer clipe por clipe.", "fx.lib.k": "A biblioteca", "fx.lib.t": "Uma biblioteca <span class='serif'>feita pra editar.</span>", "fx.lib.d": "Só o que editor usa de verdade: whoosh, impacto, glitch, riser e foley. Cada categoria tem sua cor, então você bate o olho e acha.", "fx.sounds": "sons", "fx.fav": "Favoritos"}, "en": {"fx.hover.k": "Hear it without clicking", "fx.hover.t": "Hover over it, <span class='serif'>it's already playing.</span>", "fx.hover.d": "No more opening file after file to find out what it is. <strong>Hover over it</strong> and the sound plays right away, waveform moving. You scan dozens of effects in seconds.", "fx.twoclick.k": "Insert", "fx.twoclick.t": "Two clicks. <span class='serif'>It's on the timeline.</span>", "fx.twoclick.d": "Found it? <strong>Double click</strong> and it lands right on the playhead, on the track you picked. No dragging files, no exporting, no switching windows.", "fx.drag.k": "Drag and drop", "fx.drag.t": "Drag it, drop it. <span class='serif'>Already colored.</span>", "fx.drag.d": "Rather drag? <strong>Pull the sound from the panel straight onto the timeline</strong>. When you let go, the clip comes in with its category color and your audio track stays organized.", "fx.gain.k": "Gain", "fx.gain.t": "The right gain, <span class='serif'>before inserting.</span>", "fx.gain.d": "Whoosh always clipping? Riser too quiet? Pick <strong>-12, 0 or +6 dB</strong> and the sound comes in at the right level. Stop opening the mixer clip by clip.", "fx.lib.k": "The library", "fx.lib.t": "A library <span class='serif'>made for editing.</span>", "fx.lib.d": "Only what editors actually use: whooshes, impacts, glitches, risers and foley. Every category has its own color, so you spot it at a glance.", "fx.sounds": "sounds", "fx.fav": "Favorites"}, "fr": {"fx.hover.k": "Écoute au survol", "fx.hover.t": "Survolez, <span class='serif'>ça joue déjà.</span>", "fx.hover.d": "Fini d'ouvrir chaque fichier pour savoir ce que c'est. <strong>Passez le curseur dessus</strong> et le son joue tout de suite, avec la forme d'onde. Vous parcourez des dizaines d'effets en quelques secondes.", "fx.twoclick.k": "Insertion", "fx.twoclick.t": "Deux clics. <span class='serif'>C'est sur la timeline.</span>", "fx.twoclick.d": "Trouvé ? <strong>Double clic</strong> et il tombe pile sur la tête de lecture, sur la piste choisie. Sans glisser de fichier, sans export, sans changer de fenêtre.", "fx.drag.k": "Glisser déposer", "fx.drag.t": "Glissez, lâchez. <span class='serif'>Déjà en couleur.</span>", "fx.drag.d": "Vous préférez glisser ? <strong>Tirez le son du panneau vers la timeline</strong>. Le clip arrive avec la couleur de sa catégorie et votre piste audio reste rangée.", "fx.gain.k": "Gain", "fx.gain.t": "Le bon gain, <span class='serif'>avant d'insérer.</span>", "fx.gain.d": "Whoosh toujours trop fort ? Riser trop bas ? Choisissez <strong>-12, 0 ou +6 dB</strong> et le son arrive au bon niveau. Plus besoin d'ouvrir le mixeur clip par clip.", "fx.lib.k": "La bibliothèque", "fx.lib.t": "Une bibliothèque <span class='serif'>faite pour monter.</span>", "fx.lib.d": "Seulement ce que les monteurs utilisent vraiment : whooshes, impacts, glitches, risers et foley. Chaque catégorie a sa couleur, vous la repérez d'un coup d'œil.", "fx.sounds": "sons", "fx.fav": "Favoris"}, "id": {"fx.hover.k": "Dengar tanpa klik", "fx.hover.t": "Arahkan kursor, <span class='serif'>langsung bunyi.</span>", "fx.hover.d": "Nggak perlu buka file satu per satu. <strong>Arahkan kursor ke suara</strong> dan langsung bunyi, lengkap dengan waveform. Puluhan efek bisa kamu cek dalam hitungan detik.", "fx.twoclick.k": "Masukkan", "fx.twoclick.t": "Dua klik. <span class='serif'>Sudah di timeline.</span>", "fx.twoclick.d": "Ketemu? <strong>Klik dua kali</strong> dan suara masuk tepat di playhead, di track yang kamu pilih. Tanpa seret file, tanpa ekspor, tanpa ganti jendela.", "fx.drag.k": "Seret dan lepas", "fx.drag.t": "Seret, lepas. <span class='serif'>Sudah berwarna.</span>", "fx.drag.d": "Lebih suka seret? <strong>Tarik suara dari panel langsung ke timeline</strong>. Saat dilepas, klip masuk dengan warna kategorinya dan track audiomu tetap rapi.", "fx.gain.k": "Gain", "fx.gain.t": "Gain yang pas, <span class='serif'>sebelum dimasukkan.</span>", "fx.gain.d": "Whoosh selalu kekerasan? Riser kepelanan? Pilih <strong>-12, 0 atau +6 dB</strong> dan suara masuk di level yang pas. Nggak perlu buka mixer tiap klip.", "fx.lib.k": "Pustakanya", "fx.lib.t": "Pustaka yang <span class='serif'>dibuat untuk editing.</span>", "fx.lib.d": "Hanya yang benar-benar dipakai editor: whoosh, impact, glitch, riser dan foley. Tiap kategori punya warna sendiri, jadi langsung kelihatan.", "fx.sounds": "suara", "fx.fav": "Favorit"}});
   // WhatsApp opcional no último passo do quiz (lead pro vendedor no WhatsApp)
   (function (X) { for (var l in X) for (var k in X[l]) L[l][k] = X[l][k]; })({
     "pt": {"q.wa.l": "Quer receber seu kit no WhatsApp? (opcional)", "q.wa.ph": "+55 27 99999-9999", "q.wa.ok": "Aceito receber mensagens do dropSFX no WhatsApp. Posso cancelar quando quiser.", "q.wa.err": "Confira o número com o código do país (ex.: +55).", "q.wa.need": "Marque o aceite pra gente poder te mandar mensagem."},
@@ -3423,6 +3723,220 @@
   document.addEventListener('touchstart', play, { once: true, passive: true });
   play();
 })();
+</script>
+<script>
+/* demos dos pontos fortes (mesmos da página original) */
+var IS_TOUCH = ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+(function () {
+    var mock = document.getElementById('dragMock');
+    if (!mock) return;
+    var cursor = mock.querySelector('.plm-cursor');
+    var ghost = mock.querySelector('.drag-ghost');
+    var gname = ghost.querySelector('.dg-name');
+    var rows = [], clips = [];
+    mock.querySelectorAll('[data-drag]').forEach(function (r) { rows[+r.getAttribute('data-drag')] = r; });
+    mock.querySelectorAll('[data-drop]').forEach(function (c) { clips[+c.getAttribute('data-drop')] = c; });
+    var started = false;
+
+    function pos(el, fx, fy) {
+      var m = mock.getBoundingClientRect(), r = el.getBoundingClientRect();
+      return { x: r.left - m.left + r.width * fx, y: r.top - m.top + r.height * fy };
+    }
+    function place(el, p) { el.style.transform = 'translate(' + p.x + 'px,' + p.y + 'px)'; }
+
+    function drag(i, next) {
+      var row = rows[i], clip = clips[i], track = clip.parentNode;
+      var grab = pos(row, .3, .5);
+      cursor.style.opacity = '1';
+      place(cursor, { x: grab.x, y: grab.y - 6 });
+
+      setTimeout(function () {
+        row.classList.add('active');
+        ghost.style.setProperty('--c', row.getAttribute('data-color'));
+        gname.textContent = row.getAttribute('data-name');
+        ghost.style.transition = 'none';
+        var g0 = pos(row, .12, .18);
+        place(ghost, g0);
+        void ghost.offsetWidth;
+        ghost.style.transition = '';
+        ghost.style.opacity = '1';
+
+        setTimeout(function () {
+          var drop = pos(track, parseFloat(clip.style.left) / 100, 0);
+          place(ghost, { x: drop.x, y: drop.y - 2 });
+          place(cursor, { x: drop.x + (grab.x - g0.x), y: drop.y + (grab.y - g0.y) - 8 });
+          setTimeout(function () { track.classList.add('over'); }, 480);
+          setTimeout(function () {
+            ghost.style.opacity = '0';
+            track.classList.remove('over');
+            row.classList.remove('active');
+            clip.classList.add('in');
+            setTimeout(next, 450);
+          }, 850);
+        }, 300);
+      }, 750);
+    }
+
+    function cycle() {
+      clips.forEach(function (c) { c.classList.remove('in'); });
+      drag(0, function () {
+        drag(1, function () {
+          drag(2, function () { setTimeout(cycle, 2000); });
+        });
+      });
+    }
+
+    function tryStart() {
+      if (started) return;
+      var r = mock.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.85 && r.bottom > 0) { started = true; setTimeout(cycle, 400); }
+    }
+    tryStart();
+    window.addEventListener('scroll', tryStart, { passive: true });
+  })();
+(function () {
+    var demo   = document.getElementById('hoverMock');
+    var cursor = document.getElementById('hoverCursor');
+    if (!demo) return;
+
+    var rows   = Array.from(demo.querySelectorAll('.fitem'));
+    var idx    = 0;
+    var timer  = null;
+    var INTERVAL = IS_TOUCH ? 1800 : 1500;
+
+    function clearRow(row) {
+      row.classList.remove('active', 'playing', 'previewing');
+      var fill = row.querySelector('.fitem-prog-fill');
+      if (fill) {
+        fill.style.animation = 'none';
+        void fill.offsetWidth;
+        fill.style.animation = '';
+      }
+    }
+
+    function moveTo(i) {
+      rows.forEach(function(r) { clearRow(r); });
+      var row = rows[i];
+      row.classList.add('active', 'playing', 'previewing');
+
+      if (cursor) {
+        var dr = demo.getBoundingClientRect();
+        var rr = row.getBoundingClientRect();
+        cursor.style.opacity = '1';
+        cursor.style.transform = 'translate(' +
+          (rr.left - dr.left + rr.width * 0.5) + 'px,' +
+          (rr.top - dr.top + 12) + 'px)';
+      }
+    }
+
+    function tick() {
+      moveTo(idx);
+      idx = (idx + 1) % rows.length;
+      timer = setTimeout(tick, INTERVAL);
+    }
+
+    var started = false;
+
+    function tryStart() {
+      if (started) return;
+      var r = demo.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.85 && r.bottom > 0) {
+        started = true;
+        tick();
+      }
+    }
+
+    tryStart();
+    window.addEventListener('scroll', tryStart, { passive: true });
+  })();
+(function () {
+    var mock   = document.getElementById('clickMock');
+    var cursor = document.getElementById('clickCursor');
+    var item   = document.getElementById('clickItem');
+    var clip   = document.getElementById('clickClip');
+    if (!mock || !clip || !item) return;
+
+    var started = false;
+
+    function seq() {
+      if (cursor) {
+        var dr = mock.getBoundingClientRect();
+        var rr = item.getBoundingClientRect();
+        cursor.style.opacity = '1';
+        cursor.style.transform = 'translate(' +
+          (rr.left - dr.left + rr.width * 0.4) + 'px,' +
+          (rr.top - dr.top + 10) + 'px)';
+      }
+
+      clip.classList.remove('in');
+      item.classList.add('active');
+
+      setTimeout(function() {
+        item.style.background = 'rgba(59,110,245,.28)';
+        setTimeout(function() {
+          item.style.background = '';
+          setTimeout(function() {
+            item.style.background = 'rgba(59,110,245,.28)';
+            setTimeout(function() {
+              item.style.background = '';
+              clip.classList.add('in');
+            }, 130);
+          }, 130);
+        }, 130);
+      }, 700);
+
+      setTimeout(seq, 3000);
+    }
+
+    function tryStart() {
+      if (started) return;
+      var r = mock.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.85 && r.bottom > 0) {
+        started = true;
+        setTimeout(seq, 500);
+      }
+    }
+
+    tryStart();
+    window.addEventListener('scroll', tryStart, { passive: true });
+  })();
+(function () {
+    var pills  = [document.getElementById('g-12'), document.getElementById('g-0'), document.getElementById('g-6')];
+    var fill   = document.getElementById('gainFill');
+    if (!pills[0] || !fill) return;
+
+    var widths  = ['40%', '70%', '95%'];
+    var idx     = 0;
+    var INTERVAL = IS_TOUCH ? 2200 : 1500;
+    var started = false;
+
+    function tick() {
+      pills.forEach(function(p) { p.classList.remove('on'); });
+      pills[idx].classList.add('on');
+      fill.style.width = widths[idx];
+      idx = (idx + 1) % pills.length;
+      setTimeout(tick, INTERVAL);
+    }
+
+    function tryStart() {
+      if (started) return;
+      var r = fill.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.85 && r.bottom > 0) {
+        started = true;
+        tick();
+      }
+    }
+
+    tryStart();
+    window.addEventListener('scroll', tryStart, { passive: true });
+  })();
+  (function () {
+    var vids = document.querySelectorAll('video[data-lazy-video]'); if (!vids.length) return;
+    function start(v) { if (!v.src) v.src = v.getAttribute('data-src'); var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    if (!('IntersectionObserver' in window)) { [].forEach.call(vids, start); return; }
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) start(e.target); else if (e.target.src) e.target.pause(); }); }, { rootMargin: '200px 0px' });
+    [].forEach.call(vids, function (v) { io.observe(v); });
+  })();
 </script>
 </body>
 </html>
