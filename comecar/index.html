@@ -310,6 +310,12 @@
       font-size: 20px;
     }
     .name-in:focus { outline: none; border-color: var(--accent); }
+    .wa-box { margin-top: 22px; }
+    .wa-l { display: block; font-size: 15px; color: var(--ink-2); }
+    .name-in.wa-in { margin-top: 8px; font-size: 18px; }
+    .wa-ok { display: flex; align-items: flex-start; gap: 10px; margin-top: 12px; font-size: 13px; line-height: 1.45; color: var(--steel); cursor: pointer; }
+    .wa-ok input { width: 18px; height: 18px; margin: 1px 0 0; flex: none; accent-color: var(--accent); }
+    .wa-err { margin: 10px 0 0; font-size: 13px; color: var(--red); }
 
     .q-actions { display: flex; flex-direction: column; gap: 12px; margin-top: 22px; }
     .q-actions[hidden] { display: none; }
@@ -2241,6 +2247,15 @@
   FAQ.fr = {"faq.q1": "Ça fonctionne sur quels logiciels ?", "faq.a1": "Premiere Pro (CC 2020 et plus récent), After Effects et DaVinci Resolve Studio, sur Mac (Intel et Apple Silicon) et Windows 10/11. Sur DaVinci, il faut la version Studio.", "faq.q2": "Comment j'insère un son sur la timeline ?", "faq.a2": "Comme vous préférez : un double clic place le son à la tête de lecture, ou utilisez le bouton Insérer. Au clavier, les flèches naviguent et Entrée insère ; Maj+Entrée le place à votre point d'entrée. Et vous choisissez le gain (-12 / 0 / +6 dB) avant d'insérer.", "faq.q3": "Je peux écouter avant d'insérer ?", "faq.a3": "Oui. Il suffit de survoler le son (sans cliquer) et il joue tout de suite, avec sa forme d'onde. C'est le moyen le plus rapide de passer en revue plein de sons et de trouver le bon.", "faq.q4": "C'est un paiement unique ou un abonnement ?", "faq.a4": "100 % paiement unique. Vous achetez une fois et l'utilisez pour toujours, sans abonnement ni renouvellement. Le prix actuel s'affiche sur la page de paiement.", "faq.q5": "Je peux l'utiliser dans des projets commerciaux ?", "faq.a5": "Oui. Tous les sons sont 100 % libres de droits pour tout usage commercial : YouTube monétisé, pubs, films, jingles, jeux.", "faq.q6": "Je peux créer des dossiers et importer mes sons ?", "faq.a6": "Oui. En plus des 18 catégories prêtes, vous créez vos propres dossiers en couleur, importez vos audios et glissez des sons d'un dossier à l'autre. Le panneau crée aussi un onglet \"Top\" avec les sons que vous utilisez le plus.", "faq.q7": "Sur combien de machines je peux l'installer ?", "faq.a7": "Jusqu'à 2 machines en même temps, Mac et/ou Windows. Vous pouvez désactiver et changer quand vous voulez.", "faq.q8": "Comment je reçois le produit ?", "faq.a8": "Accès immédiat. Après le paiement, vous recevez par email le lien de téléchargement et vos identifiants. Connectez-vous au panneau et toute la bibliothèque est disponible.", "faq.q9": "Et si ça ne me plaît pas ?", "faq.a9": "7 jours pour tester. Si ça ne vous convient pas, on rembourse 100 %. Un simple email suffit, sans questionnaire."};
   FAQ.id = {"faq.q1": "Bisa dipakai di software apa saja?", "faq.a1": "Premiere Pro (CC 2020 ke atas), After Effects dan DaVinci Resolve Studio, di Mac (Intel dan Apple Silicon) dan Windows 10/11. Untuk DaVinci, harus versi Studio.", "faq.q2": "Bagaimana cara memasukkan suara ke timeline?", "faq.a2": "Terserah kamu: klik dua kali untuk menaruh suara di playhead, atau pakai tombol Insert. Dengan keyboard, panah untuk navigasi dan Enter untuk memasukkan; Shift+Enter menaruhnya di in point kamu. Gain (-12 / 0 / +6 dB) juga bisa dipilih sebelum dimasukkan.", "faq.q3": "Bisa dengar dulu sebelum dimasukkan?", "faq.a3": "Bisa. Cukup arahkan kursor ke suara (tanpa klik) dan langsung bunyi, lengkap dengan waveform. Cara tercepat menyaring banyak suara dan menemukan yang pas.", "faq.q4": "Bayar sekali atau langganan?", "faq.a4": "100% bayar sekali. Beli sekali, pakai selamanya, tanpa langganan dan tanpa perpanjangan. Harga saat ini tampil di halaman checkout.", "faq.q5": "Boleh dipakai untuk proyek komersial?", "faq.a5": "Boleh. Semua suara 100% bebas royalti untuk penggunaan komersial apa pun: YouTube yang dimonetisasi, iklan, film, jingle, game.", "faq.q6": "Bisa bikin folder dan import suara sendiri?", "faq.a6": "Bisa. Selain 18 kategori bawaan, kamu bisa bikin folder berwarna sendiri, import audio milikmu dan menyeret suara antar folder. Panel juga membuat tab \"Top\" berisi suara yang paling sering kamu pakai.", "faq.q7": "Bisa diinstal di berapa perangkat?", "faq.a7": "Sampai 2 perangkat sekaligus, Mac dan/atau Windows. Bisa dinonaktifkan dan dipindah kapan saja.", "faq.q8": "Bagaimana saya menerima produknya?", "faq.a8": "Akses langsung. Setelah bayar, kamu menerima email berisi link download dan data akun. Login di panel dan seluruh library langsung tersedia.", "faq.q9": "Kalau saya tidak suka?", "faq.a9": "Ada 7 hari untuk mencoba. Kalau tidak cocok, uang kembali 100%. Cukup kirim email, tanpa kuesioner."};
   CAT_NAMES.fr = {"whooshes": "Whooshes", "transitions": "Transitions", "drops": "Cinematic Drops", "clicks": "Clics & UI", "foley": "Foley & Diégétique", "risers": "Risers", "elements": "Éléments", "memes": "Mèmes & Cartoon", "hits": "Hits & Impacts", "glitches": "Glitches", "guns": "Armes", "reverb": "Reverb", "retro": "Rétro", "hud": "HUD & Digital", "ambient": "Ambiances", "nature": "Nature", "emotion": "Émotion", "camera": "Caméra", "bells": "Cloches & Boutons", "slowmo": "Slow Motion", "tonal": "Tonal"};
+  // WhatsApp opcional no último passo do quiz (lead pro vendedor no WhatsApp)
+  (function (X) { for (var l in X) for (var k in X[l]) L[l][k] = X[l][k]; })({
+    "pt": {"q.wa.l": "Quer receber seu kit no WhatsApp? (opcional)", "q.wa.ph": "+55 27 99999-9999", "q.wa.ok": "Aceito receber mensagens do dropSFX no WhatsApp. Posso cancelar quando quiser.", "q.wa.err": "Confira o número com o código do país (ex.: +55).", "q.wa.need": "Marque o aceite pra gente poder te mandar mensagem."},
+    "en": {"q.wa.l": "Want your kit on WhatsApp? (optional)", "q.wa.ph": "+1 555 123 4567", "q.wa.ok": "I agree to receive messages from dropSFX on WhatsApp. I can opt out anytime.", "q.wa.err": "Check the number, including the country code (e.g. +1).", "q.wa.need": "Tick the box so we can message you."},
+    "es": {"q.wa.l": "¿Quieres recibir tu kit por WhatsApp? (opcional)", "q.wa.ph": "+52 55 1234 5678", "q.wa.ok": "Acepto recibir mensajes de dropSFX por WhatsApp. Puedo cancelar cuando quiera.", "q.wa.err": "Revisa el número con el código de país (ej.: +52).", "q.wa.need": "Marca la casilla para poder escribirte."},
+    "fr": {"q.wa.l": "Recevoir votre kit sur WhatsApp ? (facultatif)", "q.wa.ph": "+33 6 12 34 56 78", "q.wa.ok": "J'accepte de recevoir des messages de dropSFX sur WhatsApp. Je peux me désinscrire à tout moment.", "q.wa.err": "Vérifiez le numéro avec l'indicatif du pays (ex. : +33).", "q.wa.need": "Cochez la case pour qu'on puisse vous écrire."},
+    "hi": {"q.wa.l": "WhatsApp पर अपना किट पाना चाहते हैं? (वैकल्पिक)", "q.wa.ph": "+91 98765 43210", "q.wa.ok": "मैं WhatsApp पर dropSFX से मैसेज पाने के लिए सहमत हूँ। मैं कभी भी बंद कर सकता/सकती हूँ।", "q.wa.err": "देश कोड के साथ नंबर जाँचें (जैसे +91)।", "q.wa.need": "बॉक्स पर टिक करें ताकि हम आपको मैसेज कर सकें।"},
+    "id": {"q.wa.l": "Mau terima kit kamu lewat WhatsApp? (opsional)", "q.wa.ph": "+62 812 3456 7890", "q.wa.ok": "Saya setuju menerima pesan dari dropSFX di WhatsApp. Bisa berhenti kapan saja.", "q.wa.err": "Cek nomornya, termasuk kode negara (mis. +62).", "q.wa.need": "Centang kotaknya supaya kami bisa mengirim pesan."}
+  });
   CAT_NAMES.id = {"whooshes": "Whoosh", "transitions": "Transisi", "drops": "Cinematic Drops", "clicks": "Klik & UI", "foley": "Foley & Diegetik", "risers": "Riser", "elements": "Elemen", "memes": "Meme & Kartun", "hits": "Hits & Impact", "glitches": "Glitch", "guns": "Senjata", "reverb": "Reverb", "retro": "Retro", "hud": "HUD & Digital", "ambient": "Ambience", "nature": "Alam", "emotion": "Emosi", "camera": "Kamera", "bells": "Lonceng & Tombol", "slowmo": "Slow Motion", "tonal": "Tonal"};
   </script>
   <script>
@@ -2251,6 +2266,7 @@
     var CONFIG = {
       checkout: 'https://pay.kiwify.com.br/uzVAstc',
       trackUrl: 'https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/funnel-track',
+      leadUrl: 'https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/lead-capture',
       pixelValue: 127.70,
       price: 'R$ 127,70', priceUsd: 'US$ 26', priceEur: 26,   // valores reais cobrados lá fora (webhook): ~US$ 25,70 / ~€ 26,47
       whatsapp: '5527992625721',
@@ -2534,7 +2550,12 @@
         });
         upd();
       } else if (q.kind === 'text') {
-        body.innerHTML = '<input class="name-in" id="nameIn" type="text" maxlength="24" autocomplete="given-name" autocapitalize="words" placeholder="' + esc(t('q.name.ph')) + '" value="' + esc(A.name || '') + '">';
+        body.innerHTML = '<input class="name-in" id="nameIn" type="text" maxlength="24" autocomplete="given-name" autocapitalize="words" placeholder="' + esc(t('q.name.ph')) + '" value="' + esc(A.name || '') + '">' +
+          '<div class="wa-box"><label class="wa-l" for="waIn">' + esc(t('q.wa.l')) + '</label>' +
+          '<input class="name-in wa-in" id="waIn" type="tel" inputmode="tel" autocomplete="tel" maxlength="22" placeholder="' + esc(t('q.wa.ph')) + '" value="' + esc(WA.v || waPrefix()) + '">' +
+          '<label class="wa-ok"><input type="checkbox" id="waOk"' + (WA.ok ? ' checked' : '') + '><span>' + esc(t('q.wa.ok')) + '</span></label>' +
+          '<p class="wa-err" id="waErr" hidden></p></div>';
+        $('waIn').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('qNext').click(); });
         $('qActions').hidden = false;
         $('qSkip').hidden = false;
         $('qNext').disabled = false;
@@ -2570,9 +2591,13 @@
         TR.ev('quiz_answer', 'fams', { a: sel, i: step + 1 });
       } else if (q.kind === 'text') {
         var n = ($('nameIn').value || '').trim().replace(/\s+/g, ' ').slice(0, 24);
+        var wa = waNumber();
+        if (wa === false) return;   // número inválido ou sem aceite: a mensagem de erro já apareceu
         A.name = n;
-        // o nome em si não vai pro servidor: só se a pessoa preencheu ou pulou
+        // o nome em si não vai pro funil: só se a pessoa preencheu ou pulou
         TR.ev('quiz_answer', 'name', { a: n ? 'preencheu' : 'pulou', i: step + 1 });
+        TR.ev('quiz_answer', 'whatsapp', { a: wa ? 'preencheu' : 'pulou', i: step + 1 });
+        if (wa) sendLead(wa);
       }
       next();
     });
@@ -2629,6 +2654,34 @@
     }
 
     function hoursOf(a) { return MIN[+a.time || 0] * VID[+a.volume || 0] * 4.33 / 60; }
+
+    // WhatsApp opcional do último passo. Fica fora de A pra não ir junto com o kit salvo no navegador.
+    var WA = { v: '', ok: false };
+    function isBR() { return lang === 'pt' && (!TR.tz || BR_TZ.test(TR.tz)); }
+    function waPrefix() { return isBR() ? '+55 ' : ''; }
+    // número no formato +DDI..., '' se a pessoa não preencheu, false se está inválido ou sem aceite
+    function waNumber() {
+      var raw = ($('waIn').value || '').trim(), d = raw.replace(/\D/g, ''), err = $('waErr');
+      WA.v = raw; WA.ok = $('waOk').checked;
+      err.hidden = true;
+      if (d.length <= 3) return '';   // vazio ou só o +55 que veio preenchido
+      var num = raw.charAt(0) === '+' ? '+' + d
+        : isBR() ? (d.length >= 12 && d.indexOf('55') === 0 ? '+' + d : '+55' + d) : null;
+      if (!num || num.length < 9 || num.length > 16) { err.textContent = t('q.wa.err'); err.hidden = false; return false; }
+      if (!WA.ok) { err.textContent = t('q.wa.need'); err.hidden = false; return false; }
+      return num;
+    }
+    function sendLead(phone) {
+      try {
+        fetch(CONFIG.leadUrl, {
+          method: 'POST', keepalive: true, headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({
+            sid: TR.sid, name: A.name || '', phone: phone, lang: lang, tz: TR.tz || '', consent: true,
+            quiz: { type: A.type, vibe: A.vibe, fams: A.fams, app: A.app, source: A.source, time: A.time, volume: A.volume, hours_month: Math.round(hoursOf(A)) }
+          })
+        });
+      } catch (e) {}
+    }
 
     function complete() {
       kit = { a: A, at: Date.now(), lang: lang };
