@@ -24,6 +24,7 @@
         var ref = document.referrer && document.referrer.indexOf(location.host) === -1 ? 'ref=' + encodeURIComponent(document.referrer.slice(0, 300)) : '';
         var qs = location.search || '';
         if (ref) qs += (qs ? '&' : '?') + ref;
+        window.__dropRedirect = true;
         location.replace('/comecar/' + qs);
       }
     })();
@@ -52,8 +53,10 @@
       fbq('track', name, customData || {}, { eventID: eid });
     };
 
-    fbq('init', '1668719247772250');
-    fbq('track', 'PageView');
+    if (!window.__dropRedirect) {   // quem é redirecionado pro /comecar conta o PageView lá, não aqui
+      fbq('init', '1668719247772250');
+      fbq('track', 'PageView');
+    }
   </script>
   <noscript>
     <img height="1" width="1" style="display:none"

@@ -29,7 +29,8 @@
       fbq('track', name, data || {}, { eventID: name + '.' + Date.now() + '.' + Math.random().toString(36).slice(2, 10) });
     };
     fbq('init', '1668719247772250');
-    fbq('track', 'PageView');
+    fbq('track', 'PageView', {}, { eventID: 'PageView.' + Date.now() + '.' + Math.random().toString(36).slice(2, 10) });
+    try { var _fc = new URLSearchParams(location.search).get('fbclid'); if (_fc) sessionStorage.setItem('dropsfx_fbclid', _fc); } catch (e) {}
   </script>
 
   <link rel="preload" href="/assets/fonts/acid-tm.woff2" as="font" type="font/woff2" crossorigin>
@@ -3039,14 +3040,17 @@
     }
 
     function checkoutUrl(pos) {
-      var p = new URLSearchParams();
-      p.set('utm_source', 'quiz');
-      p.set('utm_medium', pos);
-      p.set('utm_campaign', TR.ctx.utm_campaign || 'dropsfx');
-      if (kit) p.set('utm_content', (kit.a.type || 'x') + '-' + (kit.a.vibe || 'x'));
-      if (TR.ctx.utm_content) p.set('utm_term', TR.ctx.utm_content);
-      p.set('src', TR.ctx.utm_source || 'direto');
-      p.set('sck', TR.sid);   // liga a compra (webhook da Kiwify) a esta sessão do quiz
+      // repassa as UTMs do anúncio e o fbclid pro checkout: a Kiwify (pixel + API de conversões) atribui a compra à campanha certa
+      var p = new URLSearchParams(), q = new URLSearchParams(location.search);
+      p.set('utm_source', TR.ctx.utm_source || q.get('utm_source') || 'site');
+      p.set('utm_medium', TR.ctx.utm_medium || q.get('utm_medium') || pos);
+      p.set('utm_campaign', TR.ctx.utm_campaign || q.get('utm_campaign') || 'dropsfx');
+      p.set('utm_content', TR.ctx.utm_content || q.get('utm_content') || pos);
+      if (TR.ctx.utm_term || q.get('utm_term')) p.set('utm_term', TR.ctx.utm_term || q.get('utm_term'));
+      var fbclid = q.get('fbclid') || (function () { try { return sessionStorage.getItem('dropsfx_fbclid'); } catch (e) { return null; } })();
+      if (fbclid) p.set('fbclid', fbclid);
+      p.set('src', pos);
+      p.set('sck', TR.sid);   // liga a compra (webhook da Kiwify) a esta sessão
       return CONFIG.checkout + '?' + p.toString();
     }
 
@@ -3165,7 +3169,7 @@
         case 'height': var _sc = .56; if (window.innerWidth < 860 && x.h > 400) { f.style.height = x.h + 'px'; f.parentNode.style.height = Math.ceil(x.h * _sc) + 'px'; } else { f.style.height = ''; f.parentNode.style.height = ''; } break;
         case 'ready': TR.ev('sim_ready'); break;
         case 'open_folder': TR.ev('sim_folder', x.cat); break;
-        case 'sfx_play': TR.ev('sfx_play', x.id, { cat: x.cat, hover: !!x.hover }); break;
+        case 'sfx_play': TR.ev('sfx_play', x.id, { cat: x.cat, hover: !!x.hover }); if (window.dropOnce) window.dropOnce('SimPlay', { cat: x.cat }); break;
         case 'insert': TR.ev('sim_insert', x.id, x); pixel('SimInsert', { cat: x.cat }); break;
         case 'play': TR.ev('sim_play', null, x); break;
         case 'demo': TR.ev('sim_demo'); break;
@@ -3253,6 +3257,16 @@
         io.observe(box);
       }
       return { arm: arm };
+    })();
+
+    // sinal de intenção pro pixel: viu a oferta / mexeu no simulador (uma vez por visita)
+    (function () {
+      var sent = {};
+      window.dropOnce = function (name, data, std) { if (sent[name]) return; sent[name] = 1; try { if (typeof fbq !== 'function') return; std ? window.dropsfxEvent(name, data) : fbq('trackCustom', name, data || {}); } catch (e) {} };
+      document.addEventListener('DOMContentLoaded', function () {
+        var o = document.getElementById('oferta'); if (!o || !('IntersectionObserver' in window)) return;
+        new IntersectionObserver(function (es, io) { if (es[0].isIntersecting) { window.dropOnce('ViewOffer', { content_name: 'dropSFX Full' }); io.disconnect(); } }, { threshold: .4 }).observe(o);
+      });
     })();
 
     function showResult(mode) {
