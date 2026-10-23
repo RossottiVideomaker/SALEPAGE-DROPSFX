@@ -1390,6 +1390,46 @@
     .btn.blue:disabled, .btn.blue[disabled] { background: #1c1c22 !important; color: #5f5f70 !important; }
     .pay-tips summary { color: var(--ink); }
     .foot, .foot a, .foot button { color: var(--steel); }
+
+    /* ===================== DESKTOP: grade única e alinhada (não afeta celular) ===================== */
+    @media (min-width: 1024px) {
+      #sResult .wrap { max-width: 1180px; padding: 0 48px; }
+      .r-hero, .sec.fx, .sim-frame, .clips-wide, #depoimentos .wa-row { width: auto !important; left: 0 !important; transform: none !important; }
+      .sec { padding-top: 120px; }
+      .sec .h2 { font-size: clamp(44px, 4.6vw, 64px); }
+      /* topo */
+      .r-hero { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr) !important; gap: 56px !important; align-items: center; padding-top: 48px; }
+      .r-hero .h1 { font-size: clamp(64px, 6.2vw, 96px) !important; white-space: nowrap; }
+      .h1 .e-tl { width: 1.55em; height: .62em; }
+      .h1 .e-hp { font-size: .7em; }
+      .r-vid { width: 100%; }
+      /* seções com título à esquerda e conteúdo à direita */
+      .sec:has(> .pros), .sec:has(> .vs), .sec:has(> #faq) { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); column-gap: 64px; align-items: start; }
+      .sec:has(> .pros) > .mono, .sec:has(> .pros) > .h2, .sec:has(> .vs) > .h2, .sec:has(> #faq) > .h2 { grid-column: 1; }
+      .sec:has(> .pros) > .h2 { grid-row: 2; }
+      .sec:has(> .pros) > .pros { grid-column: 2; grid-row: 1 / span 3; margin-top: 0; grid-template-columns: 1fr 1fr; }
+      .sec:has(> .vs) > .vs, .sec:has(> #faq) > #faq { grid-column: 2; grid-row: 1 / span 2; margin-top: 0; }
+      .sec:has(> .pros) > .h2, .sec:has(> .vs) > .h2, .sec:has(> #faq) > .h2 { position: sticky; top: 110px; align-self: start; }
+      /* pontos fortes: duas colunas iguais, visual centralizado e do mesmo tamanho */
+      .sec.fx { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important; gap: 72px !important; }
+      .sec.fx .ed-ch-visual { justify-content: center; }
+      .sec.fx .pl-mini, .sec.fx .gain-demo { width: 100%; max-width: 480px; }
+      .sec.fx .fx-copy .lead { max-width: 30em; }
+      /* clipes e simulador ocupam a mesma largura do resto */
+      .clipx { grid-template-columns: 320px minmax(0, 1fr); gap: 20px; }
+      /* depoimentos */
+      .wa-row { gap: 16px; }
+      /* oferta + garantia centralizadas como bloco principal */
+      #oferta .offer { max-width: 620px; margin: 0 auto; }
+      .sec:has(> .guar) .guar { max-width: 620px; margin: 0 auto; }
+      .cta-row { justify-items: center; }
+      .cta-row .btn { width: auto; min-width: 360px; }
+      .r-hero { padding-top: 72px; padding-bottom: 24px; }
+      #momentos { padding-top: 120px !important; }
+      .wa, .wa:nth-child(n) { --r: 0deg !important; margin-top: 0 !important; transform: none !important; }
+      .wa-row { align-items: stretch; } .wa { display: flex; flex-direction: column; } .wa-body { flex: 1; }
+      .pros > .pro:not(.dup):last-child { grid-column: 1 / -1; }
+    }
 </style>
 </head>
 <body>
