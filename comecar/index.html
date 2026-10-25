@@ -1443,6 +1443,28 @@
     .hero-note { margin-top: 12px; font: 600 11px var(--font); letter-spacing: .1em; text-transform: uppercase; color: var(--steel); }
     @media (max-width: 760px) { .hero-ctas .btn { width: 100%; } .hero-ctas { justify-content: center; } .hero-note { text-align: center; } }
     #ouvir { scroll-margin-top: 80px; }
+
+    /* preço */
+    .o-price { display: flex !important; }
+    .o-price b { font-family: 'Acid TM', var(--font) !important; font-weight: 400 !important; font-size: clamp(48px, 9vw, 64px) !important; color: #fff; letter-spacing: 0 !important; }
+    .o-price s { font-size: 18px; color: var(--steel); }
+    .sticky-off b { font-size: 15px; }
+    /* pop-up do preço */
+    .pp { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: 20px; }
+    .pp[hidden] { display: none; }
+    .pp-bg { position: absolute; inset: 0; background: rgba(0, 0, 0, .7); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); animation: ppFade .35s ease both; }
+    .pp-card { position: relative; width: min(420px, 100%); padding: 30px 24px 22px; border-radius: 24px; text-align: center; background: linear-gradient(180deg, #121218, #0a0a0d); border: 1px solid rgba(255, 255, 255, .12);
+      box-shadow: 0 40px 100px -30px rgba(59, 110, 245, .55); animation: ppIn .55s cubic-bezier(.16, 1, .3, 1) both; }
+    .pp-x { position: absolute; right: 12px; top: 10px; width: 34px; height: 34px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .06); color: var(--steel); font-size: 20px; cursor: pointer; }
+    .pp-k { font: 700 11px var(--font); letter-spacing: .16em; text-transform: uppercase; color: var(--accent-hi); }
+    .pp-t { margin-top: 10px; display: flex; align-items: baseline; justify-content: center; gap: 12px; }
+    .pp-t s { font-size: 20px; color: var(--steel); }
+    .pp-t b { font: 400 72px/1 'Acid TM', var(--font); color: #fff; }
+    .pp-s { margin-top: 8px; font-size: 15px; color: var(--ink-2); }
+    .pp-card .btn { margin-top: 20px; width: 100%; }
+    .pp-n { margin-top: 12px; font-size: 12px; color: var(--steel); }
+    @keyframes ppFade { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes ppIn { from { opacity: 0; transform: translateY(24px) scale(.96); } to { opacity: 1; transform: none; } }
 </style>
 </head>
 <body>
@@ -1581,7 +1603,7 @@
 
         <div class="sec" id="oferta">
           <div class="offer">
-            <div class="o-top"><span class="o-ribbon" data-t="o.ribbon"></span><span class="o-off">63% OFF</span></div>
+            <div class="o-top"><span class="o-ribbon" data-t="o.ribbon"></span><span class="o-off">-61%</span></div>
             <div class="o-band">
               <img class="o-band-logo" src="/assets/logo.png" alt="dropSFX" width="1024" height="381">
               <span class="o-band-kit" data-t="o.kit"></span>
@@ -1821,9 +1843,20 @@
         </nav>
       </div>
 
+      <div class="pp" id="pricePop" hidden role="dialog" aria-modal="true" aria-labelledby="ppT">
+        <div class="pp-bg" data-ppclose></div>
+        <div class="pp-card">
+          <button type="button" class="pp-x" data-ppclose aria-label="Close">×</button>
+          <p class="pp-k" data-t="pp.k"></p>
+          <p class="pp-t" id="ppT"><s>US$ 26</s> <b>US$ 10</b></p>
+          <p class="pp-s" data-t="pp.s"></p>
+          <a class="btn blue js-cta" data-pos="popup" href="#" target="_blank" rel="noopener"><span data-t="pp.cta"></span> →</a>
+          <p class="pp-n" data-t="pp.n"></p>
+        </div>
+      </div>
       <div class="sticky" id="sticky">
         <div class="sticky-in">
-          <span class="sticky-off" id="stickyOff"><b>-63%</b></span>
+          <span class="sticky-off" id="stickyOff"><b>US$10</b></span>
           <span class="sticky-txt"><span class="sticky-t" id="stickyT"></span><span class="sticky-s" data-t="s.sub"></span></span>
           <a class="btn blue js-cta" data-pos="sticky" href="#" target="_blank" rel="noopener"><span data-t="s.btn"></span> →</a>
         </div>
@@ -2600,6 +2633,8 @@
   (function (X) { for (var l in X) for (var k in X[l]) L[l][k] = X[l][k]; })({"pt": {"r.helloNQ": "Economize tempo. <span class='serif'>Deixe a criatividade fluir.</span>"}, "en": {"r.helloNQ": "Save time. <span class='serif'>Let creativity flow.</span>"}, "es": {"r.helloNQ": "Ahorra tiempo. <span class='serif'>Deja fluir tu creatividad.</span>"}, "fr": {"r.helloNQ": "Gagnez du temps. <span class='serif'>Laissez filer la créativité.</span>"}, "id": {"r.helloNQ": "Hemat waktu. <span class='serif'>Biarkan kreativitas mengalir.</span>"}, "hi": {"r.helloNQ": "समय बचाइए। <span class='serif'>क्रिएटिविटी को बहने दीजिए।</span>"}});
   (function (X) { for (var l in X) for (var k in X[l]) L[l][k] = X[l][k]; })({"pt": {"r.helloNQ": "Ache o efeito sonoro <span class='serif'>em segundos.</span>"}, "en": {"r.helloNQ": "Find the right sound <span class='serif'>in seconds.</span>"}, "es": {"r.helloNQ": "Encuentra el efecto <span class='serif'>en segundos.</span>"}, "fr": {"r.helloNQ": "Trouvez le bon son <span class='serif'>en quelques secondes.</span>"}, "id": {"r.helloNQ": "Temukan efek suara <span class='serif'>dalam hitungan detik.</span>"}, "hi": {"r.helloNQ": "साउंड इफ़ेक्ट ढूँढ़िए <span class='serif'>सेकंडों में।</span>"}});
   (function (X) { for (var l in X) for (var k in X[l]) L[l][k] = X[l][k]; })({"pt": {"hero.cta": "Quero o dropSFX", "hero.try": "Testar o plugin aqui ↓", "hero.note": "Pix ou cartão parcelado, 7 dias de garantia", "o.terms": "Pix ou cartão parcelado, pagamento único, 7 dias de garantia", "sfx.cta.note": "Pix ou cartão parcelado, 7 dias de garantia"}, "en": {"hero.cta": "Get dropSFX", "hero.try": "Try the plugin here ↓", "hero.note": "Pay once, 7 day money back guarantee", "o.terms": "Pay once, yours forever, 7 day guarantee", "sfx.cta.note": "Pay once, 7 day guarantee"}, "es": {"hero.cta": "Quiero dropSFX", "hero.try": "Probar el plugin aquí ↓", "hero.note": "Pago único, 7 días de garantía"}, "fr": {"hero.cta": "Je veux dropSFX", "hero.try": "Tester le plugin ici ↓", "hero.note": "Paiement unique, garantie 7 jours"}, "id": {"hero.cta": "Saya mau dropSFX", "hero.try": "Coba pluginnya di sini ↓", "hero.note": "Bayar sekali, garansi 7 hari"}, "hi": {"hero.cta": "dropSFX लें", "hero.try": "यहाँ प्लगइन आज़माएँ ↓", "hero.note": "एक बार भुगतान, 7 दिन गारंटी"}});
+  (function (X) { for (var l in X) for (var k in X[l]) L[l][k] = X[l][k]; })({"pt": {"pp.k": "Preço de lançamento", "pp.s": "Pagamento único. Os 2.371 sons são seus pra sempre.", "pp.cta": "Quero por US$ 10", "pp.n": "🔒 Kiwify, 7 dias de garantia", "o.priceNote": "Pagamento único, sem mensalidade", "hero.note": "Por US$ 10, pagamento único, 7 dias de garantia", "s.sub": "Pagamento único"}, "en": {"pp.k": "Launch price", "pp.s": "Pay once. All 2,371 sounds are yours forever.", "pp.cta": "Get it for $10", "pp.n": "🔒 Kiwify checkout, 7 day guarantee", "o.priceNote": "Pay once, no subscription", "hero.note": "Just $10, pay once, 7 day guarantee", "s.sub": "Pay once"}, "es": {"pp.k": "Precio de lanzamiento", "pp.s": "Pago único. Los 2.371 sonidos son tuyos para siempre.", "pp.cta": "Lo quiero por US$ 10", "pp.n": "🔒 Kiwify, 7 días de garantía", "o.priceNote": "Pago único, sin suscripción", "hero.note": "Por US$ 10, pago único, 7 días de garantía"}, "fr": {"pp.k": "Prix de lancement", "pp.s": "Paiement unique. Les 2 371 sons sont à vous pour toujours.", "pp.cta": "Je le veux pour 10 $", "pp.n": "🔒 Kiwify, garantie 7 jours", "o.priceNote": "Paiement unique, sans abonnement", "hero.note": "10 $, paiement unique, garantie 7 jours"}, "id": {"pp.k": "Harga peluncuran", "pp.s": "Bayar sekali. 2.371 suara jadi milikmu selamanya.", "pp.cta": "Mau dengan US$ 10", "pp.n": "🔒 Kiwify, garansi 7 hari", "o.priceNote": "Bayar sekali, tanpa langganan", "hero.note": "US$ 10, bayar sekali, garansi 7 hari"}, "hi": {"pp.k": "लॉन्च कीमत", "pp.s": "एक बार भुगतान। सभी 2,371 साउंड हमेशा के लिए आपके।", "pp.cta": "US$ 10 में लें", "pp.n": "🔒 Kiwify, 7 दिन गारंटी", "o.priceNote": "एक बार भुगतान, कोई सब्सक्रिप्शन नहीं", "hero.note": "सिर्फ़ US$ 10, एक बार भुगतान"}});
+  (function (X) { for (var l in X) for (var k in X[l]) L[l][k] = X[l][k]; })({"pt": {"o.terms": "Pix ou cartão, 7 dias de garantia", "o.priceNote": "Pagamento único, sem mensalidade"}, "en": {"o.terms": "Card payment, 7 day guarantee"}, "es": {"o.terms": "Tarjeta, 7 días de garantía"}});
   // WhatsApp opcional no último passo do quiz (lead pro vendedor no WhatsApp)
   (function (X) { for (var l in X) for (var k in X[l]) L[l][k] = X[l][k]; })({
     "pt": {"q.wa.l": "Quer receber seu kit no WhatsApp? (opcional)", "q.wa.ph": "+55 27 99999-9999", "q.wa.ok": "Aceito receber mensagens do dropSFX no WhatsApp. Posso cancelar quando quiser.", "q.wa.err": "Confira o número com o código do país (ex.: +55).", "q.wa.need": "Marque o aceite pra gente poder te mandar mensagem."},
@@ -2620,10 +2655,10 @@
       checkout: 'https://pay.kiwify.com.br/uzVAstc',
       trackUrl: 'https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/funnel-track',
       leadUrl: 'https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/lead-capture',
-      pixelValue: 127.70,
+      pixelValue: 10,
       price: 'R$ 127,70', priceUsd: 'US$ 26', priceEur: 26,   // valores reais cobrados lá fora (webhook): ~US$ 25,70 / ~€ 26,47
       whatsapp: '5527992625721',
-      currency: 'BRL'
+      currency: 'USD'
     };
 
     // categorias reais da biblioteca: [quantidade de sons, cor]
@@ -3176,11 +3211,11 @@
       $('oWho').textContent = name ? name + ', ' + t('o.who').replace('{type}', t('short.' + a.type)) : t('o.who').replace('{type}', t('short.' + a.type));
       // fora do Brasil o preço aparece em dólar (a Kiwify cobra na moeda local do cartão)
       var priceNow = priceFor();
-      [].forEach.call(document.querySelectorAll('.js-pnote'), function (el) { el.textContent = t('o.terms'); });
+      [].forEach.call(document.querySelectorAll('.js-pnote'), function (el) { el.textContent = 'US$ 10, ' + t('o.terms'); });
       var rg = region(); $('ckTip').hidden = !rg; if (rg) $('ckTip').innerHTML = t('ck.tip.' + rg);
       $('payTips').hidden = !needHelp(); $('pt3').innerHTML = t('ck.3').replace(/\s*\([^()]*\{usd\}[^()]*\)/, ''); $('ptTip').hidden = !rg; if (rg) $('ptTip').innerHTML = t('ck.tip.' + rg);
       [].forEach.call(document.querySelectorAll('.js-wa'), function (el) { el.href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(t('wa.msg')); });
-      $('oPrice').innerHTML = ''; $('oPrice').hidden = true;
+      $('oPrice').innerHTML = '<s>US$ 26</s><b>US$ 10</b><span>' + esc(t('o.priceNote')) + '</span>'; $('oPrice').hidden = false;
       var ss = document.querySelector('.sticky-s'); if (ss) ss.textContent = t('s.sub');
       $('ck3').innerHTML = t('ck.3').replace(/\s*\([^()]*\{usd\}[^()]*\)/, '');
       $('stickyT').textContent = (a.name ? t('s.titleName').replace('{name}', a.name) : t('s.title'));
@@ -4003,6 +4038,23 @@ var IS_TOUCH = ('ontouchstart' in window || navigator.maxTouchPoints > 0);
     var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) start(e.target); else if (e.target.src) e.target.pause(); }); }, { rootMargin: '200px 0px' });
     [].forEach.call(vids, function (v) { io.observe(v); });
   })();
+</script>
+<script>
+/* pop-up do preço: abre uma vez por visita, quando a pessoa já viu o simulador ou depois de 25s */
+(function () {
+  var pp = document.getElementById('pricePop'); if (!pp) return;
+  var shown = false; try { shown = sessionStorage.getItem('dropsfx_pp') === '1'; } catch (e) {}
+  function open(why) {
+    if (shown) return; shown = true; try { sessionStorage.setItem('dropsfx_pp', '1'); } catch (e) {}
+    pp.hidden = false; try { fbq('trackCustom', 'PricePopup', { why: why }); } catch (e) {}
+  }
+  function close() { pp.hidden = true; }
+  pp.addEventListener('click', function (e) { if (e.target.closest('[data-ppclose]')) close(); if (e.target.closest('.js-cta')) setTimeout(close, 300); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  setTimeout(function () { open('time'); }, 25000);
+  var sim = document.getElementById('momentos');
+  if (sim && 'IntersectionObserver' in window) new IntersectionObserver(function (es, io) { if (es[0].isIntersecting) { io.disconnect(); setTimeout(function () { open('scroll'); }, 1500); } }, { threshold: .5 }).observe(sim);
+})();
 </script>
 </body>
 </html>
