@@ -3553,7 +3553,7 @@
       });
     });
 
-    var suggested = detectLang();
+    var suggested = 'en';   // padrão: inglês (troca no seletor do topo)
     [].forEach.call(document.querySelectorAll('.lang-opt'), function (b) {
       var l = b.getAttribute('data-lang');
       if (l === suggested) b.classList.add('suggested');
@@ -3585,13 +3585,13 @@
     // ordem: escolha manual > idioma do aparelho (quando o link só diz "en") > ?lang= > salvo > sugerido
     function pickLang(fallback) {
       if (read('dropsfx_lang_manual') === '1' && savedLang) return { l: savedLang, via: 'manual' };
-      if (urlLang) return (urlLang === 'en' && devLang && devLang !== 'en') ? { l: devLang, via: 'device' } : { l: urlLang, via: 'url' };
+      if (urlLang) return { l: urlLang, via: 'url' };
       return { l: fallback, via: 'auto' };
     }
 
     if (kit) {
       // já fez o quiz: volta direto pro kit dele
-      setLang(pickLang(savedLang || kit.lang || suggested).l);
+      setLang(pickLang(suggested).l);
       TR.ev('page_view', 'return');
       goDirect('return');
     } else if (urlLang) {
@@ -4040,7 +4040,7 @@ var IS_TOUCH = ('ontouchstart' in window || navigator.maxTouchPoints > 0);
   })();
 </script>
 <script>
-/* pop-up do preço: abre uma vez por visita, quando a pessoa já viu o simulador ou depois de 25s */
+/* pop-up do preço: abre uma vez por visita, 15s depois de entrar */
 (function () {
   var pp = document.getElementById('pricePop'); if (!pp) return;
   var shown = false; try { shown = sessionStorage.getItem('dropsfx_pp') === '1'; } catch (e) {}
@@ -4051,9 +4051,7 @@ var IS_TOUCH = ('ontouchstart' in window || navigator.maxTouchPoints > 0);
   function close() { pp.hidden = true; }
   pp.addEventListener('click', function (e) { if (e.target.closest('[data-ppclose]')) close(); if (e.target.closest('.js-cta')) setTimeout(close, 300); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-  setTimeout(function () { open('time'); }, 25000);
-  var sim = document.getElementById('momentos');
-  if (sim && 'IntersectionObserver' in window) new IntersectionObserver(function (es, io) { if (es[0].isIntersecting) { io.disconnect(); setTimeout(function () { open('scroll'); }, 1500); } }, { threshold: .5 }).observe(sim);
+  setTimeout(function () { open('time'); }, 15000);
 })();
 </script>
 </body>
