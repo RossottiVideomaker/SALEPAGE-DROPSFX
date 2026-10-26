@@ -4326,25 +4326,34 @@
     var ENDPOINT = 'https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/public-avatars';
     var MAX_SHOW = 5;
 
-    fetch(ENDPOINT)
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        var avatars = (data.avatars || []).slice(0, MAX_SHOW);
-        if (!avatars.length) return; // mantém as iniciais se não vier nada
-
-        var html = avatars.map(function (url) {
-          return '<span class="proof-av proof-av-photo">' +
-            '<img src="' + url + '" alt="" loading="lazy" ' +
-            'onerror="this.parentElement.style.display=\'none\'">' +
-            '</span>';
-        }).join('');
-
-        html += '<span class="proof-av proof-av-more">+</span>';
-        container.innerHTML = html;
-      })
-      .catch(function () {
-        // erro de rede → mantém as bolinhas de iniciais que já estão no HTML
+    // só fotos de verdade: descarta os avatares de letra do Google (fundo de uma cor só)
+    container.style.visibility = 'hidden';
+    function letter(im) {
+      try {
+        var c = document.createElement('canvas'); c.width = c.height = 16;
+        var x = c.getContext('2d'); x.drawImage(im, 0, 0, 16, 16);
+        var px = x.getImageData(0, 0, 16, 16).data, h = {}, top = 0;
+        for (var k = 0; k < px.length; k += 4) { var key = (px[k] / 24 | 0) + ',' + (px[k + 1] / 24 | 0) + ',' + (px[k + 2] / 24 | 0); h[key] = (h[key] || 0) + 1; if (h[key] > top) top = h[key]; }
+        return top / 256 >= .7;
+      } catch (e) { return false; }
+    }
+    fetch(ENDPOINT).then(function (r) { return r.json(); }).then(function (data) {
+      var list = (data.avatars || []).slice(0, 16), got = [], done = 0;
+      if (!list.length) { container.style.display = 'none'; return; }
+      function finish() {
+        if (got.length < 3) { container.style.display = 'none'; return; }
+        container.innerHTML = got.slice(0, MAX_SHOW).map(function (u) {
+          return '<span class="proof-av proof-av-photo"><img src="' + u.replace(/"/g, '') + '" alt="" referrerpolicy="no-referrer" crossorigin="anonymous"></span>';
+        }).join('') + '<span class="proof-av proof-av-more">+</span>';
+        container.style.visibility = '';
+      }
+      list.forEach(function (u) {
+        var im = new Image(); im.crossOrigin = 'anonymous'; im.referrerPolicy = 'no-referrer';
+        im.onload = function () { if (im.naturalWidth && !letter(im)) got.push(String(u)); if (++done === list.length) finish(); };
+        im.onerror = function () { if (++done === list.length) finish(); };
+        im.src = String(u);
       });
+    }).catch(function () { container.style.display = 'none'; });
   })();
 
   // =====================================================================
