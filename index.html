@@ -38,12 +38,12 @@
 
   <title>dropSFX · Sound effects no Premiere, After Effects e DaVinci</title>
   <meta name="description"
-    content="Painel com 1.463 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único." />
+    content="Painel com 2.371 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="dropSFX" />
   <meta property="og:title" content="dropSFX · Sound effects no Premiere, After Effects e DaVinci" />
   <meta property="og:description"
-    content="Painel com 1.463 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único." />
+    content="Painel com 2.371 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único." />
   <meta property="og:image" content="https://www.dropsfx.com.br/assets/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -82,7 +82,7 @@
         "applicationCategory": "MultimediaApplication",
         "operatingSystem": "Windows, macOS",
         "inLanguage": "pt-BR",
-        "description": "Painel com 1.463 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único."
+        "description": "Painel com 2.371 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único."
       }
     ]
   }
@@ -2466,7 +2466,35 @@
     .gain-big.on,
     .video-loader-spinner,
     .plm-tl-playhead { box-shadow: none !important; }
-  </style>
+      .clipx { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 18px; align-items: start; margin-top: 10px; }
+    .clipx-tabs { display: grid; gap: 8px; }
+    .clipx-tab { position: relative; display: flex; gap: 12px; align-items: flex-start; width: 100%; padding: 15px 15px 18px; border: 1px solid rgba(255,255,255,.1); border-radius: 14px; background: rgba(255,255,255,.035); color: #9a9aab; font: 600 14.5px/1.35 -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif; text-align: left; cursor: pointer; overflow: hidden; transition: background .2s, border-color .2s, color .2s; }
+    .clipx-tab:hover { color: #f2f2f7; background: rgba(255,255,255,.06); }
+    .clipx-tab b { flex: none; width: 26px; height: 26px; border-radius: 9px; display: grid; place-items: center; background: rgba(255,255,255,.08); color: #9a9aab; font-size: 12.5px; transition: .2s; }
+    .clipx-tab.on { color: #fff; border-color: rgba(91,138,255,.55); background: rgba(59,110,245,.12); }
+    .clipx-tab.on b { background: #3b6ef5; color: #fff; }
+    .clipx-tab i { position: absolute; left: 15px; right: 15px; bottom: 9px; height: 3px; border-radius: 3px; background: rgba(255,255,255,.08); overflow: hidden; }
+    .clipx-tab i u { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #3b6ef5, #5b8aff); }
+    .clipx-tab:not(.on) i { opacity: 0; }
+    .clipx-stage { border: 1px solid rgba(255,255,255,.13); border-radius: 16px; overflow: hidden; background: #0b0b0e; box-shadow: 0 40px 90px -40px rgba(59,110,245,.5); }
+    .clipx-bar { display: flex; align-items: center; gap: 7px; height: 34px; padding: 0 14px; background: #151517; border-bottom: 1px solid #000; font: 600 11.5px -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; color: #8f8f96; }
+    .clipx-bar i { width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; } .clipx-bar i:nth-child(2) { background: #febc2e; } .clipx-bar i:nth-child(3) { background: #28c840; margin-right: 8px; }
+    .clipx-bar span { margin-left: auto; color: #5b8aff; }
+    .clipx-stage video { display: block; width: 100%; aspect-ratio: 1280 / 818; background: #000; }
+    @media (max-width: 860px) {
+      .clipx { grid-template-columns: 1fr; gap: 12px; }
+      .clipx-tabs { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+      .clipx.clips-wide { width: calc(100vw - 32px); }
+      .clipx-tab { flex-direction: column; gap: 8px; padding: 11px 10px 16px; font-size: 12px; }
+      .clipx-tab i { left: 10px; right: 10px; bottom: 7px; }
+      .clipx-bar { height: 28px; font-size: 10.5px; }
+    }
+    .clips-wide { position: relative; width: min(1100px, calc(100vw - 40px)); left: 50%; transform: translateX(-50%); }
+    .ed-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 18px 0 6px; }
+    .ed-price s { color: var(--muted, #8a8f9c); font-size: 18px; }
+    .ed-price b { font: 800 clamp(44px, 7vw, 60px)/1 var(--font-display, var(--font)); color: #fff; letter-spacing: -.03em; }
+    .ed-price span { flex-basis: 100%; font: 600 11px var(--font-mono, monospace); letter-spacing: .1em; text-transform: uppercase; color: #6e9bff; }
+</style>
 </head>
 
 <body>
@@ -2551,13 +2579,13 @@
   <section class="ed-sec ed-cover" id="library">
     <div class="ed">
       <div class="fold-stage" id="edFolder">
-        <p class="fold-intro" data-i18n-html="ed.foldintro">1.463 sons prontos pra timeline, <br>organizados em 21 categorias.</p>
+        <p class="fold-intro" data-i18n-html="ed.foldintro">2.371 sons prontos pra timeline, <br>organizados em 18 categorias.</p>
         <div class="fold" role="button" tabindex="0" aria-label="Abrir a pasta de categorias">
           <div class="fold-back"></div>
           <div class="fold-cards" id="edIndex"></div>
           <div class="fold-front">
             <span class="fold-label" data-i18n="mock.library">Biblioteca dropSFX</span>
-            <span class="fold-count"><span class="fold-num">1.463</span> <span data-i18n="mock.sounds">sons</span></span>
+            <span class="fold-count"><span class="fold-num">2.371</span> <span data-i18n="mock.sounds">sons</span></span>
           </div>
         </div>
         <p class="fold-hint"><span class="hint-mouse" data-i18n="ed.hintmouse">Passe o mouse na pasta</span><span class="hint-touch" data-i18n="ed.hinttouch">Toque na pasta para abrir</span></p>
@@ -2579,6 +2607,13 @@
   </section>
 
   <!-- ============ I · PRÉ-ESCUTA ============ -->
+    <section class="ed-sec" id="momentos">
+    <div class="ed">
+      <h2 class="ed-h" data-i18n-html="cl.title">Veja o plugin <span class="blue">em ação.</span></h2>
+      <div class="clipx clips-wide" style="margin-top:28px"><div class="clipx-tabs"><button type="button" class="clipx-tab on" data-src="/assets/clips/pastas.mp4" data-poster="/assets/clips/pastas.jpg"><b>1</b><span data-i18n="cl.1">Navegue pelas pastas e ache o som em segundos</span><i><u></u></i></button><button type="button" class="clipx-tab" data-src="/assets/clips/inserir.mp4" data-poster="/assets/clips/inserir.jpg"><b>2</b><span data-i18n="cl.2">Um clique e o som cai na timeline, já colorido</span><i><u></u></i></button><button type="button" class="clipx-tab" data-src="/assets/clips/montar.mp4" data-poster="/assets/clips/montar.jpg"><b>3</b><span data-i18n="cl.3">Monte o sound design inteiro sem sair do Premiere</span><i><u></u></i></button></div><div class="clipx-stage"><div class="clipx-bar"><i></i><i></i><i></i>Premiere Pro<span>dropSFX</span></div><video muted playsinline preload="none"></video></div></div>
+    </div>
+  </section>
+
   <section class="ed-sec ed-ch" id="hover">
     <div class="ed ed-ch-grid">
       <div class="ed-ch-copy">
@@ -2752,9 +2787,10 @@
           <span data-i18n="pricing.ribbon">Oferta de lançamento</span>
           <span class="shimmer-text" data-i18n="pricing.off">63% OFF</span>
         </div>
+        <div class="ed-price"><s>US$ 26</s><b>US$ 10</b><span data-i18n="pricing.priceNote">Pagamento único, sem mensalidade</span></div>
         <ul class="ed-feats">
-          <li data-i18n-html="pricing.f1"><strong>1.463 efeitos sonoros</strong> profissionais</li>
-          <li data-i18n-html="pricing.f2">Painel <strong>nativo</strong> pro Adobe Premiere Pro</li>
+          <li data-i18n-html="pricing.f1"><strong>2.371 efeitos sonoros</strong> profissionais</li>
+          <li data-i18n-html="pricing.f2">Painel <strong>nativo</strong> no Premiere, After Effects e DaVinci</li>
           <li data-i18n-html="pricing.f3">Pré-escuta no hover, <strong>2 cliques</strong> e atalhos</li>
           <li data-i18n-html="pricing.f4">Controle de <strong>ganho na inserção</strong></li>
           <li data-i18n-html="pricing.f5">Pastas próprias + importe seus áudios</li>
@@ -2803,7 +2839,7 @@
         </div>
         <div class="faq-item" onclick="this.classList.toggle('open')">
           <div class="faq-q"><span data-i18n="faq.q6">Posso criar pastas e importar meus sons?</span> <span class="plus">+</span></div>
-          <div class="faq-a" data-i18n="faq.a6">Sim. Além das 21 categorias prontas, você cria pastas próprias com cores, importa seus áudios e arrasta sons entre as pastas. O painel ainda monta uma aba "Top" com os sons que você mais usa.</div>
+          <div class="faq-a" data-i18n="faq.a6">Sim. Além das 18 categorias prontas, você cria pastas próprias com cores, importa seus áudios e arrasta sons entre as pastas. O painel ainda monta uma aba "Top" com os sons que você mais usa.</div>
         </div>
         <div class="faq-item" onclick="this.classList.toggle('open')">
           <div class="faq-q"><span data-i18n="faq.q7">Em quantas máquinas posso instalar?</span> <span class="plus">+</span></div>
@@ -2858,7 +2894,7 @@
     /* ============================ PORTUGUÊS ============================ */
     pt: {
       "meta.title": "dropSFX · Sound effects no Premiere, After Effects e DaVinci",
-      "meta.desc": "Painel com 1.463 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único.",
+      "meta.desc": "Painel com 2.371 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único.",
 
       "nav.cta": "Comprar agora",
 
@@ -2892,7 +2928,7 @@
       "gain.lead": "Whoosh sempre alto demais? Riser baixo? Escolha <strong>-12, 0 ou +6 dB</strong> e o som já entra na timeline no volume certo. Adeus, abrir o mixer pra cada clipe.",
 
       "library.eyebrow": "№ 00 · A biblioteca",
-      "library.title": "<span class='fill'>1.463 sons</span><br><span class='blue'>21 categorias</span>",
+      "library.title": "<span class='fill'>2.371 sons</span><br><span class='blue'>18 categorias</span>",
       "library.lead": "Selecionados pra edição de verdade: de whooshes e impactos a glitches, risers e foley. Cada categoria com cor própria, pra você bater o olho e achar.",
 
       "pricing.eyebrow": "Investimento",
@@ -2907,8 +2943,8 @@
       "pricing.warranty": "Garantia",
       "pricing.warrantyv": "7 dias",
       "pricing.once": "Sem mensalidade, sem renovação · condição atual na página de checkout",
-      "pricing.f1": "<strong>1.463 efeitos sonoros</strong> profissionais",
-      "pricing.f2": "Painel <strong>nativo</strong> pro Adobe Premiere Pro",
+      "pricing.f1": "<strong>2.371 efeitos sonoros</strong> profissionais",
+      "pricing.f2": "Painel <strong>nativo</strong> no Premiere, After Effects e DaVinci",
       "pricing.f3": "Pré-escuta no hover, <strong>2 cliques</strong> e atalhos",
       "pricing.f4": "Controle de <strong>ganho na inserção</strong>",
       "pricing.f5": "Pastas próprias + importe seus áudios",
@@ -2932,7 +2968,7 @@
       "faq.q5": "Posso usar em projetos comerciais?",
       "faq.a5": "Sim. Todos os sons são 100% royalty-free para qualquer uso comercial: YouTube monetizado, comerciais, filme, jingle, jogo.",
       "faq.q6": "Posso criar pastas e importar meus sons?",
-      "faq.a6": "Sim. Além das 21 categorias prontas, você cria pastas próprias com cores, importa seus áudios e arrasta sons entre as pastas. O painel ainda monta uma aba \"Top\" com os sons que você mais usa.",
+      "faq.a6": "Sim. Além das 18 categorias prontas, você cria pastas próprias com cores, importa seus áudios e arrasta sons entre as pastas. O painel ainda monta uma aba \"Top\" com os sons que você mais usa.",
       "faq.q7": "Em quantas máquinas posso instalar?",
       "faq.a7": "Até 2 máquinas simultaneamente, Mac e/ou Windows. Pode desativar e mover quando quiser.",
       "faq.q8": "Como recebo o produto?",
@@ -2986,7 +3022,7 @@
     /* ============================= ENGLISH ============================= */
     en: {
       "meta.title": "dropSFX · Sound effects inside Premiere, After Effects & DaVinci",
-      "meta.desc": "A panel with 1,463 professional sound effects inside Premiere Pro, After Effects and DaVinci Resolve. Hover to preview, drag to the timeline. One-time payment.",
+      "meta.desc": "A panel with 2,371 professional sound effects inside Premiere Pro, After Effects and DaVinci Resolve. Hover to preview, drag to the timeline. One-time payment.",
 
       "nav.cta": "Get it now",
 
@@ -3020,7 +3056,7 @@
       "gain.lead": "Whoosh always too loud? Riser too quiet? Pick <strong>-12, 0 or +6 dB</strong> and the sound lands on the timeline at the right level. No more opening the mixer for every clip.",
 
       "library.eyebrow": "№ 00 · The library",
-      "library.title": "<span class='fill'>1,463 sounds</span><br><span class='blue'>21 categories</span>",
+      "library.title": "<span class='fill'>2,371 sounds</span><br><span class='blue'>18 categories</span>",
       "library.lead": "Hand-picked for real editing: from whooshes and impacts to glitches, risers and foley. Every category color-coded, so you spot it at a glance.",
 
       "pricing.eyebrow": "Investment",
@@ -3035,8 +3071,8 @@
       "pricing.warranty": "Guarantee",
       "pricing.warrantyv": "7 days",
       "pricing.once": "No subscription, no renewal · current price shown at checkout",
-      "pricing.f1": "<strong>1,463 professional</strong> sound effects",
-      "pricing.f2": "<strong>Native</strong> panel for Adobe Premiere Pro",
+      "pricing.f1": "<strong>2,371 professional</strong> sound effects",
+      "pricing.f2": "<strong>Native</strong> panel for Premiere, After Effects and DaVinci",
       "pricing.f3": "Hover preview, <strong>2 clicks</strong> and shortcuts",
       "pricing.f4": "<strong>Gain control</strong> on insert",
       "pricing.f5": "Custom folders + import your own audio",
@@ -3114,7 +3150,7 @@
     /* ============================= ESPAÑOL ============================= */
     es: {
       "meta.title": "dropSFX · Efectos de sonido en Premiere, After Effects y DaVinci",
-      "meta.desc": "Panel con 1.463 efectos de sonido profesionales dentro de Premiere Pro, After Effects y DaVinci Resolve. Escucha al pasar el cursor, arrastra a la timeline. Pago único.",
+      "meta.desc": "Panel con 2.371 efectos de sonido profesionales dentro de Premiere Pro, After Effects y DaVinci Resolve. Escucha al pasar el cursor, arrastra a la timeline. Pago único.",
 
       "nav.cta": "Comprar ahora",
 
@@ -3148,7 +3184,7 @@
       "gain.lead": "¿El whoosh siempre demasiado alto? ¿El riser bajo? Elige <strong>-12, 0 o +6 dB</strong> y el sonido entra en la línea de tiempo al volumen correcto. Adiós a abrir el mixer en cada clip.",
 
       "library.eyebrow": "№ 00 · La biblioteca",
-      "library.title": "<span class='fill'>1.463 sonidos</span><br><span class='blue'>21 categorías</span>",
+      "library.title": "<span class='fill'>2.371 sonidos</span><br><span class='blue'>18 categorías</span>",
       "library.lead": "Seleccionados para edición real: desde whooshes e impactos hasta glitches, risers y foley. Cada categoría con su propio color, para encontrarla de un vistazo.",
 
       "pricing.eyebrow": "Inversión",
@@ -3163,8 +3199,8 @@
       "pricing.warranty": "Garantía",
       "pricing.warrantyv": "7 días",
       "pricing.once": "Sin mensualidad, sin renovación · el precio actual aparece en el checkout",
-      "pricing.f1": "<strong>1.463 efectos de sonido</strong> profesionales",
-      "pricing.f2": "Panel <strong>nativo</strong> para Adobe Premiere Pro",
+      "pricing.f1": "<strong>2.371 efectos de sonido</strong> profesionales",
+      "pricing.f2": "Panel <strong>nativo</strong> en Premiere, After Effects y DaVinci",
       "pricing.f3": "Pre-escucha al pasar el cursor, <strong>2 clics</strong> y atajos",
       "pricing.f4": "Control de <strong>ganancia al insertar</strong>",
       "pricing.f5": "Carpetas propias + importa tus audios",
@@ -3188,7 +3224,7 @@
       "faq.q5": "¿Puedo usarlo en proyectos comerciales?",
       "faq.a5": "Sí. Todos los sonidos son 100% libres de regalías para cualquier uso comercial: YouTube monetizado, comerciales, cine, jingles, videojuegos.",
       "faq.q6": "¿Puedo crear carpetas e importar mis sonidos?",
-      "faq.a6": "Sí. Además de las 21 categorías listas, creas tus propias carpetas con colores, importas tus audios y arrastras sonidos entre carpetas. El panel también arma una pestaña \"Top\" con los sonidos que más usas.",
+      "faq.a6": "Sí. Además de las 18 categorías listas, creas tus propias carpetas con colores, importas tus audios y arrastras sonidos entre carpetas. El panel también arma una pestaña \"Top\" con los sonidos que más usas.",
       "faq.q7": "¿En cuántos equipos puedo instalarlo?",
       "faq.a7": "Hasta 2 equipos simultáneamente, Mac y/o Windows. Puedes desactivar y mover cuando quieras.",
       "faq.q8": "¿Cómo recibo el producto?",
@@ -3242,7 +3278,7 @@
     /* ============================== हिन्दी ============================== */
     hi: {
       "meta.title": "dropSFX · Premiere, After Effects और DaVinci में साउंड इफ़ेक्ट्स",
-      "meta.desc": "Premiere Pro, After Effects और DaVinci Resolve के अंदर 1,463 प्रोफ़ेशनल साउंड इफ़ेक्ट्स वाला पैनल। हॉवर करके सुनें, टाइमलाइन पर खींचें। एक बार भुगतान।",
+      "meta.desc": "Premiere Pro, After Effects और DaVinci Resolve के अंदर 2,371 प्रोफ़ेशनल साउंड इफ़ेक्ट्स वाला पैनल। हॉवर करके सुनें, टाइमलाइन पर खींचें। एक बार भुगतान।",
 
       "nav.cta": "अभी खरीदें",
 
@@ -3276,7 +3312,7 @@
       "gain.lead": "व्हूश हमेशा बहुत तेज़? राइज़र धीमा? <strong>-12, 0 या +6 dB</strong> चुनिए और साउंड सही वॉल्यूम पर ही टाइमलाइन में आएगा। हर क्लिप के लिए मिक्सर खोलना बंद।",
 
       "library.eyebrow": "№ 00 · लाइब्रेरी",
-      "library.title": "<span class='fill'>1,463 साउंड</span><br><span class='blue'>21 कैटेगरी</span>",
+      "library.title": "<span class='fill'>2,371 साउंड</span><br><span class='blue'>18 कैटेगरी</span>",
       "library.lead": "असली एडिटिंग के लिए चुने गए: व्हूश और इम्पैक्ट से लेकर ग्लिच, राइज़र और फ़ॉली तक। हर कैटेगरी का अपना रंग, ताकि एक नज़र में मिल जाए।",
 
       "pricing.eyebrow": "निवेश",
@@ -3291,7 +3327,7 @@
       "pricing.warranty": "गारंटी",
       "pricing.warrantyv": "7 दिन",
       "pricing.once": "कोई मासिक शुल्क नहीं, कोई रिन्यूअल नहीं · मौजूदा कीमत चेकआउट पेज पर",
-      "pricing.f1": "<strong>1,463 प्रोफ़ेशनल</strong> साउंड इफ़ेक्ट्स",
+      "pricing.f1": "<strong>2,371 प्रोफ़ेशनल</strong> साउंड इफ़ेक्ट्स",
       "pricing.f2": "Adobe Premiere Pro के लिए <strong>नेटिव</strong> पैनल",
       "pricing.f3": "हॉवर प्री-लिसन, <strong>2 क्लिक</strong> और शॉर्टकट",
       "pricing.f4": "इन्सर्ट पर <strong>गेन कंट्रोल</strong>",
@@ -3316,7 +3352,7 @@
       "faq.q5": "क्या कमर्शियल प्रोजेक्ट में इस्तेमाल कर सकते हैं?",
       "faq.a5": "हाँ। सभी साउंड किसी भी कमर्शियल इस्तेमाल के लिए 100% रॉयल्टी-फ़्री हैं: मॉनिटाइज़्ड YouTube, विज्ञापन, फ़िल्म, जिंगल, गेम।",
       "faq.q6": "क्या अपने फ़ोल्डर बनाकर अपने साउंड इम्पोर्ट कर सकते हैं?",
-      "faq.a6": "हाँ। पहले से मौजूद 21 कैटेगरी के अलावा आप अपने रंगीन फ़ोल्डर बना सकते हैं, अपने ऑडियो इम्पोर्ट कर सकते हैं और साउंड को फ़ोल्डरों के बीच खींच सकते हैं। पैनल आपके सबसे ज़्यादा इस्तेमाल किए गए साउंड का \"Top\" टैब भी बनाता है।",
+      "faq.a6": "हाँ। पहले से मौजूद 18 कैटेगरी के अलावा आप अपने रंगीन फ़ोल्डर बना सकते हैं, अपने ऑडियो इम्पोर्ट कर सकते हैं और साउंड को फ़ोल्डरों के बीच खींच सकते हैं। पैनल आपके सबसे ज़्यादा इस्तेमाल किए गए साउंड का \"Top\" टैब भी बनाता है।",
       "faq.q7": "कितनी मशीनों पर इंस्टॉल कर सकते हैं?",
       "faq.a7": "एक साथ 2 मशीनों तक, Mac और/या Windows। जब चाहें डीएक्टिवेट करके दूसरी मशीन पर ले जा सकते हैं।",
       "faq.q8": "प्रोडक्ट कैसे मिलेगा?",
@@ -3480,12 +3516,12 @@
     document.querySelectorAll('video[autoplay]').forEach(function (v) { io.observe(v); });
   })();
 
-  // Contagem do número da biblioteca: 0 → 1.463 quando aparece na tela
+  // Contagem do número da biblioteca: 0 → 2.371 quando aparece na tela
   (function () {
     var box = document.getElementById('edFolder');
     var out = box && box.querySelector('.fold-num');
     if (!out) return;
-    var FINAL = 1463, DUR = 2200, done = false, current = 0;
+    var FINAL = 2371, DUR = 2200, done = false, current = 0;
 
     function fmt(n) {
       var lang = window.DropI18N ? DropI18N.get() : 'pt';
@@ -3522,52 +3558,54 @@
   (function () {
     var add = {
       pt: {
-        "ed.knocknum": "1.463",
-        "ed.knockcap": "sons prontos pra timeline, organizados em 21 categorias.",
+        "ed.knocknum": "2.371",
+        "ed.knockcap": "sons prontos pra timeline, organizados em 18 categorias.",
         "ed.libtitle": "Uma biblioteca<br><span class='blue'>feita para editar.</span>",
         "ed.colophon": "Feito por um editor, para editores.",
         "drag.title": "Arrastou, soltou.<br><span class='blue'>Já chega colorido.</span>",
         "drag.lead": "Prefere arrastar? <strong>Puxe o som do painel direto pra timeline</strong>. Ao soltar, o clipe já entra com a cor da categoria, e sua trilha de áudio fica organizada sem você mexer em nada.",
-        "ed.foldintro": "1.463 sons prontos pra timeline, <br>organizados em 21 categorias.",
+        "ed.foldintro": "2.371 sons prontos pra timeline, <br>organizados em 18 categorias.",
         "ed.hintmouse": "Passe o mouse na pasta",
         "ed.hinttouch": "Toque na pasta para abrir"
       },
       en: {
-        "ed.knocknum": "1,463",
-        "ed.knockcap": "sounds ready for the timeline, organized into 21 categories.",
+        "ed.knocknum": "2,371",
+        "ed.knockcap": "sounds ready for the timeline, organized into 18 categories.",
         "ed.libtitle": "A library<br><span class='blue'>built for editing.</span>",
         "ed.colophon": "Made by an editor, for editors.",
         "drag.title": "Drag it, drop it.<br><span class='blue'>It lands already colored.</span>",
         "drag.lead": "Prefer dragging? <strong>Pull the sound from the panel straight onto the timeline</strong>. When you drop it, the clip comes in with its category color, so your audio tracks stay organized with zero extra work.",
-        "ed.foldintro": "1,463 sounds ready for the timeline, <br>organized into 21 categories.",
+        "ed.foldintro": "2,371 sounds ready for the timeline, <br>organized into 18 categories.",
         "ed.hintmouse": "Hover over the folder",
         "ed.hinttouch": "Tap the folder to open"
       },
       es: {
-        "ed.knocknum": "1.463",
-        "ed.knockcap": "sonidos listos para la timeline, organizados en 21 categorías.",
+        "ed.knocknum": "2.371",
+        "ed.knockcap": "sonidos listos para la timeline, organizados en 18 categorías.",
         "ed.libtitle": "Una biblioteca<br><span class='blue'>hecha para editar.</span>",
         "ed.colophon": "Hecho por un editor, para editores.",
         "drag.title": "Arrastra y suelta.<br><span class='blue'>Llega ya con color.</span>",
         "drag.lead": "¿Prefieres arrastrar? <strong>Lleva el sonido del panel directo a la timeline</strong>. Al soltarlo, el clip entra con el color de su categoría, y tus pistas de audio quedan organizadas sin esfuerzo.",
-        "ed.foldintro": "1.463 sonidos listos para la timeline, <br>organizados en 21 categorías.",
+        "ed.foldintro": "2.371 sonidos listos para la timeline, <br>organizados en 18 categorías.",
         "ed.hintmouse": "Pasa el mouse por la carpeta",
         "ed.hinttouch": "Toca la carpeta para abrirla"
       },
       hi: {
-        "ed.knocknum": "1,463",
-        "ed.knockcap": "टाइमलाइन के लिए तैयार साउंड, 21 कैटेगरी में।",
+        "ed.knocknum": "2,371",
+        "ed.knockcap": "टाइमलाइन के लिए तैयार साउंड, 18 कैटेगरी में।",
         "ed.libtitle": "एक लाइब्रेरी<br><span class='blue'>एडिटिंग के लिए चुनी गई।</span>",
         "ed.colophon": "एक एडिटर द्वारा, एडिटर्स के लिए।",
         "drag.title": "खींचिए, छोड़िए।<br><span class='blue'>रंग के साथ पहुँचता है।</span>",
         "drag.lead": "खींचना पसंद है? <strong>साउंड को पैनल से सीधे टाइमलाइन पर खींचिए</strong>। छोड़ते ही क्लिप अपनी कैटेगरी के रंग में आता है, और आपके ऑडियो ट्रैक बिना मेहनत के व्यवस्थित रहते हैं।",
-        "ed.foldintro": "टाइमलाइन के लिए तैयार 1,463 साउंड, <br>21 कैटेगरी में।",
+        "ed.foldintro": "टाइमलाइन के लिए तैयार 2,371 साउंड, <br>18 कैटेगरी में।",
         "ed.hintmouse": "फ़ोल्डर पर माउस ले जाइए",
         "ed.hinttouch": "खोलने के लिए फ़ोल्डर पर टैप कीजिए"
       }
     };
     for (var lang in add) for (var k in add[lang]) I18N[lang][k] = add[lang][k];
   })();
+
+  (function (X) { for (var l in X) for (var k in X[l]) I18N[l][k] = X[l][k]; })({"pt": {"pricing.off": "-61%", "pricing.priceNote": "Pagamento único, sem mensalidade", "hero.meta": "<span>Por <b>US$ 10</b></span><span>Pagamento único</span><span>Garantia de 7 dias</span>", "pricing.once": "US$ 10, pagamento único. Sem mensalidade, sem renovação.", "cl.title": "Veja o plugin <span class='blue'>em ação.</span>", "cl.1": "Abre a pasta", "cl.2": "Um clique", "cl.3": "Sound design"}, "en": {"pricing.off": "-61%", "pricing.priceNote": "Pay once, no subscription", "hero.meta": "<span>Just <b>$10</b></span><span>Pay once</span><span>7 day guarantee</span>", "pricing.once": "$10, pay once. No subscription, no renewal.", "cl.title": "Watch it <span class='blue'>in action.</span>", "cl.1": "Open a folder", "cl.2": "One click", "cl.3": "Sound design"}, "es": {"pricing.off": "-61%", "pricing.priceNote": "Pago único, sin suscripción", "hero.meta": "<span>Por <b>US$ 10</b></span><span>Pago único</span><span>Garantía de 7 días</span>", "pricing.once": "US$ 10, pago único. Sin suscripción, sin renovación.", "cl.title": "Mira el plugin <span class='blue'>en acción.</span>", "cl.1": "Abre la carpeta", "cl.2": "Un clic", "cl.3": "Sound design"}, "hi": {"pricing.off": "-61%", "pricing.priceNote": "एक बार भुगतान, कोई सब्सक्रिप्शन नहीं", "hero.meta": "<span>सिर्फ़ <b>US$ 10</b></span><span>एक बार भुगतान</span><span>7 दिन गारंटी</span>", "pricing.once": "US$ 10, एक बार भुगतान।", "cl.title": "प्लगइन <span class='blue'>काम करते हुए।</span>", "cl.1": "फ़ोल्डर खोलें", "cl.2": "एक क्लिक", "cl.3": "साउंड डिज़ाइन"}});
 
   // =====================================================================
   // LINKS DE CHECKOUT POR IDIOMA
@@ -3609,14 +3647,8 @@
 
       // 3) idioma do navegador (robôs de busca ficam sempre em português)
       if (/bot|crawl|spider|slurp|google|bing|yandex|duckduck|facebookexternalhit|lighthouse|headless/i.test(navigator.userAgent)) return 'pt';
-      var navLangs = navigator.languages || [navigator.language || 'pt'];
-      for (var i = 0; i < navLangs.length; i++) {
-        var code = String(navLangs[i]).toLowerCase().slice(0, 2);
-        if (I18N[code]) return code;
-      }
-
-      // 4) fallback
-      return 'pt';
+      // 4) padrão: inglês (troca no seletor do topo)
+      return 'en';
     }
 
     function t(key, lang) {
@@ -3628,7 +3660,14 @@
       var base = CHECKOUT[lang] || CHECKOUT.pt;
       document.querySelectorAll('.js-buy-cta').forEach(function (a) {
         var pos = a.getAttribute('data-position') || 'unknown';
-        a.href = base + '?utm_source=site&utm_medium=' + pos + '&utm_campaign=dropsfx&lang=' + lang;
+        var q = new URLSearchParams(location.search), o = new URLSearchParams();
+        o.set('utm_source', q.get('utm_source') || 'site'); o.set('utm_medium', q.get('utm_medium') || pos);
+        o.set('utm_campaign', q.get('utm_campaign') || 'dropsfx'); o.set('utm_content', q.get('utm_content') || pos);
+        if (q.get('utm_term')) o.set('utm_term', q.get('utm_term'));
+        var fb = q.get('fbclid') || (function () { try { return sessionStorage.getItem('dropsfx_fbclid'); } catch (e) { return null; } })();
+        if (fb) { o.set('fbclid', fb); try { sessionStorage.setItem('dropsfx_fbclid', fb); } catch (e) {} }
+        o.set('src', pos); o.set('lang', lang);
+        a.href = base + '?' + o.toString();
       });
     }
 
@@ -3793,8 +3832,8 @@
       content_category: 'Premiere Pro Plugin',
       content_ids: ['dropsfx-full'],
       content_type: 'product',
-      value: 109.79,
-      currency: 'BRL'
+      value: 10,
+      currency: 'USD'
     };
 
     setTimeout(function () {
@@ -4122,13 +4161,12 @@
   window.renderMarquee = (function () {
     // Pasta da biblioteca: 21 folhas (uma por categoria) que saem em leque no hover
     var cats = [
-      ['cat.whooshes',240,'#2dd4bf'],['cat.transitions',179,'#facc15'],['cat.drops',142,'#a78bfa'],
-      ['cat.clicks',130,'#38bdf8'],['cat.foley',127,'#06b6d4'],['cat.risers',98,'#fb923c'],
-      ['cat.elements',85,'#4ade80'],['cat.memes',71,'#f472b6'],['cat.hits',63,'#f87171'],
-      ['cat.glitches',45,'#60a5fa'],['cat.guns',45,'#f87171'],['cat.reverb',39,'#4ade80'],
-      ['cat.retro',29,'#b45309'],['cat.hud',27,'#38bdf8'],['cat.ambient',26,'#4ade80'],
-      ['cat.nature',24,'#4ade80'],['cat.emotion',18,'#f472b6'],['cat.camera',17,'#94a3b8'],
-      ['cat.bells',16,'#b45309'],['cat.slowmo',13,'#a78bfa'],['cat.tonal',29,'#facc15']
+      ['cat.whooshes',436,'#2dd4bf'],['cat.foley',231,'#06b6d4'],['cat.hits',196,'#f87171'],
+      ['cat.drops',192,'#a78bfa'],['cat.tonal',185,'#facc15'],['cat.clicks',169,'#38bdf8'],
+      ['cat.camera',139,'#94a3b8'],['cat.ambient',124,'#4ade80'],['cat.transitions',110,'#fde047'],
+      ['cat.risers',110,'#fb923c'],['cat.nature',77,'#65a30d'],['cat.memes',71,'#f472b6'],
+      ['cat.elements',69,'#d97706'],['cat.glitches',65,'#60a5fa'],['cat.guns',58,'#ef4444'],
+      ['cat.hud',55,'#22d3ee'],['cat.slowmo',50,'#c4b5fd'],['cat.retro',34,'#b45309']
     ].sort(function (a, b) { return b[1] - a[1]; });
 
     function wave(seed) {
@@ -4463,5 +4501,27 @@
   DropI18N.init();
   </script>
 
+<script>
+(function () {
+    var box = document.querySelector('.clipx'); if (!box) return;
+    var v = box.querySelector('video'), tabs = [].slice.call(box.querySelectorAll('.clipx-tab')), cur = 0, seen = false;
+    function load(i, play) {
+      cur = i;
+      tabs.forEach(function (t, j) { t.classList.toggle('on', j === i); t.querySelector('u').style.width = '0%'; });
+      var t = tabs[i], suf = ''; v.poster = t.getAttribute('data-poster').replace('.jpg', suf + '.jpg'); v.src = t.getAttribute('data-src').replace('.mp4', suf + '.mp4');
+      if (play) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    }
+    tabs.forEach(function (t, i) { t.addEventListener('click', function () { load(i, true); }); });
+    v.addEventListener('timeupdate', function () { if (v.duration) tabs[cur].querySelector('u').style.width = (v.currentTime / v.duration * 100) + '%'; });
+    v.addEventListener('ended', function () { load((cur + 1) % tabs.length, true); });
+    v.poster = tabs[0].getAttribute('data-poster');
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        if (es[0].isIntersecting) { if (!seen) { seen = true; load(0, true); } else { var p = v.play(); if (p && p.catch) p.catch(function () {}); } }
+        else v.pause();
+      }, { threshold: .35 }).observe(v);
+    } else load(0, true);
+  })();
+</script>
 </body>
 </html>
