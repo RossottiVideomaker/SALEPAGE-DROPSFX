@@ -1,0 +1,4468 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta name="robots" content="noindex">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+
+    // ---------------------------------------------------------------
+    // dropsfxEvent: wrapper com eventID único para deduplicação
+    // ---------------------------------------------------------------
+    window.dropsfxEvent = function(name, customData) {
+      if (typeof fbq !== 'function') return;
+      var eid = name + '.' + Date.now() + '.' + Math.random().toString(36).slice(2, 10);
+      fbq('track', name, customData || {}, { eventID: eid });
+    };
+
+    fbq('init', '1668719247772250');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1668719247772250&ev=PageView&noscript=1"/>
+  </noscript>
+
+  <title>dropSFX · Sound effects no Premiere, After Effects e DaVinci</title>
+  <meta name="description"
+    content="Painel com 1.463 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="dropSFX" />
+  <meta property="og:title" content="dropSFX · Sound effects no Premiere, After Effects e DaVinci" />
+  <meta property="og:description"
+    content="Painel com 1.463 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único." />
+  <meta property="og:image" content="https://www.dropsfx.com.br/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://www.dropsfx.com.br/" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="dropSFX · Sound effects no Premiere, After Effects e DaVinci" />
+  <meta name="twitter:image" content="https://www.dropsfx.com.br/assets/og-image.png" />
+
+  <link rel="canonical" href="https://www.dropsfx.com.br/" />
+  <link rel="alternate" hreflang="pt-BR" href="https://www.dropsfx.com.br/" />
+  <link rel="alternate" hreflang="en" href="https://www.dropsfx.com.br/?lang=en" />
+  <link rel="alternate" hreflang="es" href="https://www.dropsfx.com.br/?lang=es" />
+  <link rel="alternate" hreflang="hi" href="https://www.dropsfx.com.br/?lang=hi" />
+  <link rel="alternate" hreflang="x-default" href="https://www.dropsfx.com.br/" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "dropSFX",
+        "alternateName": ["Drop SFX", "DropSFX"],
+        "url": "https://www.dropsfx.com.br/",
+        "inLanguage": "pt-BR"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "dropSFX",
+        "url": "https://www.dropsfx.com.br/",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Windows, macOS",
+        "inLanguage": "pt-BR",
+        "description": "Painel com 1.463 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único."
+      }
+    ]
+  }
+  </script>
+
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23000000'/%3E%3Ctext x='32' y='44' font-family='Anton, sans-serif' font-size='26' font-weight='600' fill='%235b8aff' text-anchor='middle' letter-spacing='0.5'%3ESFX%3C/text%3E%3C/svg%3E">
+  <!-- Adobe Fonts (Degular) -->
+  <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+  <link rel="stylesheet" href="https://use.typekit.net/czr1sny.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #000000;
+      --ink: #ffffff;
+      --ink-2: #c4c8d4;
+      --muted: #888d99;
+      --dim: #4a4d57;
+      --line: rgba(255, 255, 255, .09);
+      --line-2: rgba(255, 255, 255, .16);
+      --accent: #3b6ef5;
+      --accent-hi: #6e9bff;
+      --accent-glow: rgba(59, 110, 245, .5);
+      --accent-soft: rgba(59, 110, 245, .14);
+      --teal: #2dd4bf;
+      --yellow: #facc15;
+      --purple: #a78bfa;
+      --cyan: #38bdf8;
+      --green: #4ade80;
+      --orange: #fb923c;
+      --red: #f87171;
+      --pink: #f472b6;
+      --gray: #94a3b8;
+      --font-display: 'degular-display', 'degular', 'Sora', 'Noto Sans Devanagari', sans-serif;
+      --font: 'degular', 'Sora', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Noto Sans Devanagari', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font);
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    @supports (overflow: clip) {
+      body {
+        overflow-x: clip;
+      }
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    img {
+      display: block;
+    }
+
+    /* ===== TOP NAV ===== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      transition: background .4s, backdrop-filter .4s, padding .4s;
+    }
+
+    .nav.solid {
+      background: rgba(0, 0, 0, .72);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border-bottom: 1px solid var(--line);
+      padding: 14px 40px;
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        transition: background .25s, padding .25s;
+      }
+      .nav.solid {
+        background: rgba(0, 0, 0, .92);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+      }
+    }
+
+    .nav img {
+      height: 30px;
+      width: auto;
+      filter: drop-shadow(0 0 10px var(--accent-glow));
+    }
+
+    .nav > img, .nav-cta { transition: opacity .35s, transform .2s, box-shadow .2s; }
+    .nav:not(.solid) > img,
+    .nav:not(.solid) .nav-cta { opacity: 0; pointer-events: none; }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-cta {
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--accent);
+      padding: 11px 22px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px var(--accent-glow);
+    }
+
+    /* ===== LANGUAGE SWITCHER ===== */
+    .lang {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .lang-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid var(--line-2);
+      border-radius: 100px;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: border-color .2s, color .2s, background .2s;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .lang-btn:hover,
+    .lang.open .lang-btn {
+      color: #fff;
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .lang-btn .globe {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .lang-btn .chev {
+      width: 9px;
+      height: 9px;
+      opacity: .7;
+      transition: transform .25s;
+    }
+
+    .lang.open .lang-btn .chev {
+      transform: rotate(180deg);
+    }
+
+    .lang-menu {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 178px;
+      background: rgba(10, 10, 13, .97);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--line-2);
+      border-radius: 14px;
+      padding: 6px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .7);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity .22s, transform .22s, visibility .22s;
+      z-index: 300;
+    }
+
+    .lang.open .lang-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .lang-opt {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 12px;
+      border: none;
+      background: transparent;
+      color: var(--ink-2);
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 500;
+      text-align: left;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: background .18s, color .18s;
+    }
+
+    .lang-opt:hover {
+      background: rgba(255, 255, 255, .06);
+      color: #fff;
+    }
+
+    .lang-opt.on {
+      background: var(--accent-soft);
+      color: var(--accent-hi);
+      font-weight: 700;
+    }
+
+    .lang-opt .flag {
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .lang-opt .code {
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: .1em;
+      color: var(--dim);
+    }
+
+    .lang-opt.on .code {
+      color: var(--accent-hi);
+    }
+
+    @media (max-width: 600px) {
+      .nav {
+        padding: 16px 18px;
+      }
+
+      .nav.solid {
+        padding: 12px 18px;
+      }
+
+      .nav img {
+        height: 24px;
+      }
+
+      .nav-right {
+        gap: 8px;
+      }
+
+      .nav-cta {
+        font-size: 12px;
+        padding: 9px 16px;
+      }
+
+      .lang-btn {
+        padding: 9px 11px;
+        font-size: 10px;
+        gap: 6px;
+      }
+
+      .lang-btn .lang-label {
+        display: none;
+      }
+    }
+
+    .scene {
+      position: relative;
+      min-height: auto;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    @supports (overflow: clip) {
+      .scene {
+        overflow: clip;
+        overflow-clip-margin: content-box;
+      }
+    }
+
+    .scene-tint {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .scene-content {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 90px 40px;
+    }
+
+    @media (max-width: 720px) {
+      .scene-content {
+        padding: 70px 22px;
+      }
+    }
+
+
+    .scene.tall {
+      min-height: auto;
+      height: auto;
+      align-items: flex-start;
+    }
+
+    /* ===== Reveal on scroll ===== */
+    .r {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .7s cubic-bezier(.2, .7, .2, 1), transform .7s cubic-bezier(.2, .7, .2, 1);
+      will-change: opacity, transform;
+    }
+
+    .r.in {
+      opacity: 1;
+      transform: translateY(0) translateZ(0);
+      will-change: auto;
+    }
+
+    .r.d1 { transition-delay: .08s; }
+    .r.d2 { transition-delay: .16s; }
+    .r.d3 { transition-delay: .24s; }
+    .r.d4 { transition-delay: .32s; }
+
+    @media (max-width: 720px) {
+      .r,
+      .r.d1,
+      .r.d2,
+      .r.d3,
+      .r.d4 {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        transition-delay: 0s !important;
+        will-change: auto !important;
+      }
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--accent-hi);
+      margin-bottom: 26px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .display {
+      font-family: var(--font-display);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -.01em;
+      line-height: 1;
+      font-size: clamp(34px, 6vw, 100px);
+    }
+
+    .display, .fg-copy h2, .tf-num, .pp-v, .sticky-cta .sc-price {
+      font-weight: 700;
+    }
+
+    .display .blue {
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--accent-hi);
+    }
+
+    .display .fill {
+      color: #fff;
+    }
+
+    .lead {
+      font-size: clamp(16px, 1.5vw, 21px);
+      font-weight: 300;
+      line-height: 1.55;
+      color: var(--ink-2);
+      max-width: 560px;
+      margin-top: 26px;
+    }
+
+    .lead strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .quote {
+      font-family: var(--font);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(12px, 2.4vw, 34px);
+      line-height: 1.6;
+      color: #fff;
+      text-align: center;
+    }
+
+    .quote .quote-line {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .quote .accent {
+      color: var(--accent-hi);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* =================== SLIDE UP TEXT (palavra por palavra) =================== */
+    .swu-word {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: top;
+    }
+    .swu-word > span {
+      display: inline-block;
+      transform: translateY(115%);
+      opacity: 0;
+      will-change: transform, opacity;
+      transition: transform .55s cubic-bezier(.625, .05, 0, 1), opacity .55s cubic-bezier(.625, .05, 0, 1);
+    }
+    .slide-up-text.swu-in .swu-word > span {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    @media (max-width: 720px), (prefers-reduced-motion: reduce) {
+      .swu-word > span { transition: none; transform: translateY(0); opacity: 1; }
+    }
+
+    /* =================== SHIMMER TEXT =================== */
+    .shimmer-text {
+      background: linear-gradient(90deg, #fff 0%, #fff 35%, rgba(255,255,255,.55) 50%, #fff 65%, #fff 100%);
+      background-size: 250% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: #fff;
+      animation: shimmerMove 2.8s linear infinite;
+    }
+    @keyframes shimmerMove {
+      0% { background-position: 200% center; }
+      100% { background-position: -50% center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .shimmer-text { animation: none; -webkit-text-fill-color: initial; background: none; }
+    }
+
+    /* =================== HIGHLIGHTED TEXT (sweep) =================== */
+    .hl-sweep {
+      position: relative;
+      z-index: 1;
+    }
+    .hl-sweep::before {
+      content: '';
+      position: absolute;
+      left: -5px; right: -5px; top: 10%; bottom: 6%;
+      background: var(--accent-soft);
+      border-radius: 5px;
+      transform: scaleX(0);
+      transform-origin: left;
+      z-index: -1;
+      transition: transform .65s cubic-bezier(.65, 0, .35, 1);
+    }
+    .hl-sweep.hl-in::before { transform: scaleX(1); }
+
+    /* =================== POP BUTTON (afunda ao clicar) =================== */
+    .pop-btn {
+      transition: transform .15s cubic-bezier(.34, 1.56, .64, 1), box-shadow .15s ease;
+    }
+    .pop-btn:active {
+      transform: translateY(3px) scale(.97) !important;
+      box-shadow: 0 2px 10px var(--accent-glow) !important;
+      transition: transform .1s ease, box-shadow .1s ease;
+    }
+
+    /* =================== QR CODE CARD =================== */
+    .qr-card {
+      display: flex; align-items: center; gap: 14px;
+      margin-top: 18px; padding: 12px 16px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--line-2); border-radius: 14px;
+      transform-style: preserve-3d;
+      transition: transform .15s ease-out, border-color .2s;
+      will-change: transform;
+    }
+    .qr-card:hover { border-color: rgba(59, 110, 245, .35); }
+    .qr-card img {
+      width: 62px; height: 62px; border-radius: 8px;
+      background: #fff; padding: 4px; flex-shrink: 0;
+      transform: translateZ(18px);
+    }
+    .qr-card-text { text-align: left; transform: translateZ(10px); }
+    .qr-card-text .qr-k {
+      font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--accent-hi); font-weight: 700;
+    }
+    .qr-card-text .qr-v {
+      font-size: 13px; color: var(--ink-2); margin-top: 2px;
+    }
+    @media (max-width: 720px) { .qr-card { transform: none !important; } }
+
+    /* =================== HERO =================== */
+    #hero {
+      min-height: 100vh;
+      padding: 0;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @supports (height: 100svh) {
+      #hero { min-height: 100svh; }
+    }
+
+    /* vídeo ocupando a tela inteira do hero */
+    .hero-bg-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+      opacity: 0;
+      animation: heroVideoFadeUp 1.3s .3s forwards;
+    }
+    .hero-bg-video video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+    .hero-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        /* vinheta: só as bordas escurecem */
+        radial-gradient(ellipse 75% 70% at 50% 50%, transparent 55%, rgba(0,0,0,.35) 80%, rgba(0,0,0,.85) 100%),
+        linear-gradient(rgba(0,0,0,.38), rgba(0,0,0,.38)),
+        radial-gradient(ellipse 60% 42% at 50% 46%, rgba(0,0,0,.5) 0%, rgba(0,0,0,.18) 60%, transparent 100%),
+        linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.04) 24%, rgba(0,0,0,.08) 62%, rgba(0,0,0,.7) 90%, var(--bg) 100%);
+    }
+    .hero-bg-video .video-loader {
+      position: absolute; inset: 0; z-index: 1;
+    }
+    @media (max-width: 720px) {
+      .hero-bg-overlay {
+        background:
+          radial-gradient(ellipse 90% 75% at 50% 50%, transparent 55%, rgba(0,0,0,.35) 80%, rgba(0,0,0,.8) 100%),
+          linear-gradient(rgba(0,0,0,.38), rgba(0,0,0,.38)),
+          radial-gradient(ellipse 90% 40% at 50% 48%, rgba(0,0,0,.5) 0%, transparent 100%),
+          linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.08) 30%, rgba(0,0,0,.15) 62%, rgba(0,0,0,.8) 90%, var(--bg) 100%);
+      }
+    }
+
+
+    .hero-logo-glow {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .hero-logo-glow::after {
+      content: "";
+      width: 60vw;
+      height: 60vw;
+      max-width: 800px;
+      max-height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59, 110, 245, .28), transparent 62%);
+      filter: blur(40px);
+      animation: heroPulse 6s infinite ease-in-out;
+    }
+
+    @keyframes heroPulse {
+      0%, 100% { opacity: .7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.08); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 4;
+      width: 100%;
+      max-width: 1300px;
+      margin: 0 auto;
+      /* padding extra embaixo empurra o bloco (ícones, logo, copy e botão) pra cima */
+      padding: 96px 40px calc(48px + 14vh);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    @media (max-width: 720px) {
+      .hero-content {
+        padding: 88px 22px calc(36px + 12vh);
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      /* compensa a margem transparente do topo do PNG do logo (~6,9% da largura) */
+      margin-bottom: calc(min(64vw, 540px) * -0.0693 + 16px);
+      opacity: 0;
+      animation: fadeUp .9s .3s forwards;
+    }
+
+    .app-ic {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, .55);
+    }
+
+    .app-ic.pr { background: #00005b; color: #9999ff; border: 1px solid #9999ff; }
+    .app-ic.ae { background: #00005b; color: #d8a3ff; border: 1px solid #b57bff; }
+    .app-ic.dv { background: none; box-shadow: none; filter: drop-shadow(0 4px 12px rgba(0, 0, 0, .55)); }
+    .app-ic.dv svg { width: 100%; height: 100%; display: block; }
+
+    .hero-logo {
+      width: min(64vw, 540px);
+      height: auto;
+      margin-bottom: 0;
+      filter: drop-shadow(0 0 40px rgba(110, 155, 255, .5)) drop-shadow(0 0 90px rgba(59, 110, 245, .3));
+      opacity: 0;
+      transform: scale(.94);
+      animation: heroLogoIn 1.4s cubic-bezier(.2, .8, .2, 1) .4s forwards;
+    }
+
+    @keyframes heroLogoIn {
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .hero-tagline {
+      font-family: var(--font);
+      font-size: clamp(14px, 1.3vw, 17px);
+      font-weight: 400;
+      letter-spacing: .01em;
+      color: #fff;
+      /* o PNG do logo tem ~10,6% da largura de margem transparente embaixo; compensa pra copy ficar colada */
+      margin-top: calc(min(64vw, 540px) * -0.1064 + 22px);
+      max-width: 620px;
+      text-shadow: 0 2px 18px rgba(0,0,0,.65);
+      text-wrap: balance;
+      opacity: 0;
+      animation: fadeUp 1s .95s forwards;
+    }
+
+    .hero-tagline strong {
+      font-weight: 600;
+      color: var(--accent-hi);
+    }
+
+    .hero-cta-row {
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeUp 1s 1.2s forwards;
+    }
+
+    .hero-buttons {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    @media (max-width: 560px) {
+      .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+      .hero-buttons .hero-cta {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 30px;
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 100px;
+      transition: all .3s cubic-bezier(.2, .8, .3, 1);
+      box-shadow: 0 10px 36px var(--accent-glow), 0 0 0 1px rgba(255, 255, 255, .18) inset;
+    }
+
+    .hero-cta:hover {
+      background: #2554d6;
+      transform: translateY(-2px);
+      box-shadow: 0 16px 50px var(--accent-glow);
+    }
+
+    .hero-cta .arr {
+      width: 17px;
+      height: 17px;
+      background: rgba(255, 255, 255, .2);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      transition: transform .3s;
+    }
+
+    .hero-cta:hover .arr {
+      transform: translateX(3px);
+    }
+
+    .hero-meta {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 30px;
+      z-index: 4;
+      padding: 0 max(24px, calc((100% - 1200px) / 2));
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .08em;
+      color: var(--muted);
+      text-shadow: 0 1px 12px rgba(0, 0, 0, .7);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 1s 1.4s forwards;
+    }
+
+    @media (max-width: 720px) {
+      .hero-meta { bottom: 22px; justify-content: space-between; flex-wrap: nowrap; padding: 0 16px; gap: 8px; font-size: 9.5px; letter-spacing: .02em; white-space: nowrap; }
+    }
+
+    .hero-meta b {
+      color: var(--accent-hi);
+    }
+
+    .proof-bar {
+      display: inline-flex; align-items: center; gap: 14px;
+      margin-top: 26px;
+      padding: 9px 18px 9px 9px;
+      border: 1px solid var(--line-2); border-radius: 100px;
+      background: rgba(255,255,255,.03);
+    }
+
+    .proof-avatars { display: flex; align-items: center; }
+
+    /* versão compacta da prova social dentro do hero */
+    .hero-content .proof-bar {
+      margin-top: 2px;
+      padding: 0;
+      gap: 10px;
+      border: 0;
+      background: none;
+      opacity: 0;
+      animation: fadeUpSoft 1s 1.3s forwards;
+    }
+    .hero-content .proof-av { width: 24px; height: 24px; font-size: 9px; margin-left: -8px; }
+    .hero-content .proof-avatars .proof-av:first-child { margin-left: 0; }
+    .hero-content .proof-bar-text { font-size: 12px; color: var(--muted); }
+    .hero-content .proof-bar-text strong { color: var(--ink-2); font-weight: 600; }
+
+    .proof-av {
+      width: 30px; height: 30px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font); font-size: 10.5px; font-weight: 700;
+      color: #fff;
+      background: color-mix(in srgb, var(--c) 55%, #000);
+      border: 2px solid var(--bg);
+      margin-left: -10px;
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--c) 40%, transparent);
+    }
+    .proof-avatars .proof-av:first-child { margin-left: 0; }
+
+    .proof-av-more {
+      background: rgba(255,255,255,.08);
+      color: var(--ink-2);
+      font-size: 11px;
+    }
+
+    .proof-av-photo {
+      padding: 0;
+      overflow: hidden;
+      background: #1a1a1e;
+    }
+    .proof-av-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .proof-bar-text {
+      font-size: 13px; font-weight: 400; color: var(--ink-2);
+      white-space: nowrap;
+    }
+    .proof-bar-text strong { color: #fff; font-weight: 700; }
+
+    @media (max-width: 520px) {
+      .proof-bar { padding: 8px 14px 8px 8px; gap: 10px; }
+      .proof-av { width: 26px; height: 26px; font-size: 9.5px; margin-left: -9px; }
+      .proof-bar-text { font-size: 12px; white-space: normal; }
+    }
+
+    @keyframes fadeUpSoft {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: .85; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* animação própria do vídeo de fundo — só fade.
+       O .hero-bg-video usa inset:0 (preenche o hero), então NÃO pode ter
+       translateX(-50%): isso empurrava o vídeo metade da largura pra esquerda. */
+    @keyframes heroVideoFadeUp {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* =================== FEATURE SCENE LAYOUT =================== */
+    .feat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .feat-grid.flip .fg-copy { order: 2; }
+    .feat-grid.flip .fg-visual { order: 1; }
+
+    .library-grid { grid-template-columns: 1.15fr 0.85fr; }
+
+    .fg-copy h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: clamp(30px, 3.9vw, 60px);
+      line-height: 1;
+      letter-spacing: -.01em;
+    }
+
+    .fg-copy h2 .blue { color: var(--accent-hi); }
+
+    .fg-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1400px;
+    }
+
+    @media (max-width: 880px) {
+      .feat-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .feat-grid.flip .fg-copy { order: 1; }
+      .feat-grid.flip .fg-visual { order: 2; }
+
+      .library-grid { grid-template-columns: 1fr; }
+    }
+
+    /* =================== PLUGIN MOCKUP =================== */
+    .plugin-frame {
+      width: min(420px, 90vw);
+      transform-style: preserve-3d;
+      --rx: 0deg;
+      --ry: 0deg;
+      --mx: 50%;
+      --my: 50%;
+      transform: rotateX(var(--rx)) rotateY(var(--ry));
+      transition: transform .3s cubic-bezier(.2, .8, .3, 1);
+      will-change: transform;
+    }
+
+    .pl {
+      position: relative;
+      width: 100%;
+      background: #060608;
+      border: 1px solid var(--line-2);
+      border-radius: 18px;
+      overflow: hidden;
+      font-family: var(--font);
+      transform-style: preserve-3d;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, .05), 0 50px 110px -24px rgba(0, 0, 0, .92), 0 0 90px rgba(59, 110, 245, .26);
+    }
+
+    .pl::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 40;
+      pointer-events: none;
+      border-radius: 18px;
+      background: radial-gradient(circle at var(--mx) var(--my), rgba(110, 155, 255, .16) 0%, transparent 45%);
+      mix-blend-mode: screen;
+      opacity: var(--sh, 0);
+      transition: opacity .3s;
+    }
+
+    .pl-head {
+      background: #0a0a0c;
+      padding: 11px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .pl-logo { height: 20px; width: auto; filter: drop-shadow(0 0 6px rgba(110, 155, 255, .4)); }
+
+    .pl-hicons { display: flex; align-items: center; gap: 9px; }
+
+    .pl-proj {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      color: var(--ink-2);
+      font-weight: 500;
+    }
+
+    .pl-proj .dot {
+      width: 6px; height: 6px;
+      background: #30d158;
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(48, 209, 88, .7);
+    }
+
+    .pl-hic { width: 15px; height: 15px; color: var(--muted); }
+    .pl-hic svg { width: 100%; height: 100%; }
+
+    .pl-search {
+      margin: 12px 14px 10px;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid var(--line-2);
+      border-radius: 100px;
+      padding: 9px 14px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .pl-search svg { width: 12px; height: 12px; }
+
+    .pl-tabsrow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px 9px;
+      gap: 8px;
+    }
+
+    .pl-tabs { display: flex; gap: 5px; }
+
+    .pl-tab {
+      padding: 5px 9px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      border-radius: 7px;
+      white-space: nowrap;
+    }
+
+    .pl-tab.on { background: var(--accent); color: #fff; }
+
+    .pl-tab .c {
+      background: rgba(255, 255, 255, .2);
+      padding: 1px 5px;
+      border-radius: 100px;
+      font-size: 8px;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .pl-tab:not(.on) .c { background: rgba(255, 255, 255, .06); color: var(--muted); }
+
+    .pl-sort {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: var(--ink-2);
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--line-2);
+      border-radius: 100px;
+      padding: 4px 11px;
+    }
+
+    .pl-chips { display: flex; gap: 5px; padding: 0 12px 11px; overflow: hidden; }
+
+    .pl-chip {
+      font-size: 9.5px; font-weight: 500; color: var(--ink-2);
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--line-2);
+      border-radius: 100px;
+      padding: 4px 11px;
+      white-space: nowrap;
+    }
+
+    .pl-chip.on { background: rgba(255, 255, 255, .08); color: #fff; }
+
+    .pl-seclabel {
+      padding: 8px 14px 7px;
+      font-size: 8.5px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      color: var(--muted);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .pl-seclabel svg { width: 10px; height: 10px; }
+
+    .pl-grid {
+      padding: 2px 12px 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .pl-card {
+      position: relative;
+      border-radius: 12px;
+      padding: 13px 13px 12px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--line-2);
+      overflow: hidden;
+      min-height: 90px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .pl-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
+
+    .pl-ic { width: 30px; height: 30px; border-radius: 9px; display: flex; align-items: center; justify-content: center; }
+    .pl-ic svg { width: 15px; height: 15px; }
+
+    .pl-cwave { display: flex; align-items: flex-end; gap: 2px; height: 16px; opacity: .55; }
+    .pl-cwave i { width: 2.5px; border-radius: 1px; }
+
+    .pl-cname { font-size: 13px; font-weight: 700; color: #fff; letter-spacing: -.01em; margin-bottom: 2px; }
+    .pl-cn { font-size: 10px; font-weight: 500; }
+    .pl-cn .m { color: var(--muted); }
+
+    .pl-player {
+      background: linear-gradient(180deg, #0a0a0c, #111114);
+      border-top: 1px solid var(--line);
+      padding: 12px 14px;
+    }
+
+    .pl-ptop { display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px; gap: 8px; }
+    .pl-pname { font-size: 12px; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pl-pmeta { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+    .pl-badge {
+      font-size: 7.5px; font-weight: 700; letter-spacing: .06em;
+      color: var(--muted); border: 1px solid var(--line-2);
+      border-radius: 5px; padding: 2px 6px;
+      text-transform: uppercase; white-space: nowrap;
+    }
+
+    .pl-vol { display: flex; align-items: center; gap: 5px; color: var(--muted); }
+    .pl-vol svg { width: 11px; height: 11px; }
+
+    .pl-vtrack { width: 46px; height: 3px; background: var(--line-2); border-radius: 2px; position: relative; }
+    .pl-vtrack::after {
+      content: ""; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+      width: 9px; height: 9px; background: #fff; border-radius: 50%;
+    }
+
+    .pl-wave {
+      display: flex; align-items: center; gap: 1px; height: 42px;
+      border: 1px solid var(--line); border-radius: 8px; padding: 0 10px; margin-bottom: 5px;
+      background: rgba(255, 255, 255, .015); overflow: hidden;
+    }
+
+    .pl-wave i { flex: 1; background: var(--ink-2); border-radius: 1px; opacity: .4; min-width: 1px; }
+    .pl-time { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 8.5px; color: var(--muted); margin-bottom: 11px; }
+
+    .pl-gain { display: flex; align-items: center; gap: 7px; margin-bottom: 11px; }
+    .pl-glabel { font-size: 8px; font-weight: 700; color: var(--dim); letter-spacing: .5px; text-transform: uppercase; }
+    .pl-gpills { display: flex; gap: 4px; }
+
+    .pl-gpill {
+      font-size: 9px; font-weight: 700; color: var(--muted);
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--line-2);
+      border-radius: 8px; padding: 4px 9px;
+      transition: all .25s;
+    }
+
+    .pl-gpill.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-hi); }
+    .pl-gkbd { margin-left: auto; font-size: 8px; color: var(--dim); }
+
+    .pl-ctrls { display: flex; align-items: center; gap: 8px; }
+
+    .pl-play {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: #fff; display: flex; align-items: center; justify-content: center; color: #000;
+    }
+    .pl-play svg { width: 10px; height: 10px; }
+
+    .pl-track {
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid var(--line-2);
+      border-radius: 8px; padding: 7px 10px;
+      font-size: 9.5px; font-weight: 600; color: #fff;
+      display: flex; align-items: center; gap: 5px;
+    }
+
+    .pl-rt { width: 22px; height: 22px; color: var(--muted); display: flex; align-items: center; justify-content: center; }
+    .pl-rt svg { width: 12px; height: 12px; }
+
+    .pl-auto { display: flex; align-items: center; gap: 5px; font-size: 9px; color: var(--muted); font-weight: 700; letter-spacing: .04em; }
+
+    .pl-tog { width: 24px; height: 13px; background: var(--accent); border-radius: 100px; position: relative; }
+    .pl-tog::after {
+      content: ""; position: absolute; top: 2px; right: 2px;
+      width: 9px; height: 9px; background: #fff; border-radius: 50%;
+    }
+
+    .pl-insert {
+      flex: 1; background: var(--accent); color: #fff; font-weight: 700; font-size: 11px;
+      padding: 9px; border-radius: 9px; text-align: center;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      box-shadow: 0 6px 16px rgba(59, 110, 245, .35);
+    }
+    .pl-insert svg { width: 12px; height: 12px; }
+
+    /* file-list slice */
+    .pl-mini {
+      width: min(420px, 90vw);
+      background: #060608;
+      border: 1px solid var(--line-2);
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, .05), 0 50px 100px -24px rgba(0, 0, 0, .92), 0 0 90px rgba(59, 110, 245, .22);
+    }
+
+    .plm-head {
+      background: #0a0a0c; padding: 10px 13px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .plm-back { display: flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 600; color: #fff; }
+    .plm-back svg { width: 13px; height: 13px; color: var(--accent-hi); }
+    .plm-count { font-family: var(--font-mono); font-size: 9px; color: var(--muted); }
+
+    .plm-list { padding: 8px 0; }
+
+    .fitem {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 9px; margin: 0 8px 1px;
+      border-radius: 12px; position: relative;
+      transition: background .13s;
+    }
+
+    .fitem.active { background: rgba(59, 110, 245, .12); }
+
+    .fitem.active::before {
+      content: ''; position: absolute; left: 0; top: 22%; bottom: 22%;
+      width: 3px; background: var(--accent); border-radius: 0 3px 3px 0;
+    }
+
+    .fitem-bars {
+      flex-shrink: 0; width: 34px; height: 34px;
+      border-radius: 11px;
+      display: flex; align-items: flex-end; justify-content: center;
+      gap: 2px; padding: 7px 5px;
+      border: 1px solid; overflow: hidden;
+    }
+
+    .fitem-bars span { width: 2.5px; border-radius: 2px; min-height: 3px; }
+
+    @keyframes eqBar {
+      0%, 100% { height: 25%; }
+      50% { height: 90%; }
+    }
+
+    .fitem.playing .fitem-bars span {
+      animation: eqBar .8s ease-in-out infinite;
+    }
+
+    .fitem.playing .fitem-bars span:nth-child(2) { animation-delay: .15s; }
+    .fitem.playing .fitem-bars span:nth-child(3) { animation-delay: .3s; }
+    .fitem.playing .fitem-bars span:nth-child(4) { animation-delay: .45s; }
+
+    .fitem-info { flex: 1; min-width: 0; }
+    .fitem-name { font-size: 12px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .fitem-meta { display: flex; align-items: center; gap: 5px; margin-top: 3px; font-size: 9.5px; color: var(--dim); }
+    .fitem-tag { font-size: 8.5px; font-weight: 700; padding: 1px 7px; border-radius: 99px; }
+
+    .fitem-star { flex-shrink: 0; color: var(--dim); display: flex; opacity: .5; }
+    .fitem-star svg { width: 14px; height: 14px; }
+    .fitem-star.on { color: #f5c33b; opacity: 1; }
+
+    .fitem-prog { position: absolute; left: 12px; right: 12px; bottom: 2px; height: 2px; border-radius: 2px; overflow: hidden; background: transparent; }
+
+    .fitem.previewing .fitem-prog { background: rgba(255, 255, 255, .07); }
+
+    .fitem-prog-fill { height: 100%; width: 0%; background: var(--accent-hi); border-radius: 2px; }
+
+    .fitem.previewing .fitem-prog-fill { animation: hoverFill 1.3s linear; }
+
+    @keyframes hoverFill {
+      from { width: 0%; }
+      to { width: 100%; }
+    }
+
+    .plm-timeline {
+      border-top: 1px solid var(--line);
+      background: linear-gradient(180deg, #0a0a0c, #111114);
+      padding: 11px 13px;
+    }
+
+    .plm-tl-label {
+      font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .plm-tl-label svg { width: 10px; height: 10px; }
+
+    .plm-tl-track {
+      height: 30px; border-radius: 7px;
+      background: repeating-linear-gradient(90deg, rgba(255, 255, 255, .03) 0 20px, transparent 20px 22px);
+      position: relative; overflow: hidden;
+    }
+
+    .plm-tl-playhead {
+      position: absolute; top: -2px; bottom: -2px; left: 32%;
+      width: 2px; background: #fff;
+      box-shadow: 0 0 8px rgba(255, 255, 255, .8); z-index: 2;
+    }
+
+    .plm-tl-clip {
+      position: absolute; top: 3px; bottom: 3px; left: 32%; width: 30%;
+      border-radius: 6px;
+      background: linear-gradient(180deg, var(--accent-hi), var(--accent));
+      display: flex; align-items: center; justify-content: center; gap: 2px;
+      opacity: 0; transform: scaleX(.5); transform-origin: left;
+      transition: opacity .4s, transform .45s cubic-bezier(.2, 1.4, .4, 1);
+    }
+
+    .plm-tl-clip.in { opacity: 1; transform: scaleX(1); }
+
+    .plm-tl-clip i { width: 2px; background: rgba(255, 255, 255, .65); border-radius: 1px; }
+
+    .plm-cursor {
+      position: absolute; width: 26px; height: 26px;
+      pointer-events: none; z-index: 10; color: #fff;
+      filter: drop-shadow(0 3px 7px rgba(0, 0, 0, .8));
+      opacity: 0;
+      transition: transform .6s cubic-bezier(.4, 0, .2, 1), opacity .3s;
+    }
+    .plm-cursor svg { width: 100%; height: 100%; }
+
+    @media (max-width: 720px) {
+      .plm-cursor { display: none !important; }
+    }
+
+    .plm-keys { display: flex; gap: 7px; justify-content: center; margin-top: 22px; }
+
+    .plm-key {
+      font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--ink-2);
+      min-width: 46px; height: 46px; padding: 0 14px; border-radius: 11px;
+      background: rgba(255, 255, 255, .04); border: 1.5px solid var(--line-2);
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s;
+    }
+
+    .plm-key.lit {
+      background: var(--accent); border-color: var(--accent-hi); color: #fff;
+      box-shadow: 0 0 22px var(--accent-glow); transform: translateY(-3px);
+    }
+
+    /* gain demo */
+    .gain-demo { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+    .gain-pills-big { display: flex; gap: 14px; }
+
+    .gain-big {
+      font-family: var(--font-mono);
+      font-size: clamp(18px, 2.2vw, 26px); font-weight: 700;
+      color: var(--muted); background: rgba(255, 255, 255, .04);
+      border: 1.5px solid var(--line-2); border-radius: 14px; padding: 18px 26px;
+      transition: all .4s;
+    }
+
+    .gain-big.on {
+      background: var(--accent-soft); border-color: var(--accent);
+      color: var(--accent-hi); box-shadow: 0 0 30px var(--accent-glow);
+      transform: scale(1.06);
+    }
+
+    .gain-meter { width: min(320px, 80vw); height: 8px; background: rgba(255, 255, 255, .06); border-radius: 4px; overflow: hidden; }
+    .gain-meter-fill { height: 100%; width: 70%; background: linear-gradient(90deg, var(--green), var(--yellow), var(--red)); border-radius: 4px; transition: width .5s; }
+
+    /* =================== ANCHOR QUOTE =================== */
+    .anchor { text-align: center; }
+    .anchor .display { font-size: clamp(32px, 5.6vw, 90px); }
+
+    /* =================== LIBRARY MARQUEE =================== */
+    .marquee {
+      display: flex; flex-direction: column; gap: 16px;
+      width: 100vw; margin-left: calc(-50vw + 50%); margin-top: 50px;
+      mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    }
+
+    .mq-row { display: flex; gap: 16px; width: max-content; }
+
+    .mq-row.a { animation: mqL 46s linear infinite; }
+    .mq-row.b { animation: mqR 40s linear infinite; }
+
+    @keyframes mqL {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @keyframes mqR {
+      from { transform: translateX(-50%); }
+      to { transform: translateX(0); }
+    }
+
+    .mq-cat {
+      display: flex; align-items: center; gap: 12px;
+      padding: 15px 22px; border-radius: 14px;
+      background: rgba(10, 11, 16, .6);
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--line-2); white-space: nowrap;
+    }
+
+    .mq-ic { width: 30px; height: 24px; border-radius: 6px; position: relative; flex-shrink: 0; }
+    .mq-ic::before {
+      content: ""; position: absolute; top: -4px; left: 0;
+      width: 12px; height: 6px; border-radius: 3px 3px 0 0;
+      background: inherit; opacity: .85;
+    }
+
+    .mq-name { font-size: 16px; font-weight: 600; color: #fff; }
+    .mq-n { font-family: var(--font-mono); font-size: 13px; font-weight: 700; }
+
+    /* =================== PRICING =================== */
+    .price-shell {
+      max-width: 600px; margin: 50px auto 0; width: 100%;
+      background: linear-gradient(180deg, rgba(18, 18, 23, .96), rgba(8, 8, 12, .96));
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--line-2); border-radius: 22px; overflow: hidden;
+      box-shadow: 0 0 80px rgba(59, 110, 245, .2);
+    }
+
+    .price-ribbon {
+      background: linear-gradient(90deg, #1d4ed8, var(--accent)); color: #fff;
+      padding: 13px 26px; display: flex; justify-content: space-between; align-items: center;
+      font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+    }
+
+    .price-body { padding: 42px 38px; text-align: left; }
+
+    @media (max-width:560px) { .price-body { padding: 30px 22px; } }
+
+    .pb-logo { height: 50px; width: auto; margin-bottom: 18px; filter: drop-shadow(0 0 12px var(--accent-glow)); }
+    .price-desc { font-size: 15px; font-weight: 300; color: var(--ink-2); margin-bottom: 30px; }
+
+    .price-block { padding: 26px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 28px; }
+
+    .price-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+
+    .pp {
+      display: flex; flex-direction: column; gap: 6px;
+      padding: 18px 12px; text-align: center;
+      border: 1px solid var(--line-2); border-radius: 14px;
+      background: rgba(255, 255, 255, .03);
+    }
+
+    .pp-k { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    .pp-v { font-family: var(--font-display); font-size: clamp(16px, 2.4vw, 22px); line-height: 1; color: #fff; text-transform: uppercase; }
+
+    .pp:nth-child(2) { border-color: rgba(59, 110, 245, .45); background: var(--accent-soft); }
+    .pp:nth-child(2) .pp-v { color: var(--accent-hi); }
+
+    @media (max-width:420px) {
+      .price-pillars { gap: 7px; }
+      .pp { padding: 14px 7px; }
+    }
+
+    .price-once { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: .05em; line-height: 1.6; }
+
+    .price-feats { list-style: none; margin-bottom: 30px; }
+    .price-feats li { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; font-size: 14px; color: var(--ink-2); border-bottom: 1px solid var(--line); }
+    .price-feats li:last-child { border-bottom: none; }
+    .price-feats li svg { width: 16px; height: 16px; flex-shrink: 0; color: var(--accent-hi); margin-top: 3px; }
+    .price-feats li strong { color: #fff; font-weight: 600; }
+
+    .price-cta {
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      width: 100%; padding: 19px; font-family: var(--font); font-weight: 700;
+      font-size: 14px; letter-spacing: .04em; text-transform: uppercase;
+      text-decoration: none; background: var(--accent); color: #fff;
+      border: none; cursor: pointer; transition: all .25s; border-radius: 12px;
+    }
+    .price-cta:hover { background: #2554d6; transform: translateY(-2px); box-shadow: 0 20px 50px var(--accent-glow); }
+    .price-cta svg { width: 16px; height: 16px; }
+
+    .guarantee {
+      margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 12px; background: rgba(74, 222, 128, .08);
+      border: 1px solid rgba(74, 222, 128, .25); border-radius: 12px;
+    }
+    .guarantee svg { width: 16px; height: 16px; color: #4ade80; flex-shrink: 0; }
+    .guarantee span { font-size: 13px; color: var(--ink-2); }
+    .guarantee strong { color: #4ade80; font-weight: 700; }
+
+    /* =================== FAQ =================== */
+    .faq-wrap { max-width: 760px; margin: 40px auto 0; width: 100%; }
+    .faq-item { border-top: 1px solid var(--line); cursor: pointer; }
+    .faq-item:last-child { border-bottom: 1px solid var(--line); }
+
+    .faq-q {
+      padding: 22px 0; display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      font-family: var(--font); font-weight: 600; font-size: clamp(15px, 1.8vw, 18px);
+      transition: color .2s;
+    }
+    .faq-item:hover .faq-q { color: var(--accent-hi); }
+
+    .faq-q .plus { font-weight: 300; font-size: 26px; color: var(--accent-hi); transition: transform .3s; line-height: 1; flex-shrink: 0; }
+    .faq-item.open .plus { transform: rotate(45deg); }
+
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .4s ease, padding .4s ease; font-size: 15px; font-weight: 300; color: var(--ink-2); line-height: 1.65; }
+    .faq-item.open .faq-a { max-height: 360px; padding-bottom: 22px; }
+
+    /* =================== FOOTER =================== */
+    footer { border-top: 1px solid var(--line); padding: 48px 40px 40px; position: relative; z-index: 3; background: #000; }
+
+    .foot { max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 22px; }
+    .foot img { height: 28px; width: auto; opacity: .8; }
+    .foot-links a { color: var(--muted); text-decoration: none; margin-right: 22px; font-size: 12px; }
+    .foot-links a:hover { color: var(--accent-hi); }
+    .foot-credit { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+
+    /* =================== MOBILE STICKY CTA =================== */
+    .sticky-cta {
+      position: fixed; bottom: 14px; left: 14px; right: 14px; z-index: 150;
+      display: none; align-items: center; justify-content: space-between;
+      background: rgba(10, 10, 12, .92);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--line-2); border-radius: 100px;
+      padding: 8px 8px 8px 20px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, .6);
+      transform: translateY(140%);
+      transition: transform .5s cubic-bezier(.2, .8, .3, 1);
+    }
+    .sticky-cta.show { transform: translateY(0); }
+    .sticky-cta .sc-price { font-family: var(--font-display); font-size: 14px; color: #fff; text-transform: uppercase; line-height: 1.1; }
+    .sticky-cta .sc-label { display: block; font-family: var(--font-mono); font-size: 9px; color: var(--muted); letter-spacing: .05em; margin-top: 2px; }
+    .sticky-cta .sc-btn { background: var(--accent); color: #fff; padding: 12px 20px; border-radius: 100px; font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+
+    @media (max-width:720px) {
+      .sticky-cta {
+        display: flex;
+        backdrop-filter: none; -webkit-backdrop-filter: none;
+        background: rgba(8, 8, 10, .97);
+      }
+      body.has-sticky footer { padding-bottom: 96px; }
+    }
+
+    /* =================== VIDEO SECTION =================== */
+    .video-container {
+      max-width: 900px; margin: 40px auto 0; position: relative;
+      border-radius: 20px; overflow: hidden;
+      border: 1px solid var(--line-2);
+      box-shadow: 0 0 80px rgba(59, 110, 245, 0.25), 0 30px 60px -20px rgba(0, 0, 0, 0.8);
+      background: #060608; width: 100%; display: flex; flex-direction: column;
+    }
+
+    .video-header {
+      height: 38px; background: #0d0e12;
+      border-bottom: 1px solid var(--line-2);
+      display: flex; align-items: center; padding: 0 16px;
+      position: relative; flex-shrink: 0;
+    }
+
+    .video-dots { display: flex; gap: 8px; }
+    .video-dot { width: 11px; height: 11px; border-radius: 50%; }
+    .video-dot.red { background: #ff5f56; }
+    .video-dot.yellow { background: #ffbd2e; }
+    .video-dot.green { background: #27c93f; }
+
+    .video-body { width: 100%; position: relative; aspect-ratio: 16 / 9; background: #000; }
+    .video-body video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .video-body iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+    .video-loader {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(circle at 50% 50%, #0c0d11 0%, #060608 75%);
+      z-index: 2; transition: opacity .5s ease; opacity: 1;
+    }
+    .video-loader.hide { opacity: 0; pointer-events: none; }
+    .video-loader-spinner {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 3px solid rgba(110, 155, 255, .18);
+      border-top-color: var(--accent-hi);
+      animation: video-loader-spin .85s linear infinite;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    @keyframes video-loader-spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      .video-loader-spinner { animation-duration: 1.6s; }
+    }
+
+    /* =================== VERTICAL PROOF VIDEO (library) =================== */
+    .video-frame-v {
+      width: min(360px, 78vw);
+      margin: 0 auto;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--line-2);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, .05), 0 30px 70px -20px rgba(0, 0, 0, .9), 0 0 70px rgba(59, 110, 245, .22);
+      background: #060608;
+    }
+    .video-frame-v .video-header {
+      height: 34px; background: #0d0e12;
+      border-bottom: 1px solid var(--line-2);
+      display: flex; align-items: center; padding: 0 14px;
+    }
+    .video-frame-v .video-body {
+      width: 100%; position: relative;
+      aspect-ratio: 1042 / 1662;
+      background: #000;
+    }
+    .video-frame-v .video-body video {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+
+    /* =================== HINDI (devanágari) =================== */
+    html[lang="hi"] .display,
+    html[lang="hi"] .fg-copy h2 {
+      font-weight: 700;
+      line-height: 1.18;
+      letter-spacing: -.01em;
+      text-transform: none;
+      font-size: clamp(30px, 4.4vw, 64px) !important;
+    }
+    html[lang="hi"] .display .blue,
+    html[lang="hi"] .fg-copy h2 .blue {
+      color: var(--accent-hi);
+      -webkit-text-stroke: 0;
+    }
+    html[lang="hi"] .pp-v {
+      font-weight: 700; text-transform: none;
+      font-size: clamp(13px, 2vw, 18px); line-height: 1.3;
+    }
+    html[lang="hi"] .sticky-cta .sc-price { font-weight: 700; font-size: 14px; text-transform: none; }
+    html[lang="hi"] .eyebrow { letter-spacing: .12em; }
+    html[lang="hi"] .quote { font-style: normal; }
+    html[lang="hi"] .quote .quote-line { white-space: normal; }
+    html[lang="hi"] .price-cta { text-transform: none; letter-spacing: 0; }
+    html[lang="hi"] .lead { line-height: 1.7; }
+
+    /* =================== MOBILE PERFORMANCE =================== */
+    @media (max-width: 720px) {
+      .hero-logo-glow::after { animation: none; opacity: .5; }
+
+      .hero-logo { filter: drop-shadow(0 0 18px rgba(110, 155, 255, .45)); }
+
+      .marquee { mask-image: none; -webkit-mask-image: none; }
+
+      .gain-meter-fill { transition: width .25s; }
+
+      .plugin-frame { transform: none !important; transition: none !important; will-change: auto !important; }
+
+      .plm-tl-clip { transition: opacity .25s, transform .3s; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .001s !important; transition-duration: .001s !important; }
+      .r, .r.in { opacity: 1 !important; transform: none !important; transition: none !important; }
+      .plugin-frame { transform: none !important; }
+      .mq-row { animation: none !important; }
+      .scene-bg, .scene-fg { transform: none !important; }
+    }
+
+    /* =====================================================================
+       EDITORIAL — tudo abaixo do hero
+       Sans (Degular Display bold, caixa alta) + serif itálica (Instrument
+       Serif) em linhas inteiras. Gelo (#d8faff) vem do gradiente do logo.
+       ===================================================================== */
+    :root {
+      --ice: #d8faff;
+      --steel: #8a8f9c;
+      --font-serif: 'Instrument Serif', 'Noto Sans Devanagari', Georgia, serif;
+    }
+
+    .ed {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .ed-sec {
+      position: relative;
+      padding: clamp(96px, 11vw, 168px) 0;
+      background: #000;
+    }
+
+    .ed-h {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(34px, 4.6vw, 72px);
+      line-height: .96;
+      letter-spacing: -.025em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .ed-h .fill { color: var(--ink); }
+
+    /* a segunda linha de todo título vira serif itálica */
+    .ed-h .blue {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: -.01em;
+      font-size: 1.14em;
+      line-height: 1;
+      color: var(--ice);
+      -webkit-text-stroke: 0;
+    }
+
+    .ed-lead {
+      margin-top: 28px;
+      max-width: 42ch;
+      font-family: var(--font);
+      font-size: clamp(16px, 1.2vw, 18px);
+      font-weight: 400;
+      line-height: 1.65;
+      color: var(--ink-2);
+    }
+
+    .ed-lead strong { color: #fff; font-weight: 700; }
+
+    /* ---------- capa: número vazado com vídeo ---------- */
+    .ed-cover { padding-top: clamp(64px, 8vw, 120px); }
+
+    .ed-knock {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    /* gradiente em parallax: uma faixa de cor bem mais alta que o número,
+       que desliza por dentro dele conforme a página rola (e um pouco com o mouse) */
+    .ed-knock-grad {
+      position: absolute;
+      left: -8%;
+      right: -8%;
+      top: 0;
+      height: 520%;
+      z-index: -1;
+      background: linear-gradient(172deg,
+        #1d2b6e 0%, #3b6ef5 12%, #8fd0ff 22%, #f2fbff 30%, #c9bcff 38%,
+        #7b5cf0 47%, #3a2a8c 54%, #2dd4bf 64%, #c8fbf1 72%, #ffffff 77%,
+        #9db6ff 85%, #3b6ef5 93%, #1d2b6e 100%);
+      transform: translate3d(calc(var(--px, 0) * 1%), calc(var(--py, .3) * -80.8%), 0);
+      will-change: transform;
+    }
+
+    .ed-knock-type {
+      position: relative;
+      background: #000;
+      color: #fff;
+      mix-blend-mode: multiply;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(120px, 26vw, 340px);
+      line-height: .82;
+      letter-spacing: -.055em;
+      text-align: center;
+      white-space: nowrap;
+      padding: .04em 0 .08em;
+    }
+
+    /* contador: o número final fica invisível segurando a largura,
+       e a contagem corre por cima, alinhada à direita, como um odômetro */
+    .ed-knock-num { position: relative; display: inline-block; }
+    .ed-knock-ghost { color: transparent; }
+    .ed-knock-count { position: absolute; top: 0; right: 0; }
+
+    .ed-knock-cap {
+      margin: 28px auto 0;
+      max-width: 22em;
+      text-align: center;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(22px, 2.4vw, 34px);
+      line-height: 1.15;
+      color: var(--ice);
+    }
+
+    /* ---------- biblioteca ---------- */
+    .ed-lib {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: clamp(40px, 6vw, 96px);
+      align-items: center;
+      margin-top: clamp(96px, 11vw, 160px);
+    }
+
+    .ed-lib-media {
+      margin: 0;
+      aspect-ratio: 1042 / 1662;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #07080a;
+      border: 1px solid rgba(255, 255, 255, .12);
+    }
+
+    .ed-lib-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .ed-lib-copy { padding-top: 6px; }
+
+    /* ---------- pasta de vidro com os arquivos das categorias ----------
+       Fechada: três folhas espiam pela boca da pasta. No hover, as 21 folhas
+       saem em leque (duas fileiras em arco), com escalonamento e mola. */
+    .fold-stage {
+      --k: 1;
+      position: relative;
+      height: 780px;
+      margin-top: 0;
+      user-select: none;
+    }
+
+    .fold {
+      position: absolute;
+      left: 50%;
+      bottom: 64px;
+      width: 360px;
+      height: 240px;
+      transform: translateX(-50%) scale(var(--k));
+      transform-origin: 50% 100%;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .fold-back {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      top: -26px;
+      bottom: 8px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #24262c 0%, #141519 100%);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
+    }
+
+    .fold-cards { position: absolute; z-index: 2; left: 50%; top: 0; width: 0; height: 0; }
+
+    .fold-front {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      clip-path: path('M 16 0 H 178 C 186 0 190 3 194 8 L 212 22 C 216 26 220 28 228 28 H 344 Q 360 28 360 44 V 224 Q 360 240 344 240 H 16 Q 0 240 0 224 V 16 Q 0 0 16 0 Z');
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .16) 0%, rgba(255, 255, 255, 0) 16%),
+        linear-gradient(180deg, rgba(74, 77, 90, .5) 0%, rgba(30, 31, 38, .78) 55%, rgba(12, 13, 17, .94) 100%);
+      -webkit-backdrop-filter: blur(14px) saturate(115%);
+      backdrop-filter: blur(14px) saturate(115%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 22px 20px;
+    }
+
+    .fold-label { font-family: var(--font-display); font-weight: 700; font-size: 17px; letter-spacing: -.01em; color: rgba(255, 255, 255, .9); }
+    .fold-count { margin-top: 2px; font-family: var(--font-serif); font-style: italic; font-size: 16px; color: var(--ice); }
+
+    /* folha */
+    .fc {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 2;
+      width: 128px;
+      height: 160px;
+      padding: 12px 12px 10px;
+      border-radius: 11px;
+      background: linear-gradient(180deg, #f7f8fb 0%, #e6e9f0 100%);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, .9) inset, 0 18px 30px -12px rgba(0, 0, 0, .7);
+      display: flex;
+      flex-direction: column;
+      transform: var(--t) translateY(var(--ly, 0px)) scale(var(--s, 1));
+      transform-origin: 50% 100%;
+      transition: transform .8s cubic-bezier(.22, 1.25, .36, 1), box-shadow .3s;
+      transition-delay: var(--d, 0s);
+      will-change: transform;
+    }
+
+    .fc-top { display: flex; align-items: center; justify-content: space-between; }
+    .fc-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c); }
+    .fc-ct {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 4px;
+      padding: 4px 10px 4px 9px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--c) 20%, #ffffff);
+      color: color-mix(in srgb, var(--c) 45%, #0b0c10);
+      font-family: var(--font);
+      font-size: 11px;
+    }
+
+    .fc-ct b { font-family: var(--font-display); font-weight: 700; font-size: 16px; letter-spacing: -.01em; }
+
+    .fc-name {
+      margin-top: 10px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 1.1;
+      letter-spacing: -.01em;
+      color: #0d0f15;
+    }
+
+    .fc-lines { margin-top: 10px; display: flex; flex-direction: column; gap: 5px; }
+    .fc-lines i { display: block; height: 4px; border-radius: 3px; background: #d3d7e0; }
+    .fc-lines i:nth-child(2) { width: 78%; }
+    .fc-lines i:nth-child(3) { width: 56%; }
+
+    .fc-wave { margin-top: auto; height: 22px; display: flex; align-items: center; gap: 2px; }
+    .fc-wave i { flex: 1; border-radius: 2px; background: var(--c); opacity: .9; }
+
+    /* no hover a folha vem pra frente de todas, sobe um pouco e cresce */
+    .fold-stage.open .fc:hover {
+      --s: 1.1;
+      --ly: -14px;
+      z-index: 60 !important;
+      transition-delay: 0s;
+      transition-duration: .35s;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, .9) inset, 0 26px 40px -14px rgba(0, 0, 0, .8), 0 0 0 2px var(--c);
+    }
+
+    .fold-intro {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 16%;
+      text-align: center;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(30px, 3.8vw, 56px);
+      line-height: 1.08;
+      color: var(--ice);
+      transition: opacity .45s, transform .6s cubic-bezier(.2, .8, .2, 1), filter .45s;
+    }
+
+    .fold-stage.open .fold-intro { opacity: 0; transform: translateY(-16px); filter: blur(8px); }
+
+    .fold-hint {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 16px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--steel);
+      transition: opacity .4s;
+    }
+
+    .fold-stage.open .fold-hint { opacity: 0; }
+    .hint-touch { display: none; }
+
+    @media (hover: none) {
+      .hint-mouse { display: none; }
+      .hint-touch { display: inline; }
+    }
+
+    /* celular: as folhas viram etiquetas horizontais em duas colunas */
+    @media (max-width: 640px) {
+      /* celular: frase no topo, pasta logo abaixo e, no toque, os arquivos
+         descem da pasta formando a lista. A área cresce pra baixo, então a
+         pasta e o texto não saem do lugar */
+      .fold-stage { --k: .72; height: 362px; }
+      .fold-stage.tall { height: var(--tallh, 1060px); }
+      .fold { top: 154px; bottom: auto; transform-origin: 50% 0; }
+      /* ao abrir, só a pasta (fundo + vidro) desliza até o pé da área;
+         os arquivos ficam onde a pasta estava, como se tivessem caído dela */
+      .fold-back, .fold-front { transition: transform .9s cubic-bezier(.65, 0, .2, 1); }
+      .fold-stage.open .fold-back,
+      .fold-stage.open .fold-front { transform: translate3d(0, var(--drop, 988px), 0); }
+      .fold-front {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, .14) 0%, rgba(255, 255, 255, 0) 16%),
+          linear-gradient(180deg, #3b3d47 0%, #1d1e24 55%, #0e0f13 100%);
+      }
+      /* frase em blocos equilibrados (sem palavra sozinha numa linha) */
+      .fold-intro {
+        top: 0;
+        left: 50%;
+        right: auto;
+        width: min(100%, 17em);
+        transform: translateX(-50%);
+        font-size: clamp(23px, 6.6vw, 28px);
+        line-height: 1.12;
+        text-wrap: balance;
+      }
+      .fold-intro br { display: none; }
+      .fold-stage.open .fold-intro { opacity: 1; transform: translateX(-50%); filter: none; }
+      .fold-hint { top: 344px; bottom: auto; }
+      .hint-mouse { display: none; }
+      .hint-touch { display: inline; }
+      .fc {
+        transition-duration: .6s;
+        transition-timing-function: cubic-bezier(.2, .9, .25, 1.03);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, .9) inset, 0 6px 12px -6px rgba(0, 0, 0, .55);
+        backface-visibility: hidden;
+        contain: layout paint;
+      }
+      .fold-stage.open .fc:hover { box-shadow: 0 1px 0 rgba(255, 255, 255, .9) inset, 0 0 0 2px var(--c); }
+      .fc {
+        width: 220px;
+        height: 76px;
+        padding: 0 12px 0 16px;
+        border-radius: 16px;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 9px;
+      }
+      .fc-top { display: contents; }
+      .fc-dot { order: 1; width: 11px; height: 11px; }
+      .fc-name {
+        order: 2;
+        margin: 0;
+        min-width: 0;
+        font-size: 18px;
+        letter-spacing: -.02em;
+        line-height: 1.05;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .fc-ct { order: 3; padding: 4px 9px; }
+      .fc-ct b { font-size: 19px; }
+      .fc-ctl { display: none; }
+      .fc-lines, .fc-wave { display: none; }
+    }
+
+    /* ---------- capítulos (pré-escuta, inserção, ganho) ---------- */
+    .ed-ch-grid {
+      display: grid;
+      grid-template-columns: 5fr 6fr;
+      gap: clamp(40px, 7vw, 120px);
+      align-items: center;
+    }
+
+    .ed-ch-grid.flip { grid-template-columns: 6fr 5fr; }
+    .ed-ch-grid.flip .ed-ch-copy { order: 2; }
+
+    .ed-ch-visual { display: flex; justify-content: center; }
+
+    .ed .pl-mini {
+      width: min(480px, 100%);
+      border-radius: 16px;
+      border-color: rgba(255, 255, 255, .12);
+      background: #060607;
+      box-shadow: 0 50px 100px -40px rgba(0, 0, 0, .95);
+    }
+
+    .ed .gain-demo { width: min(440px, 100%); align-items: stretch; gap: 22px; }
+    .ed .gain-pills-big { gap: 10px; }
+
+    .ed .gain-big {
+      flex: 1;
+      text-align: center;
+      padding: 26px 0;
+      border-radius: 14px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(18px, 1.9vw, 24px);
+      letter-spacing: -.01em;
+    }
+
+    .ed .gain-meter { width: 100%; height: 4px; }
+
+    /* ---------- citação ---------- */
+    .ed-quote { padding: clamp(110px, 14vw, 220px) 0; }
+
+    .ed-quote .quote {
+      max-width: 15em;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(32px, 4.8vw, 76px);
+      line-height: 1.06;
+      letter-spacing: -.012em;
+      text-align: left;
+      color: var(--ink);
+    }
+
+    .ed-quote .quote .quote-line { display: block; white-space: normal; }
+
+    .ed-quote .quote .accent {
+      padding-left: clamp(36px, 10vw, 200px);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--ice);
+    }
+
+    /* evita que o itálico seja cortado pela máscara palavra-a-palavra */
+    .ed-quote .swu-word { padding-right: .08em; margin-right: -.08em; }
+
+    /* ---------- arrastar e soltar ---------- */
+    #dragMock .plm-cursor { transition: transform .75s cubic-bezier(.5, 0, .2, 1), opacity .3s; }
+
+    .drag-ghost {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 9;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px 6px 7px;
+      border-radius: 10px;
+      --c: #2dd4bf;
+      background: color-mix(in srgb, var(--c) 16%, #0c0c0e);
+      border: 1px solid color-mix(in srgb, var(--c) 65%, transparent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, .6);
+      transition: transform .75s cubic-bezier(.5, 0, .2, 1), opacity .25s;
+    }
+
+    .dg-bars { display: flex; align-items: flex-end; gap: 2px; height: 14px; }
+    .dg-bars i { width: 2.5px; border-radius: 2px; background: var(--c); }
+    .dg-bars i:nth-child(1) { height: 40%; }
+    .dg-bars i:nth-child(2) { height: 75%; }
+    .dg-bars i:nth-child(3) { height: 55%; }
+    .dg-bars i:nth-child(4) { height: 90%; }
+
+    .dm-tracks { display: flex; flex-direction: column; gap: 5px; }
+    .dm-row { display: grid; grid-template-columns: 22px 1fr; align-items: center; }
+    .dm-lab { font-family: var(--font-mono); font-size: 8.5px; color: var(--muted); }
+
+    .dm-track {
+      position: relative;
+      height: 30px;
+      border-radius: 7px;
+      background: repeating-linear-gradient(90deg, rgba(255, 255, 255, .03) 0 20px, transparent 20px 22px);
+      transition: background .2s, box-shadow .2s;
+    }
+
+    .dm-track.over { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .28); }
+
+    .dm-clip {
+      position: absolute;
+      top: 3px;
+      bottom: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      padding: 0 4px;
+      border-radius: 5px;
+      background: color-mix(in srgb, var(--c) 34%, #111216);
+      box-shadow: inset 0 2px 0 var(--c);
+    }
+
+    .dm-clip i { width: 2px; border-radius: 1px; background: var(--c); opacity: .85; }
+
+    .dm-drop { opacity: 0; transform: translateY(-6px); transition: opacity .3s, transform .45s cubic-bezier(.2, 1.4, .4, 1); }
+    .dm-drop.in { opacity: 1; transform: none; }
+
+    /* ---------- oferta ---------- */
+    .ed-price-grid {
+      display: grid;
+      grid-template-columns: 6fr 5fr;
+      gap: clamp(40px, 6vw, 96px);
+      align-items: start;
+    }
+
+    .ed-terms { margin-top: 48px; border-top: 1px solid rgba(255, 255, 255, .16); }
+
+    .ed-terms > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .ed-terms dt { font-size: 15px; color: var(--steel); }
+
+    .ed-terms dd {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(26px, 2.6vw, 38px);
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .ed-note { margin-top: 18px; font-size: 13px; color: var(--steel); }
+
+    .ed-card {
+      position: sticky;
+      top: 104px;
+      padding: clamp(26px, 3vw, 40px);
+      border-radius: 24px;
+      background: linear-gradient(180deg, #0b0d13 0%, #040405 100%);
+      border: 1px solid rgba(255, 255, 255, .12);
+      box-shadow: inset 0 1px 0 rgba(216, 250, 255, .08);
+    }
+
+    .ed-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+      color: var(--ink-2);
+    }
+
+    .ed-card-top .shimmer-text {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 24px;
+      letter-spacing: -.01em;
+    }
+
+    .ed-feats { list-style: none; margin: 10px 0 30px; }
+
+    .ed-feats li {
+      position: relative;
+      padding: 13px 0 13px 24px;
+      border-bottom: 1px solid var(--line);
+      font-size: 15px;
+      line-height: 1.45;
+      color: var(--ink-2);
+    }
+
+    .ed-feats li:last-child { border-bottom: 0; }
+
+    .ed-feats li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 22px;
+      width: 11px;
+      height: 1.5px;
+      background: var(--accent-hi);
+    }
+
+    .ed-feats strong { color: #fff; font-weight: 700; }
+
+    .ed-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 19px 24px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: #000;
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+    }
+
+    .ed-cta:hover { background: var(--ice); transform: translateY(-2px); }
+    .ed-cta:focus-visible { outline: 2px solid var(--accent-hi); outline-offset: 3px; }
+
+    .ed-card .qr-card { margin-top: 16px; border-radius: 16px; }
+    .ed-card .qr-card-text .qr-k { font-family: var(--font); font-size: 13px; letter-spacing: 0; text-transform: none; }
+    .ed-card .guarantee { border-radius: 16px; }
+
+    /* ---------- FAQ ---------- */
+    .ed-faq-grid {
+      display: grid;
+      grid-template-columns: 4fr 7fr;
+      gap: clamp(40px, 6vw, 96px);
+      align-items: start;
+    }
+
+    .ed-faq-title { position: sticky; top: 104px; }
+    .ed-faq .faq-wrap { max-width: none; margin: 0; }
+    .ed-faq .faq-item { border-top-color: rgba(255, 255, 255, .14); }
+    .ed-faq .faq-item:last-child { border-bottom-color: rgba(255, 255, 255, .14); }
+
+    .ed-faq .faq-q {
+      padding: 26px 0;
+      font-family: var(--font);
+      font-weight: 400;
+      font-size: clamp(17px, 1.5vw, 21px);
+    }
+
+    .ed-faq .faq-q .plus { font-family: var(--font-serif); font-size: 32px; color: var(--ice); }
+    .ed-faq .faq-a { font-size: 16px; max-width: 58ch; }
+
+    /* ---------- rodapé ---------- */
+    footer.ed-foot {
+      padding: clamp(80px, 10vw, 140px) 0 48px;
+      border-top: 1px solid var(--line);
+      background: #000;
+    }
+
+    .ed-foot-logo { width: min(640px, 88vw); height: auto; margin-left: -2%; }
+
+    .ed-foot-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 20px 40px;
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .ed-foot-line { font-family: var(--font-serif); font-style: italic; font-size: 24px; color: var(--ink); }
+    footer.ed-foot .foot-links a { font-size: 14px; }
+    footer.ed-foot .foot-credit { font-family: var(--font); font-size: 13px; }
+
+    /* ---------- responsivo ---------- */
+    @media (max-width: 880px) {
+      .ed { padding: 0 22px; }
+
+      .ed-lib,
+      .ed-ch-grid,
+      .ed-ch-grid.flip,
+      .ed-price-grid,
+      .ed-faq-grid { grid-template-columns: 1fr; }
+
+      .ed-ch-grid.flip .ed-ch-copy { order: 0; }
+      .ed-lib-media { order: 2; width: min(360px, 100%); justify-self: center; }
+      .ed-card, .ed-faq-title { position: static; }
+      .ed-knock-type { font-size: 30vw; }
+    }
+
+    @media (max-width: 560px) {
+      .ed-quote .quote .accent { padding-left: 0; }
+    }
+
+    /* ---------- hindi ---------- */
+    html[lang="hi"] .ed-h {
+      text-transform: none;
+      line-height: 1.2;
+      letter-spacing: 0;
+      font-size: clamp(28px, 3.8vw, 56px);
+    }
+
+    html[lang="hi"] .ed-h .blue,
+    html[lang="hi"] .ed-knock-cap,
+    html[lang="hi"] .ed-quote .quote,
+    html[lang="hi"] .ed-terms dd,
+    html[lang="hi"] .ed-foot-line { font-style: normal; font-size: .9em; }
+
+    /* ---------- rolagem suave (Lenis) ---------- */
+    html.lenis, html.lenis body { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto !important; }
+    .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+    .lenis.lenis-stopped { overflow: hidden; }
+
+    /* seletor de idioma sempre no canto direito; o botão Comprar do menu
+       (que só aparece depois de rolar) entra à esquerda dele */
+    .nav-right .lang { order: 2; }
+    .nav-right .nav-cta { order: 1; }
+
+    /* hero no celular: avatares em cima, frase embaixo, tudo centralizado */
+    @media (max-width: 520px) {
+      .hero-content .proof-bar { flex-direction: column; gap: 8px; }
+      .hero-content .proof-bar-text { white-space: nowrap; text-align: center; }
+    }
+
+    /* ---------- sem glows ---------- */
+    .nav img,
+    .hero-logo,
+    .pl-logo,
+    .pb-logo { filter: none !important; }
+
+    .hero-logo-glow { display: none !important; }
+
+    .hero-cta,
+    .hero-cta:hover { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18) !important; }
+
+    .nav-cta:hover,
+    .price-cta:hover,
+    .pop-btn:active,
+    .plm-key.lit,
+    .gain-big.on,
+    .video-loader-spinner,
+    .plm-tl-playhead { box-shadow: none !important; }
+  </style>
+</head>
+
+<body>
+
+  <div class="progress" id="progress"></div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <img src="/assets/logo.png" alt="dropSFX" />
+    <div class="nav-right">
+      <!-- ===== SELETOR DE IDIOMA ===== -->
+      <div class="lang" id="langSwitch">
+        <button class="lang-btn" id="langBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Idioma / Language">
+          <svg class="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20a15.3 15.3 0 010-20z"/></svg>
+          <span class="lang-label" id="langCurrent">PT</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="lang-menu" id="langMenu" role="menu">
+          <button class="lang-opt" type="button" data-lang="pt" role="menuitem"><span class="flag">🇧🇷</span> Português <span class="code">PT-BR</span></button>
+          <button class="lang-opt" type="button" data-lang="en" role="menuitem"><span class="flag">🇺🇸</span> English <span class="code">EN</span></button>
+          <button class="lang-opt" type="button" data-lang="es" role="menuitem"><span class="flag">🇪🇸</span> Español <span class="code">ES</span></button>
+          <button class="lang-opt" type="button" data-lang="hi" role="menuitem"><span class="flag">🇮🇳</span> हिन्दी <span class="code">HI</span></button>
+        </div>
+      </div>
+      <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=nav&utm_campaign=dropsfx"
+        class="nav-cta js-buy-cta" data-position="nav" data-i18n="nav.cta"
+        target="_blank" rel="noopener">Comprar agora</a>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <section class="scene" id="hero">
+    <div class="hero-bg-video">
+      <div class="video-loader" id="videoLoader">
+        <div class="video-loader-spinner"></div>
+      </div>
+      <video id="heroVideo" autoplay loop muted playsinline preload="auto">
+        <source src="/assets/hero-video-v2-otimizado.mp4" type="video/mp4">
+      </video>
+      <div class="hero-bg-overlay"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-badge" aria-label="Premiere Pro, After Effects e DaVinci Resolve">
+        <span class="app-ic pr" title="Adobe Premiere Pro">Pr</span>
+        <span class="app-ic ae" title="Adobe After Effects">Ae</span>
+        <span class="app-ic dv" title="DaVinci Resolve"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#14161a"/><path fill="#e9ecf5" fill-rule="evenodd" d="M17.621 0 5.977.004c-1.37 0-2.756.345-3.762 1.11a4.925 4.925 0 0 0-1.61 2.003C.233 3.93 0 5.02 0 5.951l.012 12.2c.002 1.604.479 3.057 1.461 4.112.984 1.056 2.462 1.683 4.331 1.691L16.856 24c1.26.005 3.095-.036 4.303-.714 1.075-.605 2.025-1.556 2.497-2.984.278-.84.345-2.084.344-3.147l-.021-11.13c-.002-.888-.15-2.023-.547-2.934-.425-.976-1.181-1.815-2.322-2.425C20.353.26 19.123 0 17.622 0zM17.621 0.93c1.378 0 2.538.295 3.04.565.977.523 1.544 1.166 1.889 1.96.315.721.47 1.793.473 2.572l.018 11.13c.002 1.013-.097 2.257-.298 2.86-.396 1.202-1.146 1.946-2.063 2.462-.814.457-2.612.593-3.82.588l-11.05-.044c-1.657-.007-2.832-.534-3.626-1.386-.792-.851-1.212-2.06-1.212-3.485L.999 5.95c0-.829.196-1.827.474-2.437.345-.757.75-1.207 1.365-1.674C3.585 1.27 4.868.97 6.08.97z"/><path fill="#f2554a" d="M11.961 4.353c-1.976.089-3.204 1.658-3.214 3.29.019 1.443 1.635 3.481 2.884 4.53.12.099.154.109.33.18.062.025.198-.047.327-.135.36-.245.993-.947 1.648-1.738a7.67 7.67 0 0 0 1.031-1.683c.409-.89.261-1.599.235-1.888a3.983 3.983 0 0 0-.99-1.692 3.36 3.36 0 0 0-2.251-.864z"/><path fill="#4cc38a" d="M16.133 12.275a10.185 10.185 0 0 0-3.244.61c-.15.058-.26.1-.374.17-.057.036-.11.135-.105.292.017.433.29 1.278.624 2.27.384 1.135 1.066 2.27 1.844 2.74a3.23 3.23 0 0 0 2.53.342c.832-.243 1.595-.868 1.962-1.546.986-1.818.19-3.548-1.121-4.417-.447-.296-1.133-.445-1.89-.46-.074 0-.15-.002-.226-.001z"/><path fill="#3b9bf5" d="M7.701 12.313a6.201 6.201 0 0 0-.752.047c-.596.078-.932.273-1.29.51a3.177 3.177 0 0 0-1.365 1.979c-.075.552-.086 1.053.033 1.507.433 1.389 1.326 2.222 2.847 2.452.636.028 1.37-.063 1.99-.45 1.269-.782 2.08-3.17 2.412-4.742.053-.176.035-.357-.013-.42-.005-.067-.044-.113-.19-.183-.398-.192-1.32-.417-2.375-.6a7.68 7.68 0 0 0-1.297-.1z"/></svg></span>
+      </div>
+      <img src="/assets/logo.png" alt="dropSFX" class="hero-logo" />
+
+      <p class="hero-tagline" data-i18n="hero.tagline">O melhor plugin de SFX do mercado.</p>
+      <div class="proof-bar">
+        <div class="proof-avatars">
+          <span class="proof-av" style="--c:#3b6ef5">JP</span>
+          <span class="proof-av" style="--c:#2dd4bf">MC</span>
+          <span class="proof-av" style="--c:#a78bfa">RS</span>
+          <span class="proof-av" style="--c:#fb923c">TF</span>
+          <span class="proof-av" style="--c:#f472b6">GV</span>
+          <span class="proof-av proof-av-more">+</span>
+        </div>
+        <span class="proof-bar-text" data-i18n-html="proof.bar">
+          <strong>+1.000 pessoas</strong> já adquiriram o dropSFX
+        </span>
+      </div>
+      <div class="hero-cta-row">
+        <div class="hero-buttons">
+          <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=hero&utm_campaign=dropsfx"
+            class="hero-cta js-buy-cta pop-btn" data-position="hero"
+            target="_blank" rel="noopener"><span data-i18n="hero.cta">Comprar</span> <span class="arr">→</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-meta" data-i18n-html="hero.meta"><span>Pagamento <b>único</b></span><span>Acesso vitalício</span><span>Garantia de 7 dias</span></div>
+  </section>
+
+  <!-- ================================================================
+       EDITORIAL — tudo abaixo do hero
+       ================================================================ -->
+
+  <!-- ============ BIBLIOTECA ============ -->
+  <section class="ed-sec ed-cover" id="library">
+    <div class="ed">
+      <div class="fold-stage" id="edFolder">
+        <p class="fold-intro" data-i18n-html="ed.foldintro">1.463 sons prontos pra timeline, <br>organizados em 21 categorias.</p>
+        <div class="fold" role="button" tabindex="0" aria-label="Abrir a pasta de categorias">
+          <div class="fold-back"></div>
+          <div class="fold-cards" id="edIndex"></div>
+          <div class="fold-front">
+            <span class="fold-label" data-i18n="mock.library">Biblioteca dropSFX</span>
+            <span class="fold-count"><span class="fold-num">1.463</span> <span data-i18n="mock.sounds">sons</span></span>
+          </div>
+        </div>
+        <p class="fold-hint"><span class="hint-mouse" data-i18n="ed.hintmouse">Passe o mouse na pasta</span><span class="hint-touch" data-i18n="ed.hinttouch">Toque na pasta para abrir</span></p>
+      </div>
+    </div>
+
+    <div class="ed ed-lib">
+      <figure class="ed-lib-media">
+        <video autoplay loop muted playsinline preload="metadata">
+          <source src="/assets/library-proof.mp4" type="video/mp4">
+        </video>
+      </figure>
+      <div class="ed-lib-copy">
+        <h2 class="ed-h" data-i18n-html="ed.libtitle">Uma biblioteca<br><span class="blue">feita para editar.</span></h2>
+        <p class="ed-lead" data-i18n="library.lead">Selecionados pra edição de verdade: de whooshes e impactos a glitches, risers e foley. Cada categoria com cor própria, pra você bater o olho e achar.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============ I · PRÉ-ESCUTA ============ -->
+  <section class="ed-sec ed-ch" id="hover">
+    <div class="ed ed-ch-grid">
+      <div class="ed-ch-copy">
+        <h2 class="ed-h" data-i18n-html="hover.title">Passou o mouse,<br><span class="blue">já tá tocando.</span></h2>
+        <p class="ed-lead" data-i18n-html="hover.lead">Esqueça abrir cada arquivo pra saber o que é. <strong>Só passe o cursor sobre o som</strong> e ele toca na hora, com a forma de onda viva. Varra dezenas de efeitos em segundos.</p>
+      </div>
+      <div class="ed-ch-visual">
+        <div class="pl-mini" id="hoverMock">
+          <div class="plm-cursor" id="hoverCursor"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 3.2l13.6 6.8c.6.3.5 1.2-.1 1.4l-5.3 1.7c-.2.1-.4.2-.5.4l-2.6 5c-.3.6-1.2.5-1.4-.1L3.2 4.6c-.2-.6.4-1.2 1-1z"/></svg></div>
+          <div class="plm-head">
+            <div class="plm-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg> Whooshes</div>
+            <div class="plm-count"><span>240</span> <span data-i18n="mock.sounds">sons</span></div>
+          </div>
+          <div class="plm-list">
+            <div class="fitem" data-i="0">
+              <div class="fitem-bars" style="border-color:rgba(45,212,191,.35);background:rgba(45,212,191,.08)"><span style="background:#2dd4bf;height:40%"></span><span style="background:#2dd4bf;height:70%"></span><span style="background:#2dd4bf;height:50%"></span><span style="background:#2dd4bf;height:85%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Whoosh Fast 02</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(45,212,191,.14);color:#2dd4bf">whoosh</span> 0:01.4</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+              <div class="fitem-prog"><div class="fitem-prog-fill"></div></div>
+            </div>
+            <div class="fitem" data-i="1">
+              <div class="fitem-bars" style="border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.08)"><span style="background:#f87171;height:60%"></span><span style="background:#f87171;height:90%"></span><span style="background:#f87171;height:45%"></span><span style="background:#f87171;height:75%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Impact Heavy 01</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(248,113,113,.14);color:#f87171">impact</span> 0:02.1</div></div>
+              <span class="fitem-star on"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+              <div class="fitem-prog"><div class="fitem-prog-fill"></div></div>
+            </div>
+            <div class="fitem" data-i="2">
+              <div class="fitem-bars" style="border-color:rgba(251,146,60,.35);background:rgba(251,146,60,.08)"><span style="background:#fb923c;height:35%"></span><span style="background:#fb923c;height:55%"></span><span style="background:#fb923c;height:75%"></span><span style="background:#fb923c;height:90%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Riser Tension 03</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(251,146,60,.14);color:#fb923c">riser</span> 0:03.8</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+              <div class="fitem-prog"><div class="fitem-prog-fill"></div></div>
+            </div>
+            <div class="fitem" data-i="3">
+              <div class="fitem-bars" style="border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.08)"><span style="background:#a78bfa;height:55%"></span><span style="background:#a78bfa;height:80%"></span><span style="background:#a78bfa;height:50%"></span><span style="background:#a78bfa;height:70%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Cinematic Drop 05</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(167,139,250,.14);color:#a78bfa">drop</span> 0:04.2</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+              <div class="fitem-prog"><div class="fitem-prog-fill"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ II · INSERÇÃO ============ -->
+  <section class="ed-sec ed-ch" id="twoclick">
+    <div class="ed ed-ch-grid flip">
+      <div class="ed-ch-copy">
+        <h2 class="ed-h" data-i18n-html="twoclick.title">Dois cliques.<br><span class="blue">Tá na timeline.</span></h2>
+        <p class="ed-lead" data-i18n-html="twoclick.lead">Achou o som? <strong>Duplo-clique</strong> e ele cai exatamente no playhead do Premiere, na trilha que você escolheu. Sem arrastar arquivo, sem exportar, sem trocar de janela.</p>
+      </div>
+      <div class="ed-ch-visual">
+        <div class="pl-mini" id="clickMock">
+          <div class="plm-cursor" id="clickCursor"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 3.2l13.6 6.8c.6.3.5 1.2-.1 1.4l-5.3 1.7c-.2.1-.4.2-.5.4l-2.6 5c-.3.6-1.2.5-1.4-.1L3.2 4.6c-.2-.6.4-1.2 1-1z"/></svg></div>
+          <div class="plm-head">
+            <div class="plm-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg> Whooshes</div>
+            <div class="plm-count"><span>240</span> <span data-i18n="mock.sounds">sons</span></div>
+          </div>
+          <div class="plm-list">
+            <div class="fitem" id="clickItem" data-i="0">
+              <div class="fitem-bars" style="border-color:rgba(45,212,191,.35);background:rgba(45,212,191,.08)"><span style="background:#2dd4bf;height:40%"></span><span style="background:#2dd4bf;height:70%"></span><span style="background:#2dd4bf;height:50%"></span><span style="background:#2dd4bf;height:85%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Whoosh Fast 02</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(45,212,191,.14);color:#2dd4bf">whoosh</span> 0:01.4</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+            </div>
+            <div class="fitem" data-i="1">
+              <div class="fitem-bars" style="border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.08)"><span style="background:#f87171;height:60%"></span><span style="background:#f87171;height:90%"></span><span style="background:#f87171;height:45%"></span><span style="background:#f87171;height:75%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Impact Heavy 01</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(248,113,113,.14);color:#f87171">impact</span> 0:02.1</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+            </div>
+          </div>
+          <div class="plm-timeline">
+            <div class="plm-tl-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg> Timeline · A1</div>
+            <div class="plm-tl-track">
+              <div class="plm-tl-playhead"></div>
+              <div class="plm-tl-clip" id="clickClip"><i style="height:30%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:70%"></i><i style="height:40%"></i><i style="height:65%"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ARRASTAR E SOLTAR ============ -->
+  <section class="ed-sec ed-ch" id="drag">
+    <div class="ed ed-ch-grid">
+      <div class="ed-ch-copy">
+        <h2 class="ed-h" data-i18n-html="drag.title">Arrastou, soltou.<br><span class="blue">Já chega colorido.</span></h2>
+        <p class="ed-lead" data-i18n-html="drag.lead">Prefere arrastar? <strong>Puxe o som do painel direto pra timeline</strong>. Ao soltar, o clipe já entra com a cor da categoria, e sua trilha de áudio fica organizada sem você mexer em nada.</p>
+      </div>
+      <div class="ed-ch-visual">
+        <div class="pl-mini" id="dragMock">
+          <div class="plm-cursor"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 3.2l13.6 6.8c.6.3.5 1.2-.1 1.4l-5.3 1.7c-.2.1-.4.2-.5.4l-2.6 5c-.3.6-1.2.5-1.4-.1L3.2 4.6c-.2-.6.4-1.2 1-1z"/></svg></div>
+          <div class="drag-ghost" aria-hidden="true">
+            <span class="dg-bars"><i></i><i></i><i></i><i></i></span>
+            <span class="dg-name">Whoosh Fast 02</span>
+          </div>
+          <div class="plm-head">
+            <div class="plm-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg> <span data-i18n="mock.favorites">Favoritos</span></div>
+            <div class="plm-count"><span>3</span> <span data-i18n="mock.sounds">sons</span></div>
+          </div>
+          <div class="plm-list">
+            <div class="fitem" data-drag="0" data-name="Whoosh Fast 02" data-color="#2dd4bf">
+              <div class="fitem-bars" style="border-color:rgba(45,212,191,.35);background:rgba(45,212,191,.08)"><span style="background:#2dd4bf;height:40%"></span><span style="background:#2dd4bf;height:70%"></span><span style="background:#2dd4bf;height:50%"></span><span style="background:#2dd4bf;height:85%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Whoosh Fast 02</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(45,212,191,.14);color:#2dd4bf">whoosh</span> 0:01.4</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+            </div>
+            <div class="fitem" data-drag="1" data-name="Riser Tension 03" data-color="#fb923c">
+              <div class="fitem-bars" style="border-color:rgba(251,146,60,.35);background:rgba(251,146,60,.08)"><span style="background:#fb923c;height:40%"></span><span style="background:#fb923c;height:70%"></span><span style="background:#fb923c;height:50%"></span><span style="background:#fb923c;height:85%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Riser Tension 03</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(251,146,60,.14);color:#fb923c">riser</span> 0:03.8</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+            </div>
+            <div class="fitem" data-drag="2" data-name="Cinematic Drop 05" data-color="#a78bfa">
+              <div class="fitem-bars" style="border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.08)"><span style="background:#a78bfa;height:40%"></span><span style="background:#a78bfa;height:70%"></span><span style="background:#a78bfa;height:50%"></span><span style="background:#a78bfa;height:85%"></span></div>
+              <div class="fitem-info"><div class="fitem-name">Cinematic Drop 05</div><div class="fitem-meta"><span class="fitem-tag" style="background:rgba(167,139,250,.14);color:#a78bfa">drop</span> 0:04.2</div></div>
+              <span class="fitem-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.6 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+            </div>
+          </div>
+          <div class="plm-timeline">
+            <div class="plm-tl-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg> Timeline</div>
+            <div class="dm-tracks">
+              <div class="dm-row"><span class="dm-lab">A1</span><div class="dm-track">
+                <div class="dm-clip dm-drop" data-drop="0" style="--c:#2dd4bf;left:4%;width:24%"><i style="height:30%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:70%"></i><i style="height:40%"></i><i style="height:65%"></i><i style="height:50%"></i><i style="height:75%"></i><i style="height:35%"></i><i style="height:60%"></i></div>
+                <div class="dm-clip dm-drop" data-drop="2" style="--c:#a78bfa;left:64%;width:16%"><i style="height:30%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:70%"></i><i style="height:40%"></i><i style="height:65%"></i></div>
+              </div></div>
+              <div class="dm-row"><span class="dm-lab">A2</span><div class="dm-track">
+                <div class="dm-clip dm-drop" data-drop="1" style="--c:#fb923c;left:26%;width:34%"><i style="height:30%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:70%"></i><i style="height:40%"></i><i style="height:65%"></i><i style="height:50%"></i><i style="height:75%"></i><i style="height:35%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:70%"></i></div>
+              </div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ III · GANHO ============ -->
+  <section class="ed-sec ed-ch" id="gain">
+    <div class="ed ed-ch-grid flip">
+      <div class="ed-ch-copy">
+        <h2 class="ed-h" data-i18n-html="gain.title"><span class="fill">O ganho certo,</span><br><span class="blue">antes de inserir.</span></h2>
+        <p class="ed-lead" data-i18n-html="gain.lead">Whoosh sempre alto demais? Riser baixo? Escolha <strong>-12, 0 ou +6 dB</strong> e o som já entra na timeline no volume certo. Adeus, abrir o mixer pra cada clipe.</p>
+      </div>
+      <div class="ed-ch-visual">
+        <div class="gain-demo">
+          <div class="gain-pills-big">
+            <div class="gain-big on" id="g-12">-12 dB</div>
+            <div class="gain-big" id="g-0">0 dB</div>
+            <div class="gain-big" id="g-6">+6 dB</div>
+          </div>
+          <div class="gain-meter"><div class="gain-meter-fill" id="gainFill"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OFERTA ============ -->
+  <section class="ed-sec ed-price" id="comprar">
+    <div class="ed ed-price-grid">
+      <div class="ed-price-copy">
+        <h2 class="ed-h" data-i18n-html="pricing.title"><span class="fill">Pague uma vez.</span><br><span class="blue">Use pra sempre.</span></h2>
+        <p class="ed-lead" data-i18n="pricing.desc">Biblioteca completa de efeitos sonoros profissionais e o painel nativo pro Premiere, pra usar quantas vezes quiser.</p>
+        <dl class="ed-terms">
+          <div><dt data-i18n="pricing.pay">Pagamento</dt><dd data-i18n="pricing.payv">Único</dd></div>
+          <div><dt data-i18n="pricing.access">Acesso</dt><dd data-i18n="pricing.accessv">Vitalício</dd></div>
+          <div><dt data-i18n="pricing.warranty">Garantia</dt><dd data-i18n="pricing.warrantyv">7 dias</dd></div>
+        </dl>
+        <p class="ed-note" data-i18n="pricing.once">Sem mensalidade, sem renovação · condição atual na página de checkout</p>
+      </div>
+
+      <div class="ed-card">
+        <div class="ed-card-top">
+          <span data-i18n="pricing.ribbon">Oferta de lançamento</span>
+          <span class="shimmer-text" data-i18n="pricing.off">63% OFF</span>
+        </div>
+        <ul class="ed-feats">
+          <li data-i18n-html="pricing.f1"><strong>1.463 efeitos sonoros</strong> profissionais</li>
+          <li data-i18n-html="pricing.f2">Painel <strong>nativo</strong> pro Adobe Premiere Pro</li>
+          <li data-i18n-html="pricing.f3">Pré-escuta no hover, <strong>2 cliques</strong> e atalhos</li>
+          <li data-i18n-html="pricing.f4">Controle de <strong>ganho na inserção</strong></li>
+          <li data-i18n-html="pricing.f5">Pastas próprias + importe seus áudios</li>
+          <li data-i18n-html="pricing.f6">Licença pra <strong>até 2 máquinas</strong></li>
+          <li data-i18n-html="pricing.f7"><strong>Vitalício</strong> · 100% royalty-free</li>
+        </ul>
+        <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=pricing&utm_campaign=dropsfx"
+          class="ed-cta js-buy-cta pop-btn" data-position="pricing"
+          target="_blank" rel="noopener"><span data-i18n="pricing.cta">Ver oferta e garantir acesso</span></a>
+          <div class="qr-card">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCAQAAAABUY/ToAAAEAElEQVR4nO2dT4rjOhCHv3oWzNKGHKCPotxgjtS8I/UNrKPMAR7IywaZmkVJlpxezbwJSYaqhUlsf0SGQvrVHzmi/J6lf34TBCeddNLJG3KTald2gS0gV0BEAqQFgF1IEmh3hseN1smnJCdVVVVgUtJbAbYAMYO8ZyBJ/UpUVdX8yNE6+WxkAEBgKrBdisQMCqUe0pIRAIlrAbYF4sejRuvk85O7tKUtINdNRK6Arkyq6xbu8ptOvjoZbk+kN0WYM5qWqZC+74GYLwhMf+g3nfy7SPOh2wA/fghEBYkZJS0TxI8LMCuw/b/fdPLvI3cLtoBJiT8C9oktYGHae263JxERWR45WiefjQx1agFgA2UDTW8F0oIolOHucb56red08n4kqnmqrhFVFebSLli8D0Qtt/fp+lrP6eT9SHMV1Qy6ntxHV2pIRjT3GQ/uQ04eZvNLzACzap9zumFpyNyifPV5yMkz2WefHyKwfavJ6iQict2CrWWmpKN+ymNH6+TTkXXOWZlGvRwz6Do3eRS12Fdb7mL2tczJwZoUUlXVUt1Hh0NTQfEoqbkecvJkVfvkSWFWHUV09ysdJyOPy5w8W/ehqq4PTb1CXbfqBdU2S/k85GS3APOnaLoi9qme30WZM8L8KcT1UzSJJR9bhe21ntPJ+5FN8cxNNWumLl52VauIhkN2u6Z28mRDGuhIEqlqoR9q4ii3JJHnh5w8WVfNJoCqv3BS0keO0X3Iya82lMWObGNteT0CMeaWrPa4zMmvVqMsSyDWA6Z9zKVa1LYexOr5ISdHa/XVaSyLmbC2oll1pKqk56ae3IecHMhd5N2yQruQlklF3lTtwpWWM/p3AWyX0PLI0Tr5bGSwrRpJjjNzRtkEmBWBPZCW/4IyZ4h5RyCUV3tOJ+9HtrVsLmOBrNc6jpzR2F3k+SEnR6tx2VGeH0sf54psPgvw13pOJ+9H0othNhmtQK+N1ZTjqT3E4zInz3ZTzRiWtlrBpxU3LD/k/UNO3lrdPW9tHxzZ6doV2yYoHfNDHts7ebImcQpNFNW0dW+gthtjzxS5Dzk52iCTa321rVa93DrMUtnnISdvbdjXMa5gpw1ltMifofTxWs/p5P3IofejR/QMbdNHGX+shLgPOTlYcxqGBpChqTq2cmsP03wtc/JkAXt9FSBsF+1fbec9FCTmBYn5Yudgu3itw8lu4+6fDD2pOKrr8yLn+SEnT3bjQz04OyUVYWy59rXMydG++FCmpq1rmNa7iwDPDzn5xU7vQZtLqB0fc3t/Z5KpmBRKV1C2RTQt+UGjdfIZyYC9yROoTvM9Hy6lSPxYbOOZvVoPJnt17Ks9p5P3I49Nib9q/l8LTjrp5B8ifwIShdyd/9dC5gAAAABJRU5ErkJggg==" alt="QR code para o checkout" loading="lazy">
+            <div class="qr-card-text">
+              <div class="qr-k" data-i18n="pricing.qrLabel">Prefere no celular?</div>
+              <div class="qr-v" data-i18n="pricing.qrSub">Aponte a câmera e finalize por lá</div>
+            </div>
+          </div>
+          <div class="guarantee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg><span data-i18n-html="pricing.guarantee"><strong>Garantia de 7 dias.</strong> Não gostou? Devolvemos 100%.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="ed-sec ed-faq" id="faq">
+    <div class="ed ed-faq-grid">
+      <h2 class="ed-h ed-faq-title" data-i18n-html="faq.title"><span class="fill">Tudo que perguntam.</span></h2>
+      <div class="faq-wrap">
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q"><span data-i18n="faq.q1">Funciona em qual versão do Premiere Pro?</span> <span class="plus">+</span></div>
+          <div class="faq-a" data-i18n="faq.a1">Compatível com Adobe Premiere Pro CC 2020 em diante, no Mac (Intel e Apple Silicon) e no Windows 10/11.</div>
+        </div>
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q"><span data-i18n="faq.q2">Como insiro um som na timeline?</span> <span class="plus">+</span></div>
+          <div class="faq-a" data-i18n="faq.a2">Do jeito que preferir: duplo-clique joga o som no playhead, ou use o botão Inserir. Pelo teclado, as setas navegam e o Enter insere; Shift+Enter coloca no seu in-point. E você ainda escolhe o ganho (-12 / 0 / +6 dB) antes de inserir.</div>
+        </div>
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q"><span data-i18n="faq.q3">Posso ouvir antes de inserir?</span> <span class="plus">+</span></div>
+          <div class="faq-a" data-i18n="faq.a3">Sim. Basta passar o mouse sobre o som (sem clicar) que ele toca na hora, com forma de onda visual. É a forma mais rápida de varrer vários sons e achar o certo.</div>
+        </div>
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q"><span data-i18n="faq.q4">É pagamento único ou mensalidade?</span> <span class="plus">+</span></div>
+          <div class="faq-a" data-i18n="faq.a4">100% pagamento único. Você compra uma vez e usa para sempre, sem mensalidade e sem renovação. O valor da condição atual aparece na página de checkout.</div>
+        </div>
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q"><span data-i18n="faq.q5">Posso usar em projetos comerciais?</span> <span class="plus">+</span></div>
+          <div class="faq-a" data-i18n="faq.a5">Sim. Todos os sons são 100% royalty-free para qualquer uso comercial: YouTube monetizado, comerciais, filme, jingle, jogo.</div>
+        </div>
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q"><span data-i18n="faq.q6">Posso criar pastas e importar meus sons?</span> <span class="plus">+</span></div>
+          <div class="faq-a" data-i18n="faq.a6">Sim. Além das 21 categorias prontas, você cria pastas próprias com cores, importa seus áudios e arrasta sons entre as pastas. O painel ainda monta uma aba "Top" com os sons que você mais usa.</div>
+        </div>
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q"><span data-i18n="faq.q7">Em quantas máquinas posso instalar?</span> <span class="plus">+</span></div>
+          <div class="faq-a" data-i18n="faq.a7">Até 2 máquinas simultaneamente, Mac e/ou Windows. Pode desativar e mover quando quiser.</div>
+        </div>
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q"><span data-i18n="faq.q8">Como recebo o produto?</span> <span class="plus">+</span></div>
+          <div class="faq-a" data-i18n="faq.a8">Acesso imediato. Após o pagamento, você recebe por e-mail o link de download e os dados pra criar sua conta. Faça login no painel e toda a biblioteca fica disponível.</div>
+        </div>
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q"><span data-i18n="faq.q9">E se eu não gostar?</span> <span class="plus">+</span></div>
+          <div class="faq-a" data-i18n="faq.a9">7 dias para testar. Se não rolar, devolvemos 100%. Basta mandar e-mail, sem questionário.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="ed-foot">
+    <div class="ed">
+      <img class="ed-foot-logo" src="/assets/logo.png" alt="dropSFX" />
+      <div class="ed-foot-row">
+        <p class="ed-foot-line" data-i18n="ed.colophon">Feito por um editor, para editores.</p>
+        <div class="foot-links"><a href="#" data-i18n="foot.terms">Termos</a><a href="#" data-i18n="foot.privacy">Privacidade</a><a href="#" data-i18n="foot.license">Licença</a><a href="#" data-i18n="foot.support">Suporte</a></div>
+        <div class="foot-credit">© 2026 dropSFX</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MOBILE STICKY CTA -->
+  <div class="sticky-cta" id="stickyCta">
+    <div>
+      <div class="sc-price" data-i18n="sticky.price">Pagamento único</div>
+      <span class="sc-label" data-i18n="sticky.label">Vitalício · garantia de 7 dias</span>
+    </div>
+    <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=sticky&utm_campaign=dropsfx"
+      class="sc-btn js-buy-cta" data-position="sticky" data-i18n="sticky.btn"
+      target="_blank" rel="noopener">Comprar</a>
+  </div>
+
+  <!-- Rolagem suave (Lenis). Se o CDN falhar, a página rola normalmente. -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+
+  <script>
+  // =====================================================================
+  // I18N — DICIONÁRIO
+  // Para editar textos, mexa APENAS aqui embaixo.
+  // OBS: preços foram removidos da página — valor só aparece no checkout.
+  // =====================================================================
+  var I18N = {
+
+    /* ============================ PORTUGUÊS ============================ */
+    pt: {
+      "meta.title": "dropSFX · Sound effects no Premiere, After Effects e DaVinci",
+      "meta.desc": "Painel com 1.463 efeitos sonoros profissionais dentro do Premiere Pro, After Effects e DaVinci Resolve. Ouça no hover, arraste pra timeline. Pagamento único.",
+
+      "nav.cta": "Comprar agora",
+
+      "hero.badge": "PREMIERE PRO + AFTER EFFECTS",
+      "hero.tagline": "O melhor plugin de SFX do mercado.",
+      "hero.cta": "Comprar",
+      "hero.meta": "<span>Pagamento <b>único</b></span><span>Acesso vitalício</span><span>Garantia de 7 dias</span>",
+
+      "proof.bar": "<strong>+1.000 pessoas</strong> já adquiriram o dropSFX",
+
+      "problem.eyebrow": "Menos tempo procurando. Mais tempo criando.",
+      "problem.title": "<span class='fill'>Sound design</span><br><span class='fill'>em segundos</span>",
+      "problem.lead": "Tudo o que você precisa para dar impacto aos seus vídeos sem interromper sua edição.",
+
+      "panel.eyebrow": "№ 01 · O painel",
+      "panel.title": "<span style='color:#fff'>Isso vive dentro</span><br><span class='blue'>do seu Premiere.</span>",
+      "panel.lead": "Um painel nativo, acoplado à sua interface. Sua biblioteca inteira, organizada em pastas coloridas, a um gesto de distância da timeline.",
+
+      "hover.eyebrow": "№ 01 · Pré-escuta",
+      "hover.title": "Passou o mouse,<br><span class='blue'>já tá tocando.</span>",
+      "hover.lead": "Esqueça abrir cada arquivo pra saber o que é. <strong>Só passe o cursor sobre o som</strong> e ele toca na hora, com a forma de onda viva. Varra dezenas de efeitos em segundos.",
+
+      "quote1": "<span class='quote-line'>\"Quando as ferramentas acompanham sua criatividade,</span><span class='quote-line accent'>os resultados aparecem mais rápido.\"</span>",
+
+      "twoclick.eyebrow": "№ 02 · Inserção",
+      "twoclick.title": "Dois cliques.<br><span class='blue'>Tá na timeline.</span>",
+      "twoclick.lead": "Achou o som? <strong>Duplo-clique</strong> e ele cai exatamente no playhead do Premiere, na trilha que você escolheu. Sem arrastar arquivo, sem exportar, sem trocar de janela.",
+
+      "gain.eyebrow": "№ 03 · Controle",
+      "gain.title": "<span class='fill'>O ganho certo,</span><br><span class='blue'>antes de inserir.</span>",
+      "gain.lead": "Whoosh sempre alto demais? Riser baixo? Escolha <strong>-12, 0 ou +6 dB</strong> e o som já entra na timeline no volume certo. Adeus, abrir o mixer pra cada clipe.",
+
+      "library.eyebrow": "№ 00 · A biblioteca",
+      "library.title": "<span class='fill'>1.463 sons</span><br><span class='blue'>21 categorias</span>",
+      "library.lead": "Selecionados pra edição de verdade: de whooshes e impactos a glitches, risers e foley. Cada categoria com cor própria, pra você bater o olho e achar.",
+
+      "pricing.eyebrow": "Investimento",
+      "pricing.title": "<span class='fill'>Pague uma vez.</span><br><span class='blue'>Use pra sempre.</span>",
+      "pricing.ribbon": "Oferta de lançamento",
+      "pricing.off": "63% OFF",
+      "pricing.desc": "Biblioteca completa de efeitos sonoros profissionais e o painel nativo pro Premiere, pra usar quantas vezes quiser.",
+      "pricing.pay": "Pagamento",
+      "pricing.payv": "Único",
+      "pricing.access": "Acesso",
+      "pricing.accessv": "Vitalício",
+      "pricing.warranty": "Garantia",
+      "pricing.warrantyv": "7 dias",
+      "pricing.once": "Sem mensalidade, sem renovação · condição atual na página de checkout",
+      "pricing.f1": "<strong>1.463 efeitos sonoros</strong> profissionais",
+      "pricing.f2": "Painel <strong>nativo</strong> pro Adobe Premiere Pro",
+      "pricing.f3": "Pré-escuta no hover, <strong>2 cliques</strong> e atalhos",
+      "pricing.f4": "Controle de <strong>ganho na inserção</strong>",
+      "pricing.f5": "Pastas próprias + importe seus áudios",
+      "pricing.f6": "Licença pra <strong>até 2 máquinas</strong>",
+      "pricing.f7": "<strong>Vitalício</strong> · 100% royalty-free",
+      "pricing.cta": "Ver oferta e garantir acesso",
+      "pricing.qrLabel": "Prefere no celular?",
+      "pricing.qrSub": "Aponte a câmera e finalize por lá",
+      "pricing.guarantee": "<strong>Garantia de 7 dias.</strong> Não gostou? Devolvemos 100%.",
+
+      "faq.eyebrow": "Dúvidas",
+      "faq.title": "<span class='fill'>Tudo que perguntam.</span>",
+      "faq.q1": "Funciona em qual versão do Premiere Pro?",
+      "faq.a1": "Compatível com Adobe Premiere Pro CC 2020 em diante, no Mac (Intel e Apple Silicon) e no Windows 10/11.",
+      "faq.q2": "Como insiro um som na timeline?",
+      "faq.a2": "Do jeito que preferir: duplo-clique joga o som no playhead, ou use o botão Inserir. Pelo teclado, as setas navegam e o Enter insere; Shift+Enter coloca no seu in-point. E você ainda escolhe o ganho (-12 / 0 / +6 dB) antes de inserir.",
+      "faq.q3": "Posso ouvir antes de inserir?",
+      "faq.a3": "Sim. Basta passar o mouse sobre o som (sem clicar) que ele toca na hora, com forma de onda visual. É a forma mais rápida de varrer vários sons e achar o certo.",
+      "faq.q4": "É pagamento único ou mensalidade?",
+      "faq.a4": "100% pagamento único. Você compra uma vez e usa para sempre, sem mensalidade e sem renovação. O valor da condição atual aparece na página de checkout.",
+      "faq.q5": "Posso usar em projetos comerciais?",
+      "faq.a5": "Sim. Todos os sons são 100% royalty-free para qualquer uso comercial: YouTube monetizado, comerciais, filme, jingle, jogo.",
+      "faq.q6": "Posso criar pastas e importar meus sons?",
+      "faq.a6": "Sim. Além das 21 categorias prontas, você cria pastas próprias com cores, importa seus áudios e arrasta sons entre as pastas. O painel ainda monta uma aba \"Top\" com os sons que você mais usa.",
+      "faq.q7": "Em quantas máquinas posso instalar?",
+      "faq.a7": "Até 2 máquinas simultaneamente, Mac e/ou Windows. Pode desativar e mover quando quiser.",
+      "faq.q8": "Como recebo o produto?",
+      "faq.a8": "Acesso imediato. Após o pagamento, você recebe por e-mail o link de download e os dados pra criar sua conta. Faça login no painel e toda a biblioteca fica disponível.",
+      "faq.q9": "E se eu não gostar?",
+      "faq.a9": "7 dias para testar. Se não rolar, devolvemos 100%. Basta mandar e-mail, sem questionário.",
+
+      "foot.terms": "Termos",
+      "foot.privacy": "Privacidade",
+      "foot.license": "Licença",
+      "foot.support": "Suporte",
+
+      "sticky.price": "Pagamento único",
+      "sticky.label": "Vitalício · garantia de 7 dias",
+      "sticky.btn": "Comprar",
+
+      "mock.search": "Buscar sons…",
+      "mock.folders": "Pastas",
+      "mock.favorites": "Favoritos",
+      "mock.sort": "Nome",
+      "mock.all": "Todos",
+      "mock.library": "Biblioteca dropSFX",
+      "mock.sounds": "sons",
+      "mock.gain": "Ganho",
+      "mock.inpoint": "⇧↵ no in-point",
+      "mock.insert": "Inserir",
+
+      "cat.whooshes": "Whooshes",
+      "cat.transitions": "Transições",
+      "cat.drops": "Cinematic Drops",
+      "cat.clicks": "Clicks & UI",
+      "cat.foley": "Foley & Diegese",
+      "cat.risers": "Risers",
+      "cat.elements": "Elements",
+      "cat.memes": "Memes & Cartoon",
+      "cat.hits": "Hits & Impacts",
+      "cat.glitches": "Glitches",
+      "cat.guns": "Guns",
+      "cat.reverb": "Reverb",
+      "cat.retro": "Retrô",
+      "cat.hud": "HUD & Digital",
+      "cat.ambient": "Ambientes",
+      "cat.nature": "Natureza",
+      "cat.emotion": "Emoção",
+      "cat.camera": "Câmera",
+      "cat.bells": "Bells & Buttons",
+      "cat.slowmo": "Slow Motion",
+      "cat.tonal": "Tonalidade"
+    },
+
+    /* ============================= ENGLISH ============================= */
+    en: {
+      "meta.title": "dropSFX · Sound effects inside Premiere, After Effects & DaVinci",
+      "meta.desc": "A panel with 1,463 professional sound effects inside Premiere Pro, After Effects and DaVinci Resolve. Hover to preview, drag to the timeline. One-time payment.",
+
+      "nav.cta": "Get it now",
+
+      "hero.badge": "PREMIERE PRO + AFTER EFFECTS",
+      "hero.tagline": "The best SFX plugin on the market.",
+      "hero.cta": "Buy now",
+      "hero.meta": "<span><b>One-time</b> payment</span><span>Lifetime access</span><span>7-day guarantee</span>",
+
+      "proof.bar": "<strong>1,000+ people</strong> already got dropSFX",
+
+      "problem.eyebrow": "Less time searching. More time creating.",
+      "problem.title": "<span class='fill'>Sound design</span><br><span class='fill'>in seconds</span>",
+      "problem.lead": "Everything you need to add impact to your videos without ever breaking your editing flow.",
+
+      "panel.eyebrow": "№ 01 · The panel",
+      "panel.title": "<span style='color:#fff'>It lives inside</span><br><span class='blue'>your Premiere.</span>",
+      "panel.lead": "A native panel docked right into your interface. Your entire library, organized into color-coded folders, one gesture away from the timeline.",
+
+      "hover.eyebrow": "№ 01 · Preview",
+      "hover.title": "Hover over it,<br><span class='blue'>it's already playing.</span>",
+      "hover.lead": "Forget opening every file just to know what it is. <strong>Just hover over the sound</strong> and it plays instantly, with a live waveform. Scan dozens of effects in seconds.",
+
+      "quote1": "<span class='quote-line'>\"When your tools keep up with your creativity,</span><span class='quote-line accent'>the results come faster.\"</span>",
+
+      "twoclick.eyebrow": "№ 02 · Insert",
+      "twoclick.title": "Two clicks.<br><span class='blue'>It's on the timeline.</span>",
+      "twoclick.lead": "Found the sound? <strong>Double-click</strong> and it drops exactly on Premiere's playhead, on the track you picked. No dragging files, no exporting, no window switching.",
+
+      "gain.eyebrow": "№ 03 · Control",
+      "gain.title": "<span class='fill'>The right gain,</span><br><span class='blue'>before inserting.</span>",
+      "gain.lead": "Whoosh always too loud? Riser too quiet? Pick <strong>-12, 0 or +6 dB</strong> and the sound lands on the timeline at the right level. No more opening the mixer for every clip.",
+
+      "library.eyebrow": "№ 00 · The library",
+      "library.title": "<span class='fill'>1,463 sounds</span><br><span class='blue'>21 categories</span>",
+      "library.lead": "Hand-picked for real editing: from whooshes and impacts to glitches, risers and foley. Every category color-coded, so you spot it at a glance.",
+
+      "pricing.eyebrow": "Investment",
+      "pricing.title": "<span class='fill'>Pay once.</span><br><span class='blue'>Use forever.</span>",
+      "pricing.ribbon": "Launch offer",
+      "pricing.off": "63% OFF",
+      "pricing.desc": "The complete professional sound effects library plus the native Premiere panel — use it as many times as you want.",
+      "pricing.pay": "Payment",
+      "pricing.payv": "One-time",
+      "pricing.access": "Access",
+      "pricing.accessv": "Lifetime",
+      "pricing.warranty": "Guarantee",
+      "pricing.warrantyv": "7 days",
+      "pricing.once": "No subscription, no renewal · current price shown at checkout",
+      "pricing.f1": "<strong>1,463 professional</strong> sound effects",
+      "pricing.f2": "<strong>Native</strong> panel for Adobe Premiere Pro",
+      "pricing.f3": "Hover preview, <strong>2 clicks</strong> and shortcuts",
+      "pricing.f4": "<strong>Gain control</strong> on insert",
+      "pricing.f5": "Custom folders + import your own audio",
+      "pricing.f6": "License for <strong>up to 2 machines</strong>",
+      "pricing.f7": "<strong>Lifetime</strong> · 100% royalty-free",
+      "pricing.cta": "See the offer and get access",
+      "pricing.qrLabel": "Prefer your phone?",
+      "pricing.qrSub": "Scan the code to check out there",
+      "pricing.guarantee": "<strong>7-day guarantee.</strong> Not for you? Full refund.",
+
+      "faq.eyebrow": "FAQ",
+      "faq.title": "<span class='fill'>Everything you asked.</span>",
+      "faq.q1": "Which Premiere Pro versions does it support?",
+      "faq.a1": "Compatible with Adobe Premiere Pro CC 2020 and newer, on Mac (Intel and Apple Silicon) and Windows 10/11.",
+      "faq.q2": "How do I insert a sound on the timeline?",
+      "faq.a2": "Whichever way you prefer: double-click drops the sound at the playhead, or use the Insert button. With the keyboard, arrows navigate and Enter inserts; Shift+Enter places it at your in-point. And you still pick the gain (-12 / 0 / +6 dB) before inserting.",
+      "faq.q3": "Can I preview before inserting?",
+      "faq.a3": "Yes. Just hover over the sound (no click needed) and it plays instantly, with a visual waveform. It's the fastest way to scan through sounds and find the right one.",
+      "faq.q4": "Is it a one-time payment or a subscription?",
+      "faq.a4": "100% one-time payment. Buy once, use forever — no subscription, no renewal. The current price is shown on the checkout page.",
+      "faq.q5": "Can I use it in commercial projects?",
+      "faq.a5": "Yes. Every sound is 100% royalty-free for any commercial use: monetized YouTube, commercials, film, jingles, games.",
+      "faq.q6": "Can I create folders and import my own sounds?",
+      "faq.a6": "Yes. Beyond the 21 built-in categories, you can create your own color-coded folders, import your audio and drag sounds between folders. The panel also builds a \"Top\" tab with the sounds you use most.",
+      "faq.q7": "On how many machines can I install it?",
+      "faq.a7": "Up to 2 machines at the same time, Mac and/or Windows. You can deactivate and move whenever you want.",
+      "faq.q8": "How do I receive the product?",
+      "faq.a8": "Instant access. After payment you get an email with the download link and your account details. Log into the panel and the whole library is available.",
+      "faq.q9": "What if I don't like it?",
+      "faq.a9": "7 days to try it. If it's not for you, we refund 100%. Just send an email — no questionnaire.",
+
+      "foot.terms": "Terms",
+      "foot.privacy": "Privacy",
+      "foot.license": "License",
+      "foot.support": "Support",
+
+      "sticky.price": "One-time payment",
+      "sticky.label": "Lifetime · 7-day guarantee",
+      "sticky.btn": "Get it",
+
+      "mock.search": "Search sounds…",
+      "mock.folders": "Folders",
+      "mock.favorites": "Favorites",
+      "mock.sort": "Name",
+      "mock.all": "All",
+      "mock.library": "dropSFX Library",
+      "mock.sounds": "sounds",
+      "mock.gain": "Gain",
+      "mock.inpoint": "⇧↵ at in-point",
+      "mock.insert": "Insert",
+
+      "cat.whooshes": "Whooshes",
+      "cat.transitions": "Transitions",
+      "cat.drops": "Cinematic Drops",
+      "cat.clicks": "Clicks & UI",
+      "cat.foley": "Foley & Diegetic",
+      "cat.risers": "Risers",
+      "cat.elements": "Elements",
+      "cat.memes": "Memes & Cartoon",
+      "cat.hits": "Hits & Impacts",
+      "cat.glitches": "Glitches",
+      "cat.guns": "Guns",
+      "cat.reverb": "Reverb",
+      "cat.retro": "Retro",
+      "cat.hud": "HUD & Digital",
+      "cat.ambient": "Ambiences",
+      "cat.nature": "Nature",
+      "cat.emotion": "Emotion",
+      "cat.camera": "Camera",
+      "cat.bells": "Bells & Buttons",
+      "cat.slowmo": "Slow Motion",
+      "cat.tonal": "Tonal"
+    },
+
+    /* ============================= ESPAÑOL ============================= */
+    es: {
+      "meta.title": "dropSFX · Efectos de sonido en Premiere, After Effects y DaVinci",
+      "meta.desc": "Panel con 1.463 efectos de sonido profesionales dentro de Premiere Pro, After Effects y DaVinci Resolve. Escucha al pasar el cursor, arrastra a la timeline. Pago único.",
+
+      "nav.cta": "Comprar ahora",
+
+      "hero.badge": "PREMIERE PRO + AFTER EFFECTS",
+      "hero.tagline": "El mejor plugin de SFX del mercado.",
+      "hero.cta": "Comprar",
+      "hero.meta": "<span>Pago <b>único</b></span><span>Acceso de por vida</span><span>Garantía de 7 días</span>",
+
+      "proof.bar": "<strong>+1.000 personas</strong> ya adquirieron dropSFX",
+
+      "problem.eyebrow": "Menos tiempo buscando. Más tiempo creando.",
+      "problem.title": "<span class='fill'>Diseño sonoro</span><br><span class='fill'>en segundos</span>",
+      "problem.lead": "Todo lo que necesitas para dar impacto a tus vídeos sin interrumpir tu edición.",
+
+      "panel.eyebrow": "№ 01 · El panel",
+      "panel.title": "<span style='color:#fff'>Esto vive dentro</span><br><span class='blue'>de tu Premiere.</span>",
+      "panel.lead": "Un panel nativo, acoplado a tu interfaz. Toda tu biblioteca, organizada en carpetas con colores, a un gesto de la línea de tiempo.",
+
+      "hover.eyebrow": "№ 01 · Pre-escucha",
+      "hover.title": "Pasas el mouse<br><span class='blue'>y ya está sonando.</span>",
+      "hover.lead": "Olvídate de abrir cada archivo para saber qué es. <strong>Solo pasa el cursor sobre el sonido</strong> y suena al instante, con la forma de onda en vivo. Recorre decenas de efectos en segundos.",
+
+      "quote1": "<span class='quote-line'>\"Cuando las herramientas siguen tu creatividad,</span><span class='quote-line accent'>los resultados llegan más rápido.\"</span>",
+
+      "twoclick.eyebrow": "№ 02 · Inserción",
+      "twoclick.title": "Dos clics.<br><span class='blue'>Ya está en la timeline.</span>",
+      "twoclick.lead": "¿Encontraste el sonido? <strong>Doble clic</strong> y cae exactamente en el playhead de Premiere, en la pista que elegiste. Sin arrastrar archivos, sin exportar, sin cambiar de ventana.",
+
+      "gain.eyebrow": "№ 03 · Control",
+      "gain.title": "<span class='fill'>La ganancia justa,</span><br><span class='blue'>antes de insertar.</span>",
+      "gain.lead": "¿El whoosh siempre demasiado alto? ¿El riser bajo? Elige <strong>-12, 0 o +6 dB</strong> y el sonido entra en la línea de tiempo al volumen correcto. Adiós a abrir el mixer en cada clip.",
+
+      "library.eyebrow": "№ 00 · La biblioteca",
+      "library.title": "<span class='fill'>1.463 sonidos</span><br><span class='blue'>21 categorías</span>",
+      "library.lead": "Seleccionados para edición real: desde whooshes e impactos hasta glitches, risers y foley. Cada categoría con su propio color, para encontrarla de un vistazo.",
+
+      "pricing.eyebrow": "Inversión",
+      "pricing.title": "<span class='fill'>Paga una vez.</span><br><span class='blue'>Úsalo para siempre.</span>",
+      "pricing.ribbon": "Oferta de lanzamiento",
+      "pricing.off": "63% OFF",
+      "pricing.desc": "Biblioteca completa de efectos de sonido profesionales y el panel nativo para Premiere, para usar cuantas veces quieras.",
+      "pricing.pay": "Pago",
+      "pricing.payv": "Único",
+      "pricing.access": "Acceso",
+      "pricing.accessv": "De por vida",
+      "pricing.warranty": "Garantía",
+      "pricing.warrantyv": "7 días",
+      "pricing.once": "Sin mensualidad, sin renovación · el precio actual aparece en el checkout",
+      "pricing.f1": "<strong>1.463 efectos de sonido</strong> profesionales",
+      "pricing.f2": "Panel <strong>nativo</strong> para Adobe Premiere Pro",
+      "pricing.f3": "Pre-escucha al pasar el cursor, <strong>2 clics</strong> y atajos",
+      "pricing.f4": "Control de <strong>ganancia al insertar</strong>",
+      "pricing.f5": "Carpetas propias + importa tus audios",
+      "pricing.f6": "Licencia para <strong>hasta 2 equipos</strong>",
+      "pricing.f7": "<strong>De por vida</strong> · 100% libre de regalías",
+      "pricing.cta": "Ver oferta y obtener acceso",
+      "pricing.qrLabel": "¿Prefieres el celular?",
+      "pricing.qrSub": "Escanea el código y paga desde ahí",
+      "pricing.guarantee": "<strong>Garantía de 7 días.</strong> ¿No te gustó? Devolvemos el 100%.",
+
+      "faq.eyebrow": "Preguntas",
+      "faq.title": "<span class='fill'>Todo lo que preguntan.</span>",
+      "faq.q1": "¿En qué versiones de Premiere Pro funciona?",
+      "faq.a1": "Compatible con Adobe Premiere Pro CC 2020 en adelante, en Mac (Intel y Apple Silicon) y en Windows 10/11.",
+      "faq.q2": "¿Cómo inserto un sonido en la línea de tiempo?",
+      "faq.a2": "Como prefieras: doble clic coloca el sonido en el playhead, o usa el botón Insertar. Con el teclado, las flechas navegan y Enter inserta; Shift+Enter lo coloca en tu punto de entrada. Y además eliges la ganancia (-12 / 0 / +6 dB) antes de insertar.",
+      "faq.q3": "¿Puedo escuchar antes de insertar?",
+      "faq.a3": "Sí. Basta con pasar el mouse sobre el sonido (sin clic) y suena al instante, con forma de onda visual. Es la forma más rápida de recorrer varios sonidos y encontrar el correcto.",
+      "faq.q4": "¿Es pago único o mensualidad?",
+      "faq.a4": "100% pago único. Compras una vez y lo usas para siempre, sin mensualidad y sin renovación. El precio de la condición actual aparece en la página de checkout.",
+      "faq.q5": "¿Puedo usarlo en proyectos comerciales?",
+      "faq.a5": "Sí. Todos los sonidos son 100% libres de regalías para cualquier uso comercial: YouTube monetizado, comerciales, cine, jingles, videojuegos.",
+      "faq.q6": "¿Puedo crear carpetas e importar mis sonidos?",
+      "faq.a6": "Sí. Además de las 21 categorías listas, creas tus propias carpetas con colores, importas tus audios y arrastras sonidos entre carpetas. El panel también arma una pestaña \"Top\" con los sonidos que más usas.",
+      "faq.q7": "¿En cuántos equipos puedo instalarlo?",
+      "faq.a7": "Hasta 2 equipos simultáneamente, Mac y/o Windows. Puedes desactivar y mover cuando quieras.",
+      "faq.q8": "¿Cómo recibo el producto?",
+      "faq.a8": "Acceso inmediato. Tras el pago recibes por correo el enlace de descarga y los datos para crear tu cuenta. Inicia sesión en el panel y toda la biblioteca queda disponible.",
+      "faq.q9": "¿Y si no me gusta?",
+      "faq.a9": "7 días para probarlo. Si no funciona para ti, devolvemos el 100%. Solo envía un correo, sin cuestionarios.",
+
+      "foot.terms": "Términos",
+      "foot.privacy": "Privacidad",
+      "foot.license": "Licencia",
+      "foot.support": "Soporte",
+
+      "sticky.price": "Pago único",
+      "sticky.label": "De por vida · garantía de 7 días",
+      "sticky.btn": "Comprar",
+
+      "mock.search": "Buscar sonidos…",
+      "mock.folders": "Carpetas",
+      "mock.favorites": "Favoritos",
+      "mock.sort": "Nombre",
+      "mock.all": "Todos",
+      "mock.library": "Biblioteca dropSFX",
+      "mock.sounds": "sonidos",
+      "mock.gain": "Ganancia",
+      "mock.inpoint": "⇧↵ en in-point",
+      "mock.insert": "Insertar",
+
+      "cat.whooshes": "Whooshes",
+      "cat.transitions": "Transiciones",
+      "cat.drops": "Cinematic Drops",
+      "cat.clicks": "Clicks & UI",
+      "cat.foley": "Foley & Diégesis",
+      "cat.risers": "Risers",
+      "cat.elements": "Elements",
+      "cat.memes": "Memes & Cartoon",
+      "cat.hits": "Hits & Impacts",
+      "cat.glitches": "Glitches",
+      "cat.guns": "Guns",
+      "cat.reverb": "Reverb",
+      "cat.retro": "Retro",
+      "cat.hud": "HUD & Digital",
+      "cat.ambient": "Ambientes",
+      "cat.nature": "Naturaleza",
+      "cat.emotion": "Emoción",
+      "cat.camera": "Cámara",
+      "cat.bells": "Bells & Buttons",
+      "cat.slowmo": "Slow Motion",
+      "cat.tonal": "Tonalidad"
+    },
+
+    /* ============================== हिन्दी ============================== */
+    hi: {
+      "meta.title": "dropSFX · Premiere, After Effects और DaVinci में साउंड इफ़ेक्ट्स",
+      "meta.desc": "Premiere Pro, After Effects और DaVinci Resolve के अंदर 1,463 प्रोफ़ेशनल साउंड इफ़ेक्ट्स वाला पैनल। हॉवर करके सुनें, टाइमलाइन पर खींचें। एक बार भुगतान।",
+
+      "nav.cta": "अभी खरीदें",
+
+      "hero.badge": "ADOBE PREMIERE PRO के लिए",
+      "hero.tagline": "बाज़ार का सबसे बेहतरीन SFX प्लगइन।",
+      "hero.cta": "खरीदें",
+      "hero.meta": "<span><b>एक बार</b> भुगतान</span><span>लाइफ़टाइम एक्सेस</span><span>7 दिन की गारंटी</span>",
+
+      "proof.bar": "<strong>1,000+ लोग</strong> dropSFX ले चुके हैं",
+
+      "problem.eyebrow": "खोजने में कम समय। बनाने में ज़्यादा।",
+      "problem.title": "<span class='fill'>साउंड डिज़ाइन</span><br><span class='fill'>सेकंडों में</span>",
+      "problem.lead": "एडिटिंग रोके बिना अपने वीडियो को दमदार बनाने के लिए जो चाहिए, सब यहीं है।",
+
+      "panel.eyebrow": "№ 01 · पैनल",
+      "panel.title": "<span style='color:#fff'>यह रहता है</span><br><span class='blue'>आपके Premiere के अंदर।</span>",
+      "panel.lead": "आपके इंटरफ़ेस से जुड़ा एक नेटिव पैनल। पूरी लाइब्रेरी, रंगीन फ़ोल्डरों में सजी, टाइमलाइन से बस एक कदम दूर।",
+
+      "hover.eyebrow": "№ 01 · प्री-लिसन",
+      "hover.title": "माउस ले जाइए,<br><span class='blue'>साउंड बजने लगा।</span>",
+      "hover.lead": "हर फ़ाइल खोलकर देखना भूल जाइए। <strong>बस कर्सर साउंड पर ले जाइए</strong> और वह तुरंत बजता है, लाइव वेवफ़ॉर्म के साथ। सेकंडों में दर्जनों इफ़ेक्ट्स सुन लीजिए।",
+
+      "quote1": "<span class='quote-line'>\"जब टूल आपकी क्रिएटिविटी का साथ देते हैं,</span><span class='quote-line accent'>नतीजे जल्दी दिखते हैं।\"</span>",
+
+      "twoclick.eyebrow": "№ 02 · इन्सर्ट",
+      "twoclick.title": "दो क्लिक।<br><span class='blue'>टाइमलाइन पर।</span>",
+      "twoclick.lead": "साउंड मिल गया? <strong>डबल-क्लिक</strong> कीजिए और वह ठीक Premiere के प्लेहेड पर, आपके चुने ट्रैक पर आ जाता है। न फ़ाइल खींचना, न एक्सपोर्ट, न विंडो बदलना।",
+
+      "gain.eyebrow": "№ 03 · कंट्रोल",
+      "gain.title": "<span class='fill'>सही गेन,</span><br><span class='blue'>इन्सर्ट करने से पहले।</span>",
+      "gain.lead": "व्हूश हमेशा बहुत तेज़? राइज़र धीमा? <strong>-12, 0 या +6 dB</strong> चुनिए और साउंड सही वॉल्यूम पर ही टाइमलाइन में आएगा। हर क्लिप के लिए मिक्सर खोलना बंद।",
+
+      "library.eyebrow": "№ 00 · लाइब्रेरी",
+      "library.title": "<span class='fill'>1,463 साउंड</span><br><span class='blue'>21 कैटेगरी</span>",
+      "library.lead": "असली एडिटिंग के लिए चुने गए: व्हूश और इम्पैक्ट से लेकर ग्लिच, राइज़र और फ़ॉली तक। हर कैटेगरी का अपना रंग, ताकि एक नज़र में मिल जाए।",
+
+      "pricing.eyebrow": "निवेश",
+      "pricing.title": "<span class='fill'>एक बार दीजिए।</span><br><span class='blue'>हमेशा इस्तेमाल कीजिए।</span>",
+      "pricing.ribbon": "लॉन्च ऑफ़र",
+      "pricing.off": "63% छूट",
+      "pricing.desc": "प्रोफ़ेशनल साउंड इफ़ेक्ट्स की पूरी लाइब्रेरी और Premiere का नेटिव पैनल — जितनी बार चाहें इस्तेमाल कीजिए।",
+      "pricing.pay": "भुगतान",
+      "pricing.payv": "एक बार",
+      "pricing.access": "एक्सेस",
+      "pricing.accessv": "लाइफ़टाइम",
+      "pricing.warranty": "गारंटी",
+      "pricing.warrantyv": "7 दिन",
+      "pricing.once": "कोई मासिक शुल्क नहीं, कोई रिन्यूअल नहीं · मौजूदा कीमत चेकआउट पेज पर",
+      "pricing.f1": "<strong>1,463 प्रोफ़ेशनल</strong> साउंड इफ़ेक्ट्स",
+      "pricing.f2": "Adobe Premiere Pro के लिए <strong>नेटिव</strong> पैनल",
+      "pricing.f3": "हॉवर प्री-लिसन, <strong>2 क्लिक</strong> और शॉर्टकट",
+      "pricing.f4": "इन्सर्ट पर <strong>गेन कंट्रोल</strong>",
+      "pricing.f5": "अपने फ़ोल्डर + अपने ऑडियो इम्पोर्ट करें",
+      "pricing.f6": "<strong>2 मशीनों तक</strong> का लाइसेंस",
+      "pricing.f7": "<strong>लाइफ़टाइम</strong> · 100% रॉयल्टी-फ़्री",
+      "pricing.cta": "ऑफ़र देखें और एक्सेस पाएँ",
+      "pricing.qrLabel": "मोबाइल पसंद है?",
+      "pricing.qrSub": "कोड स्कैन करें और वहीं से भुगतान करें",
+      "pricing.guarantee": "<strong>7 दिन की गारंटी।</strong> पसंद नहीं आया? पूरा पैसा वापस।",
+
+      "faq.eyebrow": "सवाल-जवाब",
+      "faq.title": "<span class='fill'>जो सब पूछते हैं।</span>",
+      "faq.q1": "Premiere Pro के किस वर्ज़न में चलता है?",
+      "faq.a1": "Adobe Premiere Pro CC 2020 और उसके बाद के वर्ज़न में — Mac (Intel और Apple Silicon) तथा Windows 10/11 पर।",
+      "faq.q2": "टाइमलाइन में साउंड कैसे डालें?",
+      "faq.a2": "जैसे चाहें: डबल-क्लिक साउंड को प्लेहेड पर डाल देता है, या Insert बटन इस्तेमाल कीजिए। कीबोर्ड से ↑↓ नेविगेट करते हैं और Enter इन्सर्ट करता है; Shift+Enter उसे आपके इन-पॉइंट पर रखता है। और इन्सर्ट करने से पहले गेन (-12 / 0 / +6 dB) भी चुन सकते हैं।",
+      "faq.q3": "इन्सर्ट करने से पहले सुन सकते हैं?",
+      "faq.a3": "हाँ। बस माउस साउंड पर ले जाइए (क्लिक की ज़रूरत नहीं) और वह वेवफ़ॉर्म के साथ तुरंत बजता है। सही साउंड ढूँढ़ने का यह सबसे तेज़ तरीका है।",
+      "faq.q4": "एक बार का भुगतान है या मासिक?",
+      "faq.a4": "100% एक बार का भुगतान। एक बार खरीदिए और हमेशा इस्तेमाल कीजिए — न मासिक शुल्क, न रिन्यूअल। मौजूदा कीमत चेकआउट पेज पर दिखती है।",
+      "faq.q5": "क्या कमर्शियल प्रोजेक्ट में इस्तेमाल कर सकते हैं?",
+      "faq.a5": "हाँ। सभी साउंड किसी भी कमर्शियल इस्तेमाल के लिए 100% रॉयल्टी-फ़्री हैं: मॉनिटाइज़्ड YouTube, विज्ञापन, फ़िल्म, जिंगल, गेम।",
+      "faq.q6": "क्या अपने फ़ोल्डर बनाकर अपने साउंड इम्पोर्ट कर सकते हैं?",
+      "faq.a6": "हाँ। पहले से मौजूद 21 कैटेगरी के अलावा आप अपने रंगीन फ़ोल्डर बना सकते हैं, अपने ऑडियो इम्पोर्ट कर सकते हैं और साउंड को फ़ोल्डरों के बीच खींच सकते हैं। पैनल आपके सबसे ज़्यादा इस्तेमाल किए गए साउंड का \"Top\" टैब भी बनाता है।",
+      "faq.q7": "कितनी मशीनों पर इंस्टॉल कर सकते हैं?",
+      "faq.a7": "एक साथ 2 मशीनों तक, Mac और/या Windows। जब चाहें डीएक्टिवेट करके दूसरी मशीन पर ले जा सकते हैं।",
+      "faq.q8": "प्रोडक्ट कैसे मिलेगा?",
+      "faq.a8": "तुरंत एक्सेस। भुगतान के बाद ईमेल पर डाउनलोड लिंक और अकाउंट बनाने की जानकारी आती है। पैनल में लॉगिन कीजिए और पूरी लाइब्रेरी उपलब्ध।",
+      "faq.q9": "अगर पसंद न आए तो?",
+      "faq.a9": "आज़माने के लिए 7 दिन। पसंद न आए तो 100% रिफ़ंड। बस एक ईमेल भेजिए, कोई सवाल-जवाब नहीं।",
+
+      "foot.terms": "शर्तें",
+      "foot.privacy": "निजता",
+      "foot.license": "लाइसेंस",
+      "foot.support": "सपोर्ट",
+
+      "sticky.price": "एक बार भुगतान",
+      "sticky.label": "लाइफ़टाइम · 7 दिन की गारंटी",
+      "sticky.btn": "खरीदें",
+
+      "mock.search": "साउंड खोजें…",
+      "mock.folders": "फ़ोल्डर",
+      "mock.favorites": "पसंदीदा",
+      "mock.sort": "नाम",
+      "mock.all": "सभी",
+      "mock.library": "dropSFX लाइब्रेरी",
+      "mock.sounds": "साउंड",
+      "mock.gain": "गेन",
+      "mock.inpoint": "⇧↵ इन-पॉइंट पर",
+      "mock.insert": "इन्सर्ट",
+
+      "cat.whooshes": "व्हूश",
+      "cat.transitions": "ट्रांज़िशन",
+      "cat.drops": "सिनेमैटिक ड्रॉप्स",
+      "cat.clicks": "क्लिक्स & UI",
+      "cat.foley": "फ़ॉली & डाइजेटिक",
+      "cat.risers": "राइज़र",
+      "cat.elements": "एलिमेंट्स",
+      "cat.memes": "मीम्स & कार्टून",
+      "cat.hits": "हिट्स & इम्पैक्ट्स",
+      "cat.glitches": "ग्लिच",
+      "cat.guns": "गन्स",
+      "cat.reverb": "रिवर्ब",
+      "cat.retro": "रेट्रो",
+      "cat.hud": "HUD & डिजिटल",
+      "cat.ambient": "एम्बिएंस",
+      "cat.nature": "नेचर",
+      "cat.emotion": "इमोशन",
+      "cat.camera": "कैमरा",
+      "cat.bells": "बेल्स & बटन्स",
+      "cat.slowmo": "स्लो मोशन",
+      "cat.tonal": "टोनैलिटी"
+    }
+  };
+
+  // Demo de arrastar e soltar: os três sons, um de cada vez, caem coloridos na timeline
+  (function () {
+    var mock = document.getElementById('dragMock');
+    if (!mock) return;
+    var cursor = mock.querySelector('.plm-cursor');
+    var ghost = mock.querySelector('.drag-ghost');
+    var gname = ghost.querySelector('.dg-name');
+    var rows = [], clips = [];
+    mock.querySelectorAll('[data-drag]').forEach(function (r) { rows[+r.getAttribute('data-drag')] = r; });
+    mock.querySelectorAll('[data-drop]').forEach(function (c) { clips[+c.getAttribute('data-drop')] = c; });
+    var started = false;
+
+    function pos(el, fx, fy) {
+      var m = mock.getBoundingClientRect(), r = el.getBoundingClientRect();
+      return { x: r.left - m.left + r.width * fx, y: r.top - m.top + r.height * fy };
+    }
+    function place(el, p) { el.style.transform = 'translate(' + p.x + 'px,' + p.y + 'px)'; }
+
+    function drag(i, next) {
+      var row = rows[i], clip = clips[i], track = clip.parentNode;
+      var grab = pos(row, .3, .5);
+      cursor.style.opacity = '1';
+      place(cursor, { x: grab.x, y: grab.y - 6 });
+
+      setTimeout(function () {
+        row.classList.add('active');
+        ghost.style.setProperty('--c', row.getAttribute('data-color'));
+        gname.textContent = row.getAttribute('data-name');
+        ghost.style.transition = 'none';
+        var g0 = pos(row, .12, .18);
+        place(ghost, g0);
+        void ghost.offsetWidth;
+        ghost.style.transition = '';
+        ghost.style.opacity = '1';
+
+        setTimeout(function () {
+          var drop = pos(track, parseFloat(clip.style.left) / 100, 0);
+          place(ghost, { x: drop.x, y: drop.y - 2 });
+          place(cursor, { x: drop.x + (grab.x - g0.x), y: drop.y + (grab.y - g0.y) - 8 });
+          setTimeout(function () { track.classList.add('over'); }, 480);
+          setTimeout(function () {
+            ghost.style.opacity = '0';
+            track.classList.remove('over');
+            row.classList.remove('active');
+            clip.classList.add('in');
+            setTimeout(next, 450);
+          }, 850);
+        }, 300);
+      }, 750);
+    }
+
+    function cycle() {
+      clips.forEach(function (c) { c.classList.remove('in'); });
+      drag(0, function () {
+        drag(1, function () {
+          drag(2, function () { setTimeout(cycle, 2000); });
+        });
+      });
+    }
+
+    function tryStart() {
+      if (started) return;
+      var r = mock.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.85 && r.bottom > 0) { started = true; setTimeout(cycle, 400); }
+    }
+    tryStart();
+    window.addEventListener('scroll', tryStart, { passive: true });
+  })();
+
+  // Parallax do gradiente dentro do número: acompanha a rolagem e o mouse
+  (function () {
+    var box = document.querySelector('.ed-knock');
+    var grad = box && box.querySelector('.ed-knock-grad');
+    if (!grad) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var visible = false, running = false, mx = 0, cx = 0;
+
+    function frame() {
+      if (!visible) { running = false; return; }
+      var r = box.getBoundingClientRect(), vh = window.innerHeight;
+      var p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+      cx += (mx - cx) * 0.06;
+      grad.style.setProperty('--py', p.toFixed(4));
+      grad.style.setProperty('--px', cx.toFixed(3));
+      requestAnimationFrame(frame);
+    }
+
+    window.addEventListener('mousemove', function (e) {
+      mx = (e.clientX / window.innerWidth - 0.5) * -6;
+    }, { passive: true });
+
+    if (!('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting;
+      if (visible && !running) { running = true; requestAnimationFrame(frame); }
+    }).observe(box);
+  })();
+
+  // Vídeos só tocam quando estão na tela
+  (function () {
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        else v.pause();
+      });
+    }, { threshold: 0 });
+    document.querySelectorAll('video[autoplay]').forEach(function (v) { io.observe(v); });
+  })();
+
+  // Contagem do número da biblioteca: 0 → 1.463 quando aparece na tela
+  (function () {
+    var box = document.getElementById('edFolder');
+    var out = box && box.querySelector('.fold-num');
+    if (!out) return;
+    var FINAL = 1463, DUR = 2200, done = false, current = 0;
+
+    function fmt(n) {
+      var lang = window.DropI18N ? DropI18N.get() : 'pt';
+      var sep = (lang === 'en' || lang === 'hi') ? ',' : '.';
+      return n >= 1000 ? Math.floor(n / 1000) + sep + String(n % 1000).padStart(3, '0') : String(n);
+    }
+    function show(n) { current = n; out.textContent = fmt(n); }
+
+    function run() {
+      var t0 = null;
+      function frame(ts) {
+        if (t0 === null) t0 = ts;
+        var k = Math.min(1, (ts - t0) / DUR);
+        var e = 1 - Math.pow(1 - k, 4);          // desacelera no final
+        show(Math.round(FINAL * e));
+        if (k < 1) requestAnimationFrame(frame); else done = true;
+      }
+      requestAnimationFrame(frame);
+    }
+
+    document.addEventListener('dropsfx:langchange', function () { show(current); });
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+      show(FINAL); done = true; return;
+    }
+    show(0);
+    var io = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting && !done) { io.disconnect(); run(); }
+    }, { threshold: .4 });
+    io.observe(box);
+  })();
+
+  // Textos da parte editorial (abaixo do hero)
+  (function () {
+    var add = {
+      pt: {
+        "ed.knocknum": "1.463",
+        "ed.knockcap": "sons prontos pra timeline, organizados em 21 categorias.",
+        "ed.libtitle": "Uma biblioteca<br><span class='blue'>feita para editar.</span>",
+        "ed.colophon": "Feito por um editor, para editores.",
+        "drag.title": "Arrastou, soltou.<br><span class='blue'>Já chega colorido.</span>",
+        "drag.lead": "Prefere arrastar? <strong>Puxe o som do painel direto pra timeline</strong>. Ao soltar, o clipe já entra com a cor da categoria, e sua trilha de áudio fica organizada sem você mexer em nada.",
+        "ed.foldintro": "1.463 sons prontos pra timeline, <br>organizados em 21 categorias.",
+        "ed.hintmouse": "Passe o mouse na pasta",
+        "ed.hinttouch": "Toque na pasta para abrir"
+      },
+      en: {
+        "ed.knocknum": "1,463",
+        "ed.knockcap": "sounds ready for the timeline, organized into 21 categories.",
+        "ed.libtitle": "A library<br><span class='blue'>built for editing.</span>",
+        "ed.colophon": "Made by an editor, for editors.",
+        "drag.title": "Drag it, drop it.<br><span class='blue'>It lands already colored.</span>",
+        "drag.lead": "Prefer dragging? <strong>Pull the sound from the panel straight onto the timeline</strong>. When you drop it, the clip comes in with its category color, so your audio tracks stay organized with zero extra work.",
+        "ed.foldintro": "1,463 sounds ready for the timeline, <br>organized into 21 categories.",
+        "ed.hintmouse": "Hover over the folder",
+        "ed.hinttouch": "Tap the folder to open"
+      },
+      es: {
+        "ed.knocknum": "1.463",
+        "ed.knockcap": "sonidos listos para la timeline, organizados en 21 categorías.",
+        "ed.libtitle": "Una biblioteca<br><span class='blue'>hecha para editar.</span>",
+        "ed.colophon": "Hecho por un editor, para editores.",
+        "drag.title": "Arrastra y suelta.<br><span class='blue'>Llega ya con color.</span>",
+        "drag.lead": "¿Prefieres arrastrar? <strong>Lleva el sonido del panel directo a la timeline</strong>. Al soltarlo, el clip entra con el color de su categoría, y tus pistas de audio quedan organizadas sin esfuerzo.",
+        "ed.foldintro": "1.463 sonidos listos para la timeline, <br>organizados en 21 categorías.",
+        "ed.hintmouse": "Pasa el mouse por la carpeta",
+        "ed.hinttouch": "Toca la carpeta para abrirla"
+      },
+      hi: {
+        "ed.knocknum": "1,463",
+        "ed.knockcap": "टाइमलाइन के लिए तैयार साउंड, 21 कैटेगरी में।",
+        "ed.libtitle": "एक लाइब्रेरी<br><span class='blue'>एडिटिंग के लिए चुनी गई।</span>",
+        "ed.colophon": "एक एडिटर द्वारा, एडिटर्स के लिए।",
+        "drag.title": "खींचिए, छोड़िए।<br><span class='blue'>रंग के साथ पहुँचता है।</span>",
+        "drag.lead": "खींचना पसंद है? <strong>साउंड को पैनल से सीधे टाइमलाइन पर खींचिए</strong>। छोड़ते ही क्लिप अपनी कैटेगरी के रंग में आता है, और आपके ऑडियो ट्रैक बिना मेहनत के व्यवस्थित रहते हैं।",
+        "ed.foldintro": "टाइमलाइन के लिए तैयार 1,463 साउंड, <br>21 कैटेगरी में।",
+        "ed.hintmouse": "फ़ोल्डर पर माउस ले जाइए",
+        "ed.hinttouch": "खोलने के लिए फ़ोल्डर पर टैप कीजिए"
+      }
+    };
+    for (var lang in add) for (var k in add[lang]) I18N[lang][k] = add[lang][k];
+  })();
+
+  // =====================================================================
+  // LINKS DE CHECKOUT POR IDIOMA
+  // Troque aqui quando tiver os links internacionais na Kiwify/Gumroad etc.
+  // =====================================================================
+  var CHECKOUT = {
+    pt: 'https://pay.kiwify.com.br/uzVAstc',
+    en: 'https://pay.kiwify.com.br/uzVAstc',
+    es: 'https://pay.kiwify.com.br/uzVAstc',
+    hi: 'https://pay.kiwify.com.br/uzVAstc'
+  };
+
+  var LANG_META = {
+    pt: { label: 'PT', htmlLang: 'pt-BR', ogLocale: 'pt_BR' },
+    en: { label: 'EN', htmlLang: 'en',    ogLocale: 'en_US' },
+    es: { label: 'ES', htmlLang: 'es',    ogLocale: 'es_ES' },
+    hi: { label: 'HI', htmlLang: 'hi',    ogLocale: 'hi_IN' }
+  };
+
+  // =====================================================================
+  // MOTOR I18N
+  // =====================================================================
+  var DropI18N = (function () {
+    var LS_KEY = 'dropsfx_lang';
+    var current = 'pt';
+
+    function detect() {
+      // 1) ?lang= na URL
+      try {
+        var q = new URLSearchParams(window.location.search).get('lang');
+        if (q && I18N[q.toLowerCase().slice(0, 2)]) return q.toLowerCase().slice(0, 2);
+      } catch (e) {}
+
+      // 2) escolha salva
+      try {
+        var saved = localStorage.getItem(LS_KEY);
+        if (saved && I18N[saved]) return saved;
+      } catch (e) {}
+
+      // 3) idioma do navegador (robôs de busca ficam sempre em português)
+      if (/bot|crawl|spider|slurp|google|bing|yandex|duckduck|facebookexternalhit|lighthouse|headless/i.test(navigator.userAgent)) return 'pt';
+      var navLangs = navigator.languages || [navigator.language || 'pt'];
+      for (var i = 0; i < navLangs.length; i++) {
+        var code = String(navLangs[i]).toLowerCase().slice(0, 2);
+        if (I18N[code]) return code;
+      }
+
+      // 4) fallback
+      return 'pt';
+    }
+
+    function t(key, lang) {
+      var dict = I18N[lang] || I18N.pt;
+      return (dict[key] !== undefined) ? dict[key] : (I18N.pt[key] !== undefined ? I18N.pt[key] : '');
+    }
+
+    function applyCheckoutLinks(lang) {
+      var base = CHECKOUT[lang] || CHECKOUT.pt;
+      document.querySelectorAll('.js-buy-cta').forEach(function (a) {
+        var pos = a.getAttribute('data-position') || 'unknown';
+        a.href = base + '?utm_source=site&utm_medium=' + pos + '&utm_campaign=dropsfx&lang=' + lang;
+      });
+    }
+
+    function apply(lang) {
+      if (!I18N[lang]) lang = 'pt';
+      current = lang;
+
+      // texto puro
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var v = t(el.getAttribute('data-i18n'), lang);
+        if (v !== '') el.textContent = v; else el.textContent = '';
+      });
+
+      // conteúdo com HTML
+      document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+        el.innerHTML = t(el.getAttribute('data-i18n-html'), lang);
+      });
+
+      // atributos (placeholder / aria-label / title / alt)
+      document.querySelectorAll('[data-i18n-attr]').forEach(function (el) {
+        var pairs = el.getAttribute('data-i18n-attr').split(',');
+        pairs.forEach(function (p) {
+          var kv = p.split(':');
+          if (kv.length === 2) el.setAttribute(kv[0].trim(), t(kv[1].trim(), lang));
+        });
+      });
+
+      // metadados
+      var meta = LANG_META[lang];
+      document.documentElement.setAttribute('lang', meta.htmlLang);
+      document.title = t('meta.title', lang);
+
+      var setMeta = function (sel, val) {
+        var m = document.querySelector(sel);
+        if (m) m.setAttribute('content', val);
+      };
+      setMeta('meta[name="description"]', t('meta.desc', lang));
+      setMeta('meta[property="og:title"]', t('meta.title', lang));
+      setMeta('meta[property="og:description"]', t('meta.desc', lang));
+      setMeta('meta[property="og:locale"]', meta.ogLocale);
+      setMeta('meta[name="twitter:title"]', t('meta.title', lang));
+
+      // canonical de cada idioma: raiz pro português, ?lang=xx pros outros
+      var canon = document.querySelector('link[rel="canonical"]');
+      if (canon) canon.setAttribute('href', 'https://www.dropsfx.com.br/' + (lang === 'pt' ? '' : '?lang=' + lang));
+
+      // botão do seletor
+      var cur = document.getElementById('langCurrent');
+      if (cur) cur.textContent = meta.label;
+
+      document.querySelectorAll('.lang-opt').forEach(function (b) {
+        b.classList.toggle('on', b.getAttribute('data-lang') === lang);
+      });
+
+      // links de checkout
+      applyCheckoutLinks(lang);
+
+      // marquee de categorias
+      if (window.renderMarquee) window.renderMarquee(lang);
+
+      // eventos customizados (útil se quiser plugar mais coisas depois)
+      document.dispatchEvent(new CustomEvent('dropsfx:langchange', { detail: { lang: lang } }));
+    }
+
+    function set(lang) {
+      try { localStorage.setItem(LS_KEY, lang); } catch (e) {}
+      apply(lang);
+
+      // atualiza a URL sem recarregar
+      try {
+        var url = new URL(window.location.href);
+        url.searchParams.set('lang', lang);
+        window.history.replaceState({}, '', url);
+      } catch (e) {}
+    }
+
+    return {
+      init: function () { apply(detect()); },
+      set: set,
+      get: function () { return current; },
+      t: function (k) { return t(k, current); }
+    };
+  })();
+
+  // =====================================================================
+  // SELETOR DE IDIOMA — UI
+  // =====================================================================
+  (function () {
+    var wrap = document.getElementById('langSwitch');
+    var btn  = document.getElementById('langBtn');
+    if (!wrap || !btn) return;
+
+    function close() {
+      wrap.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = wrap.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    wrap.querySelectorAll('.lang-opt').forEach(function (opt) {
+      opt.addEventListener('click', function (e) {
+        e.stopPropagation();
+        DropI18N.set(opt.getAttribute('data-lang'));
+        close();
+      });
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!wrap.contains(e.target)) close();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') close();
+    });
+  })();
+
+  // =====================================================================
+  // LOADER DO VÍDEO HERO — some assim que o vídeo estiver pronto pra tocar
+  // =====================================================================
+  (function () {
+    var video = document.getElementById('heroVideo');
+    var loader = document.getElementById('videoLoader');
+    if (!video || !loader) return;
+
+    var hidden = false;
+    function hideLoader() {
+      if (hidden) return;
+      hidden = true;
+      loader.classList.add('hide');
+    }
+
+    if (video.readyState >= 3) {
+      hideLoader();
+    } else {
+      video.addEventListener('canplay', hideLoader, { once: true });
+      video.addEventListener('playing', hideLoader, { once: true });
+      video.addEventListener('loadeddata', hideLoader, { once: true });
+    }
+
+    setTimeout(hideLoader, 4000);
+  })();
+
+  // (o corte do loop agora está embutido no próprio arquivo de vídeo —
+  // não precisa mais desse controle manual em JS)
+
+  // =====================================================================
+  // UTILITÁRIO: detector de touch
+  // =====================================================================
+  var IS_TOUCH = ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+
+  // =====================================================================
+  // META PIXEL — helpers de rastreamento
+  // (o value fica aqui só pro Meta calcular ROAS; não aparece na página)
+  // =====================================================================
+  (function () {
+    var PIXEL_DATA = {
+      content_name: 'dropSFX Full',
+      content_category: 'Premiere Pro Plugin',
+      content_ids: ['dropsfx-full'],
+      content_type: 'product',
+      value: 109.79,
+      currency: 'BRL'
+    };
+
+    setTimeout(function () {
+      window.dropsfxEvent('ViewContent', PIXEL_DATA);
+    }, 800);
+
+    document.addEventListener('click', function (e) {
+      var el = e.target.closest('.js-buy-cta');
+      if (el) {
+        var position = el.getAttribute('data-position') || 'unknown';
+        window.dropsfxEvent('InitiateCheckout', {
+          content_name: PIXEL_DATA.content_name,
+          content_category: PIXEL_DATA.content_category,
+          content_ids: PIXEL_DATA.content_ids,
+          content_type: PIXEL_DATA.content_type,
+          value: PIXEL_DATA.value,
+          currency: PIXEL_DATA.currency,
+          num_items: 1,
+          custom_data: {
+            cta_position: position,
+            lang: (window.DropI18N ? DropI18N.get() : 'pt')
+          }
+        });
+        return;
+      }
+    });
+
+    var addToCartFired = false;
+    var pricingSection = document.getElementById('comprar');
+
+    if (pricingSection && 'IntersectionObserver' in window) {
+      var priceObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && !addToCartFired) {
+            addToCartFired = true;
+            window.dropsfxEvent('AddToCart', PIXEL_DATA);
+            priceObserver.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+
+      priceObserver.observe(pricingSection);
+    } else if (pricingSection) {
+      function checkPricingVisible() {
+        if (addToCartFired) return;
+        var r = pricingSection.getBoundingClientRect();
+        if (r.top < window.innerHeight * 0.7 && r.bottom > 0) {
+          addToCartFired = true;
+          window.dropsfxEvent('AddToCart', PIXEL_DATA);
+        }
+      }
+      window.addEventListener('scroll', checkPricingVisible, { passive: true });
+    }
+  })();
+
+  // =====================================================================
+  // NAV + STICKY CTA
+  // =====================================================================
+  (function () {
+    var nav    = document.getElementById('nav');
+    var sticky = document.getElementById('stickyCta');
+
+    function onScroll() {
+      var st  = document.documentElement.scrollTop || document.body.scrollTop;
+      var vh  = window.innerHeight;
+
+      nav.classList.toggle('solid', st > vh * 0.7);
+
+      if (sticky && window.matchMedia('(max-width:720px)').matches) {
+        var c    = document.getElementById('comprar');
+        var cTop = c ? c.getBoundingClientRect().top : 9999;
+        sticky.classList.toggle('show', st > vh * 0.7 && cTop > vh);
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    if (window.matchMedia('(max-width:720px)').matches) document.body.classList.add('has-sticky');
+    onScroll();
+  })();
+
+  // =====================================================================
+  // REVEAL .r
+  // =====================================================================
+  (function () {
+    var els = Array.from(document.querySelectorAll('.r'));
+    if (!els.length) return;
+
+    if (window.matchMedia('(max-width: 720px)').matches) {
+      els.forEach(function(el) { el.classList.add('in'); });
+      return;
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      els.forEach(function(el) { el.classList.add('in'); });
+      return;
+    }
+
+    function isVisible(el) {
+      var r = el.getBoundingClientRect();
+      return r.bottom > 0 && r.top < window.innerHeight + 80;
+    }
+
+    function checkAll() {
+      els.forEach(function(el) {
+        if (!el.classList.contains('in') && isVisible(el)) {
+          el.classList.add('in');
+        }
+      });
+    }
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0, rootMargin: '0px 0px 80px 0px' });
+      els.forEach(function(el) { io.observe(el); });
+    }
+
+    var ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) { requestAnimationFrame(function() { checkAll(); ticking = false; }); ticking = true; }
+    }, { passive: true });
+
+    window.addEventListener('resize', function() {
+      if (!ticking) { requestAnimationFrame(function() { checkAll(); ticking = false; }); ticking = true; }
+    }, { passive: true });
+
+    checkAll();
+  })();
+
+  // =====================================================================
+  // PANEL: wave + 3D tilt (desktop only)
+  // =====================================================================
+  (function () {
+    var wave = document.getElementById('plWave');
+    if (wave) {
+      for (var i = 0; i < 90; i++) {
+        var x = i / 90, env = Math.pow(Math.sin(x * Math.PI), 0.7);
+        var n = Math.abs((Math.sin(i * 12.9898) * 43758.5453) % 1);
+        var b = document.createElement('i');
+        b.style.height = Math.max(6, Math.min(95, (env * 0.7 + n * 0.4) * 100)) + '%';
+        wave.appendChild(b);
+      }
+    }
+
+    if (IS_TOUCH) return;
+
+    var frame = document.getElementById('panelFrame');
+    var sec   = document.getElementById('panel');
+    if (!frame || !sec) return;
+
+    var MAX = 7, tx = 0, ty = 0, cx = 0, cy = 0;
+
+    function lerp(a, b, f) { return a + (b - a) * f; }
+    function anim() {
+      cx = lerp(cx, tx, .1); cy = lerp(cy, ty, .1);
+      frame.style.setProperty('--rx', cy.toFixed(2) + 'deg');
+      frame.style.setProperty('--ry', cx.toFixed(2) + 'deg');
+      requestAnimationFrame(anim);
+    }
+
+    sec.addEventListener('mousemove', function(e) {
+      var r  = frame.getBoundingClientRect();
+      var dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+      var dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+      tx = Math.max(-1.6, Math.min(1.6, dx)) * MAX;
+      ty = -Math.max(-1.6, Math.min(1.6, dy)) * MAX;
+    });
+    sec.addEventListener('mouseleave', function() { tx = 0; ty = 0; });
+    anim();
+  })();
+
+  // =====================================================================
+  // HOVER DEMO
+  // =====================================================================
+  (function () {
+    var demo   = document.getElementById('hoverMock');
+    var cursor = document.getElementById('hoverCursor');
+    if (!demo) return;
+
+    var rows   = Array.from(demo.querySelectorAll('.fitem'));
+    var idx    = 0;
+    var timer  = null;
+    var INTERVAL = IS_TOUCH ? 1800 : 1500;
+
+    function clearRow(row) {
+      row.classList.remove('active', 'playing', 'previewing');
+      var fill = row.querySelector('.fitem-prog-fill');
+      if (fill) {
+        fill.style.animation = 'none';
+        void fill.offsetWidth;
+        fill.style.animation = '';
+      }
+    }
+
+    function moveTo(i) {
+      rows.forEach(function(r) { clearRow(r); });
+      var row = rows[i];
+      row.classList.add('active', 'playing', 'previewing');
+
+      if (cursor) {
+        var dr = demo.getBoundingClientRect();
+        var rr = row.getBoundingClientRect();
+        cursor.style.opacity = '1';
+        cursor.style.transform = 'translate(' +
+          (rr.left - dr.left + rr.width * 0.5) + 'px,' +
+          (rr.top - dr.top + 12) + 'px)';
+      }
+    }
+
+    function tick() {
+      moveTo(idx);
+      idx = (idx + 1) % rows.length;
+      timer = setTimeout(tick, INTERVAL);
+    }
+
+    var started = false;
+
+    function tryStart() {
+      if (started) return;
+      var r = demo.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.85 && r.bottom > 0) {
+        started = true;
+        tick();
+      }
+    }
+
+    tryStart();
+    window.addEventListener('scroll', tryStart, { passive: true });
+  })();
+
+  // =====================================================================
+  // TWO-CLICK DEMO
+  // =====================================================================
+  (function () {
+    var mock   = document.getElementById('clickMock');
+    var cursor = document.getElementById('clickCursor');
+    var item   = document.getElementById('clickItem');
+    var clip   = document.getElementById('clickClip');
+    if (!mock || !clip || !item) return;
+
+    var started = false;
+
+    function seq() {
+      if (cursor) {
+        var dr = mock.getBoundingClientRect();
+        var rr = item.getBoundingClientRect();
+        cursor.style.opacity = '1';
+        cursor.style.transform = 'translate(' +
+          (rr.left - dr.left + rr.width * 0.4) + 'px,' +
+          (rr.top - dr.top + 10) + 'px)';
+      }
+
+      clip.classList.remove('in');
+      item.classList.add('active');
+
+      setTimeout(function() {
+        item.style.background = 'rgba(59,110,245,.28)';
+        setTimeout(function() {
+          item.style.background = '';
+          setTimeout(function() {
+            item.style.background = 'rgba(59,110,245,.28)';
+            setTimeout(function() {
+              item.style.background = '';
+              clip.classList.add('in');
+            }, 130);
+          }, 130);
+        }, 130);
+      }, 700);
+
+      setTimeout(seq, 3000);
+    }
+
+    function tryStart() {
+      if (started) return;
+      var r = mock.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.85 && r.bottom > 0) {
+        started = true;
+        setTimeout(seq, 500);
+      }
+    }
+
+    tryStart();
+    window.addEventListener('scroll', tryStart, { passive: true });
+  })();
+
+  // =====================================================================
+  // GAIN DEMO
+  // =====================================================================
+  (function () {
+    var pills  = [document.getElementById('g-12'), document.getElementById('g-0'), document.getElementById('g-6')];
+    var fill   = document.getElementById('gainFill');
+    if (!pills[0] || !fill) return;
+
+    var widths  = ['40%', '70%', '95%'];
+    var idx     = 0;
+    var INTERVAL = IS_TOUCH ? 2200 : 1500;
+    var started = false;
+
+    function tick() {
+      pills.forEach(function(p) { p.classList.remove('on'); });
+      pills[idx].classList.add('on');
+      fill.style.width = widths[idx];
+      idx = (idx + 1) % pills.length;
+      setTimeout(tick, INTERVAL);
+    }
+
+    function tryStart() {
+      if (started) return;
+      var r = fill.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.85 && r.bottom > 0) {
+        started = true;
+        tick();
+      }
+    }
+
+    tryStart();
+    window.addEventListener('scroll', tryStart, { passive: true });
+  })();
+
+  // =====================================================================
+  // LIBRARY MARQUEE (re-renderiza a cada troca de idioma)
+  // =====================================================================
+  window.renderMarquee = (function () {
+    // Pasta da biblioteca: 21 folhas (uma por categoria) que saem em leque no hover
+    var cats = [
+      ['cat.whooshes',240,'#2dd4bf'],['cat.transitions',179,'#facc15'],['cat.drops',142,'#a78bfa'],
+      ['cat.clicks',130,'#38bdf8'],['cat.foley',127,'#06b6d4'],['cat.risers',98,'#fb923c'],
+      ['cat.elements',85,'#4ade80'],['cat.memes',71,'#f472b6'],['cat.hits',63,'#f87171'],
+      ['cat.glitches',45,'#60a5fa'],['cat.guns',45,'#f87171'],['cat.reverb',39,'#4ade80'],
+      ['cat.retro',29,'#b45309'],['cat.hud',27,'#38bdf8'],['cat.ambient',26,'#4ade80'],
+      ['cat.nature',24,'#4ade80'],['cat.emotion',18,'#f472b6'],['cat.camera',17,'#94a3b8'],
+      ['cat.bells',16,'#b45309'],['cat.slowmo',13,'#a78bfa'],['cat.tonal',29,'#facc15']
+    ].sort(function (a, b) { return b[1] - a[1]; });
+
+    function wave(seed) {
+      var x = seed * 9301 + 49297, h = '';
+      for (var i = 0; i < 18; i++) {
+        x = (x * 9301 + 49297) % 233280;
+        h += '<i style="height:' + Math.round(20 + (x / 233280) * 80) + '%"></i>';
+      }
+      return h;
+    }
+
+    return function (lang) {
+      var el = document.getElementById('edIndex');
+      if (!el) return;
+      var dict = I18N[lang] || I18N.pt;
+      el.innerHTML = cats.map(function (c, i) {
+        var name = dict[c[0]] || I18N.pt[c[0]] || c[0];
+        return '<div class="fc" style="--c:' + c[2] + '">' +
+          '<div class="fc-top"><span class="fc-dot"></span><span class="fc-ct"><b>' + c[1] + '</b><span class="fc-ctl">' + (dict['mock.sounds'] || 'sons') + '</span></span></div>' +
+          '<div class="fc-name">' + name + '</div>' +
+          '<div class="fc-lines"><i></i><i></i><i></i></div>' +
+          '<div class="fc-wave">' + wave(c[1] + i) + '</div></div>';
+      }).join('');
+      if (window.edFolderLayout) window.edFolderLayout();
+    };
+  })();
+
+  // Coreografia da pasta
+  (function () {
+    var stage = document.getElementById('edFolder');
+    if (!stage) return;
+    var fold = stage.querySelector('.fold');
+    var open = false, closeTimer = null;
+    // no celular (ou janela estreita) a pasta abre com toque; hover só faz sentido no desktop
+    var touch = window.matchMedia('(hover: none)').matches || stage.clientWidth < 640;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // fechada: as 3 primeiras espiam pela boca, o resto fica escondido atrás do vidro
+    var PEEK = [[-92, -52, -9], [0, -70, 1], [92, -46, 10]];
+
+    function layout() {
+      var cards = stage.querySelectorAll('.fc');
+      if (!cards.length) return;
+      var mobile = stage.clientWidth < 640;
+      var k = mobile ? .72 : 1;
+      var W = stage.clientWidth / k;
+      var rows = mobile
+        ? [{ n: 7, R: 520, peak: 560, spread: .36 }, { n: 7, R: 420, peak: 380, spread: .33 }, { n: 7, R: 320, peak: 200, spread: .30 }]
+        : [{ n: 11, R: 700, peak: 300, spread: .43 }, { n: 10, R: 560, peak: 136, spread: .35 }];
+
+      var idx = 0, total = cards.length;
+
+      if (mobile) {
+        // duas colunas alinhadas que cabem na largura da tela; as maiores
+        // categorias ficam logo abaixo da pasta, e a última ímpar fica centralizada
+        var gap = 10, colW = Math.floor((W - 6 - gap) / 2), half = colW / 2 + gap / 2;
+        var MPEEK = [[-46, 52, -6], [8, 38, 2], [52, 26, 7]];
+        for (; idx < total; idx++) {
+          var c0 = cards[idx], col = idx % 2, line = Math.floor(idx / 2);
+          var alone = idx === total - 1 && total % 2 === 1;
+          c0.style.width = colW + 'px';
+          var mx, my, mr;
+          if (open) {
+            mx = alone ? 0 : (col ? half : -half); my = 18 + 76 + line * 86; mr = 0;
+          } else if (idx < MPEEK.length) {
+            mx = MPEEK[idx][0]; my = MPEEK[idx][1]; mr = MPEEK[idx][2];
+          } else {
+            mx = 0; my = 200; mr = 0;
+          }
+          c0.style.setProperty('--t', 'translate(-50%, -100%) translate3d(' + mx.toFixed(1) + 'px,' + my + 'px,0) rotate(' + mr + 'deg)');
+          // abrindo: cada linha aparece quando a pasta passa por ela (de cima pra baixo)
+          c0.style.setProperty('--d', (open ? .08 + line * .055 + col * .015 : (10 - line) * .01) + 's');
+          c0.style.zIndex = String(open ? 30 - idx : 2 + (total - idx));
+        }
+        var lines = Math.ceil(total / 2);
+        var drop = 18 + 76 + (lines - 1) * 86 + 34;           // pasta para logo abaixo da última linha
+        stage.style.setProperty('--drop', drop + 'px');
+        stage.style.setProperty('--tallh', Math.round(154 + (drop + 240) * k + 40) + 'px');
+        return;
+      }
+
+      for (var z = 0; z < total; z++) cards[z].style.width = '';
+
+      rows.forEach(function (row, r) {
+        var A = Math.asin(Math.min(.95, (W * row.spread) / row.R));
+        for (var j = 0; j < row.n && idx < total; j++, idx++) {
+          var c = cards[idx];
+          var t = row.n === 1 ? 0 : j / (row.n - 1) * 2 - 1;
+          var th = t * A;
+          var x = row.R * Math.sin(th);
+          var y = -row.peak + row.R * (1 - Math.cos(th));
+          var rot = th * 180 / Math.PI * .55;
+
+          var tx, ty, tr;
+          if (open) {
+            tx = x; ty = y; tr = rot;
+          } else if (idx < PEEK.length) {
+            tx = PEEK[idx][0]; ty = PEEK[idx][1] + 150; tr = PEEK[idx][2];
+          } else {
+            tx = (idx % 5 - 2) * 14; ty = 190; tr = (idx % 3 - 1) * 4;
+          }
+          // ty é a base da folha em relação à boca da pasta
+          c.style.setProperty('--t', 'translate(-50%, -100%) translate(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px) rotate(' + tr.toFixed(2) + 'deg)');
+          // abre do centro pra fora; fecha de fora pro centro
+          var order = Math.abs(t);
+          c.style.setProperty('--d', (open ? order * .28 + r * .06 : (1 - order) * .16) + 's');
+          c.style.zIndex = open ? String(10 - r) : String(2 + (total - idx));
+        }
+      });
+    }
+    window.edFolderLayout = layout;
+
+    var shrinkTimer = null;
+    function set(v) {
+      if (open === v) return;
+      open = v;
+      clearTimeout(shrinkTimer);
+      if (open) {
+        // primeiro o espaço (um único recálculo de layout), no quadro seguinte o movimento
+        stage.classList.add('tall');
+        requestAnimationFrame(function () { requestAnimationFrame(function () {
+          stage.classList.add('open'); layout();
+        }); });
+      } else {
+        stage.classList.remove('open'); layout();
+        shrinkTimer = setTimeout(function () { stage.classList.remove('tall'); }, 950);
+      }
+    }
+
+    if (reduce) { set(true); }
+    else if (touch) {
+      // celular: abre e fecha só com toque na pasta
+      fold.addEventListener('click', function (e) {
+        if (e.target.closest('.fc')) return;   // tocar num arquivo não fecha a pasta
+        set(!open);
+      });
+    } else {
+      fold.addEventListener('mouseenter', function () { clearTimeout(closeTimer); set(true); });
+      stage.addEventListener('mouseleave', function () { closeTimer = setTimeout(function () { set(false); }, 280); });
+      stage.addEventListener('mouseenter', function () { clearTimeout(closeTimer); });
+      fold.addEventListener('focus', function () { set(true); });
+      fold.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); set(!open); } });
+    }
+
+    var rt;
+    window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(layout, 120); });
+    layout();
+  })();
+
+  // =====================================================================
+  // AVATARES REAIS (Supabase) — troca as iniciais por fotos, com fallback
+  // =====================================================================
+  (function () {
+    var container = document.querySelector('.proof-avatars');
+    if (!container) return;
+
+    var ENDPOINT = 'https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/public-avatars';
+    var MAX_SHOW = 5;
+
+    fetch(ENDPOINT)
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var avatars = (data.avatars || []).slice(0, MAX_SHOW);
+        if (!avatars.length) return; // mantém as iniciais se não vier nada
+
+        var html = avatars.map(function (url) {
+          return '<span class="proof-av proof-av-photo">' +
+            '<img src="' + url + '" alt="" loading="lazy" ' +
+            'onerror="this.parentElement.style.display=\'none\'">' +
+            '</span>';
+        }).join('');
+
+        html += '<span class="proof-av proof-av-more">+</span>';
+        container.innerHTML = html;
+      })
+      .catch(function () {
+        // erro de rede → mantém as bolinhas de iniciais que já estão no HTML
+      });
+  })();
+
+  // =====================================================================
+  // SLIDE UP TEXT — revela palavra por palavra, com stagger
+  // (inspirado no componente "Slide Up Text" da Spell UI, refeito em JS puro
+  // pra funcionar neste site estático, sem React)
+  // =====================================================================
+  (function () {
+    var STAGGER = 0.1;   // segundos entre cada palavra
+    var BASE_DELAY = 0;  // atraso inicial
+
+    function wrapWords(container) {
+      // preserva as sub-tags existentes (ex: .quote-line, .accent) —
+      // processa cada uma como uma "linha" própria, palavra por palavra.
+      var lines = container.children.length ? Array.from(container.children) : [container];
+      var wordIndex = 0;
+
+      lines.forEach(function (line) {
+        var text = line.textContent;
+        var words = text.split(/(\s+)/); // mantém os espaços como itens separados
+        var html = '';
+        words.forEach(function (w) {
+          if (!w.trim()) { html += w; return; } // espaço em branco, mantém como está
+          html += '<span class="swu-word"><span style="transition-delay:' +
+            (BASE_DELAY + wordIndex * STAGGER).toFixed(2) + 's">' + w + '</span></span>';
+          wordIndex++;
+        });
+        line.innerHTML = html;
+      });
+    }
+
+    function initSlideUpText() {
+      document.querySelectorAll('.slide-up-text').forEach(function (el) {
+        el.classList.remove('swu-in');
+        wrapWords(el);
+      });
+      observeSlideUp();
+    }
+
+    var io;
+    function observeSlideUp() {
+      if (io) io.disconnect();
+      var els = document.querySelectorAll('.slide-up-text');
+      if (!els.length) return;
+
+      if (window.matchMedia('(max-width: 720px)').matches ||
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        els.forEach(function (el) { el.classList.add('swu-in'); });
+        return;
+      }
+
+      if ('IntersectionObserver' in window) {
+        io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('swu-in');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.4 });
+        els.forEach(function (el) { io.observe(el); });
+      } else {
+        els.forEach(function (el) { el.classList.add('swu-in'); });
+      }
+    }
+
+    // primeira montagem
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSlideUpText);
+    } else {
+      initSlideUpText();
+    }
+
+    // reaplica quando o idioma troca (o i18n reescreve o innerHTML e perderia as tags)
+    document.addEventListener('dropsfx:langchange', function () {
+      setTimeout(initSlideUpText, 30);
+    });
+  })();
+
+  // highlight sweep na frase-chave do hero — dispara pouco depois do load
+  (function () {
+    function triggerHighlight() {
+      document.querySelectorAll('.hl-sweep').forEach(function (el) { el.classList.add('hl-in'); });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () { setTimeout(triggerHighlight, 1400); });
+    } else {
+      setTimeout(triggerHighlight, 1400);
+    }
+    document.addEventListener('dropsfx:langchange', function () { setTimeout(triggerHighlight, 60); });
+  })();
+
+  // tilt 3D no card do QR code — segue o mouse
+  (function () {
+    if (window.matchMedia('(max-width: 720px)').matches ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if ('ontouchstart' in window) return;
+
+    function wireTilt() {
+      var card = document.querySelector('.qr-card');
+      if (!card || card._tiltWired) return;
+      card._tiltWired = true;
+
+      var MAX = 8;
+      card.addEventListener('mousemove', function (e) {
+        var r = card.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width;
+        var py = (e.clientY - r.top) / r.height;
+        var rx = (0.5 - py) * MAX * 2;
+        var ry = (px - 0.5) * MAX * 2;
+        card.style.transform = 'perspective(500px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.transform = 'perspective(500px) rotateX(0deg) rotateY(0deg)';
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', wireTilt);
+    } else {
+      wireTilt();
+    }
+  })();
+
+  // =====================================================================
+  // ROLAGEM SUAVE — inércia na roda do mouse/trackpad; toque continua nativo
+  // =====================================================================
+  (function () {
+    if (!window.Lenis) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var lenis = new Lenis({ lerp: 0.085, wheelMultiplier: 0.95, smoothWheel: true });
+    function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    // links internos (#comprar etc.) também deslizam
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      var id = a.getAttribute('href');
+      if (id.length < 2) return;
+      var el = document.querySelector(id);
+      if (!el) return;
+      e.preventDefault();
+      lenis.scrollTo(el, { offset: -72 });
+    });
+
+    window.dropLenis = lenis;
+  })();
+
+  // =====================================================================
+  // BOOT
+  // =====================================================================
+  DropI18N.init();
+  </script>
+
+</body>
+</html>
