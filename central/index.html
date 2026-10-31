@@ -629,26 +629,31 @@
 
 
   // =====================================================================
-  // ABA FUNIL, métricas do /comecar/ (e do site, pra comparar)
+  // ABA FUNIL: quiz (/quiz, gravado como "comecar") e página oficial (home)
   // =====================================================================
   var FUNNEL_ENDPOINT = 'https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/funnel-stats';
-  var fstate = { days: 7, page: 'comecar', data: null };
+  var fstate = { days: 7, page: 'home', data: null };
 
-  var Q_ORDER = ['type','vibe','fams','app','source','time','volume','name'];
-  var Q_LABEL = { type:'1 · Tipo de vídeo', vibe:'2 · Pegada', fams:'3 · Sons que usa', app:'4 · Programa', source:'5 · Onde procura som', time:'6 · Tempo por vídeo', volume:'7 · Vídeos por semana', name:'8 · Nome' };
+  // perguntas do quiz atual (genéricas → dor → desejo → solução)
+  var Q_ORDER = ['type','app','exp','source','time','pains','vol','desire','dream','commit'];
+  var Q_PHASE = { type:'Genérica', app:'Genérica', exp:'Genérica', source:'Dor', time:'Dor', pains:'Dor', vol:'Dor', desire:'Desejo', dream:'Desejo', commit:'Solução' };
+  var Q_LABEL = { type:'1 · O que edita', app:'2 · Programa', exp:'3 · Tempo editando', source:'4 · Onde procura som', time:'5 · Tempo caçando som', pains:'6 · O que já aconteceu', vol:'7 · Vídeos por semana', desire:'8 · O que faria com o tempo', dream:'9 · O que muda com som bom', commit:'10 · Usaria na próxima edição?' };
   var A_LABEL = {
-    type: { reels:'Reels/TikTok/Shorts', youtube:'YouTube', wedding:'Casamentos e eventos', ads:'Publicidade', games:'Games e streams', podcast:'Podcasts e cortes' },
-    vibe: { cinematic:'Cinematográfica', funny:'Engraçada/memes', clean:'Clean/corporativa', hype:'Energética', emotional:'Emocional' },
-    fams: { whoosh:'Whooshes e transições', hits:'Impactos e drops', risers:'Risers e tensão', ui:'Cliques e interface', glitch:'Glitches', memes:'Memes e cartoon', foley:'Foley e ambientes', cine:'Slow motion e câmera', emotion:'Emoção e reverb', action:'Ação e armas', retro:'Retrô' },
-    app: { premiere:'Premiere Pro', ae:'After Effects', davinci:'DaVinci Resolve', multi:'Mais de um', other:'Outro (CapCut etc.)' },
+    type: { reels:'Reels/TikTok/Shorts', youtube:'YouTube', wedding:'Casamentos e eventos', ads:'Anúncios e clientes', games:'Gameplay', podcast:'Cortes de podcast' },
+    app: { premiere:'Premiere Pro', ae:'After Effects', davinci:'DaVinci Resolve', multi:'Mais de um', other:'Outro programa' },
+    exp: { a:'Menos de 1 ano', b:'1 a 3 anos', c:'3 a 5 anos', d:'Mais de 5 anos' },
     source: { yt:'YouTube + conversor', envato:'Envato/Artlist', folder:'Pasta no PC', none:'Nem coloca som' },
-    time: { '0':'< 10 min', '1':'10 a 30 min', '2':'30 min a 1 h', '3':'> 1 hora' },
-    volume: { '0':'1 a 2 por semana', '1':'3 a 5', '2':'6 a 10', '3':'> 10' },
-    name: { 'preencheu':'Deu o nome', 'pulou':'Pulou' }
+    time: { a:'< 5 min', b:'5 a 15 min', c:'15 a 30 min', d:'> 30 min' },
+    pains: { dl:'Baixou 10 pra usar 1', lost:'Tinha o som e não achou', dead:'Entregou sem som pelo prazo', flat:'Cliente achou sem graça', sub:'Paga assinatura por sons', none:'Nenhuma' },
+    vol: { a:'1 ou 2', b:'3 a 5', c:'6 a 10', d:'Mais de 10' },
+    desire: { clients:'Mais clientes', quality:'Caprichar no sound design', faster:'Entregar rápido e cobrar mais', life:'Ter as noites de volta' },
+    dream: { refer:'Cliente indica', views:'Mais retenção e views', proud:'Orgulho de postar', mix:'Parar de refazer mix' },
+    commit: { yes:'Sim, na próxima edição', budget:'Sim, se couber no bolso', see:'Quer ver antes' }
   };
+  var LEVEL_LABEL = { high:'Atrito alto', mid:'Atrito médio', low:'Atrito baixo' };
   var LANG_LABEL = { pt:'Português', en:'English', es:'Español', hi:'हिन्दी', fr:'Français', id:'Bahasa Indonesia' };
   var REASON_LABEL = { declined:'Cartão recusado', confusing:'Se perdeu no checkout', price:'Achou caro', later:'Vai comprar depois', bought:'Já comprou' };
-  var POS_LABEL = { kit:'Botão do kit (topo)', sounds:'Depois do simulador', back:'Voltou e tentou de novo', offer:'Card da oferta', final:'Botão final', sticky:'Barra fixa', hero:'Hero (site)', nav:'Menu (site)', pricing:'Preço (site)', sticky_site:'Barra (site)', demo:'Demo (site)', depois:'Vida depois (site)', quiz:'Card do quiz antigo' };
+  var POS_LABEL = { hero:'Topo (hero)', nav:'Menu', pricing:'Card do preço', sticky:'Barra fixa', quiz_offer:'Oferta do quiz', quiz_sticky:'Barra do quiz' };
 
   // fuso horário → país (o servidor não manda país)
   var TZ_COUNTRY = {
@@ -688,42 +693,55 @@
   function fmtSecs(s){ if (s == null) return '·'; s = Math.round(s); if (s < 60) return s + 's'; var m = Math.floor(s / 60); return m + 'min ' + (s % 60 ? (s % 60) + 's' : ''); }
 
   function renderFunnel(){
-    var d = fstate.data || {}, T = d.totals || {}, Qs = d.questions || {}, isQuiz = fstate.page === 'comecar';
-    var base = T.sessions || 0;
+    var d = fstate.data || {}, T = d.totals || {}, Qs = d.questions || {}, isQuiz = fstate.page === 'comecar', isAll = fstate.page === 'all';
+    var base = T.sessions || 0, sc = d.scroll || {};
 
     var bar =
       '<div class="fbar">' +
         [[0,'Hoje'],[1,'24h'],[7,'7 dias'],[30,'30 dias'],[90,'90 dias']].map(function(o){ return '<div class="fchip ' + (fstate.days===o[0]?'on':'') + '" data-days="' + o[0] + '">' + o[1] + '</div>'; }).join('') +
         '<span class="sep"></span>' +
-        [['comecar','Funil novo (/comecar)'],['home','Site antigo (home)'],['all','Tudo']].map(function(o){ return '<div class="fchip ' + (fstate.page===o[0]?'on':'') + '" data-page="' + o[0] + '">' + o[1] + '</div>'; }).join('') +
+        [['home','Página oficial'],['comecar','Quiz (/quiz)'],['all','Tudo junto']].map(function(o){ return '<div class="fchip ' + (fstate.page===o[0]?'on':'') + '" data-page="' + o[0] + '">' + o[1] + '</div>'; }).join('') +
         '<span class="hint">atualizado ' + new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}) + '</span>' +
       '</div>';
 
-    var cards = '<div class="cards">' +
-      card('Visitas', T.page_views || 0, 'var(--muted)', (T.visitors||0) + ' visitantes únicos') +
-      card('Sessões', base, 'var(--accent)', (T.returning_visitors||0) + ' voltaram mais de 1x') +
-      (isQuiz ? card('Começaram o quiz', T.quiz_starts || 0, 'var(--purple)', pct(T.quiz_starts, base) + '% das sessões') : '') +
-      (isQuiz ? card('Terminaram o quiz', T.quiz_completes || 0, 'var(--purple)', pct(T.quiz_completes, base) + '% das sessões · ' + pct(T.quiz_completes, T.quiz_starts) + '% de quem começou') : '') +
-      (isQuiz ? card('Viram a oferta', T.result_views || 0, 'var(--accent-hi)', pct(T.result_views, base) + '% das sessões') : '') +
-      card('Clicaram em comprar', T.cta_sessions || 0, 'var(--orange)', pct(T.cta_sessions, base) + '% das sessões · ' + (T.cta_clicks||0) + ' cliques') +
-      card('Compras rastreadas', T.purchases_attributed || 0, 'var(--green)', pct(T.purchases_attributed, base) + '% das sessões') +
-      card('Compras no período', T.purchases_total || 0, 'var(--green)', 'todas as origens (Kiwify)') +
-      (isQuiz ? card('Tempo do quiz', fmtSecs(T.avg_quiz_seconds), 'var(--muted)', 'média até terminar') : '') +
-      card('Tempo na página', fmtSecs(T.median_seconds_on_page), 'var(--muted)', 'mediana') +
-    '</div>';
+    // ---- cards ----
+    var cards;
+    if (isQuiz) {
+      cards = '<div class="cards">' +
+        card('Abriram o quiz', base, 'var(--accent)', (T.visitors||0) + ' visitantes únicos') +
+        card('Começaram', T.quiz_starts || 0, 'var(--purple)', pct(T.quiz_starts, base) + '% de quem abriu') +
+        card('Terminaram', T.quiz_completes || 0, 'var(--purple)', pct(T.quiz_completes, T.quiz_starts) + '% de quem começou') +
+        card('Foram pra página oficial', T.to_home || 0, 'var(--accent-hi)', (T.to_home_auto||0) + ' pelo timer, ' + (T.to_home_click||0) + ' no botão') +
+        card('Compraram', T.purchases_attributed || 0, 'var(--green)', pct(T.purchases_attributed, T.quiz_starts) + '% de quem começou') +
+        card('Tempo do quiz', fmtSecs(T.avg_quiz_seconds), 'var(--muted)', 'média até terminar') +
+      '</div>';
+    } else {
+      cards = '<div class="cards">' +
+        card('Sessões', base, 'var(--accent)', (T.visitors||0) + ' visitantes, ' + (T.returning_visitors||0) + ' voltaram') +
+        (isAll ? '' : card('Vieram do quiz', T.from_quiz || 0, 'var(--purple)', pct(T.from_quiz, base) + '% das sessões')) +
+        (isAll ? '' : card('Chegaram no preço', sc.oferta || 0, 'var(--accent-hi)', pct(sc.oferta, base) + '% das sessões')) +
+        card('Clicaram em comprar', T.cta_sessions || 0, 'var(--orange)', pct(T.cta_sessions, base) + '% das sessões, ' + (T.cta_clicks||0) + ' cliques') +
+        card('Compras rastreadas', T.purchases_attributed || 0, 'var(--green)', pct(T.purchases_attributed, base) + '% das sessões') +
+        card('Compras no período', T.purchases_total || 0, 'var(--green)', 'todas as origens (Kiwify)') +
+        card('Tempo na página', fmtSecs(T.median_seconds_on_page), 'var(--muted)', 'mediana') +
+      '</div>';
+    }
 
     // ---- funil passo a passo ----
-    var steps = [['Visitaram', T.sessions]];
+    var steps;
     if (isQuiz) {
-      steps.push(['Escolheram idioma', T.lang_selected], ['Começaram o quiz', T.quiz_starts]);
-      Q_ORDER.forEach(function(q){ steps.push([Q_LABEL[q], Qs[q] || 0, 'q']); });
-      steps.push(['Pularam o quiz direto pro plugin', T.quiz_skips || 0], ['Terminaram o quiz', T.quiz_completes], ['Tela "montando kit"', T.analysis_views], ['Viram o kit e a oferta', T.result_views], ['Ouviram os sons', (d.sfx_totals||{}).sessions || 0], ['Viram o vídeo', T.video_plays]);
+      steps = [['Abriram o quiz', base], ['Começaram', T.quiz_starts]];
+      Q_ORDER.forEach(function(q){
+        steps.push([Q_LABEL[q] + ' <span style="color:var(--dim);font-weight:400">' + Q_PHASE[q] + '</span>', Qs[q] || 0, 'q']);
+        if (q === 'vol') steps.push(['Viram o número bloqueado', T.mid_views || 0]);
+      });
+      steps.push(['Viram o diagnóstico', T.quiz_completes], ['Foram pra página oficial', T.to_home], ['Compraram', T.purchases_attributed, 'buy']);
+    } else {
+      steps = [['Visitaram', base], ['Rolaram 25%', sc['25'] || 0], ['Rolaram 50%', sc['50'] || 0], ['Chegaram no preço', sc.oferta || 0], ['Rolaram até o fim', sc['100'] || 0], ['Clicaram em comprar', T.cta_sessions], ['Compraram', T.purchases_attributed, 'buy']];
+      if (isAll) steps = [['Visitaram', base], ['Clicaram em comprar', T.cta_sessions], ['Compraram', T.purchases_attributed, 'buy']];
     }
-    steps.push(['Clicaram em comprar', T.cta_sessions]);
-    if (T.checkout_help) steps.push(['Gringos: viram a ajuda do checkout', T.checkout_help], ['Gringos: seguiram pro checkout', T.checkout_go || 0]);
-    steps.push(['Compraram', T.purchases_attributed, 'buy']);
     var worst = -1, worstDrop = 0;
-    steps.forEach(function(s, i){ if (i > 0 && steps[i-1][1] > 0) { var dr = 1 - (s[1]||0) / steps[i-1][1]; if (dr > worstDrop && s[2] === 'q') { worstDrop = dr; worst = i; } } });
+    steps.forEach(function(s, i){ if (i > 1 && steps[i-1][1] > 0 && s[2] !== 'buy') { var dr = 1 - (s[1]||0) / steps[i-1][1]; if (dr > worstDrop) { worstDrop = dr; worst = i; } } });
     var maxv = Math.max(1, steps[0][1] || 0);
     var funnelHtml = steps.map(function(s, i){
       var v = s[1] || 0, prev = i ? (steps[i-1][1] || 0) : v;
@@ -735,17 +753,17 @@
       '</div>';
     }).join('');
 
-    // ---- respostas ----
+    // ---- respostas do quiz ----
     var ansHtml = '';
     if (isQuiz) {
       Q_ORDER.forEach(function(q){
         var arr = (d.answers || {})[q] || [];
         if (!arr.length) return;
         var tot = Qs[q] || arr.reduce(function(s,x){ return s + x.n; }, 0);
-        ansHtml += '<h4>' + Q_LABEL[q] + ' <span style="color:var(--dim);font-weight:400">· ' + tot + ' respostas' + (q==='fams' ? ' (vários por pessoa)' : '') + '</span></h4>' +
+        ansHtml += '<h4>' + Q_LABEL[q] + ' <span style="color:var(--dim);font-weight:400">' + tot + ' respostas' + (q==='pains' ? ', várias por pessoa' : '') + '</span></h4>' +
           arr.map(function(x){
             var lbl = (A_LABEL[q] && A_LABEL[q][x.k]) || x.k;
-            return '<div class="arow"><span class="t" title="' + escapeAttr(lbl) + '">' + escapeHtml(lbl) + '</span><span class="b"><i style="width:' + pct(x.n, tot) + '%"></i></span><span class="n">' + x.n + ' · ' + Math.round(pct(x.n, tot)) + '%</span></div>';
+            return '<div class="arow"><span class="t" title="' + escapeAttr(lbl) + '">' + escapeHtml(lbl) + '</span><span class="b"><i style="width:' + pct(x.n, tot) + '%"></i></span><span class="n">' + x.n + ' (' + Math.round(pct(x.n, tot)) + '%)</span></div>';
           }).join('');
       });
     }
@@ -759,12 +777,12 @@
         rows = Object.keys(m).map(function(k){ return m[k]; }).sort(function(a,b){ return b.sessions - a.sessions; });
       }
       if (!rows.length) return '<div class="panel"><h3>' + title + '</h3><div class="empty-note">Sem dados ainda</div></div>';
-      return '<div class="panel"><h3>' + title + '</h3><div class="ph">sessões · ' + (isQuiz ? 'terminaram o quiz · ' : '') + 'clicaram · compraram</div>' +
-        '<table class="mini"><thead><tr><th></th><th class="num">Sessões</th>' + (isQuiz ? '<th class="num">Quiz ✓</th>' : '') + '<th class="num">Clique</th><th class="num">Compra</th></tr></thead><tbody>' +
+      var mid = isQuiz ? ['Terminou', 'completes'] : ['Clique', 'clicks'];
+      return '<div class="panel"><h3>' + title + '</h3><div class="ph">sessões, ' + (isQuiz ? 'terminaram o quiz' : 'clicaram em comprar') + ', compraram</div>' +
+        '<table class="mini"><thead><tr><th></th><th class="num">Sessões</th><th class="num">' + mid[0] + '</th><th class="num">Compra</th></tr></thead><tbody>' +
         rows.slice(0, 12).map(function(r){
           return '<tr><td class="k" title="' + escapeAttr(r.k) + '">' + escapeHtml(r.k) + '</td><td class="num">' + r.sessions + '</td>' +
-            (isQuiz ? '<td class="num">' + r.completes + ' <span style="color:var(--dim)">' + Math.round(pct(r.completes, r.sessions)) + '%</span></td>' : '') +
-            '<td class="num">' + r.clicks + ' <span style="color:var(--dim)">' + Math.round(pct(r.clicks, r.sessions)) + '%</span></td>' +
+            '<td class="num">' + r[mid[1]] + ' <span style="color:var(--dim)">' + Math.round(pct(r[mid[1]], r.sessions)) + '%</span></td>' +
             '<td class="num" style="color:' + (r.purchases ? 'var(--green)' : 'inherit') + '">' + r.purchases + '</td></tr>';
         }).join('') + '</tbody></table></div>';
     }
@@ -782,12 +800,12 @@
       [0, .5, 1].forEach(function(g){ var yy = y(maxY * g); svg += '<line x1="' + P + '" x2="' + (W - P) + '" y1="' + yy + '" y2="' + yy + '" stroke="rgba(255,255,255,.06)"/><text x="2" y="' + (yy + 4) + '" fill="#6a6f7d" font-size="10" font-family="JetBrains Mono">' + Math.round(maxY * g) + '</text>'; });
       rows.forEach(function(r,i){ svg += '<rect x="' + (x(i) - bw * .32) + '" y="' + y(r.sessions) + '" width="' + (bw * .64) + '" height="' + (H - P - y(r.sessions)) + '" rx="3" fill="rgba(59,110,245,.35)"><title>' + r.d + ': ' + r.sessions + ' sessões</title></rect>'; });
       if (isQuiz) svg += '<path d="' + line('completes') + '" fill="none" stroke="#a78bfa" stroke-width="2"/>';
-      svg += '<path d="' + line('clicks') + '" fill="none" stroke="#ffc46b" stroke-width="2"/>';
+      else svg += '<path d="' + line('clicks') + '" fill="none" stroke="#ffc46b" stroke-width="2"/>';
       rows.forEach(function(r,i){ if (r.purchases_all) svg += '<circle cx="' + x(i) + '" cy="' + y(r.purchases_all) + '" r="5" fill="#4ade80"><title>' + r.d + ': ' + r.purchases_all + ' compras (' + r.purchases + ' rastreadas)</title></circle>'; });
       var step = Math.max(1, Math.ceil(n / 10));
       rows.forEach(function(r,i){ if (i % step === 0) svg += '<text x="' + x(i) + '" y="' + (H - 6) + '" fill="#6a6f7d" font-size="10" text-anchor="middle" font-family="JetBrains Mono">' + r.d.slice(5).split('-').reverse().join('/') + '</text>'; });
       svg += '</svg>';
-      return svg + '<div class="legend"><span><i style="background:rgba(59,110,245,.6)"></i>Sessões</span>' + (isQuiz ? '<span><i style="background:#a78bfa"></i>Terminaram quiz</span>' : '') + '<span><i style="background:#ffc46b"></i>Clicaram em comprar</span><span><i style="background:#4ade80;border-radius:50%"></i>Compras (todas)</span></div>';
+      return svg + '<div class="legend"><span><i style="background:rgba(59,110,245,.6)"></i>Sessões</span>' + (isQuiz ? '<span><i style="background:#a78bfa"></i>Terminaram o quiz</span>' : '<span><i style="background:#ffc46b"></i>Clicaram em comprar</span>') + '<span><i style="background:#4ade80;border-radius:50%"></i>Compras (todas)</span></div>';
     }
 
     function kv(obj, labels, total, keepOrder){
@@ -795,74 +813,21 @@
       if (!keys.length) return '<div class="empty-note">Sem dados ainda</div>';
       if (!keepOrder) keys.sort(function(a,b){ return (obj[b]) - (obj[a]); });
       return '<div class="kv">' + keys.map(function(k){
-        return '<span>' + escapeHtml((labels && labels[k]) || k) + '</span><span>' + obj[k] + (total ? ' · ' + Math.round(pct(obj[k], total)) + '%' : '') + '</span>';
+        return '<span>' + escapeHtml((labels && labels[k]) || k) + '</span><span>' + obj[k] + (total ? ' (' + Math.round(pct(obj[k], total)) + '%)' : '') + '</span>';
       }).join('') + '</div>';
     }
-    var vid = d.video || {}, sc = d.scroll || {};
-    var vidObj = {}; if (vid.play != null) vidObj['Deu play'] = vid.play; ['25','50','75','100'].forEach(function(k){ if (vid[k] != null) vidObj['Viu ' + k + '%'] = vid[k]; });
-    var scObj = {}; ['25','50','75','100'].forEach(function(k){ if (sc[k] != null) scObj['Rolou ' + k + '%'] = sc[k]; });
+    var FAQ_LABEL = { q1:'Onde roda', q2:'Como vai pra timeline', q3:'Ouvir antes', q4:'Assinatura', q5:'Uso comercial', q6:'Sons próprios', q7:'Quantos computadores', q8:'Como recebo', q9:'Se não gostar' };
 
-    // ---- comparação com o site antigo ----
-    var cmp = '';
-    if (isQuiz && d.home) {
-      var H = d.home;
-      cmp = '<div class="panel"><h3>Funil novo × site antigo (mesmo período)</h3><div class="ph">o site antigo é quem entra por dropsfx.com.br/?direto=1 ou quem já tinha feito o funil anterior</div><div class="cmp">' +
-        '<div><b>' + base + ' / ' + (H.sessions||0) + '</b><span>sessões (funil / site)</span></div>' +
-        '<div><b>' + pct(T.cta_sessions, base) + '% / ' + pct(H.cta_sessions, H.sessions) + '%</b><span>clicaram em comprar</span></div>' +
-        '<div><b>' + (T.purchases_attributed||0) + ' / ' + (H.purchases_attributed||0) + '</b><span>compras rastreadas</span></div>' +
-        '<div><b>' + pct(T.purchases_attributed, base) + '% / ' + pct(H.purchases_attributed, H.sessions) + '%</b><span>conversão</span></div>' +
-      '</div></div>';
-    }
-
-    // ---- sons mais ouvidos ----
-    var SFX_NAME = {}; (window.__sfxList || []).forEach(function(x){ SFX_NAME[x.id] = x.name; });
-    if (!window.__sfxList) fetch('/assets/sim/lib.json').then(function(r){ return r.json(); }).then(function(l){ window.__sfxList = l.sounds; if (fstate.data === d) renderFunnel(); }).catch(function(){});
-    var SFX_CATN = { whooshes:'Whooshes', foley:'Foley', hits:'Hits & Impacts', drops:'Cinematic Drops', tonalidade:'Tonalidade', clicks:'Clicks & UI', camera:'Câmera', ambientes:'Ambientes', transitions:'Transições', risers:'Risers', natureza:'Natureza', memes:'Memes', elements:'Elements', glitches:'Glitches', guns:'Guns', hud:'HUD', slowmo:'Slow Motion', retro:'Retrô' };
-    function sfxPanel(){
-      var list = d.sfx || [], st = d.sfx_totals || {};
-      var head = '<div class="kv" style="margin-bottom:14px"><span>Plays no total</span><span>' + (st.plays||0) + '</span><span>Sessões que ouviram</span><span>' + (st.sessions||0) + ' · ' + Math.round(pct(st.sessions, base)) + '%</span><span>Clicaram em comprar depois de ouvir</span><span>' + (st.clickers_listened||0) + '</span><span>Compraram depois de ouvir</span><span>' + (st.buyers_listened||0) + '</span></div>';
-      if (!list.length) return '<div class="panel"><h3>Sons mais ouvidos</h3><div class="ph">pré-escuta com sons reais do plugin</div>' + head + '<div class="empty-note">Ninguém ouviu ainda no período</div></div>';
-      var max = list[0].plays || 1;
-      return '<div class="panel"><h3>Sons mais ouvidos</h3><div class="ph">pré-escuta com sons reais do plugin · plays e sessões</div>' + head +
-        list.slice(0, 20).map(function(x){
-          var nm = SFX_NAME[x.id] || x.id;
-          return '<div class="arow"><span class="t" title="' + escapeAttr(nm) + '">' + escapeHtml(nm) + ' <span style="color:var(--dim)">· ' + escapeHtml(SFX_CATN[x.cat] || x.cat || '') + '</span></span><span class="b"><i style="width:' + (x.plays / max * 100) + '%;background:var(--accent-hi)"></i></span><span class="n">' + x.plays + ' · ' + x.sessions + 's</span></div>';
-        }).join('') + '</div>';
-    }
-
-    // ---- simulador (Premiere + painel) ----
-    function simPanel(){
-      var m = d.sim || {}, b = m.loaded || 0;
-      var rows = [['Carregaram o simulador', m.loaded], ['Abriram uma pasta', m.folder], ['Ouviram um som', m.listened], ['Inseriram na timeline', m.inserted], ['Deram play na timeline', m.played], ['Viram o exemplo pronto', m.demo], ['Clicaram em desbloquear', m.cta]];
-      var flow = rows.map(function(r){ var v = r[1] || 0; return '<div class="arow"><span class="t">' + r[0] + '</span><span class="b"><i style="width:' + (b ? v / b * 100 : 0) + '%;background:var(--accent-hi)"></i></span><span class="n">' + v + (b ? ' · ' + Math.round(v / b * 100) + '%' : '') + '</span></div>'; }).join('');
-      var extra = '<div class="kv"><span>Sons inseridos (total)</span><span>' + (m.inserts||0) + '</span><span>Inseriram e clicaram em comprar</span><span>' + (m.clicked_after_insert||0) + '</span><span>Inseriram e compraram</span><span>' + (m.bought_after_insert||0) + '</span></div>';
-      return '<div class="grid3">' +
-        '<div class="panel span2"><h3>Simulador do plugin</h3><div class="ph">sessões que fizeram cada passo</div>' + flow + '</div>' +
-        '<div class="panel"><h3>Simulador: resultado</h3><div class="ph">inserções por categoria</div>' + extra + '<div style="height:10px"></div>' + kv(m.by_cat, SFX_CATN, m.inserts) + '</div>' +
-      '</div>';
-    }
-
-    // ---- checkout: por que não compraram + eventos da Kiwify ----
-    function checkoutPanel(){
-      var f = d.checkout_flow || {}, rc = d.recovery || {}, rs = d.checkout_reasons || {};
-      var flow = '<div class="kv" style="margin-bottom:14px">' +
-        '<span>Clicaram em comprar</span><span>' + (T.cta_sessions||0) + '</span>' +
-        '<span>Gringos que viram a ajuda de pagamento</span><span>' + (T.checkout_help||0) + ' · seguiram ' + (T.checkout_go||0) + '</span>' +
-        '<span>Voltaram do checkout sem comprar</span><span>' + (f.back_shown||0) + '</span>' +
-        '<span>Disseram o motivo</span><span>' + (f.back_answered||0) + '</span>' +
-        '<span>Tentaram de novo</span><span>' + (f.retry||0) + '</span>' +
-        '<span>Chamaram no WhatsApp</span><span>' + (f.whatsapp||0) + '</span></div>';
+    // ---- Kiwify: abandono e recusa ----
+    function kiwifyPanel(){
+      var rc = d.recovery || {};
       var kiw = (rc.abandoned || rc.refused)
         ? '<div class="kv"><span>Carrinhos abandonados</span><span>' + (rc.abandoned||0) + '</span><span>Cartões recusados</span><span>' + (rc.refused||0) + '</span><span>Compraram depois</span><span>' + (rc.recovered||0) + '</span></div>' +
-          (rc.recent||[]).slice(0, 12).map(function(x){
-            return '<div class="arow"><span class="t">' + escapeHtml((x.kind === 'refused' ? '💳 ' : '🛒 ') + (x.name || x.email || '·')) + ' <span style="color:var(--dim)">· ' + escapeHtml((x.country||'').toUpperCase()) + ' · ' + relTime(x.at) + '</span></span><span class="b"></span><span class="n">' + (x.bought ? '<span style="color:#4ade80">comprou</span>' : escapeHtml(x.email || '')) + '</span></div>';
+          (rc.recent||[]).slice(0, 10).map(function(x){
+            return '<div class="arow"><span class="t">' + escapeHtml((x.kind === 'refused' ? '💳 ' : '🛒 ') + (x.name || x.email || '?')) + ' <span style="color:var(--dim)">' + escapeHtml((x.country||'').toUpperCase()) + ', ' + relTime(x.at) + '</span></span><span class="b"></span><span class="n">' + (x.bought ? '<span style="color:#4ade80">comprou</span>' : escapeHtml(x.email || '')) + '</span></div>';
           }).join('')
-        : '<div class="empty-note">Nenhum evento ainda. Na Kiwify, em <b>Apps → Webhooks</b>, edite o webhook do dropSFX e marque também <b>Carrinho abandonado</b> e <b>Compra recusada</b>. Aí aparece aqui quem chegou no pagamento e travou.</div>';
-      return '<div class="grid3">' +
-        '<div class="panel"><h3>Checkout: o caminho</h3><div class="ph">sessões no período</div>' + flow + '</div>' +
-        '<div class="panel"><h3>Por que não compraram</h3><div class="ph">resposta de quem voltou do checkout</div>' + kv(rs, REASON_LABEL, f.back_answered) + '</div>' +
-        '<div class="panel"><h3>Kiwify: abandono e recusa</h3><div class="ph">eventos do webhook</div>' + kiw + '</div>' +
-      '</div>';
+        : '<div class="empty-note">Nenhum evento ainda. Na Kiwify, em <b>Apps → Webhooks</b>, marque também <b>Carrinho abandonado</b> e <b>Compra recusada</b>.</div>';
+      return '<div class="panel"><h3>Kiwify: abandono e recusa</h3><div class="ph">quem chegou no pagamento e travou</div>' + kiw + '</div>';
     }
 
     // ---- sessões recentes ----
@@ -870,65 +835,64 @@
     function stageOf(r){
       if (r.bought) return '<span class="sess-tag buy">Comprou</span>';
       if (r.cta) return '<span class="sess-tag cta">Clicou em comprar</span>';
-      if (r.rv) return '<span class="sess-tag res">Viu a oferta</span>';
-      if (r.qc) return '<span class="sess-tag res">Terminou o quiz</span>';
+      if (r.th) return '<span class="sess-tag res">Foi pra página oficial</span>';
+      if (r.qc) return '<span class="sess-tag res">Viu o diagnóstico</span>';
       if (r.qs) { var n = r.answers ? Object.keys(r.answers).length : 0; return '<span class="sess-tag qz">Parou na pergunta ' + (n + 1) + '</span>'; }
       return '<span class="sess-tag">Só visitou</span>';
     }
-    function ansSummary(a){
-      if (!a) return '<span style="color:var(--dim)">·</span>';
+    function ansSummary(r){
+      var a = r.answers;
+      if (!a) return r.fq ? '<span class="sess-tag qz">veio do quiz</span>' : '<span style="color:var(--dim)">sem respostas</span>';
       return Q_ORDER.filter(function(q){ return a[q] != null; }).map(function(q){
         var v = a[q], L = A_LABEL[q] || {};
         var txt = Array.isArray(v) ? v.map(function(x){ return L[x] || x; }).join(', ') : (L[v] || v);
         return '<b style="color:var(--ink-2)">' + Q_LABEL[q].split(' · ')[1] + ':</b> ' + escapeHtml(String(txt));
-      }).join(' · ');
+      }).join('<br>');
     }
     var recentHtml = '<div class="table-wrap"><div class="table-scroll"><table><thead><tr>' +
-      '<th>Quando</th><th>Até onde foi</th><th>Idioma</th><th>Aparelho</th><th>País</th><th>Origem</th><th>Tempo</th><th>Respostas</th>' +
+      '<th>Quando</th><th>Até onde foi</th><th>Idioma</th><th>Aparelho</th><th>País</th><th>Origem</th><th>Tempo</th><th>' + (isQuiz ? 'Respostas' : 'Detalhe') + '</th>' +
       '</tr></thead><tbody>' +
       (recent.length ? recent.map(function(r){
         return '<tr><td><span class="date-cell">' + fmtDate(r.started) + '<span class="rel">' + relTime(r.started) + '</span></span></td>' +
           '<td>' + stageOf(r) + '</td>' +
-          '<td>' + escapeHtml(LANG_LABEL[r.lang] || r.lang || '·') + '</td>' +
-          '<td>' + escapeHtml((r.device || '') + ' · ' + (r.os || '')) + '</td>' +
+          '<td>' + escapeHtml(LANG_LABEL[r.lang] || r.lang || '?') + '</td>' +
+          '<td>' + escapeHtml((r.device || '') + ', ' + (r.os || '')) + '</td>' +
           '<td>' + escapeHtml(countryOf(r.geo)) + '</td>' +
           '<td>' + escapeHtml(r.source || '') + (r.campaign && r.campaign !== '(sem campanha)' ? '<br><span style="color:var(--dim);font-size:10.5px">' + escapeHtml(r.campaign) + '</span>' : '') + '</td>' +
           '<td>' + fmtSecs(r.secs) + '</td>' +
-          '<td class="ans-cell">' + ansSummary(r.answers) + '</td></tr>';
+          '<td class="ans-cell">' + ansSummary(r) + '</td></tr>';
       }).join('') : '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--dim)">Nenhuma sessão no período</td></tr>') +
       '</tbody></table></div></div>';
 
-    var html = bar + cards + cmp +
-      '<div class="panel"><h3>Por dia</h3><div class="ph">sessões, quiz, cliques e compras</div>' + dailyChart() + '</div>' +
+    var note = '<div class="panel" style="padding:14px 18px"><div class="ph" style="margin:0">' + (isQuiz
+      ? 'Quiz em <b>dropsfx.com.br/quiz</b>: 10 perguntas, diagnóstico de 6 segundos e redirecionamento pra página oficial. A compra conta aqui quando quem fez o quiz compra pela página oficial na mesma visita.'
+      : isAll ? 'Quiz e página oficial somados. A mesma visita pode aparecer nos dois quando a pessoa passa do quiz pra página.'
+      : 'Página oficial em <b>dropsfx.com.br</b>. Inclui quem chegou direto e quem veio do quiz.') + '</div></div>';
+
+    var html = bar + note + cards +
+      '<div class="panel"><h3>Por dia</h3><div class="ph">sessões, ' + (isQuiz ? 'quiz terminado' : 'cliques em comprar') + ' e compras</div>' + dailyChart() + '</div>' +
       '<div class="grid2">' +
-        '<div class="panel"><h3>Funil passo a passo</h3><div class="ph">% sobre quem visitou · em vermelho, a pergunta que mais perde gente</div>' + funnelHtml + '</div>' +
-        (isQuiz ? '<div class="panel ans"><h3 style="margin-bottom:14px">O que as pessoas responderam</h3>' + (ansHtml || '<div class="empty-note">Sem respostas ainda</div>') + '</div>'
-                : '<div class="panel"><h3>Onde clicaram em comprar</h3><div class="ph">cliques por botão</div>' + kv(d.cta_positions, POS_LABEL) + '</div>') +
+        '<div class="panel"><h3>Funil passo a passo</h3><div class="ph">% sobre o primeiro passo. Em vermelho, onde mais gente sai</div>' + funnelHtml + '</div>' +
+        (isQuiz ? '<div class="panel ans"><h3 style="margin-bottom:14px">O que responderam</h3>' + (ansHtml || '<div class="empty-note">Sem respostas ainda</div>') + '</div>'
+                : '<div class="panel"><h3>Onde clicaram em comprar</h3><div class="ph">cliques por botão</div>' + kv(d.cta_positions, POS_LABEL, T.cta_clicks) +
+                  '<h3 style="margin-top:22px">Dúvidas abertas no FAQ</h3><div class="ph">sessões que abriram cada pergunta</div>' + kv(d.faq, FAQ_LABEL) + '</div>') +
       '</div>' +
       '<div class="grid3">' +
+        dimTable('Origem (utm_source)', 'source') +
+        dimTable('Campanha', 'campaign') +
+        dimTable('Anúncio (utm_content)', 'content') +
+      '</div>' +
+      '<div class="grid3">' +
+        dimTable('País', 'geo', countryOf) +
         dimTable('Idioma', 'lang', function(k){ return LANG_LABEL[k] || k; }) +
         dimTable('Aparelho', 'device') +
+      '</div>' +
+      '<div class="grid3">' +
         dimTable('Navegador / app', 'browser') +
+        '<div class="panel"><h3>Compras por origem</h3><div class="ph">utm_source / utm_medium de cada venda na Kiwify</div>' + kv(d.purchases_by_medium) + '</div>' +
+        kiwifyPanel() +
       '</div>' +
-      '<div class="grid3">' +
-        dimTable('País (pelo fuso horário)', 'geo', countryOf) +
-        dimTable('Origem (utm_source)', 'source') +
-        dimTable('Sistema', 'os') +
-      '</div>' +
-      '<div class="grid3">' +
-        dimTable('Campanha (utm_campaign)', 'campaign') +
-        dimTable('Anúncio (utm_content)', 'content') +
-        dimTable('Site de origem', 'referrer') +
-      '</div>' +
-      '<div class="grid3">' +
-        '<div class="panel"><h3>Botões de compra</h3><div class="ph">cliques por posição</div>' + kv(d.cta_positions, POS_LABEL, T.cta_clicks) + '</div>' +
-        '<div class="panel"><h3>Vídeo e rolagem</h3><div class="ph">sessões</div>' + kv(Object.assign({}, vidObj, scObj), null, null, true) + '</div>' +
-        '<div class="panel"><h3>Compras por origem (Kiwify)</h3><div class="ph">utm_source / utm_medium de cada venda</div>' + kv(d.purchases_by_medium) + '</div>' +
-      '</div>' +
-      checkoutPanel() +
-      simPanel() +
-      sfxPanel() +
-      '<div class="panel" style="padding-bottom:6px"><h3>Últimas sessões</h3><div class="ph">as 80 mais recentes no período · o nome digitado no quiz não é salvo</div></div>' +
+      '<div class="panel" style="padding-bottom:6px"><h3>Últimas sessões</h3><div class="ph">as 80 mais recentes no período</div></div>' +
       recentHtml;
 
     document.getElementById('content').innerHTML = html;
@@ -941,11 +905,11 @@
 
   function exportFunnelCSV(){
     var rows = (fstate.data && fstate.data.recent) || [];
-    var head = ['inicio','idioma','aparelho','sistema','pais','origem','campanha','comecou_quiz','terminou_quiz','viu_oferta','clicou_comprar','comprou','segundos'].concat(Q_ORDER);
+    var head = ['inicio','idioma','aparelho','sistema','pais','origem','campanha','comecou_quiz','terminou_quiz','foi_pra_pagina','clicou_comprar','comprou','segundos'].concat(Q_ORDER);
     var lines = [head.join(',')];
     rows.forEach(function(r){
       var a = r.answers || {};
-      lines.push([r.started, r.lang, r.device, r.os, countryOf(r.geo), r.source, r.campaign, r.qs, r.qc, r.rv, r.cta, r.bought, r.secs]
+      lines.push([r.started, r.lang, r.device, r.os, countryOf(r.geo), r.source, r.campaign, r.qs, r.qc, r.th, r.cta, r.bought, r.secs]
         .concat(Q_ORDER.map(function(q){ var v = a[q]; return v == null ? '' : (Array.isArray(v) ? v.join('|') : v); })).map(csvCell).join(','));
     });
     var blob = new Blob([lines.join('\n')], { type:'text/csv;charset=utf-8;' });

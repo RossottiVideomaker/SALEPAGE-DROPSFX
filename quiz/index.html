@@ -660,16 +660,17 @@
     function uid() { return (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 12); }
     var vid, sid;
     try { vid = localStorage.getItem('dropsfx_vid') || uid(); localStorage.setItem('dropsfx_vid', vid); } catch (e) { vid = uid(); }
-    try { sid = sessionStorage.getItem('dropsfx_qsid') || uid(); sessionStorage.setItem('dropsfx_qsid', sid); } catch (e) { sid = uid(); }
+    try { sid = sessionStorage.getItem('dropsfx_sid') || uid(); sessionStorage.setItem('dropsfx_sid', sid); } catch (e) { sid = uid(); }
     var ctx = {};
     ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (k) { var v = qs.get(k); if (v) ctx[k] = v.slice(0, 120); });
     if (!ctx.utm_source && qs.get('fbclid')) ctx.utm_source = 'facebook';
     if (document.referrer && document.referrer.indexOf(location.host) === -1) ctx.ref = document.referrer.slice(0, 300);
     var tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (e) {}
+    window.dropsfxSid = sid;
     var queue = [], timer = null, t0 = Date.now();
     function flush(beacon) {
       if (off || !queue.length) { queue = []; return; }
-      var body = JSON.stringify({ sid: sid, vid: vid, page: 'quiz',
+      var body = JSON.stringify({ sid: sid, vid: vid, page: 'comecar',
         ctx: { lang: lang, utm_source: ctx.utm_source, utm_medium: ctx.utm_medium, utm_campaign: ctx.utm_campaign, utm_content: ctx.utm_content, utm_term: ctx.utm_term, ref: ctx.ref, tz: tz, sw: screen.width },
         events: queue.splice(0, 40) });
       var sent = false;
@@ -697,7 +698,7 @@
     if (qs.get('utm_term')) o.set('utm_term', qs.get('utm_term'));
     var fb = qs.get('fbclid') || (function () { try { return sessionStorage.getItem('dropsfx_fbclid'); } catch (e) { return null; } })();
     if (fb) { o.set('fbclid', fb); try { sessionStorage.setItem('dropsfx_fbclid', fb); } catch (e) {} }
-    o.set('src', pos); o.set('lang', lang);
+    o.set('src', pos); o.set('lang', lang); if (window.dropsfxSid) o.set('sck', window.dropsfxSid);
     return CHECKOUT + '?' + o.toString();
   }
   function wireBuy(root) {
@@ -707,12 +708,12 @@
       if (a._w) return; a._w = 1;
       a.addEventListener('click', function () {
         window.dropsfxEvent('InitiateCheckout', { value: PRICE, currency: CURRENCY, content_name: 'dropSFX', content_ids: ['dropsfx'], content_type: 'product' });
-        track('cta', pos, { score: A._score, hours: A._hy }, true);
+        track('cta_click', pos, { score: A._score, hours: A._hy }, true);
       });
     });
   }
   function homeUrl() {
-    var o = new URLSearchParams(location.search); o.set('lang', lang);
+    var o = new URLSearchParams(location.search); o.set('lang', lang); o.set('from', 'quiz');
     return '/?' + o.toString();
   }
 
@@ -742,11 +743,11 @@
       '<div class="meta"><span>' + t('intro.m1') + '</span><span>' + t('intro.m2') + '</span><span>' + t('intro.m3') + '</span></div>' +
       '<a class="ghost" id="skip" href="' + homeUrl() + '">' + t('intro.skip') + '</a>', 'intro');
     s.querySelector('#go').onclick = function () {
-      track('start', 'intro', null, true);
+      track('quiz_start', null, null, true);
       window.dropsfxEvent('QuizStart', { lang: lang }, true);
       ask(0);
     };
-    s.querySelector('#skip').onclick = function () { track('skip', 'intro', null, true); };
+    s.querySelector('#skip').onclick = function () { track('quiz_skip', 'intro', null, true); };
   }
 
   function ask(i) {
@@ -798,7 +799,7 @@
       }
     });
     next.onclick = function () {
-      track('answer', q.id, Array.isArray(A[q.id]) ? A[q.id].join(',') : A[q.id]);
+      track('quiz_answer', q.id, { a: A[q.id] });
       if (q.mid) return mid();
       if (i + 1 < Q.length) ask(i + 1); else load();
     };
@@ -830,12 +831,13 @@
       '<p class="lead">' + t('mid.p') + '</p>' +
       '<div class="lockbox"><small>' + t('mid.l') + '</small><div class="blur">' + Math.round(calc().hy) + 'h</div><p>🔒 ' + t('mid.n') + '</p></div>' +
       '<button class="cta" id="go" type="button" style="margin-top:28px">' + t('mid.cta') + ' <span class="arr">→</span></button>', 'mid');
-    track('view', 'mid');
+    track('mid_view', 'mid');
     s.querySelector('#go').onclick = function () { ask(7); };
   }
 
   function load() {
     idx = Q.length; setTop(Q.length);
+    track('analysis_view', null, null);
     var steps = ['load.1', 'load.2', 'load.3', 'load.4'];
     var s = show(
       '<div class="ring"><svg viewBox="0 0 92 92"><circle class="bg" cx="46" cy="46" r="42"/><circle class="fg" id="fg" cx="46" cy="46" r="42"/></svg><b id="pct">0%</b></div>' +
@@ -881,7 +883,7 @@
       var p = au.duration ? au.currentTime / au.duration : 0;
       bars.forEach(function (b, k) { b.classList.toggle('p', k / bars.length <= p); });
     };
-    track('play', cat, snd.id);
+    track('sfx_play', snd.id, { cat: cat });
   }
 
   function result() {
@@ -915,14 +917,15 @@
       (function tk(now) { var p = Math.min(1, (now - st) / 1300), e = 1 - Math.pow(1 - p, 3); el.textContent = fmt(to * e, d); if (p < 1) requestAnimationFrame(tk); })(st);
     });
 
-    track('result', r.level, { score: r.score, hy: Math.round(r.hy), type: A.type, app: A.app, source: A.source, commit: A.commit }, true);
+    track('quiz_complete', null, null);
+    track('result_view', r.level, { score: r.score, hy: Math.round(r.hy), type: A.type, app: A.app, source: A.source, commit: A.commit }, true);
     window.dropsfxEvent('QuizComplete', { level: r.level, score: r.score, edit_type: A.type, app: A.app, commit: A.commit }, true);
     window.dropsfxEvent('ViewContent', { content_name: 'quiz_result', content_ids: ['dropsfx'], content_type: 'product', value: PRICE, currency: CURRENCY });
 
     // contagem de 6 segundos e vai pra página oficial
     var tok = (window._rt = (window._rt || 0) + 1);
     var url = homeUrl(), done = false, t0 = performance.now(), tn = tm.querySelector('#tn'), tfg = tm.querySelector('#tfg');
-    function go(how) { if (done) return; done = true; track('home', how, null, true); location.href = url; }
+    function go(how) { if (done) return; done = true; track('to_home', how, null, true); location.href = url; }
     s.querySelector('#toHome').addEventListener('click', function (e) { e.preventDefault(); go('click'); });
     (function tick(now) {
       if (done || tok !== window._rt) return;
@@ -951,7 +954,7 @@
   };
   applyStatic();
   intro();
-  track('view', 'intro');
+  track('page_view', 'intro');
 })();
 </script>
 </body>

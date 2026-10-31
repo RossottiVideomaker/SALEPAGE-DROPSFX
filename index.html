@@ -28,6 +28,10 @@
       fbq('track', name, customData || {}, { eventID: eid });
     };
 
+    (function () { // sessão compartilhada com o quiz (vai no checkout como sck pra atribuir a venda)
+      function u() { return (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 12); }
+      try { window.dropsfxSid = sessionStorage.getItem('dropsfx_sid') || u(); sessionStorage.setItem('dropsfx_sid', window.dropsfxSid); } catch (e) { window.dropsfxSid = u(); }
+    })();
     fbq('init', '1668719247772250');
     fbq('track', 'PageView');
   </script>
@@ -3747,7 +3751,7 @@
         if (q.get('utm_term')) o.set('utm_term', q.get('utm_term'));
         var fb = q.get('fbclid') || (function () { try { return sessionStorage.getItem('dropsfx_fbclid'); } catch (e) { return null; } })();
         if (fb) { o.set('fbclid', fb); try { sessionStorage.setItem('dropsfx_fbclid', fb); } catch (e) {} }
-        o.set('src', pos); o.set('lang', lang);
+        o.set('src', pos); o.set('lang', lang); if (window.dropsfxSid) o.set('sck', window.dropsfxSid);
         a.href = base + '?' + o.toString();
       });
     }
@@ -4613,5 +4617,82 @@
     } else load(0, true);
   })();
 </script>
+
+  <!-- Rastreio do funil (Central > Funil e métricas, página "home") -->
+  <script>
+  (function () {
+    var TRACK = 'https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/funnel-track';
+    var p = new URLSearchParams(location.search), off = false;
+    try {
+      if (p.has('notrack')) localStorage.setItem('dropsfx_notrack', '1');
+      if (p.has('track')) localStorage.removeItem('dropsfx_notrack');
+      off = localStorage.getItem('dropsfx_notrack') === '1';
+    } catch (e) {}
+    if (/bot|crawl|spider|slurp|lighthouse|pagespeed|headless/i.test(navigator.userAgent)) off = true;
+    if (off) return;
+    function uid() { return (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 12); }
+    var vid; try { vid = localStorage.getItem('dropsfx_vid') || uid(); localStorage.setItem('dropsfx_vid', vid); } catch (e) { vid = uid(); }
+    var sid = window.dropsfxSid || uid();
+    var ctx = null;
+    try { ctx = JSON.parse(sessionStorage.getItem('dropsfx_hctx') || 'null'); } catch (e) {}
+    if (!ctx) {
+      ctx = {};
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (k) { var v = p.get(k); if (v) ctx[k] = v.slice(0, 120); });
+      if (!ctx.utm_source && p.get('fbclid')) ctx.utm_source = 'facebook';
+      var r = document.referrer;
+      if (r && r.indexOf(location.host) === -1) ctx.ref = r.slice(0, 300);
+      try { sessionStorage.setItem('dropsfx_hctx', JSON.stringify(ctx)); } catch (e) {}
+    }
+    var tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (e) {}
+    function lang() { return (document.documentElement.lang || '').slice(0, 2); }
+    var queue = [], timer = null, t0 = Date.now(), hiddenAt = 0, hiddenMs = 0;
+    function flush(beacon) {
+      if (!queue.length) return;
+      var body = JSON.stringify({ sid: sid, vid: vid, page: 'home',
+        ctx: { lang: lang(), utm_source: ctx.utm_source, utm_medium: ctx.utm_medium, utm_campaign: ctx.utm_campaign, utm_content: ctx.utm_content, utm_term: ctx.utm_term, ref: ctx.ref, tz: tz, sw: screen.width },
+        events: queue.splice(0, 40) });
+      var sent = false;
+      if (beacon && navigator.sendBeacon) { try { sent = navigator.sendBeacon(TRACK, new Blob([body], { type: 'text/plain' })); } catch (e) {} }
+      if (!sent) { try { fetch(TRACK, { method: 'POST', body: body, headers: { 'Content-Type': 'text/plain' }, keepalive: true }).catch(function () {}); } catch (e) {} }
+    }
+    function ev(e, s, v, now) {
+      queue.push({ e: e, s: s == null ? null : String(s), v: v == null ? null : v, t: Date.now(), l: lang() });
+      clearTimeout(timer);
+      if (now) flush(true); else timer = setTimeout(function () { flush(false); }, 1200);
+    }
+    window.dropsfxTrack = ev;
+
+    ev('page_view', null, p.get('from') === 'quiz' ? { from: 'quiz' } : null);
+
+    // rolagem: 25, 50, 75, 100% e chegou na oferta
+    var seen = {};
+    function onScroll() {
+      var h = document.documentElement.scrollHeight - innerHeight;
+      var pc = h > 0 ? scrollY / h * 100 : 100;
+      [25, 50, 75, 100].forEach(function (k) { if (pc >= k - 2 && !seen[k]) { seen[k] = 1; ev('scroll', k); } });
+      var off = document.getElementById('comprar');
+      if (off && !seen.o && off.getBoundingClientRect().top < innerHeight * .6) { seen.o = 1; ev('scroll', 'oferta'); }
+    }
+    addEventListener('scroll', onScroll, { passive: true });
+
+    // cliques em comprar, FAQ e vídeos dos momentos
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('.js-buy-cta');
+      if (a) return ev('cta_click', a.getAttribute('data-position') || '?', null, true);
+      var f = e.target.closest && e.target.closest('.faq-item');
+      if (f) { var i = Array.prototype.indexOf.call(f.parentNode.children, f); return ev('faq_open', 'q' + (i + 1)); }
+      var c = e.target.closest && e.target.closest('.clipx-tab');
+      if (c) return ev('video_play', 'play');
+    }, true);
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden') {
+        hiddenAt = Date.now();
+        ev('exit', null, { s: Math.round((Date.now() - t0 - hiddenMs) / 1000) });
+        flush(true);
+      } else if (hiddenAt) { hiddenMs += Date.now() - hiddenAt; hiddenAt = 0; }
+    });
+  })();
+  </script>
 </body>
 </html>
