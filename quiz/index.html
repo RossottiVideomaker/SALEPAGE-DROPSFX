@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="robots" content="noindex" />
+  <title>dropSFX Sound Diagnosis</title>
+  <meta name="description" content="Find out how much time you lose hunting sound effects and which SFX kit fits your edits." />
+  <meta property="og:title" content="How much time does sound steal from your edit?" />
+  <meta property="og:description" content="Free 60 second diagnosis for video editors." />
+  <meta property="og:image" content="https://www.dropsfx.com.br/assets/og-image.jpg" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    window.dropsfxEvent = function (name, data, custom) {
+      if (typeof fbq !== 'function') return;
+      var eid = name + '.' + Date.now() + '.' + Math.random().toString(36).slice(2, 10);
+      fbq(custom ? 'trackCustom' : 'track', name, data || {}, { eventID: eid });
+    };
+    fbq('init', '1668719247772250');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1668719247772250&ev=PageView&noscript=1"/></noscript>
+  <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+  <link rel="stylesheet" href="https://use.typekit.net/czr1sny.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000; --ink: #fff; --ink-2: #c4c8d4; --muted: #888d99; --dim: #4a4d57;
+      --line: rgba(255,255,255,.09); --line-2: rgba(255,255,255,.16);
+      --accent: #3b6ef5; --accent-hi: #6e9bff; --accent-glow: rgba(59,110,245,.5); --accent-soft: rgba(59,110,245,.14);
+      --ice: #d8faff; --steel: #8a8f9c; --red: #f87171; --green: #4ade80;
+      --font-display: 'degular-display', 'degular', 'Sora', sans-serif;
+      --font: 'degular', 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-serif: 'Instrument Serif', Georgia, serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--font); min-height: 100vh; min-height: 100dvh; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    img { display: block; }
+    button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; }
+
+    /* fundo: brilho azul discreto, igual ao clima do hero */
+    .glow { position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(60% 45% at 50% -8%, rgba(59,110,245,.28), transparent 70%), radial-gradient(40% 30% at 90% 110%, rgba(59,110,245,.12), transparent 70%); }
+
+    /* ===== topo ===== */
+    .top { position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: rgba(0,0,0,.72); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); border-bottom: 1px solid var(--line); }
+    .top img { height: 26px; width: auto; filter: drop-shadow(0 0 10px var(--accent-glow)); }
+    .top-r { display: flex; align-items: center; gap: 14px; }
+    .count { font: 500 12px var(--font-mono); color: var(--muted); letter-spacing: .04em; opacity: 0; transition: opacity .3s; }
+    .count.on { opacity: 1; }
+    .lang { font: 700 12px var(--font); color: var(--ink-2); border: 1px solid var(--line-2); border-radius: 100px; padding: 7px 12px; }
+    .bar { position: absolute; left: 0; bottom: -1px; height: 2px; width: 0; background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); transition: width .5s cubic-bezier(.2,.8,.3,1); }
+
+    /* ===== palco ===== */
+    main { position: relative; z-index: 1; width: 100%; max-width: 720px; margin: 0 auto; padding: 104px 20px 64px; min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
+    .scr { display: none; flex-direction: column; flex: 1; }
+    .scr.on { display: flex; animation: scrIn .5s cubic-bezier(.2,.8,.3,1) both; }
+    @keyframes scrIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+    .kick { font: 600 12px var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent-hi); }
+    .h { font-family: var(--font-display); font-weight: 700; font-size: clamp(34px, 8.4vw, 64px); line-height: .96; letter-spacing: -.025em; text-transform: uppercase; margin-top: 16px; }
+    .h .blue, .qh .blue { font-family: var(--font-serif); font-style: italic; font-weight: 400; text-transform: none; letter-spacing: -.01em; font-size: 1.14em; line-height: 1; color: var(--ice); }
+    .lead { margin-top: 22px; max-width: 44ch; font-size: clamp(16px, 4.2vw, 18px); line-height: 1.5; color: var(--ink-2); }
+    .lead b { color: #fff; font-weight: 700; }
+
+    /* botão no padrão do site */
+    .cta { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 17px 32px; font: 700 16px var(--font); color: #fff; background: var(--accent); border-radius: 100px; text-decoration: none; box-shadow: 0 10px 36px var(--accent-glow), 0 0 0 1px rgba(255,255,255,.18) inset; transition: transform .15s cubic-bezier(.34,1.56,.64,1), background .25s, box-shadow .25s; }
+    .cta:hover { background: #2554d6; transform: translateY(-2px); box-shadow: 0 16px 50px var(--accent-glow); }
+    .cta:active { transform: translateY(3px) scale(.97); box-shadow: 0 2px 10px var(--accent-glow); }
+    .cta .arr { width: 19px; height: 19px; background: rgba(255,255,255,.2); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; }
+    .cta[disabled] { opacity: .35; pointer-events: none; }
+    .cta.wide { width: 100%; }
+    .ghost { margin-top: 18px; align-self: center; font-size: 14px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+    .ghost:hover { color: #fff; }
+
+    /* ===== intro ===== */
+    .intro { justify-content: center; text-align: center; align-items: center; }
+    .intro .lead { margin-left: auto; margin-right: auto; }
+    .intro .cta { margin-top: 34px; }
+    .apps { display: flex; gap: 8px; justify-content: center; margin-bottom: 26px; }
+    .app { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; font: 800 14px var(--font); }
+    .app.pr { background: #00005b; color: #9999ff; box-shadow: inset 0 0 0 1.5px #9999ff; }
+    .app.ae { background: #00005b; color: #d291ff; box-shadow: inset 0 0 0 1.5px #d291ff; }
+    .app.dv { background: #14161a; box-shadow: inset 0 0 0 1px #2a2d33; }
+    .app.dv i { width: 18px; height: 18px; display: block; border-radius: 50%; background: conic-gradient(#f2554a 0 33%, #4cc38a 0 66%, #3b9bf5 0); }
+    .meta { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-top: 22px; font-size: 13px; color: var(--muted); }
+    .meta span::before { content: '✓'; color: var(--accent-hi); margin-right: 6px; font-weight: 700; }
+
+    /* ===== pergunta ===== */
+    .qh { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 6.6vw, 46px); line-height: 1; letter-spacing: -.02em; text-transform: uppercase; margin-top: 14px; }
+    .qs { margin-top: 12px; font-size: 15px; line-height: 1.45; color: var(--steel); }
+    .opts { display: grid; gap: 10px; margin-top: 28px; }
+    .opts.two { grid-template-columns: 1fr 1fr; }
+    .opt { position: relative; display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; padding: 16px 18px; border-radius: 16px; background: rgba(255,255,255,.035); border: 1px solid var(--line-2); font: 600 16px/1.3 var(--font); color: #fff; transition: border-color .2s, background .2s, transform .15s; }
+    .opt:hover { border-color: rgba(110,155,255,.55); background: rgba(59,110,245,.08); }
+    .opt:active { transform: scale(.985); }
+    .opt .ic { flex: none; width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; background: rgba(255,255,255,.06); color: var(--accent-hi); }
+    .opt .ic svg { width: 20px; height: 20px; }
+    .opt .tk { flex: none; margin-left: auto; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line-2); display: grid; place-items: center; font-size: 12px; color: transparent; transition: all .2s; }
+    .opt.multi .tk { border-radius: 6px; }
+    .opt.sel { border-color: var(--accent); background: var(--accent-soft); box-shadow: 0 0 0 1px var(--accent) inset, 0 10px 30px -14px var(--accent-glow); }
+    .opt.sel .tk { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .opts.locked .opt:not(.sel) { opacity: .4; pointer-events: none; }
+    .opts.two .opt { flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px; }
+    .opts.two .opt .tk { position: absolute; top: 14px; right: 14px; }
+
+    /* inserção: o "estamos personalizando" */
+    .ins { display: none; margin-top: 18px; padding: 16px 18px; border-radius: 16px; background: linear-gradient(180deg, rgba(59,110,245,.16), rgba(59,110,245,.06)); border: 1px solid rgba(110,155,255,.35); }
+    .ins.on { display: block; animation: scrIn .45s cubic-bezier(.2,.8,.3,1) both; }
+    .ins-t { display: flex; align-items: center; gap: 8px; font: 600 11px var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent-hi); }
+    .eq { display: inline-flex; gap: 2px; align-items: flex-end; height: 12px; }
+    .eq i { width: 3px; background: var(--accent-hi); border-radius: 1px; animation: eq .9s ease-in-out infinite; }
+    .eq i:nth-child(2) { animation-delay: .15s; } .eq i:nth-child(3) { animation-delay: .3s; } .eq i:nth-child(4) { animation-delay: .45s; }
+    @keyframes eq { 0%,100% { height: 3px; } 50% { height: 12px; } }
+    .ins p { margin-top: 8px; font-size: 15.5px; line-height: 1.45; color: #e8ecf6; }
+    .next { margin-top: 22px; }
+    .back { align-self: flex-start; margin-bottom: 18px; font-size: 13px; color: var(--muted); }
+    .back:hover { color: #fff; }
+
+    /* ===== interlúdio e carregamento ===== */
+    .mid, .load { justify-content: center; text-align: center; align-items: center; }
+    .lockbox { margin: 30px auto 0; width: 100%; max-width: 420px; padding: 26px 22px; border-radius: 22px; border: 1px solid var(--line-2); background: rgba(255,255,255,.03); }
+    .lockbox small { display: block; font: 600 11px var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .blur { margin-top: 12px; font: 800 64px/1 var(--font-display); letter-spacing: -.03em; filter: blur(14px); user-select: none; }
+    .lockbox p { margin-top: 14px; font-size: 14px; color: var(--steel); }
+    .ring { width: 92px; height: 92px; margin: 0 auto 28px; position: relative; }
+    .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .ring circle { fill: none; stroke-width: 6; }
+    .ring .bg { stroke: rgba(255,255,255,.08); }
+    .ring .fg { stroke: var(--accent); stroke-linecap: round; stroke-dasharray: 264; stroke-dashoffset: 264; filter: drop-shadow(0 0 8px var(--accent-glow)); }
+    .ring b { position: absolute; inset: 0; display: grid; place-items: center; font: 700 20px var(--font-mono); }
+    .steps { list-style: none; margin: 26px auto 0; max-width: 360px; text-align: left; display: grid; gap: 12px; }
+    .steps li { display: flex; gap: 12px; align-items: center; font-size: 15px; color: var(--dim); transition: color .3s; }
+    .steps li i { flex: none; width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--dim); display: grid; place-items: center; font-style: normal; font-size: 11px; color: transparent; transition: all .3s; }
+    .steps li.go { color: var(--ink-2); }
+    .steps li.ok { color: #fff; }
+    .steps li.ok i { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* ===== resultado ===== */
+    .res { gap: 0; }
+    .blk { margin-top: 56px; }
+    .blk:first-child { margin-top: 0; }
+    .card { border-radius: 22px; border: 1px solid var(--line-2); background: rgba(255,255,255,.03); padding: 24px 22px; }
+    .prof { margin-top: 26px; }
+    .prof-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .prof-row small { font: 600 11px var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .prof-row b { font: 700 13px var(--font-mono); }
+    .gauge { position: relative; margin-top: 14px; height: 10px; border-radius: 10px; background: linear-gradient(90deg, #4ade80, #facc15 50%, #f87171); }
+    .gauge i { position: absolute; top: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 4px #000, 0 0 18px rgba(255,255,255,.6); left: 0; transition: left 1.4s cubic-bezier(.2,.8,.3,1); }
+    .gauge-l { display: flex; justify-content: space-between; margin-top: 10px; font-size: 12px; color: var(--muted); }
+    .prof p { margin-top: 18px; font-size: 16px; line-height: 1.5; color: var(--ink-2); }
+    .stat { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+    .stat .card { padding: 20px 18px; }
+    .stat b { display: block; font: 800 clamp(40px, 11vw, 60px)/1 var(--font-display); letter-spacing: -.03em; color: #fff; }
+    .stat b em { font-style: normal; font-size: .45em; color: var(--steel); margin-left: 4px; letter-spacing: 0; }
+    .stat span { display: block; margin-top: 8px; font-size: 13.5px; line-height: 1.4; color: var(--steel); }
+    .math { margin-top: 12px; font: 500 12px/1.5 var(--font-mono); color: var(--dim); }
+
+    .sub { font-family: var(--font-display); font-weight: 700; font-size: clamp(26px, 6vw, 40px); line-height: 1; letter-spacing: -.02em; text-transform: uppercase; }
+    .sub .blue { font-family: var(--font-serif); font-style: italic; font-weight: 400; text-transform: none; font-size: 1.14em; color: var(--ice); }
+    .fix { list-style: none; display: grid; gap: 10px; margin-top: 22px; }
+    .fix li { border-radius: 18px; border: 1px solid var(--line-2); background: rgba(255,255,255,.03); padding: 18px 18px 18px; }
+    .fix .pb { display: flex; gap: 10px; font-size: 15px; line-height: 1.4; color: var(--steel); }
+    .fix .pb::before { content: '✕'; flex: none; color: var(--red); font-weight: 700; }
+    .fix .sol { display: flex; gap: 10px; margin-top: 10px; font-size: 15.5px; line-height: 1.45; color: #fff; }
+    .fix .sol::before { content: '✓'; flex: none; color: var(--accent-hi); font-weight: 800; }
+
+    .kit { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 22px; }
+    .fold { position: relative; text-align: left; padding: 16px; border-radius: 18px; border: 1px solid var(--line-2); background: rgba(255,255,255,.03); overflow: hidden; transition: border-color .2s, transform .15s; }
+    .fold::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--c); }
+    .fold:hover { border-color: var(--c); }
+    .fold:active { transform: scale(.98); }
+    .fold-h { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .fold-h b { font: 700 15px var(--font); }
+    .fold-h small { font: 500 11px var(--font-mono); color: var(--muted); }
+    .wave { display: flex; align-items: center; gap: 1.5px; height: 34px; margin-top: 14px; }
+    .wave i { flex: 1; min-height: 2px; border-radius: 1px; background: var(--c); opacity: .45; transition: opacity .1s; }
+    .wave i.p { opacity: 1; }
+    .fold-n { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 12.5px; color: var(--steel); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .fold-n em { flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--c); color: #000; display: grid; place-items: center; font-style: normal; font-size: 9px; }
+    .hint { margin-top: 12px; font-size: 13px; color: var(--muted); text-align: center; }
+
+    .vid { margin-top: 22px; border-radius: 18px; overflow: hidden; border: 1px solid var(--line-2); background: #0a0a0c; aspect-ratio: 1280 / 818; }
+    .vid video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* depoimentos (mesmo visual do WhatsApp da página) */
+    .wa-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 22px; align-items: start; }
+    .wa { margin: 0; border-radius: 20px; overflow: hidden; background: #0b141a; box-shadow: 0 0 0 1px rgba(255,255,255,.06); }
+    .wa-top { display: flex; align-items: center; gap: 10px; padding: 11px 13px; background: #1f2c34; }
+    .wa-av { width: 32px; height: 32px; border-radius: 50%; flex: none; overflow: hidden; background: radial-gradient(circle at 50% 38%, #8696a0 0 26%, transparent 27%), radial-gradient(ellipse 60% 44% at 50% 100%, #8696a0 0 60%, transparent 61%), #2a3942; }
+    .wa-av img { width: 100%; height: 100%; object-fit: cover; }
+    .wa-who { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
+    .wa-who b { font: 600 13px var(--font); color: #e9edef; }
+    .wa-who i { font: 400 11px var(--font); color: #8696a0; font-style: normal; }
+    .wa-body { display: flex; flex-direction: column; gap: 4px; padding: 12px 10px 14px; background-image: radial-gradient(rgba(255,255,255,.035) 1px, transparent 1.2px); background-size: 14px 14px; }
+    .wa-m { max-width: 90%; padding: 6px 9px 7px; border-radius: 9px; font: 400 13.5px/1.32 var(--font); color: #e9edef; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 2px 10px; }
+    .wa-m.in { align-self: flex-start; background: #202c33; border-top-left-radius: 3px; }
+    .wa-m.out { align-self: flex-end; background: #005c4b; border-top-right-radius: 3px; }
+    .wa-m time { margin-left: auto; font: 400 10px var(--font); color: rgba(233,237,239,.55); }
+    .wa-m.hl span { background: linear-gradient(transparent 58%, rgba(255,196,0,.32) 58%); }
+    .wa-note { margin-top: 12px; font-size: 12px; color: var(--dim); text-align: center; }
+
+    /* oferta */
+    .offer { position: relative; margin-top: 22px; padding: 30px 24px 26px; border-radius: 26px; text-align: center; background: radial-gradient(80% 60% at 50% 0%, rgba(59,110,245,.22), transparent 70%), #07080b; border: 1px solid rgba(110,155,255,.35); box-shadow: 0 30px 80px -40px var(--accent-glow); }
+    .offer img { height: 34px; width: auto; margin: 0 auto; filter: drop-shadow(0 0 12px var(--accent-glow)); }
+    .echo { margin: 18px auto 0; max-width: 34ch; font-family: var(--font-serif); font-style: italic; font-size: 22px; line-height: 1.2; color: var(--ice); }
+    .inc { list-style: none; margin: 22px auto 0; max-width: 360px; text-align: left; display: grid; gap: 10px; }
+    .inc li { display: flex; gap: 10px; font-size: 15px; line-height: 1.4; color: var(--ink-2); }
+    .inc li::before { content: '✓'; flex: none; color: var(--accent-hi); font-weight: 800; }
+    .price { margin-top: 26px; }
+    .price b { font: 800 clamp(52px, 14vw, 68px)/1 var(--font-display); letter-spacing: -.03em; }
+    .price span { display: block; margin-top: 8px; font-size: 14px; color: var(--steel); }
+    .offer .cta { margin-top: 22px; }
+    .secure { margin-top: 14px; font-size: 12.5px; color: var(--muted); }
+    .guar { display: flex; gap: 14px; align-items: flex-start; text-align: left; margin-top: 14px; padding: 18px; border-radius: 18px; border: 1px solid var(--line-2); background: rgba(255,255,255,.03); }
+    .guar em { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-hi); font: 800 15px var(--font-mono); font-style: normal; }
+    .guar b { display: block; font-size: 15px; }
+    .guar p { margin-top: 4px; font-size: 14px; line-height: 1.45; color: var(--steel); }
+    .full { display: block; margin-top: 22px; text-align: center; font-size: 14px; color: var(--muted); }
+
+    /* barra fixa do resultado */
+    .stick { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 12px 20px calc(12px + env(safe-area-inset-bottom)); background: rgba(0,0,0,.86); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-top: 1px solid var(--line); transform: translateY(110%); transition: transform .45s cubic-bezier(.2,.8,.3,1); }
+    .stick.on { transform: none; }
+    .stick b { display: block; font: 800 22px/1 var(--font-display); }
+    .stick small { display: block; margin-top: 3px; font-size: 12px; color: var(--muted); }
+    .stick .cta { padding: 13px 22px; font-size: 14px; }
+
+    @media (min-width: 720px) {
+      main { padding-top: 132px; }
+      .opts.two { grid-template-columns: 1fr 1fr 1fr; }
+      .kit { grid-template-columns: 1fr 1fr 1fr 1fr; }
+      .cta.wide { width: auto; min-width: 320px; }
+      .next { align-self: flex-start; }
+      .stick { padding-left: max(20px, calc(50% - 340px)); padding-right: max(20px, calc(50% - 340px)); }
+    }
+    @media (max-width: 380px) {
+      .opts.two { grid-template-columns: 1fr; }
+      .opts.two .opt { flex-direction: row; align-items: center; }
+      .wa-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+
+  <header class="top">
+    <a href="/" aria-label="dropSFX"><img src="/assets/logo.png" alt="dropSFX" /></a>
+    <div class="top-r">
+      <span class="count" id="count"></span>
+      <button class="lang" id="langBtn" type="button">PT</button>
+    </div>
+    <div class="bar" id="bar"></div>
+  </header>
+
+  <main id="app"></main>
+
+  <div class="stick" id="stick">
+    <div><b>US$ 30</b><small data-t="stick.s"></small></div>
+    <a class="cta js-buy" data-pos="quiz_sticky" href="https://pay.kiwify.com.br/uzVAstc" target="_blank" rel="noopener"><span data-t="o.cta"></span></a>
+  </div>
+
+<script>
+(function () {
+  // =====================================================================
+  // CONFIG
+  // =====================================================================
+  var CHECKOUT = 'https://pay.kiwify.com.br/uzVAstc';
+  var TRACK = 'https://bwgrxdjdvrdawarbnqjv.supabase.co/functions/v1/funnel-track';
+  var PRICE = 30, CURRENCY = 'USD';
+
+  // =====================================================================
+  // IDIOMA (inglês padrão, português para quem está em pt)
+  // =====================================================================
+  var qs = new URLSearchParams(location.search);
+  var lang = (function () {
+    var p = (qs.get('lang') || '').slice(0, 2).toLowerCase();
+    if (p === 'pt' || p === 'en') return p;
+    try { var s = localStorage.getItem('dropsfx_lang'); if (s === 'pt' || s === 'en') return s; } catch (e) {}
+    return 'en';
+  })();
+
+  // ícones (traço simples, mesmo estilo do site)
+  var I = {
+    reels: '<rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/>',
+    youtube: '<rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z"/>',
+    wedding: '<circle cx="9" cy="14" r="6"/><circle cx="15" cy="14" r="6"/><path d="M10 4l2-2 2 2"/>',
+    ads: '<path d="M3 11v2a1 1 0 001 1h3l6 5V5L7 10H4a1 1 0 00-1 1zM17 8a5 5 0 010 8"/>',
+    games: '<rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 11v3M5.5 12.5h3M15 12h.01M18 13h.01"/>',
+    podcast: '<rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0014 0M12 17v5"/>',
+    pr: '<text x="12" y="16.5" text-anchor="middle" font-size="11" font-weight="800" fill="currentColor" stroke="none" font-family="Sora,sans-serif">Pr</text><rect x="2.5" y="3.5" width="19" height="17" rx="4"/>',
+    ae: '<text x="12" y="16.5" text-anchor="middle" font-size="11" font-weight="800" fill="currentColor" stroke="none" font-family="Sora,sans-serif">Ae</text><rect x="2.5" y="3.5" width="19" height="17" rx="4"/>',
+    dv: '<circle cx="12" cy="8" r="3.5"/><circle cx="7.5" cy="15.5" r="3.5"/><circle cx="16.5" cy="15.5" r="3.5"/>',
+    multi: '<rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/>',
+    other: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 .5c0 1.5-2.5 2-2.5 3.5M12 17h.01"/>',
+    seed: '<path d="M12 22V12M12 12C12 7 8 4 3 4c0 5 4 8 9 8zM12 12c0-4 3-7 8-7 0 4-3 7-8 7z"/>',
+    up: '<path d="M3 17l6-6 4 4 8-8M14 7h7v7"/>',
+    star: '<path d="M12 2l3 6.5 7 1-5 5 1.2 7L12 18l-6.2 3.5L7 14.5l-5-5 7-1z"/>',
+    crown: '<path d="M2 18h20M3 7l5 5 4-7 4 7 5-5-2 11H5z"/>',
+    yt: '<rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z"/>',
+    cart: '<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.5 12h11L21 7H6.5"/>',
+    folder: '<path d="M3 6a2 2 0 012-2h4l2 2h8a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>',
+    skip: '<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>',
+    t1: '<circle cx="12" cy="12" r="9"/><path d="M12 8v4"/>',
+    t2: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    t3: '<circle cx="12" cy="12" r="9"/><path d="M12 6v6l5 3"/>',
+    t4: '<circle cx="12" cy="12" r="9"/><path d="M12 6v6l-4 4M12 12l5 2"/>',
+    dl: '<path d="M12 3v12M7 10l5 5 5-5M4 21h16"/>',
+    lost: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5M9 9l4 4M13 9l-4 4"/>',
+    clock: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>',
+    flat: '<path d="M3 12h18"/><path d="M3 8h2M19 8h2M3 16h2M19 16h2"/>',
+    card: '<rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/>',
+    ok: '<path d="M20 6L9 17l-5-5"/>',
+    users: '<circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0114 0M16 4a3.5 3.5 0 010 7M18 14a6 6 0 014 6"/>',
+    gem: '<path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M10 3l-2 6 4 12 4-12-2-6"/>',
+    bolt: '<path d="M13 2L4 14h6l-1 8 9-12h-6z"/>',
+    moon: '<path d="M21 13A9 9 0 1111 3a7 7 0 0010 10z"/>',
+    eye: '<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+    chart: '<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>',
+    heart: '<path d="M12 21s-8-5.2-8-11a4.5 4.5 0 018-2.8A4.5 4.5 0 0120 10c0 5.8-8 11-8 11z"/>',
+    mix: '<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>',
+    go: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    wallet: '<path d="M3 7a2 2 0 012-2h13v4M3 7v10a2 2 0 002 2h15V9H5a2 2 0 01-2-2z"/><circle cx="16" cy="14" r="1"/>',
+    play: '<path d="M7 4l13 8-13 8z"/>'
+  };
+  function ic(k) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + (I[k] || '') + '</svg>'; }
+
+  // =====================================================================
+  // TEXTOS
+  // =====================================================================
+  var T = {
+    en: {
+      'intro.k': 'Free diagnosis for video editors',
+      'intro.h': 'How much time does sound<br><span class="blue">steal from your edit?</span>',
+      'intro.p': 'Answer 10 quick questions. You get your <b>sound workflow score</b>, the <b>hours you lose every year</b> hunting SFX and the <b>sound kit</b> that fits the way you edit.',
+      'intro.cta': 'Start my diagnosis', 'intro.m1': 'Takes 60 seconds', 'intro.m2': 'No email needed', 'intro.m3': 'Result on screen',
+      'intro.skip': 'Skip and see the plugin',
+      'q.of': 'Question {n} of {t}', 'next': 'Next', 'see': 'Continue', 'back': '← Back', 'multi': 'Pick all that apply',
+      'ins.t': 'Personalizing your diagnosis',
+
+      'q1.t': 'What do you <span class="blue">edit most?</span>', 'q1.s': 'Every kind of edit asks for different sounds.',
+      'q1.reels': 'Reels, TikTok and Shorts', 'q1.youtube': 'YouTube videos', 'q1.wedding': 'Weddings and events', 'q1.ads': 'Ads and client work', 'q1.games': 'Gaming', 'q1.podcast': 'Podcast clips',
+      'q1.i.reels': 'Short form lives on hard cuts. A whoosh or a pop on every cut is what stops the swipe.',
+      'q1.i.youtube': 'On YouTube, a well placed SFX is what holds retention when the talking slows down.',
+      'q1.i.wedding': 'Weddings are all emotion. The right riser on the entrance and the family cries all over again.',
+      'q1.i.ads': 'In ads, sound is what makes a brand feel expensive. Clients feel it even when they can\'t explain it.',
+      'q1.i.games': 'In gameplay, an impact on the kill and a HUD beep on screen turn any clip into a highlight.',
+      'q1.i.podcast': 'In podcast clips, the right meme sound at the right second is what gets people commenting.',
+
+      'q2.t': 'Where do you <span class="blue">edit?</span>', 'q2.s': 'So your result fits your software.',
+      'q2.premiere': 'Premiere Pro', 'q2.ae': 'After Effects', 'q2.davinci': 'DaVinci Resolve', 'q2.multi': 'More than one', 'q2.other': 'Something else',
+      'q2.i.premiere': 'Noted. Your kit will be built for the Premiere timeline.',
+      'q2.i.ae': 'Noted. Your kit will be built for After Effects comps.',
+      'q2.i.davinci': 'Noted. Your kit will be built for DaVinci Resolve Studio.',
+      'q2.i.multi': 'Noted. Your result will consider all three: Premiere, After Effects and DaVinci.',
+      'q2.i.other': 'Noted. Your score still works, but the kit only runs in Premiere, After Effects and DaVinci Resolve Studio.',
+
+      'q3.t': 'How long have you <span class="blue">been editing?</span>', 'q3.s': 'Your score is compared with editors at the same stage.',
+      'q3.a': 'Less than a year', 'q3.b': '1 to 3 years', 'q3.c': '3 to 5 years', 'q3.d': 'Over 5 years',
+      'q3.i.a': 'This is the stage where good habits pay off the most. Editors who sort out sound early grow faster.',
+      'q3.i.b': 'This is usually when clients start asking for more and the time spent on sound starts to hurt.',
+      'q3.i.c': 'At this point you know what you want. What usually slows you down is finding it.',
+      'q3.i.d': 'Experienced editors tend to have the biggest sound folders. And the hardest ones to search.',
+
+      'q4.t': 'You need a whoosh mid edit. <span class="blue">Where do you go?</span>', 'q4.s': 'No judgment. Every editor has a messy way.',
+      'q4.yt': 'YouTube, then a site to rip it to MP3', 'q4.envato': 'Envato, Artlist or similar', 'q4.folder': 'That messy SFX folder on my drive', 'q4.none': 'I skip it, too much hassle',
+      'q4.i.yt': 'Open YouTube, search, convert, download, import. That loop is where most of your time goes.',
+      'q4.i.envato': 'Good sounds, but every one is a download, an unzip and an import. And a monthly bill.',
+      'q4.i.folder': 'Classic. The sound is in there, you just can\'t remember if it\'s whoosh_final or whoosh_final_2.',
+      'q4.i.none': 'A lot of editors ship without sound because it\'s a pain. It\'s also the fastest way to make an edit feel cheap.',
+
+      'q5.t': 'How long do you spend <span class="blue">hunting sounds per video?</span>', 'q5.s': 'A rough guess is fine.',
+      'q5.a': 'Under 5 minutes', 'q5.b': '5 to 15 minutes', 'q5.c': '15 to 30 minutes', 'q5.d': 'Over 30 minutes',
+      'q5.i.a': 'Fast. Let\'s see if that holds up when the volume goes up.',
+      'q5.i.b': 'Sounds small. Multiplied by every video, it stops being small.',
+      'q5.i.c': 'That\'s about half an episode of your favorite show. Per video.',
+      'q5.i.d': 'That\'s more time hunting sound than a lot of editors spend on the actual sound design.',
+
+      'q6.t': 'Which of these <span class="blue">has happened to you?</span>', 'q6.s': 'Pick all that apply.',
+      'q6.dl': 'Downloaded 10 sounds to use 1', 'q6.lost': 'Knew I had the sound but couldn\'t find it', 'q6.dead': 'Shipped without sound because of the deadline', 'q6.flat': 'Client said the video felt flat', 'q6.sub': 'Pay a subscription mostly for sounds', 'q6.none': 'None of these',
+      'q6.i': '{n} friction points logged. They go straight into your score.',
+      'q6.i0': 'Nice. Your score will reflect a clean workflow.',
+
+      'q7.t': 'How many videos leave <span class="blue">your timeline each week?</span>', 'q7.s': 'This is what turns minutes into your real number.',
+      'q7.a': '1 or 2', 'q7.b': '3 to 5', 'q7.c': '6 to 10', 'q7.d': 'More than 10',
+      'q7.i': 'Got it. Running the math on your time now.',
+
+      'mid.k': 'Your number is ready',
+      'mid.h': 'We already know how much<br><span class="blue">time you lose.</span>',
+      'mid.p': '3 more questions to unlock it together with your sound kit.',
+      'mid.l': 'Hours lost per year', 'mid.n': 'Unlocks at the end', 'mid.cta': 'Continue',
+
+      'q8.t': 'If any sound showed up in 2 seconds, <span class="blue">what would you do with the time?</span>', 'q8.s': 'Be honest, this changes your result.',
+      'q8.clients': 'Take on more clients', 'q8.quality': 'Level up my sound design', 'q8.faster': 'Deliver faster and charge more', 'q8.life': 'Get my evenings back',
+      'q8.i.clients': 'More clients with the same hours. That\'s exactly what your result will aim at.',
+      'q8.i.quality': 'More time on the creative part and less on the search. Your kit will lean that way.',
+      'q8.i.faster': 'Fast delivery is what lets you raise your price. Your result will show how much faster.',
+      'q8.i.life': 'Fair. Editing shouldn\'t eat your night. Your result will show how many hours come back.',
+
+      'q9.t': 'Picture your next edit with sound that hits. <span class="blue">What changes?</span>', 'q9.s': 'Pick the one that matters most.',
+      'q9.refer': 'Clients notice and refer me', 'q9.views': 'More retention and views', 'q9.proud': 'I\'m proud to post it', 'q9.mix': 'I stop redoing the mix',
+      'q9.i.refer': 'Referrals come from the details clients feel but can\'t name. Sound is one of them.',
+      'q9.i.views': 'Sound on the cut is one of the cheapest retention tricks there is.',
+      'q9.i.proud': 'That feeling of hitting export and loving it. That\'s the goal.',
+      'q9.i.mix': 'Starting with the right sound at the right level means one mix pass instead of three.',
+
+      'q10.t': 'Last one. <span class="blue">Would you use this?</span>',
+      'q10.s': 'A panel inside {app} with 2,371 sounds sorted in folders. Hover to listen, two clicks and it\'s on your timeline.',
+      'q10.yes': 'Yes, on my next edit', 'q10.budget': 'Yes, if it fits my budget', 'q10.see': 'I\'d want to see it first',
+      'q10.i.yes': 'Perfect. Your result shows exactly how it fits into your next edit.',
+      'q10.i.budget': 'Makes sense. Your result shows the price next to the time you get back.',
+      'q10.i.see': 'Fair. Your result has it running in real time, no cuts.',
+
+      'load.t': 'Building your diagnosis',
+      'load.1': 'Scoring your sound workflow', 'load.2': 'Calculating the hours you lose', 'load.3': 'Picking folders from 2,371 sounds', 'load.4': 'Checking it runs in {app}',
+
+      'r.k': 'Your diagnosis',
+      'r.h.high': 'You\'re losing your edit<br><span class="blue">to the sound hunt.</span>',
+      'r.h.mid': 'Sound is quietly<br><span class="blue">eating your hours.</span>',
+      'r.h.low': 'Your workflow is solid.<br><span class="blue">Your sound can go further.</span>',
+      'r.score': 'Sound workflow friction', 'r.low': 'Low', 'r.mid': 'Medium', 'r.high': 'High',
+      'r.p.high': 'Based on your answers, finding the sound takes more of your energy than placing it. That\'s the bottleneck slowing down every video you deliver.',
+      'r.p.mid': 'Based on your answers, you get the job done, but the search adds up in a way that\'s easy to miss video by video.',
+      'r.p.low': 'Based on your answers, you\'re already quick. What you\'re missing is range: more of the right sounds, one hover away.',
+      'r.hm': 'hours a month', 'r.hm.s': 'hunting SFX instead of editing',
+      'r.dy': 'workdays a year', 'r.dy.s': '{h} hours a year, at 8 hours a day',
+      'r.math': '{m} min per video × {v} videos a week × 4.3 weeks',
+      'r.fix.h': 'What\'s holding you back<br><span class="blue">and how it gets fixed.</span>',
+      'pb.yt': 'You go to YouTube, convert and import every sound', 'fx.yt': 'With dropSFX you never open YouTube for sounds again. Hover, listen, two clicks.',
+      'pb.envato': 'Every sound is a download, an unzip and an import', 'fx.envato': 'With dropSFX the sounds already live in the panel, and you pay once. No subscription.',
+      'pb.folder': 'Your SFX folder is a maze of file names', 'fx.folder': 'With dropSFX all 2,371 sounds are sorted in 18 color coded folders, searchable by name.',
+      'pb.none': 'You skip sound because it takes too long', 'fx.none': 'With dropSFX adding sound takes two clicks, so you add it everywhere.',
+      'pb.dl': 'You download 10 sounds to use 1', 'fx.dl': 'Hover to hear it before it touches your timeline. Only the right one goes in.',
+      'pb.lost': 'You know you have the sound but can\'t find it', 'fx.lost': 'Search by name and star your favorites. The panel builds a Top tab with what you use most.',
+      'pb.dead': 'Deadlines force you to ship without sound', 'fx.dead': 'Two clicks per sound means sound design fits even on rush jobs.',
+      'pb.flat': 'Clients say the video feels flat', 'fx.flat': 'Risers, impacts and whooshes picked by editors, ready to make every cut land.',
+      'pb.sub': 'You pay a subscription mostly for sounds', 'fx.sub': 'One payment of US$ 30. It\'s yours forever, on up to 2 computers.',
+      'r.kit.h': 'Your kit for<br><span class="blue">{type}.</span>',
+      'r.kit.hint': 'Tap a folder to hear a sound from it. Headphones on.',
+      'type.reels': 'short form', 'type.youtube': 'YouTube', 'type.wedding': 'weddings', 'type.ads': 'ads and clients', 'type.games': 'gaming', 'type.podcast': 'podcast clips',
+      'r.vid.h': 'Watch it running<br><span class="blue">in {app}.</span>',
+      'r.tm.h': 'Editors who<br><span class="blue">already switched.</span>',
+      'tm.client': 'dropSFX customer', 'tm.note': 'Real WhatsApp screenshots. Numbers hidden for privacy.',
+      'echo.yes': 'You said you\'d use it on your next edit. Here it is.',
+      'echo.budget': 'You asked if it fits the budget. One payment, no subscription.',
+      'echo.see': 'You wanted to see it first. Now try it for 7 days, risk free.',
+      'o.i1': '2,371 sounds in 18 folders, royalty free', 'o.i2': 'Native panel in Premiere, After Effects and DaVinci', 'o.i3': 'Hover to listen, two clicks to insert', 'o.i4': 'Your own folders and favorites', 'o.i5': 'Mac and Windows, up to 2 computers',
+      'o.price': 'Pay once. Yours forever.', 'o.cta': 'Get dropSFX', 'o.secure': 'Secure checkout through Kiwify. Access lands in your inbox right away.',
+      'g.t': '7 days to try it on real work', 'g.p': 'Use it on your actual projects. If it\'s not worth it, send an email and get every cent back.',
+      'full': 'See the full page', 'stick.s': 'Pay once, 7 day guarantee', 'res.reveal': 'Your result'
+    },
+    pt: {
+      'intro.k': 'Diagnóstico grátis para editores',
+      'intro.h': 'Quanto tempo o som<br><span class="blue">rouba da sua edição?</span>',
+      'intro.p': 'Responda 10 perguntas rápidas. Você recebe a sua <b>nota de fluxo de som</b>, as <b>horas que perde por ano</b> caçando SFX e o <b>kit de sons</b> que combina com o jeito que você edita.',
+      'intro.cta': 'Começar meu diagnóstico', 'intro.m1': 'Leva 60 segundos', 'intro.m2': 'Sem pedir email', 'intro.m3': 'Resultado na tela',
+      'intro.skip': 'Pular e ver o plugin',
+      'q.of': 'Pergunta {n} de {t}', 'next': 'Próxima', 'see': 'Continuar', 'back': '← Voltar', 'multi': 'Marque todas que valem',
+      'ins.t': 'Personalizando seu diagnóstico',
+
+      'q1.t': 'O que você <span class="blue">mais edita?</span>', 'q1.s': 'Cada tipo de edição pede sons diferentes.',
+      'q1.reels': 'Reels, TikTok e Shorts', 'q1.youtube': 'Vídeos de YouTube', 'q1.wedding': 'Casamentos e eventos', 'q1.ads': 'Anúncios e clientes', 'q1.games': 'Gameplay', 'q1.podcast': 'Cortes de podcast',
+      'q1.i.reels': 'Vídeo curto vive de corte seco. Um whoosh ou um pop em cada corte é o que segura o dedo.',
+      'q1.i.youtube': 'No YouTube, o SFX bem colocado é o que segura a retenção quando a fala desacelera.',
+      'q1.i.wedding': 'Casamento é emoção. O riser certo na entrada e a família chora de novo.',
+      'q1.i.ads': 'Em anúncio, o som é o que faz a marca parecer cara. O cliente sente mesmo sem saber explicar.',
+      'q1.i.games': 'Em gameplay, um impacto no abate e um bip de HUD transformam qualquer clipe em highlight.',
+      'q1.i.podcast': 'Em corte de podcast, o meme sonoro no segundo certo é o que faz a galera comentar.',
+
+      'q2.t': 'Onde você <span class="blue">edita?</span>', 'q2.s': 'Pra o resultado bater com o seu programa.',
+      'q2.premiere': 'Premiere Pro', 'q2.ae': 'After Effects', 'q2.davinci': 'DaVinci Resolve', 'q2.multi': 'Mais de um', 'q2.other': 'Outro programa',
+      'q2.i.premiere': 'Anotado. Seu kit vai ser montado pra timeline do Premiere.',
+      'q2.i.ae': 'Anotado. Seu kit vai ser montado pras comps do After Effects.',
+      'q2.i.davinci': 'Anotado. Seu kit vai ser montado pro DaVinci Resolve Studio.',
+      'q2.i.multi': 'Anotado. Seu resultado vai considerar os três: Premiere, After Effects e DaVinci.',
+      'q2.i.other': 'Anotado. Sua nota funciona igual, mas o kit só roda no Premiere, After Effects e DaVinci Resolve Studio.',
+
+      'q3.t': 'Há quanto tempo <span class="blue">você edita?</span>', 'q3.s': 'Sua nota é comparada com editores no mesmo momento.',
+      'q3.a': 'Menos de 1 ano', 'q3.b': '1 a 3 anos', 'q3.c': '3 a 5 anos', 'q3.d': 'Mais de 5 anos',
+      'q3.i.a': 'É a fase em que hábito bom mais rende. Quem resolve o som cedo cresce mais rápido.',
+      'q3.i.b': 'Geralmente é aqui que o cliente começa a pedir mais e o tempo no som começa a doer.',
+      'q3.i.c': 'Nessa fase você já sabe o que quer. O que costuma travar é achar.',
+      'q3.i.d': 'Editor experiente costuma ter a maior pasta de SFX. E a mais difícil de achar alguma coisa.',
+
+      'q4.t': 'Precisou de um whoosh no meio da edição. <span class="blue">Onde você vai?</span>', 'q4.s': 'Sem julgamento. Todo editor tem seu jeito bagunçado.',
+      'q4.yt': 'YouTube e depois um site pra baixar em MP3', 'q4.envato': 'Envato, Artlist ou parecido', 'q4.folder': 'Aquela pasta bagunçada de SFX no HD', 'q4.none': 'Pulo, dá muito trabalho',
+      'q4.i.yt': 'Abre o YouTube, procura, converte, baixa, importa. É nesse ciclo que vai a maior parte do seu tempo.',
+      'q4.i.envato': 'Som bom, mas cada um é um download, um unzip e um import. E uma mensalidade.',
+      'q4.i.folder': 'Clássico. O som tá lá, você só não lembra se é whoosh_final ou whoosh_final_2.',
+      'q4.i.none': 'Muito editor entrega sem som porque dá trabalho. E é o jeito mais rápido de um vídeo parecer amador.',
+
+      'q5.t': 'Quanto tempo você gasta <span class="blue">caçando som por vídeo?</span>', 'q5.s': 'Um chute já serve.',
+      'q5.a': 'Menos de 5 minutos', 'q5.b': '5 a 15 minutos', 'q5.c': '15 a 30 minutos', 'q5.d': 'Mais de 30 minutos',
+      'q5.i.a': 'Rápido. Vamos ver se isso se segura quando o volume aumenta.',
+      'q5.i.b': 'Parece pouco. Multiplicado por todo vídeo, deixa de ser pouco.',
+      'q5.i.c': 'É meio episódio da sua série favorita. Por vídeo.',
+      'q5.i.d': 'É mais tempo procurando som do que muito editor gasta no sound design de verdade.',
+
+      'q6.t': 'Qual dessas <span class="blue">já aconteceu com você?</span>', 'q6.s': 'Marque todas que valem.',
+      'q6.dl': 'Baixei 10 sons pra usar 1', 'q6.lost': 'Sabia que tinha o som mas não achei', 'q6.dead': 'Entreguei sem som por causa do prazo', 'q6.flat': 'Cliente disse que o vídeo ficou sem graça', 'q6.sub': 'Pago assinatura mais por causa dos sons', 'q6.none': 'Nenhuma dessas',
+      'q6.i': '{n} pontos de atrito anotados. Eles entram direto na sua nota.',
+      'q6.i0': 'Boa. Sua nota vai refletir um fluxo limpo.',
+
+      'q7.t': 'Quantos vídeos saem <span class="blue">da sua timeline por semana?</span>', 'q7.s': 'É isso que transforma minutos no seu número real.',
+      'q7.a': '1 ou 2', 'q7.b': '3 a 5', 'q7.c': '6 a 10', 'q7.d': 'Mais de 10',
+      'q7.i': 'Fechou. Fazendo a conta do seu tempo agora.',
+
+      'mid.k': 'Seu número tá pronto',
+      'mid.h': 'A gente já sabe quanto<br><span class="blue">tempo você perde.</span>',
+      'mid.p': 'Mais 3 perguntas pra liberar ele junto com o seu kit de sons.',
+      'mid.l': 'Horas perdidas por ano', 'mid.n': 'Libera no final', 'mid.cta': 'Continuar',
+
+      'q8.t': 'Se qualquer som aparecesse em 2 segundos, <span class="blue">o que você faria com o tempo?</span>', 'q8.s': 'Seja sincero, isso muda o seu resultado.',
+      'q8.clients': 'Pegar mais clientes', 'q8.quality': 'Caprichar mais no sound design', 'q8.faster': 'Entregar mais rápido e cobrar mais', 'q8.life': 'Ter minhas noites de volta',
+      'q8.i.clients': 'Mais clientes com as mesmas horas. É exatamente nisso que seu resultado vai mirar.',
+      'q8.i.quality': 'Mais tempo na parte criativa e menos na busca. Seu kit vai puxar pra esse lado.',
+      'q8.i.faster': 'Entrega rápida é o que deixa você subir o preço. Seu resultado vai mostrar o quanto mais rápido.',
+      'q8.i.life': 'Justo. Edição não devia comer sua noite. Seu resultado vai mostrar quantas horas voltam.',
+
+      'q9.t': 'Imagina sua próxima edição com um som que pega. <span class="blue">O que muda?</span>', 'q9.s': 'Escolha a que mais importa.',
+      'q9.refer': 'Cliente percebe e me indica', 'q9.views': 'Mais retenção e views', 'q9.proud': 'Tenho orgulho de postar', 'q9.mix': 'Paro de refazer a mixagem',
+      'q9.i.refer': 'Indicação nasce dos detalhes que o cliente sente mas não sabe nomear. Som é um deles.',
+      'q9.i.views': 'Som no corte é um dos truques de retenção mais baratos que existem.',
+      'q9.i.proud': 'Aquela sensação de exportar e amar o resultado. É esse o objetivo.',
+      'q9.i.mix': 'Começar com o som certo no volume certo é uma passada de mix em vez de três.',
+
+      'q10.t': 'Última. <span class="blue">Você usaria isso?</span>',
+      'q10.s': 'Um painel dentro do {app} com 2.371 sons organizados em pastas. Passou o mouse, toca. Dois cliques e tá na timeline.',
+      'q10.yes': 'Sim, na minha próxima edição', 'q10.budget': 'Sim, se couber no bolso', 'q10.see': 'Queria ver funcionando antes',
+      'q10.i.yes': 'Perfeito. Seu resultado mostra exatamente como ele entra na sua próxima edição.',
+      'q10.i.budget': 'Faz sentido. Seu resultado mostra o preço do lado do tempo que você ganha de volta.',
+      'q10.i.see': 'Justo. No seu resultado ele aparece rodando em tempo real, sem cortes.',
+
+      'load.t': 'Montando seu diagnóstico',
+      'load.1': 'Calculando sua nota de fluxo de som', 'load.2': 'Somando as horas que você perde', 'load.3': 'Separando pastas entre 2.371 sons', 'load.4': 'Conferindo se roda no {app}',
+
+      'r.k': 'Seu diagnóstico',
+      'r.h.high': 'A caça ao som tá<br><span class="blue">engolindo sua edição.</span>',
+      'r.h.mid': 'O som tá comendo<br><span class="blue">suas horas em silêncio.</span>',
+      'r.h.low': 'Seu fluxo é bom.<br><span class="blue">Seu som pode ir além.</span>',
+      'r.score': 'Atrito no fluxo de som', 'r.low': 'Baixo', 'r.mid': 'Médio', 'r.high': 'Alto',
+      'r.p.high': 'Pelas suas respostas, achar o som cansa mais do que colocar o som. É esse gargalo que atrasa cada vídeo que você entrega.',
+      'r.p.mid': 'Pelas suas respostas, você resolve, mas a busca soma de um jeito que passa batido vídeo a vídeo.',
+      'r.p.low': 'Pelas suas respostas, você já é rápido. O que falta é repertório: mais sons certos a um passar de mouse.',
+      'r.hm': 'horas por mês', 'r.hm.s': 'caçando SFX em vez de editar',
+      'r.dy': 'dias úteis por ano', 'r.dy.s': '{h} horas por ano, contando 8 horas por dia',
+      'r.math': '{m} min por vídeo × {v} vídeos por semana × 4,3 semanas',
+      'r.fix.h': 'O que tá te travando<br><span class="blue">e como resolve.</span>',
+      'pb.yt': 'Você vai no YouTube, converte e importa cada som', 'fx.yt': 'Com o dropSFX você nunca mais abre o YouTube atrás de som. Passou o mouse, ouviu, dois cliques.',
+      'pb.envato': 'Cada som é um download, um unzip e um import', 'fx.envato': 'No dropSFX os sons já moram no painel, e você paga uma vez. Sem assinatura.',
+      'pb.folder': 'Sua pasta de SFX virou um labirinto de nomes', 'fx.folder': 'No dropSFX os 2.371 sons ficam em 18 pastas coloridas, com busca por nome.',
+      'pb.none': 'Você pula o som porque demora demais', 'fx.none': 'Com o dropSFX colocar som leva dois cliques, então você coloca em tudo.',
+      'pb.dl': 'Você baixa 10 sons pra usar 1', 'fx.dl': 'Passa o mouse e ouve antes de ir pra timeline. Só entra o certo.',
+      'pb.lost': 'Você sabe que tem o som mas não acha', 'fx.lost': 'Busca por nome e favoritos. O painel monta uma aba Top com o que você mais usa.',
+      'pb.dead': 'O prazo te obriga a entregar sem som', 'fx.dead': 'Dois cliques por som fazem o sound design caber até em job de urgência.',
+      'pb.flat': 'Cliente diz que o vídeo ficou sem graça', 'fx.flat': 'Risers, impactos e whooshes escolhidos por editor, prontos pra fazer cada corte pegar.',
+      'pb.sub': 'Você paga assinatura mais por causa dos sons', 'fx.sub': 'Um pagamento de US$ 30. É seu pra sempre, em até 2 computadores.',
+      'r.kit.h': 'Seu kit pra<br><span class="blue">{type}.</span>',
+      'r.kit.hint': 'Toque numa pasta pra ouvir um som dela. Coloca o fone.',
+      'type.reels': 'vídeo curto', 'type.youtube': 'YouTube', 'type.wedding': 'casamentos', 'type.ads': 'anúncios e clientes', 'type.games': 'gameplay', 'type.podcast': 'cortes de podcast',
+      'r.vid.h': 'Veja rodando<br><span class="blue">no {app}.</span>',
+      'r.tm.h': 'Editores que<br><span class="blue">já trocaram.</span>',
+      'tm.client': 'Cliente dropSFX', 'tm.note': 'Prints reais do WhatsApp. Números escondidos por privacidade.',
+      'echo.yes': 'Você disse que usaria na próxima edição. Tá aqui.',
+      'echo.budget': 'Você perguntou se cabe no bolso. Um pagamento só, sem assinatura.',
+      'echo.see': 'Você queria ver antes. Agora testa 7 dias, sem risco.',
+      'o.i1': '2.371 sons em 18 pastas, livres de direitos', 'o.i2': 'Painel nativo no Premiere, After Effects e DaVinci', 'o.i3': 'Passou o mouse, toca. Dois cliques, insere', 'o.i4': 'Suas próprias pastas e favoritos', 'o.i5': 'Mac e Windows, em até 2 computadores',
+      'o.price': 'Paga uma vez. É seu pra sempre.', 'o.cta': 'Quero o dropSFX', 'o.secure': 'Pagamento seguro pela Kiwify. O acesso chega no seu email na hora.',
+      'g.t': '7 dias pra testar em trabalho de verdade', 'g.p': 'Usa nos seus projetos reais. Se não valer, manda um email e recebe cada centavo de volta.',
+      'full': 'Ver a página completa', 'stick.s': 'Pagamento único, garantia de 7 dias', 'res.reveal': 'Seu resultado'
+    }
+  };
+  function t(k, v) {
+    var s = (T[lang] && T[lang][k]) != null ? T[lang][k] : (T.en[k] != null ? T.en[k] : k);
+    if (v) for (var x in v) s = s.split('{' + x + '}').join(v[x]);
+    return s;
+  }
+
+  // =====================================================================
+  // PERGUNTAS (genéricas → dor → desejo → solução)
+  // =====================================================================
+  var Q = [
+    { id: 'type', phase: 'generic', key: 'q1', two: true, opts: [['reels', 'reels'], ['youtube', 'youtube'], ['wedding', 'wedding'], ['ads', 'ads'], ['games', 'games'], ['podcast', 'podcast']] },
+    { id: 'app', phase: 'generic', key: 'q2', opts: [['premiere', 'pr'], ['ae', 'ae'], ['davinci', 'dv'], ['multi', 'multi'], ['other', 'other']] },
+    { id: 'exp', phase: 'generic', key: 'q3', opts: [['a', 'seed'], ['b', 'up'], ['c', 'star'], ['d', 'crown']] },
+    { id: 'source', phase: 'pain', key: 'q4', opts: [['yt', 'yt'], ['envato', 'cart'], ['folder', 'folder'], ['none', 'skip']] },
+    { id: 'time', phase: 'pain', key: 'q5', opts: [['a', 't1'], ['b', 't2'], ['c', 't3'], ['d', 't4']] },
+    { id: 'pains', phase: 'pain', key: 'q6', multi: true, opts: [['dl', 'dl'], ['lost', 'lost'], ['dead', 'clock'], ['flat', 'flat'], ['sub', 'card'], ['none', 'ok']] },
+    { id: 'vol', phase: 'pain', key: 'q7', opts: [['a', 't1'], ['b', 't2'], ['c', 't3'], ['d', 't4']], same: true, mid: true },
+    { id: 'desire', phase: 'desire', key: 'q8', opts: [['clients', 'users'], ['quality', 'gem'], ['faster', 'bolt'], ['life', 'moon']] },
+    { id: 'dream', phase: 'desire', key: 'q9', opts: [['refer', 'heart'], ['views', 'chart'], ['proud', 'star'], ['mix', 'mix']] },
+    { id: 'commit', phase: 'solution', key: 'q10', opts: [['yes', 'go'], ['budget', 'wallet'], ['see', 'eye']] }
+  ];
+  var MIN = { a: 3, b: 10, c: 22, d: 40 };
+  var VOL = { a: 1.5, b: 4, c: 8, d: 14 };
+  var KIT = {
+    reels: ['whooshes', 'memes', 'transitions', 'glitches'],
+    youtube: ['whooshes', 'clicks', 'memes', 'risers'],
+    wedding: ['risers', 'tonalidade', 'ambientes', 'slowmo'],
+    ads: ['whooshes', 'hits', 'risers', 'clicks'],
+    games: ['hits', 'guns', 'hud', 'glitches'],
+    podcast: ['memes', 'clicks', 'whooshes', 'drops']
+  };
+
+  var A = {};       // respostas
+  var idx = -1;     // -1 intro, 0..9 perguntas
+  var app = document.getElementById('app');
+  var bar = document.getElementById('bar');
+  var count = document.getElementById('count');
+
+  function appName() {
+    var a = A.app;
+    return a === 'ae' ? 'After Effects' : a === 'davinci' ? 'DaVinci Resolve' : a === 'multi' ? (lang === 'pt' ? 'seu editor' : 'your editor') : 'Premiere';
+  }
+
+  // =====================================================================
+  // RASTREIO (mesmo funil do Supabase, página "quiz")
+  // =====================================================================
+  var track = (function () {
+    var off = false;
+    try {
+      if (qs.has('notrack')) localStorage.setItem('dropsfx_notrack', '1');
+      if (qs.has('track')) localStorage.removeItem('dropsfx_notrack');
+      off = localStorage.getItem('dropsfx_notrack') === '1';
+    } catch (e) {}
+    if (/bot|crawl|spider|slurp|lighthouse|pagespeed|headless/i.test(navigator.userAgent)) off = true;
+    function uid() { return (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 12); }
+    var vid, sid;
+    try { vid = localStorage.getItem('dropsfx_vid') || uid(); localStorage.setItem('dropsfx_vid', vid); } catch (e) { vid = uid(); }
+    try { sid = sessionStorage.getItem('dropsfx_qsid') || uid(); sessionStorage.setItem('dropsfx_qsid', sid); } catch (e) { sid = uid(); }
+    var ctx = {};
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (k) { var v = qs.get(k); if (v) ctx[k] = v.slice(0, 120); });
+    if (!ctx.utm_source && qs.get('fbclid')) ctx.utm_source = 'facebook';
+    if (document.referrer && document.referrer.indexOf(location.host) === -1) ctx.ref = document.referrer.slice(0, 300);
+    var tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (e) {}
+    var queue = [], timer = null, t0 = Date.now();
+    function flush(beacon) {
+      if (off || !queue.length) { queue = []; return; }
+      var body = JSON.stringify({ sid: sid, vid: vid, page: 'quiz',
+        ctx: { lang: lang, utm_source: ctx.utm_source, utm_medium: ctx.utm_medium, utm_campaign: ctx.utm_campaign, utm_content: ctx.utm_content, utm_term: ctx.utm_term, ref: ctx.ref, tz: tz, sw: screen.width },
+        events: queue.splice(0, 40) });
+      var sent = false;
+      if (beacon && navigator.sendBeacon) { try { sent = navigator.sendBeacon(TRACK, new Blob([body], { type: 'text/plain' })); } catch (e) {} }
+      if (!sent) { try { fetch(TRACK, { method: 'POST', body: body, headers: { 'Content-Type': 'text/plain' }, keepalive: true }).catch(function () {}); } catch (e) {} }
+    }
+    function ev(e, s, v, now) {
+      queue.push({ e: e, s: s == null ? null : String(s), v: v == null ? null : v, t: Date.now(), l: lang });
+      clearTimeout(timer);
+      if (now) flush(true); else timer = setTimeout(function () { flush(false); }, 1200);
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden') { ev('exit', idx < 0 ? 'intro' : idx >= Q.length ? 'result' : Q[idx].id, { s: Math.round((Date.now() - t0) / 1000) }); flush(true); }
+    });
+    return ev;
+  })();
+
+  // =====================================================================
+  // CHECKOUT (passa UTM e fbclid adiante)
+  // =====================================================================
+  function buyUrl(pos) {
+    var o = new URLSearchParams();
+    o.set('utm_source', qs.get('utm_source') || 'site'); o.set('utm_medium', qs.get('utm_medium') || 'quiz');
+    o.set('utm_campaign', qs.get('utm_campaign') || 'dropsfx'); o.set('utm_content', qs.get('utm_content') || pos);
+    if (qs.get('utm_term')) o.set('utm_term', qs.get('utm_term'));
+    var fb = qs.get('fbclid') || (function () { try { return sessionStorage.getItem('dropsfx_fbclid'); } catch (e) { return null; } })();
+    if (fb) { o.set('fbclid', fb); try { sessionStorage.setItem('dropsfx_fbclid', fb); } catch (e) {} }
+    o.set('src', pos); o.set('lang', lang);
+    return CHECKOUT + '?' + o.toString();
+  }
+  function wireBuy(root) {
+    (root || document).querySelectorAll('.js-buy').forEach(function (a) {
+      var pos = a.getAttribute('data-pos') || 'quiz';
+      a.href = buyUrl(pos);
+      if (a._w) return; a._w = 1;
+      a.addEventListener('click', function () {
+        window.dropsfxEvent('InitiateCheckout', { value: PRICE, currency: CURRENCY, content_name: 'dropSFX', content_ids: ['dropsfx'], content_type: 'product' });
+        track('cta', pos, { score: A._score, hours: A._hy }, true);
+      });
+    });
+  }
+  function homeUrl() {
+    var o = new URLSearchParams(location.search); o.set('lang', lang);
+    return '/?' + o.toString();
+  }
+
+  // =====================================================================
+  // TELAS
+  // =====================================================================
+  function setTop(n) {
+    if (n == null) { count.classList.remove('on'); bar.style.width = '0'; return; }
+    count.textContent = n + '/' + Q.length; count.classList.add('on');
+    bar.style.width = Math.round(n / Q.length * 100) + '%';
+  }
+  function show(html, cls) {
+    app.innerHTML = '<section class="scr on ' + (cls || '') + '">' + html + '</section>';
+    window.scrollTo(0, 0);
+    wireBuy(app);
+    return app.firstChild;
+  }
+
+  function intro() {
+    idx = -1; setTop(null);
+    var s = show(
+      '<div class="apps"><span class="app pr">Pr</span><span class="app ae">Ae</span><span class="app dv"><i></i></span></div>' +
+      '<p class="kick">' + t('intro.k') + '</p>' +
+      '<h1 class="h">' + t('intro.h') + '</h1>' +
+      '<p class="lead">' + t('intro.p') + '</p>' +
+      '<button class="cta pop" id="go" type="button">' + t('intro.cta') + ' <span class="arr">→</span></button>' +
+      '<div class="meta"><span>' + t('intro.m1') + '</span><span>' + t('intro.m2') + '</span><span>' + t('intro.m3') + '</span></div>' +
+      '<a class="ghost" id="skip" href="' + homeUrl() + '">' + t('intro.skip') + '</a>', 'intro');
+    s.querySelector('#go').onclick = function () {
+      track('start', 'intro', null, true);
+      window.dropsfxEvent('QuizStart', { lang: lang }, true);
+      ask(0);
+    };
+    s.querySelector('#skip').onclick = function () { track('skip', 'intro', null, true); };
+  }
+
+  function ask(i) {
+    idx = i; var q = Q[i]; setTop(i);
+    var multi = !!q.multi;
+    var sub = q.key === 'q10' ? t('q10.s', { app: appName() }) : t(q.key + '.s');
+    var html = (i > 0 ? '<button class="back" id="back" type="button">' + t('back') + '</button>' : '') +
+      '<p class="kick">' + t('q.of', { n: i + 1, t: Q.length }) + '</p>' +
+      '<h2 class="qh">' + t(q.key + '.t') + '</h2>' +
+      '<p class="qs">' + sub + '</p>' +
+      '<div class="opts' + (q.two ? ' two' : '') + '" id="opts">' +
+      q.opts.map(function (o) {
+        var on = multi ? (A[q.id] || []).indexOf(o[0]) > -1 : A[q.id] === o[0];
+        return '<button type="button" class="opt' + (multi ? ' multi' : '') + (on ? ' sel' : '') + '" data-v="' + o[0] + '"><span class="ic">' + ic(o[1]) + '</span><span>' + t(q.key + '.' + o[0]) + '</span><span class="tk">✓</span></button>';
+      }).join('') + '</div>' +
+      '<div class="ins" id="ins"><div class="ins-t"><span class="eq"><i></i><i></i><i></i><i></i></span>' + t('ins.t') + '</div><p id="insP"></p></div>' +
+      '<button class="cta wide next" id="next" type="button"' + (A[q.id] && (!multi || A[q.id].length) ? '' : ' disabled') + '>' + t('next') + ' <span class="arr">→</span></button>';
+    var s = show(html);
+    var opts = s.querySelector('#opts'), ins = s.querySelector('#ins'), insP = s.querySelector('#insP'), next = s.querySelector('#next');
+    if (!multi) next.style.display = A[q.id] ? '' : 'none';
+
+    function insight() {
+      var v = A[q.id], txt;
+      if (q.id === 'pains') { var n = (v || []).filter(function (x) { return x !== 'none'; }).length; txt = n ? t('q6.i', { n: n }) : t('q6.i0'); }
+      else if (q.same) txt = t(q.key + '.i');
+      else txt = t(q.key + '.i.' + v);
+      insP.textContent = txt;
+      ins.classList.remove('on'); void ins.offsetWidth; ins.classList.add('on');
+    }
+    if (A[q.id] && (!multi || A[q.id].length)) insight();
+
+    opts.addEventListener('click', function (e) {
+      var b = e.target.closest('.opt'); if (!b) return;
+      var v = b.getAttribute('data-v');
+      if (multi) {
+        var arr = A[q.id] || [];
+        if (v === 'none') arr = arr.indexOf('none') > -1 ? [] : ['none'];
+        else { arr = arr.filter(function (x) { return x !== 'none'; }); var k = arr.indexOf(v); if (k > -1) arr.splice(k, 1); else arr.push(v); }
+        A[q.id] = arr;
+        opts.querySelectorAll('.opt').forEach(function (o) { o.classList.toggle('sel', arr.indexOf(o.getAttribute('data-v')) > -1); });
+        next.disabled = !arr.length;
+        if (arr.length) insight(); else ins.classList.remove('on');
+      } else {
+        A[q.id] = v;
+        opts.querySelectorAll('.opt').forEach(function (o) { o.classList.toggle('sel', o === b); });
+        insight();
+        next.style.display = ''; next.disabled = false;
+        setTimeout(function () { next.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 120);
+      }
+    });
+    next.onclick = function () {
+      track('answer', q.id, Array.isArray(A[q.id]) ? A[q.id].join(',') : A[q.id]);
+      if (q.mid) return mid();
+      if (i + 1 < Q.length) ask(i + 1); else load();
+    };
+    var back = s.querySelector('#back');
+    if (back) back.onclick = function () { ask(i - 1); };
+  }
+
+  function calc() {
+    var m = MIN[A.time] || 10, v = VOL[A.vol] || 4;
+    var hm = m * v * 4.3 / 60, hy = hm * 12;
+    var pains = (A.pains || []).filter(function (x) { return x !== 'none'; });
+    var score = ({ a: 10, b: 30, c: 52, d: 70 })[A.time] || 30;
+    score += ({ yt: 16, envato: 10, folder: 12, none: 20 })[A.source] || 10;
+    score += Math.min(18, pains.length * 6);
+    score = Math.max(6, Math.min(96, score));
+    A._score = score; A._hy = Math.round(hy);
+    return { m: m, v: v, hm: hm, hy: hy, days: hy / 8, pains: pains, score: score, level: score >= 62 ? 'high' : score >= 35 ? 'mid' : 'low' };
+  }
+  function fmt(n, d) {
+    var s = n.toFixed(d || 0);
+    return lang === 'pt' ? s.replace('.', ',') : s;
+  }
+
+  function mid() {
+    idx = 7; setTop(7);
+    var s = show(
+      '<p class="kick">' + t('mid.k') + '</p>' +
+      '<h2 class="h">' + t('mid.h') + '</h2>' +
+      '<p class="lead">' + t('mid.p') + '</p>' +
+      '<div class="lockbox"><small>' + t('mid.l') + '</small><div class="blur">' + Math.round(calc().hy) + 'h</div><p>🔒 ' + t('mid.n') + '</p></div>' +
+      '<button class="cta" id="go" type="button" style="margin-top:28px">' + t('mid.cta') + ' <span class="arr">→</span></button>', 'mid');
+    track('view', 'mid');
+    s.querySelector('#go').onclick = function () { ask(7); };
+  }
+
+  function load() {
+    idx = Q.length; setTop(Q.length);
+    var steps = ['load.1', 'load.2', 'load.3', 'load.4'];
+    var s = show(
+      '<div class="ring"><svg viewBox="0 0 92 92"><circle class="bg" cx="46" cy="46" r="42"/><circle class="fg" id="fg" cx="46" cy="46" r="42"/></svg><b id="pct">0%</b></div>' +
+      '<h2 class="sub">' + t('load.t') + '</h2>' +
+      '<ul class="steps">' + steps.map(function (k) { return '<li><i>✓</i>' + t(k, { app: appName() }) + '</li>'; }).join('') + '</ul>', 'load');
+    var fg = s.querySelector('#fg'), pct = s.querySelector('#pct'), li = s.querySelectorAll('.steps li');
+    var dur = 4200, st = performance.now();
+    (function tick(now) {
+      var p = Math.min(1, (now - st) / dur);
+      var e = 1 - Math.pow(1 - p, 2);
+      fg.style.strokeDashoffset = 264 * (1 - e);
+      pct.textContent = Math.round(e * 100) + '%';
+      li.forEach(function (l, k) { var a = k / li.length, b = (k + 1) / li.length; l.classList.toggle('go', e >= a); l.classList.toggle('ok', e >= b * .98); });
+      if (p < 1) requestAnimationFrame(tick); else setTimeout(result, 450);
+    })(st);
+    LIB();
+  }
+
+  // biblioteca real (nomes, ondas e arquivos de amostra)
+  var lib = null, libP = null;
+  function LIB() {
+    if (!libP) libP = fetch('/assets/sim/lib.json').then(function (r) { return r.json(); }).then(function (d) { lib = d; return d; }).catch(function () { return null; });
+    return libP;
+  }
+
+  var au = null, playing = null;
+  function playCat(card, cat) {
+    if (!lib) return;
+    var list = lib.sounds.filter(function (x) { return x.cat === cat; });
+    var cur = +(card.getAttribute('data-i') || -1);
+    var snd = list[(cur + 1) % list.length];
+    card.setAttribute('data-i', (cur + 1) % list.length);
+    card.querySelector('.fold-n span').textContent = snd.name;
+    var wv = card.querySelector('.wave');
+    wv.innerHTML = snd.w.filter(function (_, k) { return k % 2 === 0; }).map(function (h) { return '<i style="height:' + Math.max(6, h) + '%"></i>'; }).join('');
+    au = au || new Audio();
+    au.pause(); au.src = '/assets/sim/s/' + snd.id + '.mp3'; au.currentTime = 0;
+    au.play().catch(function () {});
+    if (playing) playing.classList.remove('on');
+    playing = card;
+    var bars = wv.querySelectorAll('i');
+    au.ontimeupdate = function () {
+      var p = au.duration ? au.currentTime / au.duration : 0;
+      bars.forEach(function (b, k) { b.classList.toggle('p', k / bars.length <= p); });
+    };
+    track('play', cat, snd.id);
+  }
+
+  function result() {
+    var r = calc();
+    setTop(null); bar.style.width = '100%';
+    var pains = [A.source].concat(r.pains).filter(Boolean);
+    var type = A.type || 'youtube';
+    var kit = KIT[type] || KIT.youtube;
+    var catInfo = {};
+    if (lib) lib.cats.forEach(function (c) { catInfo[c.id] = c; });
+    var commit = A.commit || 'see';
+
+    var html =
+      '<div class="blk">' +
+        '<p class="kick">' + t('r.k') + '</p>' +
+        '<h1 class="h">' + t('r.h.' + r.level) + '</h1>' +
+        '<div class="card prof">' +
+          '<div class="prof-row"><small>' + t('r.score') + '</small><b>' + r.score + '/100 ' + t('r.' + r.level) + '</b></div>' +
+          '<div class="gauge"><i id="gi"></i></div>' +
+          '<div class="gauge-l"><span>' + t('r.low') + '</span><span>' + t('r.mid') + '</span><span>' + t('r.high') + '</span></div>' +
+          '<p>' + t('r.p.' + r.level) + '</p>' +
+        '</div>' +
+        '<div class="stat">' +
+          '<div class="card"><b data-n="' + r.hm.toFixed(1) + '" data-d="1">0</b><span><strong style="color:#fff">' + t('r.hm') + '</strong><br>' + t('r.hm.s') + '</span></div>' +
+          '<div class="card"><b data-n="' + r.days.toFixed(1) + '" data-d="1">0</b><span><strong style="color:#fff">' + t('r.dy') + '</strong><br>' + t('r.dy.s', { h: Math.round(r.hy) }) + '</span></div>' +
+        '</div>' +
+        '<p class="math">' + t('r.math', { m: r.m, v: fmt(r.v, r.v % 1 ? 1 : 0) }) + '</p>' +
+      '</div>' +
+
+      '<div class="blk">' +
+        '<h2 class="sub">' + t('r.fix.h') + '</h2>' +
+        '<ul class="fix">' + pains.map(function (p) { return '<li><div class="pb">' + t('pb.' + p) + '</div><div class="sol">' + t('fx.' + p) + '</div></li>'; }).join('') + '</ul>' +
+      '</div>' +
+
+      '<div class="blk">' +
+        '<h2 class="sub">' + t('r.kit.h', { type: t('type.' + type) }) + '</h2>' +
+        '<div class="kit">' + kit.map(function (c) {
+          var info = catInfo[c] || { name: c, color: '#3b6ef5', count: '' };
+          return '<button type="button" class="fold" data-cat="' + c + '" style="--c:' + info.color + '"><div class="fold-h"><b>' + info.name + '</b><small>' + info.count + '</small></div><div class="wave">' + Array(32).join('<i style="height:18%"></i>') + '</div><div class="fold-n"><em>' + ic('play').replace('stroke="currentColor"', 'fill="currentColor" stroke="none"').replace('<svg', '<svg width="9" height="9"') + '</em><span>' + (lang === 'pt' ? 'Toque pra ouvir' : 'Tap to listen') + '</span></div></button>';
+        }).join('') + '</div>' +
+        '<p class="hint">' + t('r.kit.hint') + '</p>' +
+      '</div>' +
+
+      '<div class="blk">' +
+        '<h2 class="sub">' + t('r.vid.h', { app: appName() }) + '</h2>' +
+        '<div class="vid"><video src="/assets/clips/pastas.mp4" poster="/assets/clips/pastas.jpg" autoplay muted loop playsinline preload="metadata"></video></div>' +
+      '</div>' +
+
+      '<div class="blk">' +
+        '<h2 class="sub">' + t('r.tm.h') + '</h2>' +
+        '<div class="wa-row">' +
+          '<figure class="wa"><div class="wa-top"><span class="wa-av"></span><span class="wa-who"><b>' + t('tm.client') + '</b><i>' + (lang === 'pt' ? 'Turquia' : 'Turkey') + '</i></span></div><div class="wa-body"><div class="wa-m in"><span>Isn\'t this a one time payment?</span><time>16:11</time></div><div class="wa-m out"><span>Yes</span><time>16:12</time></div><div class="wa-m in hl"><span>I really liked it; great job.</span><time>16:15</time></div></div></figure>' +
+          '<figure class="wa"><div class="wa-top"><span class="wa-av"><img src="/assets/tm-sorocaba.webp" alt="" loading="lazy"></span><span class="wa-who"><b>' + t('tm.client') + '</b><i>Sorocaba, SP</i></span></div><div class="wa-body"><div class="wa-m in"><span>Rapaz, bora lá falar do plugin</span><time>11:40</time></div><div class="wa-m in hl"><span>Eu tenho curtido muito</span><time>11:40</time></div><div class="wa-m in hl"><span>salvou demais</span><time>11:40</time></div></div></figure>' +
+        '</div>' +
+        '<p class="wa-note">' + t('tm.note') + '</p>' +
+      '</div>' +
+
+      '<div class="blk" id="offer">' +
+        '<div class="offer">' +
+          '<img src="/assets/logo.png" alt="dropSFX">' +
+          '<p class="echo">' + t('echo.' + commit) + '</p>' +
+          '<ul class="inc"><li>' + t('o.i1') + '</li><li>' + t('o.i2') + '</li><li>' + t('o.i3') + '</li><li>' + t('o.i4') + '</li><li>' + t('o.i5') + '</li></ul>' +
+          '<div class="price"><b>US$ 30</b><span>' + t('o.price') + '</span></div>' +
+          '<a class="cta wide js-buy" data-pos="quiz_offer" href="' + CHECKOUT + '" target="_blank" rel="noopener">' + t('o.cta') + ' <span class="arr">→</span></a>' +
+          '<p class="secure">🔒 ' + t('o.secure') + '</p>' +
+        '</div>' +
+        '<div class="guar"><em>7</em><div><b>' + t('g.t') + '</b><p>' + t('g.p') + '</p></div></div>' +
+        '<a class="full" href="' + homeUrl() + '">' + t('full') + ' →</a>' +
+      '</div>';
+
+    var s = show(html, 'res');
+    s.style.paddingBottom = '70px';
+
+    // gauge e números sobem
+    requestAnimationFrame(function () { setTimeout(function () { var g = s.querySelector('#gi'); if (g) g.style.left = r.score + '%'; }, 150); });
+    s.querySelectorAll('[data-n]').forEach(function (el) {
+      var to = +el.getAttribute('data-n'), d = +el.getAttribute('data-d'), st = performance.now();
+      (function tk(now) { var p = Math.min(1, (now - st) / 1300), e = 1 - Math.pow(1 - p, 3); el.textContent = fmt(to * e, d); if (p < 1) requestAnimationFrame(tk); })(st);
+    });
+
+    function bindKit() {
+      s.querySelectorAll('.fold').forEach(function (f) {
+        var c = f.getAttribute('data-cat');
+        if (lib) { var info = lib.cats.filter(function (x) { return x.id === c; })[0]; if (info) { f.style.setProperty('--c', info.color); f.querySelector('.fold-h b').textContent = info.name; f.querySelector('.fold-h small').textContent = info.count; } }
+        f.onclick = function () { LIB().then(function () { playCat(f, c); }); };
+      });
+    }
+    bindKit(); if (!lib) LIB().then(bindKit);
+
+    // barra fixa aparece depois do diagnóstico, some quando a oferta está na tela
+    var stick = document.getElementById('stick'), offer = s.querySelector('#offer');
+    wireBuy(stick);
+    function onScroll() {
+      var past = window.scrollY > 500;
+      var ob = offer.getBoundingClientRect(), vis = ob.top < innerHeight && ob.bottom > 0;
+      stick.classList.toggle('on', past && !vis);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+    track('result', r.level, { score: r.score, hy: Math.round(r.hy), type: type, app: A.app, source: A.source, commit: commit }, true);
+    window.dropsfxEvent('QuizComplete', { level: r.level, score: r.score, edit_type: type, app: A.app, commit: commit }, true);
+    window.dropsfxEvent('ViewContent', { content_name: 'quiz_result', content_ids: ['dropsfx'], content_type: 'product', value: PRICE, currency: CURRENCY });
+  }
+
+  // =====================================================================
+  // INÍCIO
+  // =====================================================================
+  function applyStatic() {
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+    document.getElementById('langBtn').textContent = lang === 'pt' ? 'EN' : 'PT';
+    document.querySelectorAll('[data-t]').forEach(function (el) { el.textContent = t(el.getAttribute('data-t')); });
+    wireBuy(document);
+  }
+  document.getElementById('langBtn').onclick = function () {
+    lang = lang === 'pt' ? 'en' : 'pt';
+    try { localStorage.setItem('dropsfx_lang', lang); } catch (e) {}
+    applyStatic();
+    if (idx < 0) intro(); else if (idx < Q.length) ask(idx); else if (app.querySelector('.res')) result();
+  };
+  applyStatic();
+  intro();
+  track('view', 'intro');
+})();
+</script>
+</body>
+</html>
