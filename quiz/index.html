@@ -228,7 +228,14 @@
     .guar em { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-hi); font: 800 15px var(--font-mono); font-style: normal; }
     .guar b { display: block; font-size: 15px; }
     .guar p { margin-top: 4px; font-size: 14px; line-height: 1.45; color: var(--steel); }
-    .full { display: block; margin-top: 22px; text-align: center; font-size: 14px; color: var(--muted); }
+    .orig { position: relative; margin-top: 44px; padding: 26px 22px; border-radius: 22px; text-align: center; overflow: hidden; border: 1px solid var(--line-2); background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.92)), url('/assets/hero-poster.jpg') center / cover no-repeat; }
+    .orig small { display: block; font: 600 11px var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent-hi); }
+    .orig p { margin: 10px auto 0; max-width: 34ch; font-size: 15px; line-height: 1.45; color: var(--ink-2); }
+    .btn-orig { display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 18px; padding: 16px 26px; border-radius: 100px; font: 700 15px var(--font); color: #fff; text-decoration: none; background: rgba(255,255,255,.06); border: 1.5px solid rgba(255,255,255,.55); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: background .25s, border-color .25s, transform .15s; }
+    .btn-orig:hover { background: rgba(255,255,255,.14); border-color: #fff; }
+    .btn-orig:active { transform: scale(.97); }
+    .btn-orig .arr { width: 19px; height: 19px; border-radius: 50%; background: rgba(255,255,255,.18); display: inline-flex; align-items: center; justify-content: center; font-size: 11px; }
+    @media (min-width: 720px) { .btn-orig { width: auto; min-width: 320px; } }
 
     /* barra fixa do resultado */
     .stick { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 12px 20px calc(12px + env(safe-area-inset-bottom)); background: rgba(0,0,0,.86); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-top: 1px solid var(--line); transform: translateY(110%); transition: transform .45s cubic-bezier(.2,.8,.3,1); }
@@ -458,7 +465,7 @@
       'o.i1': '2,371 sounds in 18 folders, royalty free', 'o.i2': 'Native panel in Premiere, After Effects and DaVinci', 'o.i3': 'Hover to listen, two clicks to insert', 'o.i4': 'Your own folders and favorites', 'o.i5': 'Mac and Windows, up to 2 computers',
       'o.price': 'Pay once. Yours forever.', 'o.cta': 'Get dropSFX', 'o.secure': 'Secure checkout through Kiwify. Access lands in your inbox right away.',
       'g.t': '7 days to try it on real work', 'g.p': 'Use it on your actual projects. If it\'s not worth it, send an email and get every cent back.',
-      'full': 'See the full page', 'stick.s': 'Pay once, 7 day guarantee', 'res.reveal': 'Your result'
+      'full': 'See the official page', 'orig.k': 'dropSFX official page', 'orig.p': 'Every feature, the plugin in action and the whole library, all in one place.', 'stick.s': 'Pay once, 7 day guarantee', 'res.reveal': 'Your result'
     },
     pt: {
       'intro.k': 'Diagnóstico grátis para editores',
@@ -578,7 +585,7 @@
       'o.i1': '2.371 sons em 18 pastas, livres de direitos', 'o.i2': 'Painel nativo no Premiere, After Effects e DaVinci', 'o.i3': 'Passou o mouse, toca. Dois cliques, insere', 'o.i4': 'Suas próprias pastas e favoritos', 'o.i5': 'Mac e Windows, em até 2 computadores',
       'o.price': 'Paga uma vez. É seu pra sempre.', 'o.cta': 'Quero o dropSFX', 'o.secure': 'Pagamento seguro pela Kiwify. O acesso chega no seu email na hora.',
       'g.t': '7 dias pra testar em trabalho de verdade', 'g.p': 'Usa nos seus projetos reais. Se não valer, manda um email e recebe cada centavo de volta.',
-      'full': 'Ver a página completa', 'stick.s': 'Pagamento único, garantia de 7 dias', 'res.reveal': 'Seu resultado'
+      'full': 'Ver a página oficial', 'orig.k': 'Página oficial do dropSFX', 'orig.p': 'Todos os recursos, o plugin em ação e a biblioteca inteira, num lugar só.', 'stick.s': 'Pagamento único, garantia de 7 dias', 'res.reveal': 'Seu resultado'
     }
   };
   function t(k, v) {
@@ -927,7 +934,7 @@
           '<p class="secure">🔒 ' + t('o.secure') + '</p>' +
         '</div>' +
         '<div class="guar"><em>7</em><div><b>' + t('g.t') + '</b><p>' + t('g.p') + '</p></div></div>' +
-        '<a class="full" href="' + homeUrl() + '">' + t('full') + ' →</a>' +
+        '<div class="orig"><small>' + t('orig.k') + '</small><p>' + t('orig.p') + '</p><a class="btn-orig" id="toHome" href="' + homeUrl() + '">' + t('full') + ' <span class="arr">→</span></a></div>' +
       '</div>';
 
     var s = show(html, 'res');
@@ -948,6 +955,7 @@
       });
     }
     bindKit(); if (!lib) LIB().then(bindKit);
+    s.querySelector('#toHome').addEventListener('click', function () { track('home', 'result', null, true); });
 
     // barra fixa aparece depois do diagnóstico, some quando a oferta está na tela
     var stick = document.getElementById('stick'), offer = s.querySelector('#offer');
