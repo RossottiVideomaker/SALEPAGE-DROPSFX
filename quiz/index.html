@@ -237,6 +237,21 @@
     .btn-orig .arr { width: 19px; height: 19px; border-radius: 50%; background: rgba(255,255,255,.18); display: inline-flex; align-items: center; justify-content: center; font-size: 11px; }
     @media (min-width: 720px) { .btn-orig { width: auto; min-width: 320px; } }
 
+    /* resultado em uma tela */
+    .one { position: relative; justify-content: center; }
+    .one .h { font-size: clamp(30px, 7.6vw, 56px); margin-top: 12px; }
+    .one .prof { margin-top: 20px; padding: 18px 18px 20px; }
+    .one .stat .card { padding: 16px 16px; }
+    .one .stat b { font-size: clamp(36px, 10vw, 54px); }
+    .sol1 { margin-top: 18px; font-size: 15.5px; line-height: 1.45; color: var(--ink-2); }
+    .go-now { margin-top: 20px; }
+    .tmr { position: relative; width: 32px; height: 32px; flex: none; }
+    .tmr svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .tmr circle { fill: none; stroke-width: 2.5; }
+    .tmr .bg { stroke: rgba(255,255,255,.12); }
+    .tmr .fg { stroke: var(--accent-hi); stroke-linecap: round; stroke-dasharray: 97.4; stroke-dashoffset: 0; }
+    .tmr b { position: absolute; inset: 0; display: grid; place-items: center; font: 600 12px var(--font-mono); color: var(--ink-2); }
+
     /* barra fixa do resultado */
     .stick { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 12px 20px calc(12px + env(safe-area-inset-bottom)); background: rgba(0,0,0,.86); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-top: 1px solid var(--line); transform: translateY(110%); transition: transform .45s cubic-bezier(.2,.8,.3,1); }
     .stick.on { transform: none; }
@@ -465,7 +480,7 @@
       'o.i1': '2,371 sounds in 18 folders, royalty free', 'o.i2': 'Native panel in Premiere, After Effects and DaVinci', 'o.i3': 'Hover to listen, two clicks to insert', 'o.i4': 'Your own folders and favorites', 'o.i5': 'Mac and Windows, up to 2 computers',
       'o.price': 'Pay once. Yours forever.', 'o.cta': 'Get dropSFX', 'o.secure': 'Secure checkout through Kiwify. Access lands in your inbox right away.',
       'g.t': '7 days to try it on real work', 'g.p': 'Use it on your actual projects. If it\'s not worth it, send an email and get every cent back.',
-      'full': 'See the official page', 'orig.k': 'dropSFX official page', 'orig.p': 'Every feature, the plugin in action and the whole library, all in one place.', 'stick.s': 'Pay once, 7 day guarantee', 'res.reveal': 'Your result'
+      'full': 'See the official page', 'r.go': 'See the official page now', 'orig.k': 'dropSFX official page', 'orig.p': 'Every feature, the plugin in action and the whole library, all in one place.', 'stick.s': 'Pay once, 7 day guarantee', 'res.reveal': 'Your result'
     },
     pt: {
       'intro.k': 'Diagnóstico grátis para editores',
@@ -585,7 +600,7 @@
       'o.i1': '2.371 sons em 18 pastas, livres de direitos', 'o.i2': 'Painel nativo no Premiere, After Effects e DaVinci', 'o.i3': 'Passou o mouse, toca. Dois cliques, insere', 'o.i4': 'Suas próprias pastas e favoritos', 'o.i5': 'Mac e Windows, em até 2 computadores',
       'o.price': 'Paga uma vez. É seu pra sempre.', 'o.cta': 'Quero o dropSFX', 'o.secure': 'Pagamento seguro pela Kiwify. O acesso chega no seu email na hora.',
       'g.t': '7 dias pra testar em trabalho de verdade', 'g.p': 'Usa nos seus projetos reais. Se não valer, manda um email e recebe cada centavo de volta.',
-      'full': 'Ver a página oficial', 'orig.k': 'Página oficial do dropSFX', 'orig.p': 'Todos os recursos, o plugin em ação e a biblioteca inteira, num lugar só.', 'stick.s': 'Pagamento único, garantia de 7 dias', 'res.reveal': 'Seu resultado'
+      'full': 'Ver a página oficial', 'r.go': 'Ver a página oficial agora', 'orig.k': 'Página oficial do dropSFX', 'orig.p': 'Todos os recursos, o plugin em ação e a biblioteca inteira, num lugar só.', 'stick.s': 'Pagamento único, garantia de 7 dias', 'res.reveal': 'Seu resultado'
     }
   };
   function t(k, v) {
@@ -873,103 +888,50 @@
     var r = calc();
     setTop(null); bar.style.width = '100%';
     var pains = [A.source].concat(r.pains).filter(Boolean);
-    var type = A.type || 'youtube';
-    var kit = KIT[type] || KIT.youtube;
-    var catInfo = {};
-    if (lib) lib.cats.forEach(function (c) { catInfo[c.id] = c; });
-    var commit = A.commit || 'see';
-
+    var main = pains[0] || 'folder';
+    var SECS = 6;
     var html =
-      '<div class="blk">' +
-        '<p class="kick">' + t('r.k') + '</p>' +
-        '<h1 class="h">' + t('r.h.' + r.level) + '</h1>' +
-        '<div class="card prof">' +
-          '<div class="prof-row"><small>' + t('r.score') + '</small><b>' + r.score + '/100 ' + t('r.' + r.level) + '</b></div>' +
-          '<div class="gauge"><i id="gi"></i></div>' +
-          '<div class="gauge-l"><span>' + t('r.low') + '</span><span>' + t('r.mid') + '</span><span>' + t('r.high') + '</span></div>' +
-          '<p>' + t('r.p.' + r.level) + '</p>' +
-        '</div>' +
-        '<div class="stat">' +
-          '<div class="card"><b data-n="' + r.hm.toFixed(1) + '" data-d="1">0</b><span><strong style="color:#fff">' + t('r.hm') + '</strong><br>' + t('r.hm.s') + '</span></div>' +
-          '<div class="card"><b data-n="' + r.days.toFixed(1) + '" data-d="1">0</b><span><strong style="color:#fff">' + t('r.dy') + '</strong><br>' + t('r.dy.s', { h: Math.round(r.hy) }) + '</span></div>' +
-        '</div>' +
-        '<p class="math">' + t('r.math', { m: r.m, v: fmt(r.v, r.v % 1 ? 1 : 0) }) + '</p>' +
+      '<p class="kick">' + t('r.k') + '</p>' +
+      '<h1 class="h">' + t('r.h.' + r.level) + '</h1>' +
+      '<div class="card prof">' +
+        '<div class="prof-row"><small>' + t('r.score') + '</small><b>' + r.score + '/100 ' + t('r.' + r.level) + '</b></div>' +
+        '<div class="gauge"><i id="gi"></i></div>' +
       '</div>' +
-
-      '<div class="blk">' +
-        '<h2 class="sub">' + t('r.fix.h') + '</h2>' +
-        '<ul class="fix">' + pains.map(function (p) { return '<li><div class="pb">' + t('pb.' + p) + '</div><div class="sol">' + t('fx.' + p) + '</div></li>'; }).join('') + '</ul>' +
+      '<div class="stat">' +
+        '<div class="card"><b data-n="' + r.hm.toFixed(1) + '" data-d="1">0</b><span><strong style="color:#fff">' + t('r.hm') + '</strong><br>' + t('r.hm.s') + '</span></div>' +
+        '<div class="card"><b data-n="' + r.days.toFixed(1) + '" data-d="1">0</b><span><strong style="color:#fff">' + t('r.dy') + '</strong><br>' + t('r.dy.s', { h: Math.round(r.hy) }) + '</span></div>' +
       '</div>' +
+      '<p class="sol1">' + t('fx.' + main) + '</p>' +
+      '<a class="cta wide go-now" id="toHome" href="' + homeUrl() + '">' + t('r.go') + ' <span class="arr">→</span></a>';
 
-      '<div class="blk">' +
-        '<h2 class="sub">' + t('r.kit.h', { type: t('type.' + type) }) + '</h2>' +
-        '<div class="kit">' + kit.map(function (c) {
-          var info = catInfo[c] || { name: c, color: '#3b6ef5', count: '' };
-          return '<button type="button" class="fold" data-cat="' + c + '" style="--c:' + info.color + '"><div class="fold-h"><b>' + info.name + '</b><small>' + info.count + '</small></div><div class="wave">' + Array(32).join('<i style="height:18%"></i>') + '</div><div class="fold-n"><em>' + ic('play').replace('stroke="currentColor"', 'fill="currentColor" stroke="none"').replace('<svg', '<svg width="9" height="9"') + '</em><span>' + (lang === 'pt' ? 'Toque pra ouvir' : 'Tap to listen') + '</span></div></button>';
-        }).join('') + '</div>' +
-        '<p class="hint">' + t('r.kit.hint') + '</p>' +
-      '</div>' +
-
-      '<div class="blk">' +
-        '<h2 class="sub">' + t('r.vid.h', { app: appName() }) + '</h2>' +
-        '<div class="vid"><video src="/assets/clips/pastas.mp4" poster="/assets/clips/pastas.jpg" autoplay muted loop playsinline preload="metadata"></video></div>' +
-      '</div>' +
-
-      '<div class="blk">' +
-        '<h2 class="sub">' + t('r.tm.h') + '</h2>' +
-        '<div class="wa-row">' +
-          '<figure class="wa"><div class="wa-top"><span class="wa-av"></span><span class="wa-who"><b>' + t('tm.client') + '</b><i>' + (lang === 'pt' ? 'Turquia' : 'Turkey') + '</i></span></div><div class="wa-body"><div class="wa-m in"><span>Isn\'t this a one time payment?</span><time>16:11</time></div><div class="wa-m out"><span>Yes</span><time>16:12</time></div><div class="wa-m in hl"><span>I really liked it; great job.</span><time>16:15</time></div></div></figure>' +
-          '<figure class="wa"><div class="wa-top"><span class="wa-av"><img src="/assets/tm-sorocaba.webp" alt="" loading="lazy"></span><span class="wa-who"><b>' + t('tm.client') + '</b><i>Sorocaba, SP</i></span></div><div class="wa-body"><div class="wa-m in"><span>Rapaz, bora lá falar do plugin</span><time>11:40</time></div><div class="wa-m in hl"><span>Eu tenho curtido muito</span><time>11:40</time></div><div class="wa-m in hl"><span>salvou demais</span><time>11:40</time></div></div></figure>' +
-        '</div>' +
-        '<p class="wa-note">' + t('tm.note') + '</p>' +
-      '</div>' +
-
-      '<div class="blk" id="offer">' +
-        '<div class="offer">' +
-          '<img src="/assets/logo.png" alt="dropSFX">' +
-          '<p class="echo">' + t('echo.' + commit) + '</p>' +
-          '<ul class="inc"><li>' + t('o.i1') + '</li><li>' + t('o.i2') + '</li><li>' + t('o.i3') + '</li><li>' + t('o.i4') + '</li><li>' + t('o.i5') + '</li></ul>' +
-          '<div class="price"><b>US$ 30</b><span>' + t('o.price') + '</span></div>' +
-          '<a class="cta wide js-buy" data-pos="quiz_offer" href="' + CHECKOUT + '" target="_blank" rel="noopener">' + t('o.cta') + ' <span class="arr">→</span></a>' +
-          '<p class="secure">🔒 ' + t('o.secure') + '</p>' +
-        '</div>' +
-        '<div class="guar"><em>7</em><div><b>' + t('g.t') + '</b><p>' + t('g.p') + '</p></div></div>' +
-        '<div class="orig"><small>' + t('orig.k') + '</small><p>' + t('orig.p') + '</p><a class="btn-orig" id="toHome" href="' + homeUrl() + '">' + t('full') + ' <span class="arr">→</span></a></div>' +
-      '</div>';
-
-    var s = show(html, 'res');
-    s.style.paddingBottom = '70px';
-
-    // gauge e números sobem
+    var s = show(html, 'res one');
+    var old = document.getElementById('tmr'); if (old) old.remove();
+    var tm = document.createElement('div'); tm.className = 'tmr'; tm.id = 'tmr';
+    tm.innerHTML = '<svg viewBox="0 0 36 36"><circle class="bg" cx="18" cy="18" r="15.5"/><circle class="fg" id="tfg" cx="18" cy="18" r="15.5"/></svg><b id="tn">' + SECS + '</b>';
+    document.querySelector('.top-r').insertBefore(tm, document.getElementById('langBtn'));
     requestAnimationFrame(function () { setTimeout(function () { var g = s.querySelector('#gi'); if (g) g.style.left = r.score + '%'; }, 150); });
     s.querySelectorAll('[data-n]').forEach(function (el) {
       var to = +el.getAttribute('data-n'), d = +el.getAttribute('data-d'), st = performance.now();
       (function tk(now) { var p = Math.min(1, (now - st) / 1300), e = 1 - Math.pow(1 - p, 3); el.textContent = fmt(to * e, d); if (p < 1) requestAnimationFrame(tk); })(st);
     });
 
-    function bindKit() {
-      s.querySelectorAll('.fold').forEach(function (f) {
-        var c = f.getAttribute('data-cat');
-        if (lib) { var info = lib.cats.filter(function (x) { return x.id === c; })[0]; if (info) { f.style.setProperty('--c', info.color); f.querySelector('.fold-h b').textContent = info.name; f.querySelector('.fold-h small').textContent = info.count; } }
-        f.onclick = function () { LIB().then(function () { playCat(f, c); }); };
-      });
-    }
-    bindKit(); if (!lib) LIB().then(bindKit);
-    s.querySelector('#toHome').addEventListener('click', function () { track('home', 'result', null, true); });
-
-    // barra fixa aparece depois do diagnóstico, some quando a oferta está na tela
-    var stick = document.getElementById('stick'), offer = s.querySelector('#offer');
-    wireBuy(stick);
-    function onScroll() {
-      var past = window.scrollY > 500;
-      var ob = offer.getBoundingClientRect(), vis = ob.top < innerHeight && ob.bottom > 0;
-      stick.classList.toggle('on', past && !vis);
-    }
-    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
-
-    track('result', r.level, { score: r.score, hy: Math.round(r.hy), type: type, app: A.app, source: A.source, commit: commit }, true);
-    window.dropsfxEvent('QuizComplete', { level: r.level, score: r.score, edit_type: type, app: A.app, commit: commit }, true);
+    track('result', r.level, { score: r.score, hy: Math.round(r.hy), type: A.type, app: A.app, source: A.source, commit: A.commit }, true);
+    window.dropsfxEvent('QuizComplete', { level: r.level, score: r.score, edit_type: A.type, app: A.app, commit: A.commit }, true);
     window.dropsfxEvent('ViewContent', { content_name: 'quiz_result', content_ids: ['dropsfx'], content_type: 'product', value: PRICE, currency: CURRENCY });
+
+    // contagem de 6 segundos e vai pra página oficial
+    var tok = (window._rt = (window._rt || 0) + 1);
+    var url = homeUrl(), done = false, t0 = performance.now(), tn = tm.querySelector('#tn'), tfg = tm.querySelector('#tfg');
+    function go(how) { if (done) return; done = true; track('home', how, null, true); location.href = url; }
+    s.querySelector('#toHome').addEventListener('click', function (e) { e.preventDefault(); go('click'); });
+    (function tick(now) {
+      if (done || tok !== window._rt) return;
+      var el = (now - t0) / 1000, left = Math.max(0, SECS - el);
+      tn.textContent = Math.ceil(left);
+      tfg.style.strokeDashoffset = 97.4 * (el / SECS);
+      if (left <= 0) return go('auto');
+      requestAnimationFrame(tick);
+    })(t0);
   }
 
   // =====================================================================
