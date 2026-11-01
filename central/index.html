@@ -699,8 +699,6 @@
     var bar =
       '<div class="fbar">' +
         [[0,'Hoje'],[1,'24h'],[7,'7 dias'],[30,'30 dias'],[90,'90 dias']].map(function(o){ return '<div class="fchip ' + (fstate.days===o[0]?'on':'') + '" data-days="' + o[0] + '">' + o[1] + '</div>'; }).join('') +
-        '<span class="sep"></span>' +
-        [['home','Página oficial'],['comecar','Quiz (/quiz)'],['all','Tudo junto']].map(function(o){ return '<div class="fchip ' + (fstate.page===o[0]?'on':'') + '" data-page="' + o[0] + '">' + o[1] + '</div>'; }).join('') +
         '<span class="hint">atualizado ' + new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}) + '</span>' +
       '</div>';
 
@@ -901,7 +899,8 @@
   }
 
   function saveF(){ try { localStorage.setItem('dropsfx_central_funnel', JSON.stringify({ days: fstate.days, page: fstate.page })); } catch(e){} }
-  try { var sf = JSON.parse(localStorage.getItem('dropsfx_central_funnel') || 'null'); if (sf) { fstate.days = sf.days; fstate.page = sf.page; } } catch(e){}
+  try { var sf = JSON.parse(localStorage.getItem('dropsfx_central_funnel') || 'null'); if (sf) { fstate.days = sf.days; } } catch(e){}
+  fstate.page = 'home';
 
   function exportFunnelCSV(){
     var rows = (fstate.data && fstate.data.recent) || [];
