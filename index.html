@@ -1617,6 +1617,9 @@
       transition: transform .5s cubic-bezier(.2, .8, .3, 1);
     }
     .sticky-cta.show { transform: translateY(0); }
+    @media (max-width: 720px) {
+      body.sticky-on .nav .nav-cta { opacity: 0; pointer-events: none; transform: translateY(-6px); }
+    }
     .sticky-cta .sc-price { font-family: var(--font-display); font-size: 14px; color: #fff; text-transform: uppercase; line-height: 1.1; }
     .sticky-cta .sc-label { display: block; font-family: var(--font-mono); font-size: 9px; color: var(--muted); letter-spacing: .05em; margin-top: 2px; }
     .sticky-cta .sc-btn { background: #E5322D; box-shadow: 0 8px 26px rgba(229,50,45,.45); color: #fff; padding: 12px 20px; border-radius: 100px; font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; }
@@ -3990,7 +3993,10 @@
       if (sticky && window.matchMedia('(max-width:720px)').matches) {
         var c    = document.getElementById('comprar');
         var cTop = c ? c.getBoundingClientRect().top : 9999;
-        sticky.classList.toggle('show', st > vh * 0.7 && cTop > vh);
+        var on = st > vh * 0.7 && cTop > vh;
+        sticky.classList.toggle('show', on);
+        // no celular só um botão de compra por vez: com a barra de baixo na tela, o do topo some
+        document.body.classList.toggle('sticky-on', on);
       }
     }
 
