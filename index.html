@@ -629,7 +629,7 @@
 
     /* =================== HERO =================== */
     #hero {
-      min-height: 100vh;
+      min-height: 86vh;
       padding: 0;
       position: relative;
       display: flex;
@@ -637,7 +637,7 @@
       justify-content: center;
     }
     @supports (height: 100svh) {
-      #hero { min-height: 100svh; }
+      #hero { min-height: 86svh; }
     }
 
     /* vídeo ocupando a tela inteira do hero */
@@ -716,7 +716,7 @@
       max-width: 1300px;
       margin: 0 auto;
       /* padding extra embaixo empurra o bloco (ícones, logo, copy e botão) pra cima */
-      padding: 96px 40px calc(48px + 14vh);
+      padding: 96px 40px calc(40px + 6vh);
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -725,7 +725,7 @@
 
     @media (max-width: 720px) {
       .hero-content {
-        padding: 88px 22px calc(36px + 12vh);
+        padding: 88px 22px calc(28px + 5vh);
       }
     }
 
@@ -1813,7 +1813,7 @@
     .ed-lead strong { color: #fff; font-weight: 700; }
 
     /* ---------- capa: número vazado com vídeo ---------- */
-    .ed-cover { padding-top: clamp(64px, 8vw, 120px); }
+    .ed-cover { padding-top: clamp(28px, 3.5vw, 56px); }
 
     .ed-knock {
       position: relative;
@@ -1876,7 +1876,7 @@
       grid-template-columns: 5fr 7fr;
       gap: clamp(40px, 6vw, 96px);
       align-items: center;
-      margin-top: clamp(96px, 11vw, 160px);
+      margin-top: 0;
     }
 
     .ed-lib-media {
@@ -2650,8 +2650,6 @@
         </div>
       </div>
     </div>
-
-    <div class="hero-meta" data-i18n-html="hero.meta"><span>Pagamento <b>único</b></span><span>Acesso vitalício</span><span>Garantia de 7 dias</span></div>
   </section>
 
   <!-- ================================================================
