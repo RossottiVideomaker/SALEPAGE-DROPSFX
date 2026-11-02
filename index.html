@@ -2524,6 +2524,12 @@
     .clipx-bar i { width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; } .clipx-bar i:nth-child(2) { background: #febc2e; } .clipx-bar i:nth-child(3) { background: #28c840; margin-right: 8px; }
     .clipx-bar span { margin-left: auto; color: #5b8aff; }
     .clipx-stage video { display: block; width: 100%; aspect-ratio: 1280 / 818; background: #000; }
+    .fullrun { margin: 28px 0 0; }
+    .fullrun-frame { position: relative; border-radius: 14px; overflow: hidden; background: #0b0b0e; border: 1px solid rgba(255,255,255,.13); box-shadow: 0 40px 90px -40px rgba(59,110,245,.5); }
+    .fullrun-frame video { display: block; width: 100%; aspect-ratio: 1280 / 832; background: #000; }
+    .fullrun-badge { position: absolute; left: 12px; bottom: 12px; padding: 5px 10px; border-radius: 999px; background: rgba(11,11,14,.72); border: 1px solid rgba(255,255,255,.16); color: #fff; font: 700 12px/1 -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; letter-spacing: .02em; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+    .fullrun figcaption { margin-top: 12px; color: #8f8f9c; font: 500 14px/1.45 -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; text-align: center; }
+    @media (max-width: 860px) { .fullrun.clips-wide { width: calc(100vw - 32px); } .fullrun-frame { border-radius: 10px; } .fullrun-badge { left: 8px; bottom: 8px; font-size: 11px; padding: 4px 8px; } .fullrun figcaption { font-size: 12.5px; } }
     @media (max-width: 860px) {
       .clipx { grid-template-columns: 1fr; gap: 12px; }
       .clipx-tabs { grid-template-columns: repeat(3, 1fr); gap: 6px; }
@@ -2723,6 +2729,15 @@
     <section class="ed-sec" id="momentos">
     <div class="ed">
       <h2 class="ed-h" data-i18n-html="cl.title">Veja o plugin <span class="blue">em ação.</span></h2>
+      <figure class="fullrun clips-wide">
+        <div class="fullrun-frame">
+          <video id="fullRun" muted loop playsinline preload="none" poster="/assets/clips/sound-design-completo.jpg" aria-label="Sound design completo montado no Premiere com o dropSFX">
+            <source src="/assets/clips/sound-design-completo.mp4" type="video/mp4">
+          </video>
+          <span class="fullrun-badge">2x</span>
+        </div>
+        <figcaption data-i18n="cl.full">Um sound design inteiro montado no Premiere, do zero, só com o dropSFX. Vídeo acelerado 2x.</figcaption>
+      </figure>
       <div class="clipx clips-wide" style="margin-top:28px"><div class="clipx-tabs"><button type="button" class="clipx-tab on" data-src="/assets/clips/pastas.mp4" data-poster="/assets/clips/pastas.jpg"><b>1</b><span data-i18n="cl.1">Navegue pelas pastas e ache o som em segundos</span><i><u></u></i></button><button type="button" class="clipx-tab" data-src="/assets/clips/inserir.mp4" data-poster="/assets/clips/inserir.jpg"><b>2</b><span data-i18n="cl.2">Um clique e o som cai na timeline, já colorido</span><i><u></u></i></button><button type="button" class="clipx-tab" data-src="/assets/clips/montar.mp4" data-poster="/assets/clips/montar.jpg"><b>3</b><span data-i18n="cl.3">Monte o sound design inteiro sem sair do Premiere</span><i><u></u></i></button></div><div class="clipx-stage"><div class="clipx-bar"><i></i><i></i><i></i>Premiere Pro<span>dropSFX</span></div><video muted playsinline preload="none"></video></div></div>
     </div>
   </section>
@@ -3727,7 +3742,7 @@
     for (var lang in add) for (var k in add[lang]) I18N[lang][k] = add[lang][k];
   })();
 
-  (function (X) { for (var l in X) for (var k in X[l]) I18N[l][k] = X[l][k]; })({"pt": {"pricing.off": "", "pricing.priceNote": "Pagamento único, sem mensalidade", "hero.meta": "<span>Por <b>US$ 30</b></span><span>Pagamento único</span><span>Garantia de 7 dias</span>", "pricing.once": "US$ 30, pagamento único. Sem mensalidade, sem renovação.", "cl.title": "Veja o plugin <span class='blue'>em ação.</span>", "cl.1": "Abre a pasta", "cl.2": "Um clique", "cl.3": "Sound design"}, "en": {"pricing.off": "", "pricing.priceNote": "Pay once, no subscription", "hero.meta": "<span>Just <b>$30</b></span><span>Pay once</span><span>7 day guarantee</span>", "pricing.once": "$30, pay once. No subscription, no renewal.", "cl.title": "Watch it <span class='blue'>in action.</span>", "cl.1": "Open a folder", "cl.2": "One click", "cl.3": "Sound design"}, "es": {"pricing.off": "", "pricing.priceNote": "Pago único, sin suscripción", "hero.meta": "<span>Por <b>US$ 30</b></span><span>Pago único</span><span>Garantía de 7 días</span>", "pricing.once": "US$ 30, pago único. Sin suscripción, sin renovación.", "cl.title": "Mira el plugin <span class='blue'>en acción.</span>", "cl.1": "Abre la carpeta", "cl.2": "Un clic", "cl.3": "Sound design"}, "hi": {"pricing.off": "", "pricing.priceNote": "एक बार भुगतान, कोई सब्सक्रिप्शन नहीं", "hero.meta": "<span>सिर्फ़ <b>US$ 30</b></span><span>एक बार भुगतान</span><span>7 दिन गारंटी</span>", "pricing.once": "US$ 30, एक बार भुगतान।", "cl.title": "प्लगइन <span class='blue'>काम करते हुए।</span>", "cl.1": "फ़ोल्डर खोलें", "cl.2": "एक क्लिक", "cl.3": "साउंड डिज़ाइन"}});
+  (function (X) { for (var l in X) for (var k in X[l]) I18N[l][k] = X[l][k]; })({"pt": {"pricing.off": "", "pricing.priceNote": "Pagamento único, sem mensalidade", "hero.meta": "<span>Por <b>US$ 30</b></span><span>Pagamento único</span><span>Garantia de 7 dias</span>", "pricing.once": "US$ 30, pagamento único. Sem mensalidade, sem renovação.", "cl.title": "Veja o plugin <span class='blue'>em ação.</span>", "cl.1": "Abre a pasta", "cl.2": "Um clique", "cl.3": "Sound design", "cl.full": "Um sound design inteiro montado no Premiere, do zero, só com o dropSFX. Vídeo acelerado 2x."}, "en": {"pricing.off": "", "pricing.priceNote": "Pay once, no subscription", "hero.meta": "<span>Just <b>$30</b></span><span>Pay once</span><span>7 day guarantee</span>", "pricing.once": "$30, pay once. No subscription, no renewal.", "cl.title": "Watch it <span class='blue'>in action.</span>", "cl.1": "Open a folder", "cl.2": "One click", "cl.3": "Sound design", "cl.full": "A full sound design built in Premiere from scratch, using only dropSFX. Video sped up 2x."}, "es": {"pricing.off": "", "pricing.priceNote": "Pago único, sin suscripción", "hero.meta": "<span>Por <b>US$ 30</b></span><span>Pago único</span><span>Garantía de 7 días</span>", "pricing.once": "US$ 30, pago único. Sin suscripción, sin renovación.", "cl.title": "Mira el plugin <span class='blue'>en acción.</span>", "cl.1": "Abre la carpeta", "cl.2": "Un clic", "cl.3": "Sound design", "cl.full": "Un sound design completo armado en Premiere desde cero, solo con dropSFX. Video acelerado 2x."}, "hi": {"pricing.off": "", "pricing.priceNote": "एक बार भुगतान, कोई सब्सक्रिप्शन नहीं", "hero.meta": "<span>सिर्फ़ <b>US$ 30</b></span><span>एक बार भुगतान</span><span>7 दिन गारंटी</span>", "pricing.once": "US$ 30, एक बार भुगतान।", "cl.title": "प्लगइन <span class='blue'>काम करते हुए।</span>", "cl.1": "फ़ोल्डर खोलें", "cl.2": "एक क्लिक", "cl.3": "साउंड डिज़ाइन", "cl.full": "सिर्फ़ dropSFX से Premiere में शुरू से बना पूरा साउंड डिज़ाइन। वीडियो 2x तेज़।"}});
 
   (function (X) { for (var l in X) for (var k in X[l]) I18N[l][k] = X[l][k]; })({"pt": {"tm.title": "Quem usa<br><span class='blue'>manda mensagem.</span>", "tm.client": "Cliente dropSFX", "tm.note": "Prints reais do WhatsApp. Números escondidos por privacidade."}, "en": {"tm.title": "People who use it<br><span class='blue'>text us.</span>", "tm.client": "dropSFX customer", "tm.note": "Real WhatsApp screenshots. Numbers hidden for privacy."}, "es": {"tm.title": "Quien lo usa<br><span class='blue'>nos escribe.</span>", "tm.client": "Cliente dropSFX", "tm.note": "Capturas reales de WhatsApp. Números ocultos por privacidad."}, "hi": {"tm.title": "इस्तेमाल करने वाले<br><span class='blue'>खुद लिखते हैं।</span>", "tm.client": "dropSFX ग्राहक", "tm.note": "असली WhatsApp स्क्रीनशॉट। प्राइवेसी के लिए नंबर छिपाए गए हैं।"}});
 
@@ -4736,5 +4751,11 @@
     });
   })();
   </script>
+<script>
+(function(){var v=document.getElementById('fullRun');if(!v)return;
+if(!('IntersectionObserver' in window)){v.preload='auto';var q=v.play();q&&q.catch(function(){});return;}
+new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var p=v.play();p&&p.catch(function(){});}else v.pause();});},{rootMargin:'200px 0px',threshold:.15}).observe(v);
+})();
+</script>
 </body>
 </html>
