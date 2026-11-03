@@ -2359,12 +2359,23 @@
     .ed-card .qr-card-text .qr-k { font-family: var(--font); font-size: 13px; letter-spacing: 0; text-transform: none; }
     .ed-card .guarantee { border-radius: 16px; }
     .ed-price b small { font-size: .38em; font-weight: 600; letter-spacing: 0; margin-right: .18em; opacity: .7; vertical-align: .32em; }
-    .g7 { margin-top: 18px; display: flex; align-items: center; gap: 16px; padding: 16px 18px; border-radius: 16px; background: linear-gradient(135deg, rgba(74,222,128,.14), rgba(74,222,128,.04)); border: 1px solid rgba(74,222,128,.38); }
-    .g7-seal { flex: none; width: 66px; height: 66px; border-radius: 50%; display: grid; place-content: center; text-align: center; color: #052e16; background: radial-gradient(circle at 35% 30%, #86efac, #22c55e 70%); box-shadow: 0 0 0 4px rgba(74,222,128,.18), 0 10px 28px -8px rgba(34,197,94,.7); }
-    .g7-seal b { color: #052e16 !important; display: block; font: 800 30px/0.9 var(--font-display); }
-    .g7-seal span { color: #052e16 !important; font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif !important; display: block; font: 700 10px/1 -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; letter-spacing: .12em; text-transform: uppercase; margin-top: 2px; }
-    .g7-t { margin: 0; font: 800 17px/1.2 -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; color: #4ade80; }
-    .g7-s { margin: 4px 0 0; font: 500 13.5px/1.45 -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; color: var(--ink-2); }
+    .g7 { margin-top: 14px; display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 16px; background: rgba(74,222,128,.06); border: 1px solid rgba(74,222,128,.22); }
+    .g7-seal { flex: none; position: relative; width: 58px; height: 58px; gap: 3px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1.5px solid #4ade80; box-shadow: inset 0 0 0 4px rgba(74,222,128,.10); }
+    .g7-seal b { display: block; margin: 0 !important; padding: 0 !important; color: #4ade80 !important; font: 800 22px/1 -apple-system, BlinkMacSystemFont, 'Inter', sans-serif !important; letter-spacing: -.02em; transform: none !important; }
+    .g7-seal span { color: #4ade80 !important; font: 700 7.5px/1 -apple-system, BlinkMacSystemFont, 'Inter', sans-serif !important; letter-spacing: .16em !important; text-transform: uppercase; margin: 0 !important; display: block; }
+    .g7-t { margin: 0; font: 700 15px/1.25 -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; color: #fff; letter-spacing: -.01em; }
+    .g7-s { margin: 4px 0 0; font: 400 13px/1.45 -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; color: #a1a1aa; }
+    .ed-card .ed-cta { justify-content: center !important; background: #E5322D; color: #fff; gap: 10px; box-shadow: 0 14px 34px -12px rgba(229,50,45,.75), inset 0 1px 0 rgba(255,255,255,.25); }
+    .ed-card .ed-cta:hover { background: #f0443f; }
+    .ed-card .ed-cta span { color: #fff !important; font: 700 16px/1 -apple-system, BlinkMacSystemFont, 'Inter', sans-serif !important; letter-spacing: -.01em !important; text-transform: none !important; }
+    .ed-card .ed-cta svg { width: 18px; height: 18px; transition: transform .2s; }
+    .ed-card .ed-cta:hover svg { transform: translateX(3px); }
+    .ed-card .qr-card { background: transparent; }
+    .g7-seal span { flex: none !important; white-space: nowrap !important; width: auto !important; max-width: none !important; word-break: normal !important; padding: 0 !important; height: auto !important; min-height: 0 !important; border: 0 !important; background: none !important; }
+    .ed-card .ed-cta span { width: auto !important; flex: none !important; padding: 0 !important; height: auto !important; border: 0 !important; background: none !important; }
+    .ed-card .qr-card img { width: 54px; height: 54px; }
+    .ed-card .qr-card-text .qr-k { color: #fff; font-weight: 600; }
+    .ed-card .qr-card-text .qr-v { color: #8f8f9c; }
     .ed-terms div:last-child dd { color: #4ade80; }
 
     /* ---------- FAQ ---------- */
@@ -2850,12 +2861,12 @@
         </ul>
         <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=pricing&utm_campaign=dropsfx"
           class="ed-cta js-buy-cta pop-btn" data-position="pricing"
-          target="_blank" rel="noopener"><span data-i18n="pricing.cta">Ver oferta e garantir acesso</span></a>
+          target="_blank" rel="noopener"><span data-i18n="pricing.cta">Garantir meu acesso</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           <div class="g7">
             <div class="g7-seal" aria-hidden="true"><b>7</b><span data-i18n="g7.days">dias</span></div>
             <div class="g7-copy">
               <p class="g7-t" data-i18n="g7.t">Garantia de 7 dias</p>
-              <p class="g7-s" data-i18n="g7.s">Instala, usa no seu Premiere e, se não curtir, pede o reembolso e recebe 100% do valor de volta. Sem pergunta.</p>
+              <p class="g7-s" data-i18n="g7.s">Testa no seu Premiere. Se não curtir, devolvemos 100% do valor, sem pergunta.</p>
             </div>
           </div>
           <div class="qr-card">
@@ -3007,7 +3018,7 @@
       "pricing.f5": "Pastas próprias + importe seus áudios",
       "pricing.f6": "Licença pra <strong>até 2 máquinas</strong>",
       "pricing.f7": "<strong>Vitalício</strong> e 100% royalty free",
-      "pricing.cta": "Ver oferta e garantir acesso",
+      "pricing.cta": "Garantir meu acesso",
       "pricing.qrLabel": "Prefere no celular?",
       "pricing.qrSub": "Aponte a câmera e finalize por lá",
       "pricing.guarantee": "<strong>Garantia de 7 dias.</strong> Não gostou? Devolvemos 100%.",
@@ -3135,7 +3146,7 @@
       "pricing.f5": "Custom folders + import your own audio",
       "pricing.f6": "License for <strong>up to 2 machines</strong>",
       "pricing.f7": "<strong>Lifetime</strong> and 100% royalty free",
-      "pricing.cta": "See the offer and get access",
+      "pricing.cta": "Get instant access",
       "pricing.qrLabel": "Prefer your phone?",
       "pricing.qrSub": "Scan the code to check out there",
       "pricing.guarantee": "<strong>7 day guarantee.</strong> Not for you? Full refund.",
@@ -3263,7 +3274,7 @@
       "pricing.f5": "Carpetas propias + importa tus audios",
       "pricing.f6": "Licencia para <strong>hasta 2 equipos</strong>",
       "pricing.f7": "<strong>De por vida</strong> y 100% libre de regalías",
-      "pricing.cta": "Ver oferta y obtener acceso",
+      "pricing.cta": "Obtener mi acceso",
       "pricing.qrLabel": "¿Prefieres el celular?",
       "pricing.qrSub": "Escanea el código y paga desde ahí",
       "pricing.guarantee": "<strong>Garantía de 7 días.</strong> ¿No te gustó? Devolvemos el 100%.",
@@ -3391,7 +3402,7 @@
       "pricing.f5": "अपने फ़ोल्डर + अपने ऑडियो इम्पोर्ट करें",
       "pricing.f6": "<strong>2 मशीनों तक</strong> का लाइसेंस",
       "pricing.f7": "<strong>लाइफ़टाइम</strong> और 100% रॉयल्टी फ़्री",
-      "pricing.cta": "ऑफ़र देखें और एक्सेस पाएँ",
+      "pricing.cta": "अभी एक्सेस पाएँ",
       "pricing.qrLabel": "मोबाइल पसंद है?",
       "pricing.qrSub": "कोड स्कैन करें और वहीं से भुगतान करें",
       "pricing.guarantee": "<strong>7 दिन की गारंटी।</strong> पसंद नहीं आया? पूरा पैसा वापस।",
@@ -3662,7 +3673,7 @@
     for (var lang in add) for (var k in add[lang]) I18N[lang][k] = add[lang][k];
   })();
 
-  (function (X) { for (var l in X) for (var k in X[l]) I18N[l][k] = X[l][k]; })({"pt": {"pricing.off": "", "pricing.priceNote": "Pagamento único, sem mensalidade", "hero.meta": "<span><b>12x de R$ 15,50</b></span><span>Pagamento único</span><span>Garantia de 7 dias</span>", "pricing.once": "12x de R$ 15,50 ou R$ 149,90 à vista. Pagamento único, sem mensalidade.", "pricing.price": "<small>12x de</small> R$ 15,50", "pricing.priceNote": "ou R$ 149,90 à vista", "g7.days": "dias", "g7.t": "Garantia de 7 dias", "g7.s": "Instala, usa no seu Premiere e, se não curtir, pede o reembolso e recebe 100% do valor de volta. Sem pergunta.", "cl.title": "Veja o plugin <span class='blue'>em ação.</span>", "cl.1": "Abre a pasta", "cl.2": "Um clique", "cl.3": "Sound design", "cl.full": "Um sound design inteiro montado no Premiere, do zero, só com o dropSFX. Vídeo acelerado 2x."}, "en": {"pricing.off": "", "pricing.priceNote": "Pay once, no subscription", "hero.meta": "<span>Just <b>$30</b></span><span>Pay once</span><span>7 day guarantee</span>", "pricing.once": "$30, pay once. No subscription, no renewal.", "pricing.price": "$30", "g7.days": "days", "g7.t": "7 day guarantee", "g7.s": "Install it, use it in your Premiere and if it is not for you, ask for a refund and get 100% back. No questions.", "cl.title": "Watch it <span class='blue'>in action.</span>", "cl.1": "Open a folder", "cl.2": "One click", "cl.3": "Sound design", "cl.full": "A full sound design built in Premiere from scratch, using only dropSFX. Video sped up 2x."}, "es": {"pricing.off": "", "pricing.priceNote": "Pago único, sin suscripción", "hero.meta": "<span>Por <b>US$ 30</b></span><span>Pago único</span><span>Garantía de 7 días</span>", "pricing.once": "US$ 30, pago único. Sin suscripción, sin renovación.", "pricing.price": "US$ 30", "g7.days": "días", "g7.t": "Garantía de 7 días", "g7.s": "Instálalo, úsalo en tu Premiere y si no te gusta, pide el reembolso y recibes el 100% de vuelta. Sin preguntas.", "cl.title": "Mira el plugin <span class='blue'>en acción.</span>", "cl.1": "Abre la carpeta", "cl.2": "Un clic", "cl.3": "Sound design", "cl.full": "Un sound design completo armado en Premiere desde cero, solo con dropSFX. Video acelerado 2x."}, "hi": {"pricing.off": "", "pricing.priceNote": "एक बार भुगतान, कोई सब्सक्रिप्शन नहीं", "hero.meta": "<span>सिर्फ़ <b>US$ 30</b></span><span>एक बार भुगतान</span><span>7 दिन गारंटी</span>", "pricing.once": "US$ 30, एक बार भुगतान।", "pricing.price": "US$ 30", "g7.days": "दिन", "g7.t": "7 दिन की गारंटी", "g7.s": "इंस्टॉल करें, अपने Premiere में इस्तेमाल करें, पसंद न आए तो रिफ़ंड माँगें और 100% पैसा वापस पाएँ। कोई सवाल नहीं।", "cl.title": "प्लगइन <span class='blue'>काम करते हुए।</span>", "cl.1": "फ़ोल्डर खोलें", "cl.2": "एक क्लिक", "cl.3": "साउंड डिज़ाइन", "cl.full": "सिर्फ़ dropSFX से Premiere में शुरू से बना पूरा साउंड डिज़ाइन। वीडियो 2x तेज़।"}});
+  (function (X) { for (var l in X) for (var k in X[l]) I18N[l][k] = X[l][k]; })({"pt": {"pricing.off": "", "pricing.priceNote": "Pagamento único, sem mensalidade", "hero.meta": "<span><b>12x de R$ 15,50</b></span><span>Pagamento único</span><span>Garantia de 7 dias</span>", "pricing.once": "12x de R$ 15,50 ou R$ 149,90 à vista. Pagamento único, sem mensalidade.", "pricing.price": "<small>12x de</small> R$ 15,50", "pricing.priceNote": "ou R$ 149,90 à vista", "g7.days": "dias", "g7.t": "Garantia de 7 dias", "g7.s": "Testa no seu Premiere. Se não curtir, devolvemos 100% do valor, sem pergunta.", "cl.title": "Veja o plugin <span class='blue'>em ação.</span>", "cl.1": "Abre a pasta", "cl.2": "Um clique", "cl.3": "Sound design", "cl.full": "Um sound design inteiro montado no Premiere, do zero, só com o dropSFX. Vídeo acelerado 2x."}, "en": {"pricing.off": "", "pricing.priceNote": "Pay once, no subscription", "hero.meta": "<span>Just <b>$30</b></span><span>Pay once</span><span>7 day guarantee</span>", "pricing.once": "$30, pay once. No subscription, no renewal.", "pricing.price": "$30", "g7.days": "days", "g7.t": "7 day guarantee", "g7.s": "Try it in your Premiere. Not for you? Get 100% back, no questions asked.", "cl.title": "Watch it <span class='blue'>in action.</span>", "cl.1": "Open a folder", "cl.2": "One click", "cl.3": "Sound design", "cl.full": "A full sound design built in Premiere from scratch, using only dropSFX. Video sped up 2x."}, "es": {"pricing.off": "", "pricing.priceNote": "Pago único, sin suscripción", "hero.meta": "<span>Por <b>US$ 30</b></span><span>Pago único</span><span>Garantía de 7 días</span>", "pricing.once": "US$ 30, pago único. Sin suscripción, sin renovación.", "pricing.price": "US$ 30", "g7.days": "días", "g7.t": "Garantía de 7 días", "g7.s": "Pruébalo en tu Premiere. Si no te gusta, te devolvemos el 100%, sin preguntas.", "cl.title": "Mira el plugin <span class='blue'>en acción.</span>", "cl.1": "Abre la carpeta", "cl.2": "Un clic", "cl.3": "Sound design", "cl.full": "Un sound design completo armado en Premiere desde cero, solo con dropSFX. Video acelerado 2x."}, "hi": {"pricing.off": "", "pricing.priceNote": "एक बार भुगतान, कोई सब्सक्रिप्शन नहीं", "hero.meta": "<span>सिर्फ़ <b>US$ 30</b></span><span>एक बार भुगतान</span><span>7 दिन गारंटी</span>", "pricing.once": "US$ 30, एक बार भुगतान।", "pricing.price": "US$ 30", "g7.days": "दिन", "g7.t": "7 दिन की गारंटी", "g7.s": "अपने Premiere में आज़माइए। पसंद न आए तो 100% पैसा वापस, कोई सवाल नहीं।", "cl.title": "प्लगइन <span class='blue'>काम करते हुए।</span>", "cl.1": "फ़ोल्डर खोलें", "cl.2": "एक क्लिक", "cl.3": "साउंड डिज़ाइन", "cl.full": "सिर्फ़ dropSFX से Premiere में शुरू से बना पूरा साउंड डिज़ाइन। वीडियो 2x तेज़।"}});
 
   (function (X) { for (var l in X) for (var k in X[l]) I18N[l][k] = X[l][k]; })({"pt": {"tm.title": "Quem já usa<br><span class='blue'>parou de perder tempo.</span>", "tm.client": "Cliente dropSFX", "tm.note": "Prints reais do WhatsApp. Números escondidos por privacidade."}, "en": {"tm.title": "People using it<br><span class='blue'>stopped wasting time.</span>", "tm.client": "dropSFX customer", "tm.note": "Real WhatsApp screenshots. Numbers hidden for privacy."}, "es": {"tm.title": "Quien ya lo usa<br><span class='blue'>dejó de perder tiempo.</span>", "tm.client": "Cliente dropSFX", "tm.note": "Capturas reales de WhatsApp. Números ocultos por privacidad."}, "hi": {"tm.title": "जो इसे इस्तेमाल करते हैं<br><span class='blue'>अब समय नहीं गँवाते।</span>", "tm.client": "dropSFX ग्राहक", "tm.note": "असली WhatsApp स्क्रीनशॉट। प्राइवेसी के लिए नंबर छिपाए गए हैं।"}});
 
