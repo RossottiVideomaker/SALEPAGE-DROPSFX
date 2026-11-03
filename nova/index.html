@@ -29,7 +29,6 @@
       if (typeof fbq !== 'function') return;
       fbq('track', name, data || {}, { eventID: name + '.' + Date.now() + '.' + Math.random().toString(36).slice(2, 10) });
     };
-    fbq('init', '1668719247772250');
     fbq('init', '1121880480338306');
     fbq('track', 'PageView', {}, { eventID: 'PageView.' + Date.now() + '.' + Math.random().toString(36).slice(2, 10) });
     try { var _fc = new URLSearchParams(location.search).get('fbclid'); if (_fc) sessionStorage.setItem('dropsfx_fbclid', _fc); } catch (e) {}
