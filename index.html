@@ -4710,7 +4710,7 @@ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting
   var els = [];
   groups.forEach(function (g) {
     [].forEach.call(document.querySelectorAll(g[0]), function (el, i) {
-      if (el.closest('#hero') || el.closest('.ed-card')) return;
+      if (el.closest('#hero') || el.closest('#library') || el.closest('.ed-card')) return;
       if (el.classList.contains('rv')) return;
       el.classList.add('rv');
       var d = g[1] + (g[2] ? (i % 4) * g[2] : 0);
