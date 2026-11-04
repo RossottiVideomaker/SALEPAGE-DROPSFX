@@ -32,6 +32,7 @@
       function u() { return (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 12); }
       try { window.dropsfxSid = sessionStorage.getItem('dropsfx_sid') || u(); sessionStorage.setItem('dropsfx_sid', window.dropsfxSid); } catch (e) { window.dropsfxSid = u(); }
     })();
+    try { if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('rv-on'); } catch (e) {}
     fbq('init', '1121880480338306');
     fbq('track', 'PageView');
   </script>
@@ -2459,6 +2460,12 @@
     html[lang="hi"] .ed-terms dd,
     html[lang="hi"] .ed-foot-line { font-style: normal; font-size: .9em; }
 
+
+    /* ---------- revelação dos textos ao rolar ---------- */
+    html.rv-on .rv { opacity: 0; transform: translate3d(0, 24px, 0); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); transition-delay: var(--rd, 0s); }
+    html.rv-on .rv.in { opacity: 1; transform: none; }
+    html.rv-on .ed-h.rv .blue { display: inline-block; opacity: 0; transform: translate3d(0, .32em, 0); filter: blur(6px); transition: opacity .9s cubic-bezier(.2,.7,.2,1) .2s, transform 1s cubic-bezier(.2,.7,.2,1) .2s, filter .9s ease .2s; }
+    html.rv-on .ed-h.rv.in .blue { opacity: 1; transform: none; filter: none; }
     /* ---------- rolagem suave (Lenis) ---------- */
     html.lenis, html.lenis body { height: auto; }
     .lenis.lenis-smooth { scroll-behavior: auto !important; }
@@ -4686,6 +4693,35 @@
 (function(){var v=document.getElementById('fullRun');if(!v)return;
 if(!('IntersectionObserver' in window)){v.preload='auto';var q=v.play();q&&q.catch(function(){});return;}
 new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var p=v.play();p&&p.catch(function(){});}else v.pause();});},{rootMargin:'200px 0px',threshold:.15}).observe(v);
+})();
+</script>
+<script>
+// Revelação dos textos ao rolar: cada bloco sobe e aparece uma vez só
+(function () {
+  if (!document.documentElement.classList.contains('rv-on')) return;
+  var groups = [
+    ['.ed-sec .ed-h', 0],
+    ['.ed-sec .ed-lead, .fullrun figcaption, .wa-note, .ed-note', .12],
+    ['.fullrun-frame, .ed-lib-media, .ed-ch-visual', .18],
+    ['.wa-row', .1],
+    ['.ed-terms > div', 0, .07],
+    ['.faq-item', 0, .05]
+  ];
+  var els = [];
+  groups.forEach(function (g) {
+    [].forEach.call(document.querySelectorAll(g[0]), function (el, i) {
+      if (el.closest('#hero') || el.closest('.ed-card')) return;
+      if (el.classList.contains('rv')) return;
+      el.classList.add('rv');
+      var d = g[1] + (g[2] ? (i % 4) * g[2] : 0);
+      if (d) el.style.setProperty('--rd', d + 's');
+      els.push(el);
+    });
+  });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: .12 });
+  els.forEach(function (el) { io.observe(el); });
 })();
 </script>
 </body>
