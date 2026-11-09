@@ -2464,6 +2464,21 @@
     html[lang="hi"] .ed-foot-line { font-style: normal; font-size: .9em; }
 
 
+
+    /* ---------- preço de boas-vindas (timer) ---------- */
+    .promo { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0 0 14px; padding: 10px 12px; border-radius: 12px; background: rgba(229,50,45,.10); border: 1px solid rgba(229,50,45,.35); }
+    .promo[hidden], .promo-was[hidden], .sc-label[hidden] { display: none !important; }
+    .promo-k { display: inline-flex; align-items: center; gap: 8px; color: #fff; font: 600 13px/1.2 -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; }
+    .promo-k i { width: 8px; height: 8px; border-radius: 50%; background: #ff5a52; box-shadow: 0 0 0 0 rgba(255,90,82,.6); animation: promoPulse 1.6s infinite; }
+    @keyframes promoPulse { 70% { box-shadow: 0 0 0 8px rgba(255,90,82,0); } 100% { box-shadow: 0 0 0 0 rgba(255,90,82,0); } }
+    .promo-t { color: #c9c9d1; font: 500 12.5px/1.2 -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; white-space: nowrap; }
+    .promo-t b, .sc-promo b { color: #ff6b63; font: 700 15px/1 ui-monospace, 'SF Mono', Menlo, monospace; font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+    .ed-card .promo span, .ed-card .promo b { padding: 0 !important; border: 0 !important; background: none !important; height: auto !important; width: auto !important; flex: none !important; }
+    .ed-card .promo-k, .ed-card .promo-k span { color: #fff !important; font: 600 13px/1.2 -apple-system, BlinkMacSystemFont, 'Inter', sans-serif !important; letter-spacing: 0 !important; text-transform: none !important; }
+    .ed-card .promo-t, .ed-card .promo-t span { color: #c9c9d1 !important; font: 500 12px/1.2 -apple-system, BlinkMacSystemFont, 'Inter', sans-serif !important; letter-spacing: 0 !important; text-transform: none !important; }
+    .ed-card .promo-t b { color: #ff6b63 !important; font: 700 14px/1 ui-monospace, 'SF Mono', Menlo, monospace !important; letter-spacing: .02em !important; }
+    .promo-was { margin: 0 0 6px; color: #8f8f9c; font: 500 13px/1.3 -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; }
+    .sc-promo b { font-size: 13px; }
     /* ---------- revelação dos textos ao rolar ---------- */
     html.rv-on .rv { opacity: 0; transform: translate3d(0, 24px, 0); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); transition-delay: var(--rd, 0s); }
     html.rv-on .rv.in { opacity: 1; transform: none; }
@@ -2859,6 +2874,11 @@
       </div>
 
       <div class="ed-card">
+        <div class="promo" id="promoBox" hidden>
+          <span class="promo-k"><i></i><span data-i18n="promo.k">Preço de boas-vindas</span></span>
+          <span class="promo-t"><span data-i18n="promo.ends">termina em</span> <b class="promo-clock">10:00</b></span>
+        </div>
+        <p class="promo-was" id="promoWas" hidden data-i18n="promo.was">Depois volta para R$ 127,79</p>
         <div class="ed-price"><b data-i18n-html="pricing.price"><small>12x de</small> R$ 9,08</b><span data-i18n="pricing.priceNote">ou R$ 87,76 à vista</span></div>
         <ul class="ed-feats">
           <li data-i18n-html="pricing.f1"><strong>2.371 efeitos sonoros</strong> profissionais</li>
@@ -2952,6 +2972,7 @@
     <div>
       <div class="sc-price" data-i18n="sticky.price">Pagamento único</div>
       <span class="sc-label" data-i18n="sticky.label">Vitalício, garantia de 7 dias</span>
+      <span class="sc-label sc-promo" hidden><span data-i18n="promo.sticky">Preço de boas-vindas termina em</span> <b class="promo-clock">10:00</b></span>
     </div>
     <a href="https://pay.kiwify.com.br/uzVAstc?utm_source=site&utm_medium=sticky&utm_campaign=dropsfx"
       class="sc-btn js-buy-cta" data-position="sticky" data-i18n="sticky.btn"
@@ -3687,6 +3708,8 @@
 
   (function (X) { for (var l in X) for (var k in X[l]) I18N[l][k] = X[l][k]; })({"pt": {"tm.title": "Quem já usa<br><span class='blue'>parou de perder tempo.</span>", "tm.client": "Cliente dropSFX", "tm.note": "Prints reais do WhatsApp. Números escondidos por privacidade."}, "en": {"tm.title": "People using it<br><span class='blue'>stopped wasting time.</span>", "tm.client": "dropSFX customer", "tm.note": "Real WhatsApp screenshots. Numbers hidden for privacy."}, "es": {"tm.title": "Quien ya lo usa<br><span class='blue'>dejó de perder tiempo.</span>", "tm.client": "Cliente dropSFX", "tm.note": "Capturas reales de WhatsApp. Números ocultos por privacidad."}, "hi": {"tm.title": "जो इसे इस्तेमाल करते हैं<br><span class='blue'>अब समय नहीं गँवाते।</span>", "tm.client": "dropSFX ग्राहक", "tm.note": "असली WhatsApp स्क्रीनशॉट। प्राइवेसी के लिए नंबर छिपाए गए हैं।"}});
 
+  (function (X) { for (var l in X) for (var k in X[l]) I18N[l][k] = X[l][k]; })({"pt": {"promo.k": "Preço de boas-vindas", "promo.ends": "termina em", "promo.was": "Depois volta para R$ 127,79", "promo.sticky": "Preço de boas-vindas termina em"}, "en": {"promo.k": "Welcome price", "promo.ends": "ends in", "promo.was": "Then it goes back to $23.79", "promo.sticky": "Welcome price ends in"}, "es": {"promo.k": "Precio de bienvenida", "promo.ends": "termina en", "promo.was": "Después vuelve a US$ 23,79", "promo.sticky": "Precio de bienvenida termina en"}, "hi": {"promo.k": "वेलकम प्राइस", "promo.ends": "खत्म होगा", "promo.was": "उसके बाद कीमत US$ 23.79", "promo.sticky": "वेलकम प्राइस खत्म होगा"}});
+
   // =====================================================================
   // LINKS DE CHECKOUT POR IDIOMA
   // Troque aqui quando tiver os links internacionais na Kiwify/Gumroad etc.
@@ -3825,7 +3848,7 @@
     }
 
     return {
-      init: function () { apply(detect()); },
+      init: function () { apply(detect()); this.ready = true; },
       set: set,
       get: function () { return current; },
       t: function (k) { return t(k, current); }
@@ -4590,6 +4613,48 @@
   // =====================================================================
   // BOOT
   // =====================================================================
+  // =====================================================================
+  // PREÇO DE BOAS-VINDAS: 10 minutos por visitante, depois vale o preço cheio
+  // A contagem fica salva no navegador; recarregar não reinicia.
+  // =====================================================================
+  (function () {
+    var PROMO_MS = 10 * 60 * 1000;
+    var FULL_URL = 'https://pay.kiwify.com.br/8zKYt6A';
+    var FULL = {
+      pt: { 'pricing.price': '<small>12x de</small> R$ 13,22', 'pricing.priceNote': 'ou R$ 127,79 à vista', 'pricing.once': '12x de R$ 13,22 ou R$ 127,79 à vista. Pagamento único, sem mensalidade.' },
+      en: { 'pricing.price': '$23.79', 'pricing.once': '$23.79, pay once. No subscription, no renewal.' },
+      es: { 'pricing.price': 'US$ 23,79', 'pricing.once': 'US$ 23,79, pago único. Sin suscripción, sin renovación.' },
+      hi: { 'pricing.price': 'US$ 23.79', 'pricing.once': 'US$ 23.79, एक बार भुगतान।' }
+    };
+    var KEY = 'dropsfx_promo_start', start;
+    try { start = +localStorage.getItem(KEY); if (!start) { start = Date.now(); localStorage.setItem(KEY, String(start)); } } catch (e) { start = Date.now(); }
+    var box = document.getElementById('promoBox'), was = document.getElementById('promoWas');
+    var sc = document.querySelector('.sc-promo'), scBase = document.querySelector('.sc-label:not(.sc-promo)');
+    var clocks = document.querySelectorAll('.promo-clock');
+
+    function toFull() {
+      for (var l in FULL) for (var k in FULL[l]) I18N[l][k] = FULL[l][k];
+      for (var c in CHECKOUT) CHECKOUT[c] = FULL_URL;
+      [box, was, sc].forEach(function (el) { if (el) el.hidden = true; });
+      if (scBase) scBase.hidden = false;
+      var qr = document.querySelector('.ed-card .qr-card'); if (qr) qr.style.display = 'none';
+      document.documentElement.classList.remove('promo-on');
+    }
+    function left() { return start + PROMO_MS - Date.now(); }
+    if (left() <= 0) { toFull(); return; }
+
+    document.documentElement.classList.add('promo-on');
+    [box, was, sc].forEach(function (el) { if (el) el.hidden = false; });
+    if (scBase) scBase.hidden = true;
+    function fmt(ms) { var t = Math.max(0, Math.ceil(ms / 1000)); var m = Math.floor(t / 60), s2 = t % 60; return (m < 10 ? '0' : '') + m + ':' + (s2 < 10 ? '0' : '') + s2; }
+    function tick() {
+      var ms = left();
+      clocks.forEach(function (c) { c.textContent = fmt(ms); });
+      if (ms <= 0) { clearInterval(iv); toFull(); if (window.DropI18N && DropI18N.ready) DropI18N.set(DropI18N.get()); }
+    }
+    var iv = setInterval(tick, 1000); tick();
+  })();
+
   DropI18N.init();
   </script>
 
